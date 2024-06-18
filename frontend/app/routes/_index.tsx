@@ -1,4 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
+import React from "react";
+import '../css/global.css';
 
 export const meta: MetaFunction = () => {
   return [
@@ -11,6 +13,9 @@ export default function Index() {
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
       <h1>Welcome to Remix</h1>
+      <div className="box">
+        <p>En testboks for å sjekke postCSS</p>
+      </div>
       <ul>
         <li>
           <a
