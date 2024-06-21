@@ -7,8 +7,8 @@ export default defineConfig({
   name: 'default',
   title: 'Fjæreheia',
 
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID ?? '',
-  dataset: process.env.SANITY_STUDIO_DATASET ?? '',
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID ?? '0chpibsu',
+  dataset: process.env.SANITY_STUDIO_DATASET ?? 'production',
 
   plugins: [structureTool(), visionTool()],
 
