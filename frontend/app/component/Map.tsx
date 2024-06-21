@@ -3,7 +3,8 @@ import { useEffect, useRef, useState} from 'react';
 mapboxgl.accessToken = 'pk.eyJ1IjoibWljaGVsbGViZWtrIiwiYSI6ImNseG9rNWphaDBkMm0yanM4NDJod3UwenYifQ.fLKf7OmeQGjAMpB2BdgvjA';
 
 export default function Map(){
-    mapboxgl.accessToken = ' <UserAccessToken /> ';
+    //mapboxgl.accessToken = ' <UserAccessToken /> ';
+    
     const mapContainer = useRef<HTMLDivElement | null>(null);
     const map = useRef<mapboxgl.Map | null>(null);
     const [lng, setLng] = useState(-70.9);
@@ -19,6 +20,7 @@ export default function Map(){
           zoom: zoom
         });
       });
+
     
     return (
         <div>
