@@ -28,7 +28,6 @@ export const articleType = defineType({
       name: 'Text',
       type: 'array',
       description: 'Article content',
-      validation: (rule) => rule.min(2).error(`Minium length of 2 character`),
       of: [
         {
           type: 'block',
