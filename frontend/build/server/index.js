@@ -6,6 +6,7 @@ import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 import { createClient } from "@sanity/client";
 import groq from "groq";
+import { useState } from "react";
 const ABORT_DELAY = 5e3;
 function handleRequest(request, responseStatusCode, responseHeaders, remixContext, loadContext) {
   return isbot(request.headers.get("user-agent") || "") ? handleBotRequest(
@@ -127,32 +128,37 @@ const route0 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProper
   Layout,
   default: App
 }, Symbol.toStringTag, { value: "Module" }));
-const meta = () => {
-  return [{ title: "New Remix App" }, { name: "description", content: "Welcome to Remix!" }];
-};
 const client = createClient({
   projectId: "0chpibsu",
   dataset: "development",
   apiVersion: "2024-06-24"
 });
+const meta = () => {
+  return [{ title: "New Remix App" }, { name: "description", content: "Welcome to Remix!" }];
+};
 const TITLE_QUERY = groq`*[_type=="frontpage"]{Tittel}`;
 async function getTitle() {
   const title = await client.fetch(TITLE_QUERY);
   console.log(title[1], typeof title);
   return title[1];
 }
-async function Index() {
-  await getTitle();
-  return /* @__PURE__ */ jsx("h1", { children: "hei" });
+const loader = async () => {
+  const title = getTitle();
+  return title;
+};
+function Index() {
+  const [title, setTitle] = useState("");
+  getTitle().then((result) => setTitle(result.Tittel));
+  return /* @__PURE__ */ jsx("h1", { children: title });
 }
 const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  client,
   default: Index,
   getTitle,
+  loader,
   meta
 }, Symbol.toStringTag, { value: "Module" }));
-const serverManifest = { "entry": { "module": "/assets/entry.client-DeoNk-kR.js", "imports": ["/assets/jsx-runtime-d4vcKfGz.js", "/assets/components-aLR6VQRP.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/root-DBfapSNA.js", "imports": ["/assets/jsx-runtime-d4vcKfGz.js", "/assets/components-aLR6VQRP.js"], "css": [] }, "routes/_index": { "id": "routes/_index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/_index-irfr_JcO.js", "imports": ["/assets/jsx-runtime-d4vcKfGz.js", "/assets/_index-D2ALG8ML.js"], "css": [] } }, "url": "/assets/manifest-252ecbe3.js", "version": "252ecbe3" };
+const serverManifest = { "entry": { "module": "/assets/entry.client-DeoNk-kR.js", "imports": ["/assets/jsx-runtime-d4vcKfGz.js", "/assets/components-aLR6VQRP.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/root-DBfapSNA.js", "imports": ["/assets/jsx-runtime-d4vcKfGz.js", "/assets/components-aLR6VQRP.js"], "css": [] }, "routes/_index": { "id": "routes/_index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/_index-BQwPNZpK.js", "imports": ["/assets/jsx-runtime-d4vcKfGz.js", "/assets/_index-DeyLhuZQ.js"], "css": [] } }, "url": "/assets/manifest-3caf197b.js", "version": "3caf197b" };
 const mode = "production";
 const assetsBuildDirectory = "build/client";
 const basename = "/";
