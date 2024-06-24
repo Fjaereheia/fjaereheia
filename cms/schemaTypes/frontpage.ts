@@ -17,6 +17,31 @@ export const frontpage = defineType({
             name: 'Ingress',
             type: 'string',
             }),
+        defineField({
+            name: 'Bilde',
+            type: 'image',
+            validation: (rule) => [
+                rule.required()
+            ],
+            fields: [
+                {
+                    name: 'caption',
+                    type: 'string',
+                    title: 'Bildetekst',
+                    validation: (rule) => [
+                        rule.required().min(1).error("Bildetekst er påkrevd")
+                    ]
+                },
+                {
+                    name: 'attribution',
+                    type: 'string',
+                    title: 'Kreditering',
+                    validation: (rule) => [
+                        rule.required().min(1).error("Bildetekst er påkrevd")
+                    ]
+                }
+            ]
+            }),
     ],
 
 })
