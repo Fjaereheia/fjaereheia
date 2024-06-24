@@ -20,7 +20,7 @@ export const articleType = defineType({
     defineField({
       name: 'slug',
       type: 'slug',
-      options: {source: 'name'},
+      options: {source: 'Title'},
       hidden: ({document}) => !document?.Title,
       description: 'Url: fjaereheia.no/xxx',
     }),
