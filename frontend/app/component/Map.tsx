@@ -26,6 +26,10 @@ export default function Map() {
 
     if (map.current instanceof mapboxgl.Map) {
       map.current.addControl(new mapboxgl.NavigationControl());
+
+      const marker1 = new mapboxgl.Marker()
+        .setLngLat([8.593782952081346, 58.37773188054414])
+        .addTo(map.current);
     }
 
     //Legge til marker
