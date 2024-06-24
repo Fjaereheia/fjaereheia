@@ -32,14 +32,6 @@ export const frontpage = defineType({
                         rule.required().min(1).error("Bildetekst er påkrevd")
                     ]
                 },
-                {
-                    name: 'attribution',
-                    type: 'string',
-                    title: 'Kreditering',
-                    validation: (rule) => [
-                        rule.required().min(1).error("Bildetekst er påkrevd")
-                    ]
-                }
             ]
             }),
     ],
