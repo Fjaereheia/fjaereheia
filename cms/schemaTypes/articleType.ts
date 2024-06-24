@@ -2,11 +2,11 @@ import {defineField, defineType} from 'sanity'
 
 export const articleType = defineType({
   name: 'article',
-  title: 'Article',
+  title: 'Artikkel',
   type: 'document',
   fields: [
     defineField({
-      name: 'Title',
+      name: 'Tittel',
       type: 'string',
       validation: (rule) =>
         rule
@@ -20,14 +20,14 @@ export const articleType = defineType({
     defineField({
       name: 'slug',
       type: 'slug',
-      options: {source: 'Title'},
-      hidden: ({document}) => !document?.Title,
+      options: {source: 'Tittel'},
+      hidden: ({document}) => !document?.Tittel,
       description: 'Url: fjaereheia.no/xxx',
     }),
     defineField({
-      name: 'Text',
+      name: 'Tekst',
       type: 'array',
-      description: 'Article content',
+      description: 'Innhold',
       of: [
         {
           type: 'block',
