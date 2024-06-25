@@ -42,5 +42,11 @@ export const articleType = defineType({
       type: 'image',
       description: 'Legg til et bilde',
     }),
+    defineField({
+      name: 'event',
+      type: 'reference',
+      to: [{type: 'event'}],
+      description: 'Arrangement',
+    }),
   ],
 })
