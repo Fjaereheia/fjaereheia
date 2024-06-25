@@ -39,22 +39,6 @@ export type SanityImageDimensions = {
   aspectRatio?: number;
 };
 
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
 export type SanityFileAsset = {
   _id: string;
   _type: "sanity.fileAsset";
@@ -75,6 +59,57 @@ export type SanityFileAsset = {
   path?: string;
   url?: string;
   source?: SanityAssetSourceData;
+};
+
+export type Geopoint = {
+  _type: "geopoint";
+  lat?: number;
+  lng?: number;
+  alt?: number;
+};
+
+export type Slug = {
+  _type: "slug";
+  current?: string;
+  source?: string;
+};
+
+export type Frontpage = {
+  _id: string;
+  _type: "frontpage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  Tittel?: string;
+  Ingress?: string;
+  Bilde?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    _type: "image";
+  };
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
 };
 
 export type SanityImageAsset = {
@@ -100,6 +135,13 @@ export type SanityImageAsset = {
   source?: SanityAssetSourceData;
 };
 
+export type SanityAssetSourceData = {
+  _type: "sanity.assetSourceData";
+  name?: string;
+  id?: string;
+  url?: string;
+};
+
 export type SanityImageMetadata = {
   _type: "sanity.imageMetadata";
   location?: Geopoint;
@@ -110,40 +152,23 @@ export type SanityImageMetadata = {
   hasAlpha?: boolean;
   isOpaque?: boolean;
 };
-
-export type Geopoint = {
-  _type: "geopoint";
-  lat?: number;
-  lng?: number;
-  alt?: number;
-};
-
-export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
-};
-
-export type SanityAssetSourceData = {
-  _type: "sanity.assetSourceData";
-  name?: string;
-  id?: string;
-  url?: string;
-};
-
-export type Frontpage = {
-  _id: string;
-  _type: "frontpage";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  Tittel?: string;
-  Ingress?: string;
-};
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/routes/_index.tsx
-// Variable: TITLE_QUERY
-// Query: *[_type=="frontpage"]{Tittel}
-export type TITLE_QUERYResult = Array<{
+// Variable: FRONTPAGE_QUERY
+// Query: *[_type=="frontpage"]{Tittel, Ingress, Bilde}
+export type FRONTPAGE_QUERYResult = Array<{
   Tittel: string | null;
+  Ingress: string | null;
+  Bilde: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    _type: "image";
+  } | null;
 }>;
