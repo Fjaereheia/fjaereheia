@@ -153,22 +153,11 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ../frontend/app/routes/_index.tsx
+// Source: ../frontend/app/queries.ts
 // Variable: FRONTPAGE_QUERY
-// Query: *[_type=="frontpage"]{Tittel, Ingress, Bilde}
-export type FRONTPAGE_QUERYResult = Array<{
+// Query: *[_type=="frontpage"]{Tittel, Ingress, "imageUrl": Bilde.asset->url}[0]
+export type FRONTPAGE_QUERYResult = {
   Tittel: string | null;
   Ingress: string | null;
-  Bilde: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    caption?: string;
-    _type: "image";
-  } | null;
-}>;
+  imageUrl: string | null;
+} | null;
