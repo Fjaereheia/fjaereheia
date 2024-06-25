@@ -1,0 +1,32 @@
+name: Post to a Slack channel
+run-name: update slack
+on:
+  pull_request_review:
+    types: [submitted, edited, dismissed]
+
+jobs:
+  sendMessageApproved:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post to a Slack channel
+        id: slack
+        if: "${{github.event.review.state == 'APPROVED'}}"
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: "C079LPG4YJE"
+          slack-message: "✅ ${{ github.event.pull_request.title }} \nPR status: Approved \nLink: ${{ github.event.pull_request.url }}"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+  sendMessageDismissed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post to a Slack channel
+        id: slack
+        if: "${{github.event.review.state == 'DISMISSED'}}"
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: "C079LPG4YJE"
+          slack-message: "❌ ${{ github.event.pull_request.title }} \nPR status: Dismissed \nLink: ${{ github.event.pull_request.url }} "
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
