@@ -17,7 +17,7 @@ export async function loader() {
   const frontpage = await getFrontpage()
 
   if(!frontpage){
-    return json("Frontpage not found", {status: 404});
+    return json("Forside ikke funnet", {status: 404});
   }
 
   return json({title: frontpage.Tittel, ingress: frontpage.Ingress, bilde: frontpage.imageUrl})
