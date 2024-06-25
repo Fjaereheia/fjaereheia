@@ -14,7 +14,7 @@ export const articleType = defineType({
           .min(2)
           .max(50)
           .error(
-            `Required to post an atricle, minium length of 2 and maximum length of 50 character`,
+            `Tittel er påkrevd for å poste en artikkel, minimum lengde på 2 og maksimum lengde på 50 tegn`,
           ),
     }),
     defineField({
