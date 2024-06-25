@@ -1,6 +1,6 @@
 import { json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { client } from "clientConfig";
+import { client } from "sanity/clientConfig";
 import { FRONTPAGE_QUERY } from "sanity/queries";
 import { FRONTPAGE_QUERYResult } from "sanity/types";
 
