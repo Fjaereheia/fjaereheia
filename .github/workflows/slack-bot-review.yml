@@ -40,6 +40,6 @@ jobs:
         uses: slackapi/slack-github-action@v1.26.0
         with:
           channel-id: "C079LPG4YJE"
-          slack-message: "💬${{ github.event.pull_request.title }} \nPR commented: ${{github.event.pull_request.body}}  \nLink:${{ github.event.pull_request._links.html.href}} "
+          slack-message: "💬${{ github.event.pull_request.title }} \nPR commented: ${{github.event.review.body}}  \nLink:${{ github.event.pull_request._links.html.href}} "
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
