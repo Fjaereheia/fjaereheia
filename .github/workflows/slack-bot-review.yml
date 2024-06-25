@@ -18,15 +18,15 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
-  sendMessageDismissed:
+  sendMessageUpdate:
     runs-on: ubuntu-latest
     steps:
       - name: Post to a Slack channel
         id: slack
-        if: "${{github.event.review.state == 'DISMISSED'}}"
+        if: "${{github.event.review.state != 'APPROVED'}}"
         uses: slackapi/slack-github-action@v1.26.0
         with:
           channel-id: "C079LPG4YJE"
-          slack-message: "❌ ${{ github.event.pull_request.title }} \nPR status: Dismissed \nLink: ${{ github.event.pull_request.url }} "
+          slack-message: "💬${{ github.event.pull_request.title }} \nPR comment: ${{github.event.comment.body}} \nLink: ${{ github.event.pull_request.url }} "
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
