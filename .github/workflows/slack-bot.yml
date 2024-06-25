@@ -29,7 +29,7 @@ jobs:
         uses: slackapi/slack-github-action@v1.26.0
         with:
           channel-id: "C079LPG4YJE"
-          slack-message: "🔍 ${{ github.event.pull_request.title }} \nRequested review from:  ${{ github.event.requested_team.name || 'N/A'}}  \nLink:${{ github.event.pull_request.url }}"
+          slack-message: "🔍 ${{ github.event.pull_request.title }} \nRequested review from:  ${{ github.event.requested_team.members_url || 'N/A'}}  \nLink:${{ github.event.pull_request.url }}"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
