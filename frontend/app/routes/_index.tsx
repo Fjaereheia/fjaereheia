@@ -1,23 +1,18 @@
 import { json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { client } from "clientConfig";
-import groq from 'groq'
-import { useState } from "react";
+import { FRONTPAGE_QUERY } from "sanity/queries";
 import { FRONTPAGE_QUERYResult } from "sanity/types";
 
 export const meta: MetaFunction = () => {
   return [{ title: "New Remix App" }, { name: "description", content: "Welcome to Remix!" }];
 };
 
-const FRONTPAGE_QUERY = groq`*[_type=="frontpage"]{Tittel, Ingress, Bilde}`
-
-
 export async function getFrontpage() {
   const title = await client.fetch<FRONTPAGE_QUERYResult>(FRONTPAGE_QUERY)
   console.log(title[1] , typeof title)
   return title[1]
 }
-
 
 export async function loader() {
   const frontpage = await getFrontpage()
@@ -37,7 +32,7 @@ export default function Index() {
   return (
     <div>
       <h1>{data.title}</h1>
-      <h3>{data.ingress}</h3>
+      <p>{data.ingress}</p>
     </div>
   )
 
