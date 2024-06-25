@@ -3,6 +3,7 @@ import {StructureBuilder, StructureResolverContext, structureTool} from 'sanity/
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 import {HomeIcon, DocumentTextIcon, CalendarIcon, UserIcon} from '@sanity/icons'
+import {documentInternationalization} from '@sanity/document-internationalization'
 
 //singleton pages. Before you add the type to singletontypes, the page should be created, since create is not a valid action for singleton types
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
@@ -29,7 +30,17 @@ export default defineConfig({
   projectId: process.env.SANITY_STUDIO_PROJECT_ID ?? '0chpibsu',
   dataset: process.env.SANITY_STUDIO_DATASET ?? 'production',
 
-  plugins: [structureTool({structure: deskStructure}), visionTool()],
+  plugins: [
+    documentInternationalization({
+      supportedLanguages: [
+        {id: 'nb', title: '🇳🇴 Norwegian (Bokmål)'},
+        {id: 'en', title: '🇬🇧 English'},
+      ],
+      schemaTypes: ['article'],
+    }),
+    structureTool({structure: deskStructure}),
+    visionTool(),
+  ],
 
   schema: {
     types: schemaTypes,
