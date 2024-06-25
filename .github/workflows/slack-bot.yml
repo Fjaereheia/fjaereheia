@@ -4,7 +4,7 @@ on:
   pull_request:
     types: [opened, review_requested, closed]
     branches:
-      - slack-bot
+      - main
 
 jobs:
   sendMessageOpened:
