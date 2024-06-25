@@ -1,17 +1,47 @@
 name: Post to a Slack channel
 run-name: update slack
-on: push
+on:
+  pull_request:
+    types: [opened, ready_for_review, closed]
+    branches:
+      - slack-bot
 
 jobs:
-  sendMessage:
-    name: slackupdate
+  sendMessageOpened:
     runs-on: ubuntu-latest
     steps:
       - name: Post to a Slack channel
         id: slack
+        if: "${{github.event.action == 'opened'}}"
         uses: slackapi/slack-github-action@v1.26.0
         with:
-          channel-id: "C078L6GGX46"
-          slack-message: "${{ github.event.pull_request.title }} - PR status: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+          channel-id: "C079LPG4YJE"
+          slack-message: "${{ github.event.pull_request.title }} - PR status: opened ${{ github.event.pull_request.html_url }} "
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+  sendMessageReview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post to a Slack channel
+        id: slack
+        if: "${{github.event.action == 'ready_for_review'}}"
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: "C079LPG4YJE"
+          slack-message: "${{ github.event.pull_request.title }} - PR status: ready for review ${{ github.event.pull_request.html_url }}"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+  sendMessageClosed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post to a Slack channel
+        id: slack
+        if: "${{github.event.pull_request.merged == true}}"
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: "C079LPG4YJE"
+          slack-message: "${{ github.event.pull_request.title }} - PR status: ${{ github.event.action == 'closed' && github.event.pull_request.merged == true && 'merged' || 'not merged' }} ${{ github.event.pull_request.html_url }}"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
