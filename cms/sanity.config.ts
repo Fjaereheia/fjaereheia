@@ -1,9 +1,10 @@
-import {defineConfig} from 'sanity'
+import {defineConfig, defineField} from 'sanity'
 import {StructureBuilder, StructureResolverContext, structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 import {HomeIcon, DocumentTextIcon, CalendarIcon, UserIcon} from '@sanity/icons'
 import {documentInternationalization} from '@sanity/document-internationalization'
+import {isUniqueOtherThanLanguage} from './helperFunctions'
 
 //singleton pages. Before you add the type to singletontypes, the page should be created, since create is not a valid action for singleton types
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
@@ -37,6 +38,15 @@ export default defineConfig({
         {id: 'en', title: '🇬🇧 English'},
       ],
       schemaTypes: ['article'],
+      metadataFields: [
+        defineField({
+          name: 'slug',
+          type: 'slug',
+          options: {
+            isUnique: isUniqueOtherThanLanguage,
+          },
+        }),
+      ],
     }),
     structureTool({structure: deskStructure}),
     visionTool(),
