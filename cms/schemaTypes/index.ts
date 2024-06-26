@@ -5,6 +5,7 @@ import {roleType} from './roleType'
 import customImage from './objects/customImage'
 import {quoteType} from './objects/quoteType'
 import RichTextEditor from './objects/RichTextEditor'
+import {footerType} from './footerType'
 
 export const schemaTypes = [
   articleType,
@@ -14,4 +15,6 @@ export const schemaTypes = [
   customImage,
   quoteType,
   RichTextEditor,
+  ,
+  footerType,
 ]
