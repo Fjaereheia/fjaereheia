@@ -3,7 +3,10 @@ import {StructureBuilder, StructureResolverContext, structureTool} from 'sanity/
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 import {HomeIcon, DocumentTextIcon, CalendarIcon, UserIcon} from '@sanity/icons'
-import {documentInternationalization} from '@sanity/document-internationalization'
+import {
+  documentInternationalization,
+  DeleteTranslationAction,
+} from '@sanity/document-internationalization'
 import {isUniqueOtherThanLanguage} from './helperFunctions'
 
 //singleton pages. Before you add the type to singletontypes, the page should be created, since create is not a valid action for singleton types
@@ -57,10 +60,14 @@ export default defineConfig({
     templates: (templates) => templates.filter(({schemaType}) => !singletonTypes.has(schemaType)),
   },
   document: {
-    // filter out actions that should not be available for singleton pages
-    actions: (input, context) =>
-      singletonTypes.has(context.schemaType)
+    actions: (input, context) => {
+      // add the delete translation action to all documents
+      input.push(DeleteTranslationAction)
+
+      // filter out actions that should not be available for singleton pages
+      return singletonTypes.has(context.schemaType)
         ? input.filter(({action}) => action && singletonActions.has(action))
-        : input,
+        : input
+    },
   },
 })
