@@ -13,15 +13,40 @@ import {isUniqueOtherThanLanguage} from './helperFunctions'
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
 const singletonTypes = new Set(['frontpage'])
 
+const SINGLETONS = [{id: 'frontpage', title: 'Forside', _type: 'frontpage'}]
+
+const LANGUAGES = [
+  {id: `nb`, title: `🇳🇴 Norwegian (Bokmål)`},
+  {id: `en`, title: `🇬🇧 English`},
+]
+
 const deskStructure = (S: StructureBuilder) =>
   S.list()
     .title('Innhold')
     .items([
-      S.listItem()
-        .title('Forside')
-        .id('frontpage')
-        .child(S.document().schemaType('frontpage').documentId('frontpage'))
-        .icon(HomeIcon),
+      ...SINGLETONS.map((singleton) =>
+        S.listItem()
+          .title(singleton.title)
+          .id(singleton.id)
+          .icon(HomeIcon)
+          .child(
+            S.list()
+              .title(singleton.title)
+              .id(singleton.id)
+
+              .items(
+                LANGUAGES.map((language) =>
+                  S.documentListItem()
+                    .schemaType(`frontpage`)
+                    .id(`${singleton.id}-${language.id}`)
+                    .title(`${singleton.title} (${language.id.toLocaleUpperCase()})`),
+                ),
+              )
+              .canHandleIntent(
+                (intentName, params) => intentName === 'edit' && params.id.startsWith(singleton.id),
+              ),
+          ),
+      ),
       S.documentTypeListItem('article').title('Artikler').icon(DocumentTextIcon),
       S.documentTypeListItem('event').title('Forestillinger').icon(CalendarIcon),
       S.documentTypeListItem('role').title('Roller').icon(UserIcon),
