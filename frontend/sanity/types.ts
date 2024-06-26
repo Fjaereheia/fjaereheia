@@ -68,21 +68,15 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
-};
-
 export type Frontpage = {
   _id: string;
   _type: "frontpage";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  Tittel?: string;
-  Ingress?: string;
-  Bilde?: {
+  title?: string;
+  preamble?: string;
+  image?: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -94,6 +88,97 @@ export type Frontpage = {
     caption?: string;
     _type: "image";
   };
+};
+
+export type Event = {
+  _id: string;
+  _type: "event";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  tittel?: string;
+  slug?: Slug;
+  ingress?: string;
+  bilde?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    _type: "image";
+  };
+  beskrivelse?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
+};
+
+export type Article = {
+  _id: string;
+  _type: "article";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  Tittel?: string;
+  slug?: Slug;
+  Tekst?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
 };
 
 export type SanityImageCrop = {
@@ -152,12 +237,18 @@ export type SanityImageMetadata = {
   hasAlpha?: boolean;
   isOpaque?: boolean;
 };
+
+export type Slug = {
+  _type: "slug";
+  current?: string;
+  source?: string;
+};
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries.ts
 // Variable: FRONTPAGE_QUERY
-// Query: *[_type=="frontpage"]{Tittel, Ingress, "imageUrl": Bilde.asset->url}[0]
+// Query: *[_type=="frontpage"]{title, preamble, "imageUrl": image.asset->url}[0]
 export type FRONTPAGE_QUERYResult = {
-  Tittel: string | null;
-  Ingress: string | null;
+  title: string | null;
+  preamble: string | null;
   imageUrl: string | null;
 } | null;

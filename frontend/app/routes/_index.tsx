@@ -20,17 +20,16 @@ export async function loader() {
     return json("Forside ikke funnet", {status: 404});
   }
 
-  return json({title: frontpage.Tittel, ingress: frontpage.Ingress, imageUrl: frontpage.imageUrl})
+  return json(frontpage)
 }
 
 export default function Index() {
-  const data = useLoaderData<typeof loader>() as {title: string, ingress: string, imageUrl: string};
-
+  const data = useLoaderData<typeof loader>() as FRONTPAGE_QUERYResult;
   return (
     <div>
-      <h1>{data.title}</h1>
-      <p>{data.ingress}</p>
-      <img src={data.imageUrl} />
+      <h1>{data?.title}</h1>
+      <p>{data?.preamble}</p>
+      <img src={data?.imageUrl || ""} />
     </div>
   )
 }
