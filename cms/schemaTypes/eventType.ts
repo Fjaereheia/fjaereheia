@@ -2,11 +2,12 @@ import {defineField, defineType} from 'sanity'
 
 export const eventType = defineType({
   name: 'event',
-  title: 'Event',
+  title: 'Forestilling',
   type: 'document',
   fields: [
     defineField({
-      name: 'tittel',
+      name: 'title',
+      title: 'Tittel',
       type: 'string',
       validation: (rule) => [
         rule
@@ -18,17 +19,20 @@ export const eventType = defineType({
     }),
     defineField({
       name: 'slug',
+      title: 'slug',
       type: 'slug',
       options: {source: 'tittel'},
       hidden: ({document}) => !document?.tittel,
       description: 'Url: fjaereheia.no/xxx',
     }),
     defineField({
-      name: 'ingress',
+      name: 'preamble',
+      title: 'Ingress',
       type: 'string',
     }),
     defineField({
-      name: 'bilde',
+      name: 'image',
+      title: 'Bilde',
       type: 'image',
       validation: (rule) => [rule.required()],
       fields: [
@@ -41,7 +45,8 @@ export const eventType = defineType({
       ],
     }),
     defineField({
-      name: 'beskrivelse',
+      name: 'alt',
+      title: 'beskrivelse',
       type: 'array',
       of: [
         {

@@ -5,22 +5,25 @@ import { FRONTPAGE_QUERYResult } from "sanity/types";
 import { FRONTPAGE_QUERY } from "~/queries/frontpage-queries";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "New Remix App" }, { name: "description", content: "Welcome to Remix!" }];
+  return [
+    { title: "New Remix App" },
+    { name: "description", content: "Welcome to Remix!" },
+  ];
 };
 
 export async function getFrontpage() {
-  const frontpage = await client.fetch<FRONTPAGE_QUERYResult>(FRONTPAGE_QUERY)
-  return frontpage
+  const frontpage = await client.fetch<FRONTPAGE_QUERYResult>(FRONTPAGE_QUERY);
+  return frontpage;
 }
 
 export async function loader() {
-  const frontpage = await getFrontpage()
+  const frontpage = await getFrontpage();
 
-  if(!frontpage){
-    return json("Forside ikke funnet", {status: 404});
+  if (!frontpage) {
+    return json("Forside ikke funnet", { status: 404 });
   }
 
-  return json(frontpage)
+  return json(frontpage);
 }
 
 export default function Index() {
@@ -30,6 +33,8 @@ export default function Index() {
       <h1>{data?.title}</h1>
       <p>{data?.preamble}</p>
       <img src={data?.imageUrl || ""} />
+      <h2>Forestilling: {data?.event.title}</h2>
+      <p>Ingress: {data?.event.preamble}</p>
     </div>
-  )
+  );
 }
