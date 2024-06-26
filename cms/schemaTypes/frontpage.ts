@@ -15,6 +15,12 @@ export const frontpage = defineType({
       ],
     }),
     defineField({
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
       name: 'preamble',
       title: 'Ingress',
       type: 'string',
