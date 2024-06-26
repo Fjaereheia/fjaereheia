@@ -6,7 +6,8 @@ export const frontpage = defineType({
     type: 'document',
     fields: [
         defineField({
-            name: 'Tittel',
+            name: 'title',
+            title: 'Tittel',
             type: 'string',
             validation: (rule) => [
                 rule.max(100).warning("Anbefaler kortere tittel."),
@@ -14,11 +15,13 @@ export const frontpage = defineType({
             ]
             }),
         defineField({
-            name: 'Ingress',
+            name: 'preamble',
+            title: 'Ingress',
             type: 'string',
             }),
         defineField({
-            name: 'Bilde',
+            name: 'image',
+            title: 'Bilde',
             type: 'image',
             validation: (rule) => [
                 rule.required()
