@@ -47,16 +47,7 @@ export const eventType = defineType({
     defineField({
       name: 'image',
       title: 'Bilde',
-      type: 'image',
-      validation: (rule) => [rule.required()],
-      fields: [
-        {
-          name: 'caption',
-          type: 'string',
-          title: 'Bildetekst',
-          validation: (rule) => [rule.required().min(1).error('Bildetekst er påkrevd')],
-        },
-      ],
+      type: 'customImage',
     }),
     defineField({
       name: 'text',
@@ -67,7 +58,7 @@ export const eventType = defineType({
           type: 'block',
         },
         {
-          type: 'image',
+          type: 'customImage',
         },
       ],
     }),
