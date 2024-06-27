@@ -28,6 +28,20 @@ export const eventType = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'dates',
+      title: 'Datoer',
+      type: 'array',
+      of: [{type: 'datetime'}],
+      validation: (rule) => [rule.required().min(1).error('Minst en dato er påkrevd.')],
+    }),
+    defineField({
+      name: 'duration',
+      title: 'Varighet',
+      type: 'string',
+      placeholder: 'e.g 1 time og 30 minutter',
+      validation: (rule) => [rule.required().error('Varighet er påkrevd.')],
+    }),
+    defineField({
       name: 'bilde',
       type: 'image',
       validation: (rule) => [rule.required()],
