@@ -45,7 +45,7 @@ export const eventType = defineType({
       ],
     }),
     defineField({
-      name: 'alt',
+      name: 'text',
       title: 'beskrivelse',
       type: 'array',
       of: [

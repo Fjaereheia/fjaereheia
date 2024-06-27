@@ -33,8 +33,9 @@ export default function Index() {
       <h1>{data?.title}</h1>
       <p>{data?.preamble}</p>
       <img src={data?.imageUrl || ""} />
-      <h2>Forestilling: {data?.event.title}</h2>
-      <p>Ingress: {data?.event.preamble}</p>
+      <h2>Forestilling: {data?.event?.title}</h2>
+      <p>Ingress: {data?.event?.preamble}</p>
+      <img src={data?.event?.imageUrl || ""} />
     </div>
   );
 }
