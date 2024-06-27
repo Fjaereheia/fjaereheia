@@ -36,14 +36,14 @@ export const articleType = defineType({
           type: 'block',
         },
         {
-          type: 'image',
+          type: 'customImage',
         },
       ],
     }),
     defineField({
       name: 'image',
       title: 'Bilde',
-      type: 'image',
+      type: 'customImage',
       description: 'Legg til et bilde',
     }),
     defineField({
