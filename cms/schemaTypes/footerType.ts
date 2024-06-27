@@ -31,7 +31,7 @@ export const footerType = defineType({
                             {
                                 name: 'link',
                                 type: 'object',
-                                title: 'External Link',
+                                title: 'Ekstern lenke',
                                 fields: [
                                     {
                                         name: 'href',
@@ -39,9 +39,9 @@ export const footerType = defineType({
                                         title: 'URL'
                                     },
                                     {
-                                        title: 'open in new tab',
+                                        title: 'Åpne i ny fane',
                                         name: 'blank',
-                                        description: 'test',
+                                        description: 'Åpne link i ny fane ved aktivering',
                                         type: 'boolean'
                                     },
                                     {
