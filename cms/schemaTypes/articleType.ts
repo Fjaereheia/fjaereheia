@@ -6,7 +6,8 @@ export const articleType = defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'Tittel',
+      name: 'title',
+      title: 'Tittel',
       type: 'string',
       validation: (rule) =>
         rule
@@ -19,13 +20,15 @@ export const articleType = defineType({
     }),
     defineField({
       name: 'slug',
+      title: 'Slug',
       type: 'slug',
       options: {source: 'Tittel'},
-      hidden: ({document}) => !document?.Tittel,
+      hidden: ({document}) => !document?.title,
       description: 'Url: fjaereheia.no/xxx',
     }),
     defineField({
-      name: 'Tekst',
+      name: 'text',
+      title: 'Tekst',
       type: 'array',
       description: 'Innhold',
       of: [
@@ -38,7 +41,8 @@ export const articleType = defineType({
       ],
     }),
     defineField({
-      name: 'Bilde',
+      name: 'image',
+      title: 'Bilde',
       type: 'image',
       description: 'Legg til et bilde',
     }),
