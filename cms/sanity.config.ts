@@ -50,7 +50,7 @@ const deskStructure = (S: StructureBuilder) =>
       S.documentTypeListItem('article').title('Artikler').icon(DocumentTextIcon),
       S.documentTypeListItem('event').title('Forestillinger').icon(CalendarIcon),
       S.documentTypeListItem('role').title('Roller').icon(UserIcon),
-      S.documentTypeListItem('footer').title('Bunntekst').icon(ArrowDownIcon),
+      S.documentTypeListItem('footer').title('Footer').icon(ArrowDownIcon),
     ])
 
 export default defineConfig({
