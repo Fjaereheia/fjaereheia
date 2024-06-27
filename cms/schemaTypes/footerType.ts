@@ -20,8 +20,8 @@ export const footerType = defineType({
 
         }),
         defineField({
-            name: 'portabletext',
-            title: 'Link',
+            name: 'links',
+            title: 'Legg til Link',
             type: 'array',
             of: [
                 {
