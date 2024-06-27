@@ -2,7 +2,7 @@ import { defineField, defineType, listenQuery } from "sanity";
 
 export const footerType = defineType({
     name: 'footer',
-    title: 'Bunntekst',
+    title: 'Footer',
     type: 'document',
     fields: [
         defineField({
