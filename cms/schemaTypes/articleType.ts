@@ -36,16 +36,8 @@ export const articleType = defineType({
     defineField({
       name: 'text',
       title: 'Tekst',
-      type: 'array',
+      type: 'content',
       description: 'Innhold',
-      of: [
-        {
-          type: 'block',
-        },
-        {
-          type: 'customImage',
-        },
-      ],
     }),
     defineField({
       name: 'image',
