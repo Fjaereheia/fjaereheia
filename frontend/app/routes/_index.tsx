@@ -28,26 +28,32 @@ export async function loader() {
 
 export default function Index() {
   const data = useLoaderData<typeof loader>() as FRONTPAGE_QUERYResult;
-
   return (
     <div>
       <h1>{data?.title}</h1>
       <p>{data?.preamble}</p>
       <img src={data?.imageUrl || ""} />
-      <h2>Forestilling: {data?.event?.title}</h2>
-      <p>Ingress: {data?.event?.preamble}</p>
-      <img src={data?.event?.imageUrl || ""} />
-      <div>
-        {data?.event?.text?.map((item, index) => (
-          <div key={index}>
-            {item._type === "block" && item.children ? (
-              <p>{item.children.map((child) => child.text).join("")}</p>
-            ) : item._type === "image" && item.asset?.url ? (
-              <img src={item.asset.url} alt="Sanity Image" />
-            ) : null}
+
+      {data?.event?.title ? (
+        <>
+          <h2>Forestilling: {data?.event?.title}</h2>
+          <p>Ingress: {data?.event?.preamble}</p>
+          <img src={data?.event?.imageUrl || ""} />
+          <div>
+            {data?.event?.text?.map((item, index) => (
+              <div key={index}>
+                {item._type === "block" && item.children ? (
+                  <p>{item.children.map((child) => child.text).join("")}</p>
+                ) : item._type === "image" && item.asset?.url ? (
+                  <img src={item.asset.url} alt="Sanity Image" />
+                ) : null}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      ) : (
+        <p> no content available</p>
+      )}
     </div>
   );
 }
