@@ -2,7 +2,7 @@ import {defineConfig} from 'sanity'
 import {StructureBuilder, StructureResolverContext, structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
-import {HomeIcon, DocumentTextIcon, CalendarIcon} from '@sanity/icons'
+import {BlockquoteIcon, CalendarIcon, DocumentTextIcon, HomeIcon} from '@sanity/icons'
 
 //singleton pages. Before you add the type to singletontypes, the page should be created, since create is not a valid action for singleton types
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
@@ -19,6 +19,7 @@ const deskStructure = (S: StructureBuilder) =>
         .icon(HomeIcon),
       S.documentTypeListItem('article').title('Artikler').icon(DocumentTextIcon),
       S.documentTypeListItem('event').title('Forestillinger').icon(CalendarIcon),
+      S.documentTypeListItem('quote').title('Sitat').icon(BlockquoteIcon),
     ])
 
 export default defineConfig({
