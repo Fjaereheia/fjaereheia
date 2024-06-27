@@ -18,14 +18,15 @@ export const quoteType = defineType({
       ],
     }),
     defineField({
-      name: 'author',
+      name: 'source',
       type: 'string',
-      title: 'Forfatter',
+      title: 'Kilde',
+      placeholder: 'e.g. Ola Nordmann',
       validation: (rule) => [
         rule
           .required()
           .min(2)
-          .error(`Forfatter er påkrevd for å poste et sitat, minimum lengde på 2 tegn`),
+          .error(`Kilde er påkrevd for å poste et sitat, minimum lengde på 2 tegn`),
       ],
     }),
     defineField({
