@@ -65,7 +65,7 @@ export default defineConfig({
         {id: 'nb', title: '🇳🇴 Norwegian (Bokmål)'},
         {id: 'en', title: '🇬🇧 English'},
       ],
-      schemaTypes: ['article', 'event'],
+      schemaTypes: ['article', 'event', 'frontpage', 'role'],
       metadataFields: [
         defineField({
           name: 'slug',

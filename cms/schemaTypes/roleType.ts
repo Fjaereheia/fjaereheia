@@ -12,6 +12,12 @@ export const roleType = defineType({
       validation: (rule) => rule.required().min(2).max(50).error(`Må ha navn på minst 2 bokstaver`),
     }),
     defineField({
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
       name: 'image',
       title: 'Bilde',
       type: 'image',
