@@ -1,5 +1,5 @@
 import { json, type MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { FRONTPAGE_QUERYResult } from "sanity/types";
 import { FRONTPAGE_QUERY } from "~/queries/frontpage-queries";
@@ -33,7 +33,10 @@ export default function Index() {
       <h1>{data?.title}</h1>
       <p>{data?.preamble}</p>
       <img src={data?.imageUrl || ""} />
-
+      <br />
+      <Link to="/artikler">
+        <button>Articles</button>
+      </Link>
       {data?.event?.title ? (
         <>
           <h2>Forestilling: {data?.event?.title}</h2>
