@@ -14,7 +14,7 @@ export const roleType = defineType({
     defineField({
       name: 'image',
       title: 'Bilde',
-      type: 'image',
+      type: 'customImage',
       description: 'Legg til et bilde',
       validation: (rule) => rule.required(),
     }),
