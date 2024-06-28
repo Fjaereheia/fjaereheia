@@ -28,8 +28,8 @@ export const eventType = defineType({
       name: 'slug',
       title: 'slug',
       type: 'slug',
-      options: {source: 'tittel', isUnique: isUniqueOtherThanLanguage},
-      hidden: ({document}) => !document?.tittel,
+      options: {source: 'title', isUnique: isUniqueOtherThanLanguage},
+      hidden: ({document}) => !document?.title,
       description: 'Url: fjaereheia.no/xxx',
     }),
     defineField({
