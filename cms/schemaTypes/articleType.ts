@@ -1,4 +1,5 @@
 import {defineField, defineType} from 'sanity'
+import {isUniqueOtherThanLanguage} from '../helperFunctions'
 
 export const articleType = defineType({
   name: 'article',
@@ -19,10 +20,16 @@ export const articleType = defineType({
           ),
     }),
     defineField({
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: {source: 'Tittel'},
+      options: {source: 'Tittel', isUnique: isUniqueOtherThanLanguage},
       hidden: ({document}) => !document?.title,
       description: 'Url: fjaereheia.no/xxx',
     }),
