@@ -29,7 +29,9 @@ export const articleType = defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      slug-generator-bug-fix
       options: {source: 'title', isUnique: isUniqueOtherThanLanguage},
+      main
       hidden: ({document}) => !document?.title,
       description: 'Url: fjaereheia.no/xxx',
     }),

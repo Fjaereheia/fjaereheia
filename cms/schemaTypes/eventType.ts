@@ -28,8 +28,10 @@ export const eventType = defineType({
       name: 'slug',
       title: 'slug',
       type: 'slug',
+      slug-generator-bug-fix
       options: {source: 'title', isUnique: isUniqueOtherThanLanguage},
       hidden: ({document}) => !document?.title,
+      main
       description: 'Url: fjaereheia.no/xxx',
     }),
     defineField({
