@@ -4,6 +4,8 @@ import {
   SanityImageHotspot,
   internalGroqTypeReferenceTo,
 } from "sanity/types";
+import { client } from "sanity/clientConfig";
+import imageUrlBuilder from "@sanity/image-url";
 
 interface PortableTextProps {
   textData?: Array<
@@ -47,17 +49,26 @@ interface PortableTextProps {
       }
   > | null;
 }
+
+const builder = imageUrlBuilder(client);
+
+// Then we like to make a simple function like this that gives the
+// builder an image and returns the builder for you to specify additional
+// parameters:
+function urlFor(source: string) {
+  return builder.image(source);
+}
 export default function PortableTextConverter({ textData }: PortableTextProps) {
   const customComponents = {
     types: {
       image: ({
         value,
       }: PortableTextComponentProps<{
-        asset: { _ref: string; url?: string; _type: "reference" };
+        asset: { _ref: string; _type: "reference" };
       }>) => {
         return (
           <img
-            src={value.asset.url || ""}
+            src={urlFor(value.asset._ref).url() || ""}
             alt="Image"
             style={{ maxWidth: "100%" }}
           />
