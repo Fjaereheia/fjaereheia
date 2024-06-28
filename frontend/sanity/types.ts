@@ -68,202 +68,53 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type Role = {
-  _id: string;
-  _type: "role";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  text?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
+export type Content = Array<{
+  children?: Array<{
+    marks?: Array<string>;
+    text?: string;
+    _type: "span";
     _key: string;
   }>;
-};
-
-export type Frontpage = {
-  _id: string;
-  _type: "frontpage";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  preamble?: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    caption?: string;
-    _type: "image";
-  };
-  event?: {
+  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+  listItem?: "bullet" | "number";
+  markDefs?: Array<{
+    href?: string;
+    _type: "link";
+    _key: string;
+  }>;
+  level?: number;
+  _type: "block";
+  _key: string;
+} | {
+  asset?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "event";
+    [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
   };
-};
+  hotspot?: SanityImageHotspot;
+  crop?: SanityImageCrop;
+  alt?: string;
+  _type: "customImage";
+  _key: string;
+} | {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  _key: string;
+  [internalGroqTypeReferenceTo]?: "quote";
+}>;
 
-export type Article = {
+export type Quote = {
   _id: string;
-  _type: "article";
+  _type: "quote";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  slug?: Slug;
-  text?: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?:
-          | "normal"
-          | "h1"
-          | "h2"
-          | "h3"
-          | "h4"
-          | "h5"
-          | "h6"
-          | "blockquote";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-        _key: string;
-      }
-  >;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  event?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "event";
-  };
-};
-
-export type Event = {
-  _id: string;
-  _type: "event";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  preamble?: string;
-  dates?: Array<string>;
-  duration?: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    caption?: string;
-    _type: "image";
-  };
-  text?: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?:
-          | "normal"
-          | "h1"
-          | "h2"
-          | "h3"
-          | "h4"
-          | "h5"
-          | "h6"
-          | "blockquote";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-        _key: string;
-      }
-  >;
+  content?: string;
+  source?: string;
+  company?: string;
+  date?: string;
 };
 
 export type SanityImageCrop = {
@@ -323,11 +174,175 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
+export type TranslationMetadata = {
+  _id: string;
+  _type: "translation.metadata";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  translations?: Array<{
+    _key: string;
+  } & InternationalizedArrayReferenceValue>;
+  schemaTypes?: Array<string>;
+  slug?: Slug;
+};
+
+export type InternationalizedArrayReferenceValue = {
+  _type: "internationalizedArrayReferenceValue";
+  value?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "article";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "event";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "frontpage";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "role";
+  };
+};
+
+export type Role = {
+  _id: string;
+  _type: "role";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  language?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "customImage";
+  };
+  text?: Content;
+};
+
+export type Frontpage = {
+  _id: string;
+  _type: "frontpage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  language?: string;
+  preamble?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "customImage";
+  };
+  event?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "event";
+  };
+};
+
+export type Article = {
+  _id: string;
+  _type: "article";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  language?: string;
+  slug?: Slug;
+  text?: Content;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "customImage";
+  };
+  event?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "event";
+  };
+};
+
+export type Event = {
+  _id: string;
+  _type: "event";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  language?: string;
+  slug?: Slug;
+  preamble?: string;
+  dates?: Array<string>;
+  duration?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "customImage";
+  };
+  text?: Content;
+};
+
+export type CustomImage = {
+  _type: "customImage";
+  asset?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+  };
+  hotspot?: SanityImageHotspot;
+  crop?: SanityImageCrop;
+  alt?: string;
+};
+
 export type Slug = {
   _type: "slug";
   current?: string;
   source?: string;
 };
+
+export type InternationalizedArrayReference = Array<{
+  _key: string;
+} & InternationalizedArrayReferenceValue>;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -339,47 +354,9 @@ export type ARTICLES_QUERYResult = Array<{
   _updatedAt: string;
   _rev: string;
   title?: string;
+  language?: string;
   slug?: Slug;
-  text?: Array<
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-        _key: string;
-      }
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?:
-          | "blockquote"
-          | "h1"
-          | "h2"
-          | "h3"
-          | "h4"
-          | "h5"
-          | "h6"
-          | "normal";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-  >;
+  text?: Content;
   image?: {
     asset?: {
       _ref: string;
@@ -389,7 +366,8 @@ export type ARTICLES_QUERYResult = Array<{
     };
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    _type: "image";
+    alt?: string;
+    _type: "customImage";
   };
   event?: {
     _ref: string;
@@ -407,47 +385,9 @@ export type ARTICLE_QUERYResult = Array<{
   _updatedAt: string;
   _rev: string;
   title?: string;
+  language?: string;
   slug?: Slug;
-  text?: Array<
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-        _key: string;
-      }
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?:
-          | "blockquote"
-          | "h1"
-          | "h2"
-          | "h3"
-          | "h4"
-          | "h5"
-          | "h6"
-          | "normal";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-  >;
+  text?: Content;
   image?: {
     asset?: {
       _ref: string;
@@ -457,7 +397,8 @@ export type ARTICLE_QUERYResult = Array<{
     };
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    _type: "image";
+    alt?: string;
+    _type: "customImage";
   };
   event?: {
     _ref: string;
@@ -468,7 +409,7 @@ export type ARTICLE_QUERYResult = Array<{
 }>;
 // Source: ../frontend/app/queries/frontpage-queries.ts
 // Variable: FRONTPAGE_QUERY
-// Query: *[_type=="frontpage"]{title, preamble, event->{title,preamble ,"imageUrl": image.asset->url, slug , text [] {..., asset-> { _id, url}}} , "imageUrl": image.asset->url}[0]
+// Query: *[_type=="frontpage" && language=="nb"]{title, preamble, event->{title,preamble ,"imageUrl": image.asset->url, slug , text [] {..., asset-> { _id, url}}} , "imageUrl": image.asset->url}[0]
 export type FRONTPAGE_QUERYResult = {
   title: string | null;
   preamble: string | null;
@@ -477,43 +418,38 @@ export type FRONTPAGE_QUERYResult = {
     preamble: string | null;
     imageUrl: string | null;
     slug: Slug | null;
-    text: Array<
-      | {
-          asset: {
-            _id: string;
-            url: string | null;
-          } | null;
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          _type: "image";
-        }
-      | {
-          children?: Array<{
-            marks?: Array<string>;
-            text?: string;
-            _type: "span";
-            _key: string;
-          }>;
-          style?:
-            | "blockquote"
-            | "h1"
-            | "h2"
-            | "h3"
-            | "h4"
-            | "h5"
-            | "h6"
-            | "normal";
-          listItem?: "bullet" | "number";
-          markDefs?: Array<{
-            href?: string;
-            _type: "link";
-            _key: string;
-          }>;
-          level?: number;
-          _type: "block";
-          asset: null;
-        }
-    > | null;
+    text: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      asset: null;
+    } | {
+      asset: {
+        _id: string;
+        url: string | null;
+      } | null;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "customImage";
+    } | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      asset: null;
+    }> | null;
   } | null;
   imageUrl: string | null;
 } | null;
