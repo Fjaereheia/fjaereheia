@@ -28,12 +28,7 @@ export const roleType = defineType({
       name: 'text',
       title: 'Biografi',
       description: 'Hold det kort',
-      type: 'array',
-      of: [
-        {
-          type: 'block',
-        },
-      ],
+      type: 'content',
     }),
   ],
 })

@@ -2,7 +2,7 @@ import {defineConfig, defineField} from 'sanity'
 import {StructureBuilder, StructureResolverContext, structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
-import {HomeIcon, DocumentTextIcon, CalendarIcon, UserIcon} from '@sanity/icons'
+import {CalendarIcon, DocumentTextIcon, HomeIcon, UserIcon} from '@sanity/icons'
 import {
   documentInternationalization,
   DeleteTranslationAction,
