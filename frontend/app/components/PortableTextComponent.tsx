@@ -1,17 +1,66 @@
 import { PortableText, PortableTextComponentProps } from "@portabletext/react";
+import {
+  SanityImageCrop,
+  SanityImageHotspot,
+  internalGroqTypeReferenceTo,
+} from "sanity/types";
 
-interface PortabelTextProps {
-  textData: any;
+interface PortableTextProps {
+  textData?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?:
+          | "normal"
+          | "h1"
+          | "h2"
+          | "h3"
+          | "h4"
+          | "h5"
+          | "h6"
+          | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+  > | null;
 }
-
-export default function PortableTextConverter({ textData }: PortabelTextProps) {
+export default function PortableTextConverter({ textData }: PortableTextProps) {
   const customComponents = {
     types: {
       image: ({
         value,
-      }: PortableTextComponentProps<{ asset: { url: string } }>) => {
+      }: PortableTextComponentProps<{
+        asset: { _ref: string; url?: string; _type: "reference" };
+      }>) => {
         return (
-          <img src={value.asset.url} style={{ maxWidth: "100%" }} /> //missing alt: alt={value.alt || 'Image'}
+          <img
+            src={value.asset.url || ""}
+            alt="Image"
+            style={{ maxWidth: "100%" }}
+          />
         );
       },
     },
