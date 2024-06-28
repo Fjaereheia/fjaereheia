@@ -7,7 +7,7 @@ export default {
       type: 'block',
     },
     {
-      type: 'image',
+      type: 'customImage',
     },
     {
       type: 'quote',
