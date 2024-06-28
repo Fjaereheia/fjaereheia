@@ -47,7 +47,7 @@ export default function Index() {
               <div key={index}>
                 {item._type === "block" && item.children ? (
                   <p>{item.children.map((child) => child.text).join("")}</p>
-                ) : item._type === "image" && item.asset?.url ? (
+                ) : item._type === "customImage" && item.asset?.url ? (
                   <img src={item.asset.url} alt="Sanity Image" />
                 ) : null}
               </div>
