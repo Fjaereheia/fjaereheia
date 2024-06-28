@@ -21,7 +21,6 @@ export async function loader() {
 
 export default function EventPage() {
   const data = useLoaderData<typeof loader>() as EVENTS_QUERYResult;
-  console.log(data);
   return (
     <div>
       <h1>Forestillinger</h1>
