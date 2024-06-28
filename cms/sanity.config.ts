@@ -2,7 +2,7 @@ import {defineConfig, defineField} from 'sanity'
 import {StructureBuilder, StructureResolverContext, structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
-import {BlockquoteIcon, CalendarIcon, DocumentTextIcon, HomeIcon, UserIcon} from '@sanity/icons'
+import {CalendarIcon, DocumentTextIcon, HomeIcon, UserIcon} from '@sanity/icons'
 import {
   documentInternationalization,
   DeleteTranslationAction,
@@ -50,7 +50,6 @@ const deskStructure = (S: StructureBuilder) =>
       S.documentTypeListItem('article').title('Artikler').icon(DocumentTextIcon),
       S.documentTypeListItem('event').title('Forestillinger').icon(CalendarIcon),
       S.documentTypeListItem('role').title('Roller').icon(UserIcon),
-      S.documentTypeListItem('quote').title('Sitater').icon(BlockquoteIcon),
     ])
 
 export default defineConfig({
