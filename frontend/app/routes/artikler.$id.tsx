@@ -1,8 +1,9 @@
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
-import { ARTICLE_QUERYResult } from "sanity/types";
+import { ARTICLE_QUERYResult, EVENTS_QUERYResult } from "sanity/types";
 import { ARTICLE_QUERY } from "~/queries/article-queries";
+import { EVENTS_QUERY } from "~/queries/event-queries";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const article = await client.fetch<ARTICLE_QUERYResult>(
@@ -14,7 +15,20 @@ export async function loader({ params }: LoaderFunctionArgs) {
     return json("Kunne ikke hente artikler", { status: 404 });
   }
 
-  return json(article);
+  const events = await client.fetch<EVENTS_QUERYResult>(EVENTS_QUERY);
+  console.log(events);
+
+  const eventsMap = Object.fromEntries(
+    events.map((event) => [event._id, event])
+  );
+  console.log("here", eventsMap);
+
+  const articleWithEvents: ARTICLE_QUERYResult = article.map((article) => ({
+    ...article,
+    event: article.event?._ref ? eventsMap[article.event._ref] : article.event,
+  }));
+
+  return json(articleWithEvents);
 }
 
 export default function Article() {
