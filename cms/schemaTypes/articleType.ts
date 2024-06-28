@@ -22,7 +22,7 @@ export const articleType = defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: {source: 'Tittel'},
+      options: {source: 'title'},
       hidden: ({document}) => !document?.title,
       description: 'Url: fjaereheia.no/xxx',
     }),

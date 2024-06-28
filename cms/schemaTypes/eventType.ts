@@ -21,8 +21,8 @@ export const eventType = defineType({
       name: 'slug',
       title: 'slug',
       type: 'slug',
-      options: {source: 'tittel'},
-      hidden: ({document}) => !document?.tittel,
+      options: {source: 'title'},
+      hidden: ({document}) => !document?.title,
       description: 'Url: fjaereheia.no/xxx',
     }),
     defineField({
