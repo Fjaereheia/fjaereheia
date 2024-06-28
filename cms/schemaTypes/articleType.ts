@@ -29,7 +29,7 @@ export const articleType = defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: {source: 'Tittel', isUnique: isUniqueOtherThanLanguage},
+      options: {source: 'title', isUnique: isUniqueOtherThanLanguage},
       hidden: ({document}) => !document?.title,
       description: 'Url: fjaereheia.no/xxx',
     }),
