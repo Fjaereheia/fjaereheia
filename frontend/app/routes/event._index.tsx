@@ -9,13 +9,13 @@ import ButtonLink from "~/components/ButtonLink";
 import Button from "~/components/Button";
 >>>>>>> 2d072dc (Two new button components to redirect from and to frontpage)
 
-export async function getEvents() {
+export async function getArticles() {
   const events = await client.fetch<EVENTS_QUERYResult>(EVENTS_QUERY);
   return events;
 }
 
 export async function loader() {
-  const events = await getEvents();
+  const events = await getArticles();
 
   if (!events) {
     return json("Kunne ikke hente forestillinger", { status: 404 });

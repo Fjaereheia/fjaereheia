@@ -108,46 +108,6 @@ export type Content = Array<
       [internalGroqTypeReferenceTo]?: "quote";
     }
 >;
-export type Content = Array<
-  | {
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }
-  | {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      _type: "customImage";
-      _key: string;
-    }
-  | {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      _key: string;
-      [internalGroqTypeReferenceTo]?: "quote";
-    }
->;
 
 export type Quote = {
   _id: string;
@@ -229,42 +189,12 @@ export type TranslationMetadata = {
       _key: string;
     } & InternationalizedArrayReferenceValue
   >;
-  translations?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayReferenceValue
-  >;
   schemaTypes?: Array<string>;
   slug?: Slug;
 };
 
 export type InternationalizedArrayReferenceValue = {
   _type: "internationalizedArrayReferenceValue";
-  value?:
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "article";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "event";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "frontpage";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "role";
-      };
   value?:
     | {
         _ref: string;
@@ -544,7 +474,6 @@ export type EVENTS_QUERYResult = Array<{
   _updatedAt: string;
   _rev: string;
   title?: string;
-  language?: string;
   slug?: Slug;
   preamble?: string;
   dates?: Array<string>;
