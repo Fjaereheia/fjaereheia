@@ -15,6 +15,5 @@ export const schemaTypes = [
   customImage,
   quoteType,
   RichTextEditor,
-  ,
   footerType,
 ]
