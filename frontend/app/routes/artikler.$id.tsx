@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { ARTICLE_QUERYResult } from "sanity/types";
 import { ARTICLE_QUERY } from "~/queries/article-queries";
@@ -25,6 +25,11 @@ export default function Article() {
       {data.map((d) => (
         <div>
           <h2>{d.title}</h2>
+          {d.event && (
+            <Link to={`/event/${d.event.slug?.current}`}>
+              <h3>Les mer om forestilling</h3>
+            </Link>
+          )}
         </div>
       ))}
     </div>
