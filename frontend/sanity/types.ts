@@ -495,10 +495,130 @@ export type InternationalizedArrayReference = Array<
   } & InternationalizedArrayReferenceValue
 >;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ../frontend/app/queries/article-queries.ts
+// Variable: ARTICLES_QUERY
+// Query: *[_type=="article"]
+export type ARTICLES_QUERYResult = Array<{
+  _id: string;
+  _type: "article";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  language?: string;
+  slug?: Slug;
+  text?: Content;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "customImage";
+  };
+  event?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "event";
+  };
+}>;
+// Variable: ARTICLE_QUERY
+// Query: *[_type=="article" && slug.current == $id]
+export type ARTICLE_QUERYResult = Array<{
+  _id: string;
+  _type: "article";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  language?: string;
+  slug?: Slug;
+  text?: Content;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "customImage";
+  };
+  event?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "event";
+  };
+}>;
+// Source: ../frontend/app/queries/event-queries.ts
+// Variable: EVENTS_QUERY
+// Query: *[_type=="event"]
+export type EVENTS_QUERYResult = Array<{
+  _id: string;
+  _type: "event";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  language?: string;
+  slug?: Slug;
+  preamble?: string;
+  dates?: Array<string>;
+  duration?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "customImage";
+  };
+  text?: Content;
+}>;
+// Variable: EVENT_QUERY
+// Query: *[_type=="event" && slug.current == $id]
+export type EVENT_QUERYResult = Array<{
+  _id: string;
+  _type: "event";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  language?: string;
+  slug?: Slug;
+  preamble?: string;
+  dates?: Array<string>;
+  duration?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "customImage";
+  };
+  text?: Content;
+}>;
 // Source: ../frontend/app/queries/frontpage-queries.ts
 // Variable: FRONTPAGE_QUERY
-// Query: *[_type=="frontpage"]{title, preamble, event->{title,preamble , _key, "imageUrl": image.asset->url, slug , _key, text [] {..., _key, _type == "imageAsset" => asset-> {..., _ref, _type, url}}} , "imageUrl": image.asset->url}[0]
-export type FRONTPAGE_QUERYResult = {
+// Query:   *[_type == "frontpage"]{    title,    preamble,    event->{      title,      preamble,      _key,      "imageUrl": image.asset->url,      "caption": image.caption,      slug,      text[]{        ...,        _key,        _type == "image" => {          ...,          asset->{            _ref,            _type,            url          },          caption        },        _type == "reference" => {          _ref,          _type        },        _type == "block" => {          ...,          children[] {            ...,            _type == "span" => {              marks,              text,              _type,              _key            }          }        }      }    },    "imageUrl": image.asset->url,    "caption": image.caption  }[0..3]
+export type FRONTPAGE_QUERYResult = Array<{
   title: string | null;
   preamble: string | null;
   event: {
@@ -506,6 +626,7 @@ export type FRONTPAGE_QUERYResult = {
     preamble: string | null;
     _key: null;
     imageUrl: string | null;
+    caption: null;
     slug: Slug | null;
     text: Array<
       | {
@@ -549,4 +670,5 @@ export type FRONTPAGE_QUERYResult = {
     > | null;
   } | null;
   imageUrl: string | null;
-} | null;
+  caption: null;
+}>;
