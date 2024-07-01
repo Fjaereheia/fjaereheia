@@ -414,7 +414,7 @@ export type ARTICLES_QUERYResult = Array<{
   };
 }>;
 // Variable: ARTICLE_QUERY
-// Query: *[_type=="article" && slug.current == $id]
+// Query: *[_type=="article" && slug.current == $id]{..., 'event': event->}
 export type ARTICLE_QUERYResult = Array<{
   _id: string;
   _type: "article";
@@ -437,12 +437,32 @@ export type ARTICLE_QUERYResult = Array<{
     alt?: string;
     _type: "customImage";
   };
-  event?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "event";
-  };
+  event: {
+    _id: string;
+    _type: "event";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title?: string;
+    language?: string;
+    slug?: Slug;
+    preamble?: string;
+    dates?: Array<string>;
+    duration?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "customImage";
+    };
+    text?: Content;
+  } | null;
 }>;
 // Source: ../frontend/app/queries/event-queries.ts
 // Variable: EVENTS_QUERY
