@@ -1,4 +1,5 @@
 import {defineField, defineType} from 'sanity'
+import {isUniqueOtherThanLanguage} from '../helperFunctions'
 
 export const eventType = defineType({
   name: 'event',
@@ -18,11 +19,17 @@ export const eventType = defineType({
       ],
     }),
     defineField({
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
       name: 'slug',
       title: 'slug',
       type: 'slug',
-      options: {source: 'tittel'},
-      hidden: ({document}) => !document?.tittel,
+      options: {source: 'title', isUnique: isUniqueOtherThanLanguage},
+      hidden: ({document}) => !document?.title,
       description: 'Url: fjaereheia.no/xxx',
     }),
     defineField({
@@ -47,29 +54,12 @@ export const eventType = defineType({
     defineField({
       name: 'image',
       title: 'Bilde',
-      type: 'image',
-      validation: (rule) => [rule.required()],
-      fields: [
-        {
-          name: 'caption',
-          type: 'string',
-          title: 'Bildetekst',
-          validation: (rule) => [rule.required().min(1).error('Bildetekst er påkrevd')],
-        },
-      ],
+      type: 'customImage',
     }),
     defineField({
       name: 'text',
       title: 'beskrivelse',
-      type: 'array',
-      of: [
-        {
-          type: 'block',
-        },
-        {
-          type: 'image',
-        },
-      ],
+      type: 'content',
     }),
   ],
 })

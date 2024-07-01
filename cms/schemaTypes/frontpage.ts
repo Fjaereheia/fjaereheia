@@ -1,5 +1,4 @@
 import {defineType, defineField} from 'sanity'
-import {eventType} from './eventType'
 
 export const frontpage = defineType({
   name: 'frontpage',
@@ -16,6 +15,12 @@ export const frontpage = defineType({
       ],
     }),
     defineField({
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
       name: 'preamble',
       title: 'Ingress',
       type: 'string',
@@ -23,16 +28,8 @@ export const frontpage = defineType({
     defineField({
       name: 'image',
       title: 'Bilde',
-      type: 'image',
+      type: 'customImage',
       validation: (rule) => [rule.required()],
-      fields: [
-        {
-          name: 'caption',
-          type: 'string',
-          title: 'Bildetekst',
-          validation: (rule) => [rule.required().min(1).error('Bildetekst er påkrevd')],
-        },
-      ],
     }),
     defineField({
       name: 'event',
