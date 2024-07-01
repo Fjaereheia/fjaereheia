@@ -1,5 +1,5 @@
 import {defineField, defineType} from 'sanity'
-import {isUniqueOtherThanLanguage} from '../helperFunctions'
+import {isUniqueOtherThanLanguage} from '../structure/documentInternationalization'
 
 export const eventType = defineType({
   name: 'event',

@@ -1,3 +1,4 @@
+import {defineField} from 'sanity'
 import {SlugValidationContext} from 'sanity'
 
 export async function isUniqueOtherThanLanguage(slug: string, context: SlugValidationContext) {
@@ -20,4 +21,21 @@ export async function isUniqueOtherThanLanguage(slug: string, context: SlugValid
   ][0]._id)`
   const result = await client.fetch(query, params)
   return result
+}
+
+export const PluginConfig = {
+  supportedLanguages: [
+    {id: 'nb', title: '🇳🇴 Norwegian (Bokmål)'},
+    {id: 'en', title: '🇬🇧 English'},
+  ],
+  schemaTypes: ['article', 'event', 'frontpage', 'role'],
+  metadataFields: [
+    defineField({
+      name: 'slug',
+      type: 'slug',
+      options: {
+        isUnique: isUniqueOtherThanLanguage,
+      },
+    }),
+  ],
 }
