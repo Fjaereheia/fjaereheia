@@ -5,16 +5,16 @@ import { ARTICLE_QUERYResult } from "sanity/types";
 import { ARTICLE_QUERY } from "~/queries/article-queries";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const articles = await client.fetch<ARTICLE_QUERYResult>(
+  const article = await client.fetch<ARTICLE_QUERYResult>(
     ARTICLE_QUERY,
     params
   );
 
-  if (!articles) {
+  if (!article) {
     return json("Kunne ikke hente artikler", { status: 404 });
   }
 
-  return json(articles);
+  return json(article);
 }
 
 export default function Article() {

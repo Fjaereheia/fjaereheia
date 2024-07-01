@@ -4,13 +4,13 @@ import { client } from "sanity/clientConfig";
 import { EVENTS_QUERYResult } from "sanity/types";
 import { EVENTS_QUERY } from "~/queries/event-queries";
 
-export async function getArticles() {
+export async function getEvents() {
   const events = await client.fetch<EVENTS_QUERYResult>(EVENTS_QUERY);
   return events;
 }
 
 export async function loader() {
-  const events = await getArticles();
+  const events = await getEvents();
 
   if (!events) {
     return json("Kunne ikke hente forestillinger", { status: 404 });
