@@ -1483,6 +1483,14 @@
         },
         "optional": true
       },
+      "text": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "content"
+        },
+        "optional": true
+      },
       "event": {
         "type": "objectAttribute",
         "value": {
