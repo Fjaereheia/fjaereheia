@@ -1,61 +1,17 @@
-import {defineConfig, defineField} from 'sanity'
-import {StructureBuilder, StructureResolverContext, structureTool} from 'sanity/structure'
+import {defineConfig} from 'sanity'
+import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
-import {CalendarIcon, DocumentTextIcon, HomeIcon, UserIcon, ArrowDownIcon} from '@sanity/icons'
 import {
   documentInternationalization,
   DeleteTranslationAction,
 } from '@sanity/document-internationalization'
-import {isUniqueOtherThanLanguage} from './helperFunctions'
+import {deskStructure} from './structure'
+import {PluginConfig} from './structure/documentInternationalization'
 
 //singleton pages. Before you add the type to singletontypes, the page should be created, since create is not a valid action for singleton types
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
 const singletonTypes = new Set(['frontpage'])
-
-const SINGLETONS = [{id: 'frontpage', title: 'Forside', _type: 'frontpage'}]
-
-const LANGUAGES = [
-  {id: `nb`, title: `🇳🇴 Norwegian (Bokmål)`},
-  {id: `en`, title: `🇬🇧 English`},
-]
-
-const deskStructure = (S: StructureBuilder) =>
-  S.list()
-    .title('Innhold')
-    .items([
-      ...SINGLETONS.map((singleton) =>
-        S.listItem()
-          .title(singleton.title)
-          .id(singleton.id)
-          .icon(HomeIcon)
-          .child(
-            S.list()
-              .title(singleton.title)
-              .id(singleton.id)
-
-              .items(
-                LANGUAGES.map((language) =>
-                  S.documentListItem()
-                    .schemaType(`frontpage`)
-                    .id(`${singleton.id}-${language.id}`)
-                    .title(`${singleton.title} (${language.id.toLocaleUpperCase()})`),
-                ),
-              )
-              .canHandleIntent(
-                (intentName, params) => intentName === 'edit' && params.id.startsWith(singleton.id),
-              ),
-          ),
-      ),
-      S.documentTypeListItem('article').title('Artikler').icon(DocumentTextIcon),
-      S.documentTypeListItem('event').title('Forestillinger').icon(CalendarIcon),
-      S.documentTypeListItem('role').title('Roller').icon(UserIcon),
-      S.listItem()
-        .title('Footer')
-        .id('footer')
-        .child(S.document().schemaType('footer').documentId('footer'))
-        .icon(ArrowDownIcon),
-    ])
 
 export default defineConfig({
   name: 'default',
@@ -65,22 +21,7 @@ export default defineConfig({
   dataset: process.env.SANITY_STUDIO_DATASET ?? 'production',
 
   plugins: [
-    documentInternationalization({
-      supportedLanguages: [
-        {id: 'nb', title: '🇳🇴 Norwegian (Bokmål)'},
-        {id: 'en', title: '🇬🇧 English'},
-      ],
-      schemaTypes: ['article', 'event', 'frontpage', 'role'],
-      metadataFields: [
-        defineField({
-          name: 'slug',
-          type: 'slug',
-          options: {
-            isUnique: isUniqueOtherThanLanguage,
-          },
-        }),
-      ],
-    }),
+    documentInternationalization(PluginConfig),
     structureTool({structure: deskStructure}),
     visionTool(),
   ],
