@@ -29,7 +29,7 @@ export async function loader() {
 
 export default function Index() {
   const data = useLoaderData<typeof loader>() as FRONTPAGE_QUERYResult;
-  console.log(data);
+  console.log(data?.event);
 
   return (
     <div>
