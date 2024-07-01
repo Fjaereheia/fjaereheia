@@ -5,7 +5,7 @@ import { FRONTPAGE_QUERYResult } from "sanity/types";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/functions/imageUrlBuilder";
 import { FRONTPAGE_QUERY } from "~/queries/frontpage-queries";
-import ButtonLink from "~/components/ButtonLink";
+import FrontPageButton from "~/components/FrontPageButton";
 
 export const meta: MetaFunction = () => {
   return [
@@ -41,8 +41,14 @@ export default function Index() {
         alt={data?.image?.alt}
       />
       <br />
-      <ButtonLink url="/artikler" buttonText="Artikler (Info)"></ButtonLink>
-      <ButtonLink url="/event" buttonText="Program"></ButtonLink>
+      <FrontPageButton
+        landingPageUrl="/artikler"
+        content="Artikler (Info)"
+      ></FrontPageButton>
+      <FrontPageButton
+        landingPageUrl="/event"
+        content="Program"
+      ></FrontPageButton>
 
       {data?.event?.title ? (
         <>

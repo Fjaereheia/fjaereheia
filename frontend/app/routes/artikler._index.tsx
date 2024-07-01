@@ -3,11 +3,7 @@ import { Link, useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { ARTICLES_QUERYResult } from "sanity/types";
 import { ARTICLES_QUERY } from "~/queries/article-queries";
-<<<<<<< HEAD
 import ButtonLink from "~/components/ButtonLink";
-=======
-import Button from "~/components/Button";
->>>>>>> 2d072dc (Two new button components to redirect from and to frontpage)
 
 export async function getArticles() {
   const articles = await client.fetch<ARTICLES_QUERYResult>(ARTICLES_QUERY);
@@ -37,11 +33,7 @@ export default function Articles() {
           </Link>
         </div>
       ))}
-<<<<<<< HEAD
       <ButtonLink url="/" buttonText="Tilbake til hovedsiden"></ButtonLink>
-=======
-      <Button landingPageUrl="/" content="Tilbake til hovedsiden"></Button>
->>>>>>> 2d072dc (Two new button components to redirect from and to frontpage)
     </div>
   );
 }
