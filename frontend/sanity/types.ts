@@ -474,6 +474,7 @@ export type EVENTS_QUERYResult = Array<{
   _updatedAt: string;
   _rev: string;
   title?: string;
+  language?: string;
   slug?: Slug;
   preamble?: string;
   dates?: Array<string>;
