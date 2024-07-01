@@ -19,7 +19,6 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export default function Article() {
   const data = useLoaderData<typeof loader>() as ARTICLE_QUERYResult;
-  console.log(data);
   return (
     <div>
       <h1>Artikler</h1>
