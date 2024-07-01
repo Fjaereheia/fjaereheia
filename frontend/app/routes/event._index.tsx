@@ -3,7 +3,7 @@ import { Link, useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { EVENTS_QUERYResult } from "sanity/types";
 import { EVENTS_QUERY } from "~/queries/event-queries";
-import Button from "~/components/Button";
+import ButtonLink from "~/components/ButtonLink";
 
 export async function getEvents() {
   const events = await client.fetch<EVENTS_QUERYResult>(EVENTS_QUERY);
@@ -33,7 +33,7 @@ export default function Events() {
           </Link>
         </div>
       ))}
-      <Button landingPageUrl="/" content="Tilbake til hovedsiden"></Button>
+      <ButtonLink url="/" buttonText="Tilbake til hovedsiden"></ButtonLink>
     </div>
   );
 }

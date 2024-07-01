@@ -3,7 +3,7 @@ import { Link, useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { FRONTPAGE_QUERYResult } from "sanity/types";
 import { FRONTPAGE_QUERY } from "~/queries/frontpage-queries";
-import FrontPageButton from "~/components/FrontPageButton";
+import ButtonLink from "~/components/ButtonLink";
 
 export const meta: MetaFunction = () => {
   return [
@@ -35,14 +35,8 @@ export default function Index() {
       <p>{data?.preamble}</p>
       <img src={data?.imageUrl || ""} />
       <br />
-      <FrontPageButton
-        landingPageUrl="/artikler"
-        content="Artikler (Info)"
-      ></FrontPageButton>
-      <FrontPageButton
-        landingPageUrl="/event"
-        content="Program"
-      ></FrontPageButton>
+      <ButtonLink url="/artikler" buttonText="Artikler (Info)"></ButtonLink>
+      <ButtonLink url="/event" buttonText="Program"></ButtonLink>
 
       {data?.event?.title ? (
         <>
