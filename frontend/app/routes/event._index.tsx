@@ -1,3 +1,4 @@
+
 import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
@@ -10,6 +11,7 @@ export async function getEvents() {
 }
 
 export async function loader() {
+
   const events = await getEvents();
 
   if (!events) {

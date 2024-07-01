@@ -5,11 +5,12 @@ import { EVENT_QUERYResult } from "sanity/types";
 import { EVENT_QUERY } from "~/queries/event-queries";
 import urlFor from "app/functions/imageUrlBuilder";
 
+
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await client.fetch<EVENT_QUERYResult>(EVENT_QUERY, params);
 
   if (!event) {
-    return json("Kunne ikke hente Forestilling", { status: 404 });
+    return json("Kunne ikke finne forestilling", { status: 404 });
   }
 
   return json(event);
