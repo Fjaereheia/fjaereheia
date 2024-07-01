@@ -1838,6 +1838,13 @@
           "name": "content"
         },
         "optional": true
+      },
+      "TicketsUrl": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
       }
     }
   },

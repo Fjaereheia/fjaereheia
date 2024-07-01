@@ -61,5 +61,11 @@ export const eventType = defineType({
       title: 'beskrivelse',
       type: 'content',
     }),
+    defineField({
+      name: 'TicketsUrl',
+      title: 'Billett lenke',
+      description: 'Lenke til salg av billetter (ticketmaster.no/xxx)',
+      type: 'url',
+    }),
   ],
 })
