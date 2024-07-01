@@ -1,16 +1,16 @@
 interface BuyTicketsButtonProps {
-  link: string;
-  content: string;
+  url: string;
+  buttonText: string;
 }
 
 export default function BuyTicketsButton({
-  link,
-  content,
+  url,
+  buttonText,
 }: BuyTicketsButtonProps) {
   return (
     <>
-      <a href={link} target="_blank">
-        <button>{content}</button>
+      <a href={url} target="_blank">
+        <button>{buttonText}</button>
       </a>
     </>
   );

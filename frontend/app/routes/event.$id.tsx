@@ -32,8 +32,8 @@ export default function Event() {
             <p>No image available</p>
           )}
           <ButtonLinkExternal
-            link={e.TicketsUrl || ""}
-            content="Kjøp billetter her"
+            url={e.TicketsUrl || ""}
+            buttonText="Kjøp billetter her"
           ></ButtonLinkExternal>
         </div>
       ))}
