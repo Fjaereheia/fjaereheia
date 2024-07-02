@@ -3,6 +3,7 @@ import { Link, useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { FRONTPAGE_QUERYResult } from "sanity/types";
 import PortableTextComponent from "~/components/PortableTextComponent";
+import urlFor from "~/functions/imageUrlBuilder";
 import { FRONTPAGE_QUERY } from "~/queries/frontpage-queries";
 import ButtonLink from "~/components/ButtonLink";
 
@@ -35,7 +36,10 @@ export default function Index() {
     <div>
       <h1>{data?.title}</h1>
       <p>{data?.preamble}</p>
-      <img src={data?.imageUrl || ""} />
+      <img
+        src={urlFor(data?.event?.image?.asset?._ref) || ""}
+        alt={data?.event?.image?.alt}
+      />
       <br />
       <ButtonLink url="/artikler" buttonText="Artikler (Info)"></ButtonLink>
       <ButtonLink url="/event" buttonText="Program"></ButtonLink>
@@ -44,7 +48,10 @@ export default function Index() {
         <>
           <h2>Forestilling: {data?.event?.title}</h2>
           <p>Ingress: {data?.event?.preamble}</p>
-          <img src={data?.event?.imageUrl || ""} />
+          <img
+            src={urlFor(data?.event?.image?.asset?._ref) || ""}
+            alt={data?.event?.image?.alt || ""}
+          />
           {data?.event?.text ? (
             <PortableTextComponent textData={data?.event?.text} />
           ) : null}
