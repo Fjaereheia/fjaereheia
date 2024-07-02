@@ -256,6 +256,7 @@ export type Frontpage = {
     alt?: string;
     _type: "customImage";
   };
+  text?: Content;
   event?: {
     _ref: string;
     _type: "reference";
@@ -344,6 +345,8 @@ export type Slug = {
 export type InternationalizedArrayReference = Array<{
   _key: string;
 } & InternationalizedArrayReferenceValue>;
+
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | TranslationMetadata | InternationalizedArrayReferenceValue | Role | Frontpage | Article | Event | CustomImage | Slug | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -469,47 +472,26 @@ export type EVENT_QUERYResult = Array<{
 }>;
 // Source: ../frontend/app/queries/frontpage-queries.ts
 // Variable: FRONTPAGE_QUERY
-// Query: *[_type=="frontpage" && language=="nb"]{title, preamble, event->{title,preamble ,"imageUrl": image.asset->url, slug , text [] {..., asset-> { _id, url}}} , "imageUrl": image.asset->url}[0]
+// Query: *[_type=="frontpage" && language=="nb"]{title, preamble, text, event->{title,preamble, text, image}}[0]
 export type FRONTPAGE_QUERYResult = {
   title: string | null;
   preamble: string | null;
+  text: Content | null;
   event: {
     title: string | null;
     preamble: string | null;
-    imageUrl: string | null;
-    slug: Slug | null;
-    text: Array<{
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      asset: null;
-    } | {
-      asset: {
-        _id: string;
-        url: string | null;
-      } | null;
+    text: Content | null;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
       alt?: string;
       _type: "customImage";
-    } | {
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      asset: null;
-    }> | null;
+    } | null;
   } | null;
-  imageUrl: string | null;
 } | null;
