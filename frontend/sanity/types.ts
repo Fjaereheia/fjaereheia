@@ -472,10 +472,22 @@ export type EVENT_QUERYResult = Array<{
 }>;
 // Source: ../frontend/app/queries/frontpage-queries.ts
 // Variable: FRONTPAGE_QUERY
-// Query: *[_type=="frontpage" && language=="nb"]{title, preamble, text, event->{title,preamble, text, image}}[0]
+// Query: *[_type=="frontpage" && language=="nb"]{title, preamble, image, text, event->{title,preamble, text, image}}[0]
 export type FRONTPAGE_QUERYResult = {
   title: string | null;
   preamble: string | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "customImage";
+  } | null;
   text: Content | null;
   event: {
     title: string | null;
