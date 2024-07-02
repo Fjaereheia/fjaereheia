@@ -8,7 +8,7 @@ interface PortabelTextProps {
 export default function PortableTextComponent({ textData }: PortabelTextProps) {
   const customComponents = {
     types: {
-      image: ({
+      customImage: ({
         value,
       }: PortableTextComponentProps<{
         asset: { url: string };
