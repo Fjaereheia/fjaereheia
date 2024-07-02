@@ -509,56 +509,13 @@ export type EVENT_QUERYResult = Array<{
 export type FRONTPAGE_QUERYResult = {
   title: string | null;
   preamble: string | null;
-  text: Content | null;
+  text?: Content;
   event: {
     title: string | null;
     preamble: string | null;
     imageUrl: string | null;
     slug: Slug | null;
-    text: Array<
-      | {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          asset: null;
-        }
-      | {
-          asset: {
-            _id: string;
-            url: string | null;
-          } | null;
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          alt?: string;
-          _type: "customImage";
-        }
-      | {
-          children?: Array<{
-            marks?: Array<string>;
-            text?: string;
-            _type: "span";
-            _key: string;
-          }>;
-          style?:
-            | "blockquote"
-            | "h1"
-            | "h2"
-            | "h3"
-            | "h4"
-            | "h5"
-            | "h6"
-            | "normal";
-          listItem?: "bullet" | "number";
-          markDefs?: Array<{
-            href?: string;
-            _type: "link";
-            _key: string;
-          }>;
-          level?: number;
-          _type: "block";
-          asset: null;
-        }
-    > | null;
+    text: Content;
   } | null;
   imageUrl: string | null;
 } | null;
