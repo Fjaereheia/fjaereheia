@@ -1,4 +1,4 @@
-import {defineField, defineType, listenQuery} from 'sanity'
+import {defineField, defineType} from 'sanity'
 
 export const footerType = defineType({
   name: 'footer',
