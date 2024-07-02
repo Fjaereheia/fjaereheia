@@ -2,11 +2,11 @@ import { PortableText, PortableTextComponentProps } from "@portabletext/react";
 import { Content } from "sanity/types";
 import urlFor from "~/functions/imageUrlBuilder";
 
-interface PortabelTextProps {
+interface PortableTextProps {
   textData: Content;
 }
 
-export default function PortableTextComponent({ textData }: PortabelTextProps) {
+export default function PortableTextComponent({ textData }: PortableTextProps) {
   const customComponents = {
     types: {
       customImage: ({
