@@ -18,7 +18,6 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
-  console.log(data[0].image?.asset?._ref);
 
   return (
     <div>
@@ -31,10 +30,12 @@ export default function Event() {
           ) : (
             <p>No image available</p>
           )}
-          <ButtonLinkExternal
-            url={e.TicketsUrl || ""}
-            buttonText="Kjøp billetter her"
-          ></ButtonLinkExternal>
+          {e.TicketsUrl && (
+            <ButtonLinkExternal
+              url={e.TicketsUrl || ""}
+              buttonText="Kjøp billetter her"
+            />
+          )}
         </div>
       ))}
     </div>
