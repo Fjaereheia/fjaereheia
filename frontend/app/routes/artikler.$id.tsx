@@ -3,7 +3,7 @@ import { useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { ARTICLE_QUERYResult } from "sanity/types";
 import { ARTICLE_QUERY } from "~/queries/article-queries";
-import { Helmet } from "react-helmet";
+import HeaderData from "~/components/HeaderData";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const article = await client.fetch<ARTICLE_QUERYResult>(
@@ -22,12 +22,11 @@ export default function Article() {
   const data = useLoaderData<typeof loader>() as ARTICLE_QUERYResult;
   return (
     <>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <meta name="description" content={data[0]?.metaDescription || ""} />
-        <meta name="keywords" content={data[0]?.metaKeywords || ""} />
-        <meta name="title" content={data[0]?.metaTitle || ""} />
-      </Helmet>
+      <HeaderData
+        description={data[0]?.metaDescription}
+        title={data[0]?.metaTitle}
+        lang={data[0]?.language}
+      />
       <div>
         <h1>Artikler</h1>
         {data.map((d, index) => (
