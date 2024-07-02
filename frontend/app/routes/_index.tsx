@@ -37,8 +37,8 @@ export default function Index() {
       <h1>{data?.title}</h1>
       <p>{data?.preamble}</p>
       <img
-        src={urlFor(data?.event?.image?.asset?._ref) || ""}
-        alt={data?.event?.image?.alt}
+        src={urlFor(data?.image?.asset?._ref) || ""}
+        alt={data?.image?.alt}
       />
       <br />
       <ButtonLink url="/artikler" buttonText="Artikler (Info)"></ButtonLink>
