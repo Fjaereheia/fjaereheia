@@ -339,7 +339,7 @@ export type Article = {
     [internalGroqTypeReferenceTo]?: "event";
   };
   metaKeywords?: string;
-  metaAurthor?: string;
+  metaTitle?: string;
   metaDescription?: string;
 };
 
@@ -426,7 +426,7 @@ export type ARTICLES_QUERYResult = Array<{
     [internalGroqTypeReferenceTo]?: "event";
   };
   metaKeywords?: string;
-  metaAurthor?: string;
+  metaTitle?: string;
   metaDescription?: string;
 }>;
 // Variable: ARTICLE_QUERY
@@ -460,7 +460,7 @@ export type ARTICLE_QUERYResult = Array<{
     [internalGroqTypeReferenceTo]?: "event";
   };
   metaKeywords?: string;
-  metaAurthor?: string;
+  metaTitle?: string;
   metaDescription?: string;
 }>;
 // Source: ../frontend/app/queries/event-queries.ts

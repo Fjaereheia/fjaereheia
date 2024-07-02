@@ -26,7 +26,7 @@ export default function Article() {
         <meta charSet="utf-8" />
         <meta name="description" content={data[0]?.metaDescription || ""} />
         <meta name="keywords" content={data[0]?.metaKeywords || ""} />
-        <meta name="author" content={data[0]?.metaAurthor || ""} />
+        <meta name="title" content={data[0]?.metaTitle || ""} />
       </Helmet>
       <div>
         <h1>Artikler</h1>

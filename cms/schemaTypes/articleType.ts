@@ -62,23 +62,31 @@ export const articleType = defineType({
     }),
     defineField({
       name: 'metaKeywords',
-      title: 'Nøkkelord',
+      title: 'Nøkkelord (metdata)',
       type: 'string',
-      validation: (rule) => [rule.required()],
+      validation: (rule) => [
+        rule.required(),
+        rule.custom((value) => {
+          if (!value) return true
+          const wordCount = value.split(/\s+/).filter((word) => word).length
+          return wordCount <= 10 || 'Maksimalt 10 ord'
+        }),
+      ],
       group: 'seo',
     }),
     defineField({
-      name: 'metaAurthor',
-      title: 'Forfatter',
+      name: 'metaTitle',
+      title: 'Tittel (metdata)',
       type: 'string',
       group: 'seo',
+      validation: (rule) => [rule.required(), rule.max(70).warning('Maksimalt 70 tegn')],
     }),
     defineField({
       name: 'metaDescription',
-      title: 'Beskrivelse',
+      title: 'Beskrivelse (metdata)',
       type: 'string',
       group: 'seo',
-      validation: (rule) => [rule.required()],
+      validation: (rule) => [rule.required(), rule.max(160).warning('Maksimalt 160 tegn')],
     }),
   ],
 })

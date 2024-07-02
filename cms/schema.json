@@ -2050,7 +2050,7 @@
         },
         "optional": true
       },
-      "metaAurthor": {
+      "metaTitle": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
