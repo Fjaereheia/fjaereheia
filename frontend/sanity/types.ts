@@ -338,7 +338,6 @@ export type Article = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "event";
   };
-  metaKeywords?: string;
   metaTitle?: string;
   metaDescription?: string;
 };
@@ -369,6 +368,8 @@ export type Event = {
   };
   text?: Content;
   TicketsUrl?: string;
+  metaTitle?: string;
+  metaDescription?: string;
 };
 
 export type CustomImage = {
@@ -425,7 +426,6 @@ export type ARTICLES_QUERYResult = Array<{
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "event";
   };
-  metaKeywords?: string;
   metaTitle?: string;
   metaDescription?: string;
 }>;
@@ -459,7 +459,6 @@ export type ARTICLE_QUERYResult = Array<{
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "event";
   };
-  metaKeywords?: string;
   metaTitle?: string;
   metaDescription?: string;
 }>;
@@ -492,6 +491,8 @@ export type EVENTS_QUERYResult = Array<{
   };
   text?: Content;
   TicketsUrl?: string;
+  metaTitle?: string;
+  metaDescription?: string;
 }>;
 // Variable: EVENT_QUERY
 // Query: *[_type=="event" && slug.current == $id]
@@ -521,6 +522,8 @@ export type EVENT_QUERYResult = Array<{
   };
   text?: Content;
   TicketsUrl?: string;
+  metaTitle?: string;
+  metaDescription?: string;
 }>;
 // Source: ../frontend/app/queries/frontpage-queries.ts
 // Variable: FRONTPAGE_QUERY

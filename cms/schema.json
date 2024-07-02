@@ -2043,13 +2043,6 @@
         },
         "optional": true
       },
-      "metaKeywords": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
       "metaTitle": {
         "type": "objectAttribute",
         "value": {
@@ -2225,6 +2218,20 @@
         "optional": true
       },
       "TicketsUrl": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "metaTitle": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "metaDescription": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
