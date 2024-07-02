@@ -32,7 +32,7 @@ export default function Event() {
           )}
           {e.TicketsUrl && (
             <ButtonLinkExternal
-              url={e.TicketsUrl || ""}
+              url={e.TicketsUrl}
               buttonText="Kjøp billetter her"
             />
           )}
