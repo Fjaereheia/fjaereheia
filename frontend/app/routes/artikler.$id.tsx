@@ -27,6 +27,7 @@ export default function Article() {
         title={data[0]?.metaTitle}
         lang={data[0]?.language}
       />
+
       <div>
         <h1>Artikler</h1>
         {data.map((d, index) => (
