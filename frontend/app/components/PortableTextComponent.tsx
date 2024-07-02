@@ -1,5 +1,6 @@
 import { PortableText, PortableTextComponentProps } from "@portabletext/react";
 import { Content } from "sanity/types";
+import urlFor from "~/functions/imageUrlBuilder";
 
 interface PortabelTextProps {
   textData: Content;
@@ -11,12 +12,12 @@ export default function PortableTextComponent({ textData }: PortabelTextProps) {
       customImage: ({
         value,
       }: PortableTextComponentProps<{
-        asset: { url: string };
+        asset: { _ref: string; _type: "reference" };
         alt: string;
       }>) => {
         return (
           <img
-            src={value.asset.url}
+            src={urlFor(value.asset?._ref)}
             alt={value.alt}
             style={{ maxWidth: "100%" }}
           />
