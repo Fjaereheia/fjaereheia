@@ -26,7 +26,6 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export default function Index() {
   const data = useLoaderData<typeof loader>() as FRONTPAGE_QUERYResult;
-
   return (
     <div>
       <h1>{data?.title}</h1>
