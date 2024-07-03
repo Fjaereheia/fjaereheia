@@ -14,9 +14,4 @@ export default defineConfig({
 
     tsconfigPaths(),
   ],
-  css: {
-    postcss: {
-      plugins: [require("tailwindcss"), require("autoprefixer")],
-    },
-  },
 });
