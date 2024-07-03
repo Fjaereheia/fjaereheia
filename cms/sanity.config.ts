@@ -23,9 +23,9 @@ export default defineConfig({
 
   plugins: [
     documentInternationalization(PluginConfig),
-    muxInput(),
     structureTool({structure: deskStructure}),
     visionTool(),
+    muxInput(),
   ],
 
   schema: {
