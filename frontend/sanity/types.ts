@@ -108,6 +108,7 @@ export type Content = Array<
       [internalGroqTypeReferenceTo]?: "quote";
     }
 >;
+
 export type Content = Array<
   | {
       children?: Array<{
@@ -148,6 +149,7 @@ export type Content = Array<
       [internalGroqTypeReferenceTo]?: "quote";
     }
 >;
+
 
 export type Quote = {
   _id: string;
@@ -229,11 +231,13 @@ export type TranslationMetadata = {
       _key: string;
     } & InternationalizedArrayReferenceValue
   >;
+
   translations?: Array<
     {
       _key: string;
     } & InternationalizedArrayReferenceValue
   >;
+
   schemaTypes?: Array<string>;
   slug?: Slug;
 };
@@ -265,6 +269,7 @@ export type InternationalizedArrayReferenceValue = {
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "role";
       };
+
   value?:
     | {
         _ref: string;
@@ -290,6 +295,7 @@ export type InternationalizedArrayReferenceValue = {
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "role";
       };
+
 };
 
 export type Role = {
@@ -427,11 +433,13 @@ export type InternationalizedArrayReference = Array<
     _key: string;
   } & InternationalizedArrayReferenceValue
 >;
+
 export type InternationalizedArrayReference = Array<
   {
     _key: string;
   } & InternationalizedArrayReferenceValue
 >;
+
 
 export type AllSanitySchemaTypes =
   | SanityImagePaletteSwatch
@@ -455,6 +463,7 @@ export type AllSanitySchemaTypes =
   | CustomImage
   | Slug
   | InternationalizedArrayReference;
+
 export type AllSanitySchemaTypes =
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -477,6 +486,7 @@ export type AllSanitySchemaTypes =
   | CustomImage
   | Slug
   | InternationalizedArrayReference;
+
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY

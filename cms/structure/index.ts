@@ -1,5 +1,12 @@
 import {StructureBuilder} from 'sanity/structure'
-import {ArrowDownIcon, CalendarIcon, DocumentTextIcon, HomeIcon, UserIcon} from '@sanity/icons'
+import {
+  ArrowDownIcon,
+  CalendarIcon,
+  DocumentTextIcon,
+  HomeIcon,
+  UserIcon,
+  InfoOutlineIcon,
+} from '@sanity/icons'
 
 const SINGLETONS = [{id: 'frontpage', title: 'Forside', _type: 'frontpage'}]
 
@@ -38,6 +45,7 @@ export const deskStructure = (S: StructureBuilder) =>
       S.documentTypeListItem('article').title('Artikler').icon(DocumentTextIcon),
       S.documentTypeListItem('event').title('Forestillinger').icon(CalendarIcon),
       S.documentTypeListItem('role').title('Roller').icon(UserIcon),
+      S.documentTypeListItem('infopage').title('Informasjonssider').icon(InfoOutlineIcon),
       S.listItem()
         .title('Footer')
         .id('footer')
