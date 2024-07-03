@@ -23,6 +23,9 @@ export const roleType = defineType({
       type: 'customImage',
       description: 'Legg til et bilde',
       validation: (rule) => rule.required(),
+      options: {
+        hotspot: true,
+      },
     }),
     defineField({
       name: 'text',
