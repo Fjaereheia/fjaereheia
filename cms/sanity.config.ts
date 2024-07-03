@@ -8,6 +8,7 @@ import {
 } from '@sanity/document-internationalization'
 import {deskStructure} from './structure'
 import {PluginConfig} from './structure/documentInternationalization'
+import {muxInput} from 'sanity-plugin-mux-input'
 
 //singleton pages. Before you add the type to singletontypes, the page should be created, since create is not a valid action for singleton types
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
@@ -22,6 +23,7 @@ export default defineConfig({
 
   plugins: [
     documentInternationalization(PluginConfig),
+    muxInput(),
     structureTool({structure: deskStructure}),
     visionTool(),
   ],
