@@ -44,6 +44,9 @@ export const articleType = defineType({
       title: 'Bilde',
       type: 'customImage',
       description: 'Legg til et bilde',
+      options: {
+        hotspot: true,
+      },
     }),
     defineField({
       name: 'event',
