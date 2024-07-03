@@ -2,6 +2,8 @@ import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { ARTICLE_QUERYResult } from "sanity/types";
+import PortableTextComponent from "~/components/PortableTextComponent";
+import urlFor from "~/functions/imageUrlBuilder";
 import { ARTICLE_QUERY } from "~/queries/article-queries";
 
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -21,15 +23,18 @@ export default function Article() {
   const data = useLoaderData<typeof loader>() as ARTICLE_QUERYResult;
   return (
     <div>
-      <h1>Artikler</h1>
       {data.map((d) => (
         <div>
-          <h2>{d.title}</h2>
-          {d.event && (
-            <Link to={`/event/${d.event.slug?.current}`}>
-              <h3>Les mer om forestilling</h3>
-            </Link>
+          <h1>{d.title}</h1>
+          {d.image?.asset?._ref ? (
+            <img
+              src={urlFor(d.image.asset?._ref, d.image?.hotspot)}
+              alt={d.title}
+            />
+          ) : (
+            <p>No image available</p>
           )}
+          {d.text ? <PortableTextComponent textData={d.text} /> : null}
         </div>
       ))}
     </div>
