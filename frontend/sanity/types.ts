@@ -68,6 +68,63 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Footer = {
+  _id: string;
+  _type: "footer";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  text?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?:
+          | "normal"
+          | "h1"
+          | "h2"
+          | "h3"
+          | "h4"
+          | "h5"
+          | "h6"
+          | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+  >;
+  links?: Array<{
+    href?: string;
+    blank?: boolean;
+    icon?: {
+      name?: "fa-facebook" | "fa-twitter" | "fa-instagram";
+    };
+    _type: "link";
+    _key: string;
+  }>;
+};
+
 export type Content = Array<
   | {
       children?: Array<{
@@ -381,7 +438,7 @@ export type AllSanitySchemaTypes =
   | Slug
   | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ../frontend/app/queries/article-queries.ts
+// Source: ../frontend/app/functions/queryFunction.ts
 // Variable: ARTICLES_QUERY
 // Query: *[_type=="article"]
 export type ARTICLES_QUERYResult = Array<{
@@ -444,7 +501,6 @@ export type ARTICLE_QUERYResult = Array<{
     [internalGroqTypeReferenceTo]?: "event";
   };
 }>;
-// Source: ../frontend/app/queries/event-queries.ts
 // Variable: EVENTS_QUERY
 // Query: *[_type=="event"]
 export type EVENTS_QUERYResult = Array<{
@@ -503,7 +559,6 @@ export type EVENT_QUERYResult = Array<{
   text?: Content;
   TicketsUrl?: string;
 }>;
-// Source: ../frontend/app/queries/frontpage-queries.ts
 // Variable: FRONTPAGE_QUERY
 // Query: *[_type=="frontpage" && language=="nb"]{title, preamble, image, text, event->{title,preamble, text, image}}[0]
 export type FRONTPAGE_QUERYResult = {

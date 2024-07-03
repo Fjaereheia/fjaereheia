@@ -4,8 +4,12 @@ import { client } from "sanity/clientConfig";
 import { FRONTPAGE_QUERYResult } from "sanity/types";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/functions/imageUrlBuilder";
-import { FRONTPAGE_QUERY } from "~/queries/frontpage-queries";
 import ButtonLink from "~/components/ButtonLink";
+import {
+  FRONTPAGE_QUERY,
+  query,
+  queryByType,
+} from "~/functions/queryFunctions";
 
 export const meta: MetaFunction = () => {
   return [
@@ -14,13 +18,8 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export async function getFrontpage() {
-  const frontpage = await client.fetch<FRONTPAGE_QUERYResult>(FRONTPAGE_QUERY);
-  return frontpage;
-}
-
 export async function loader() {
-  const frontpage = await getFrontpage();
+  const frontpage = await queryByType(FRONTPAGE_QUERY);
 
   if (!frontpage) {
     return json("Forside ikke funnet", { status: 404 });

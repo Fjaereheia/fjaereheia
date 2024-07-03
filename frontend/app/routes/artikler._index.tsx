@@ -1,17 +1,11 @@
 import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import { client } from "sanity/clientConfig";
 import { ARTICLES_QUERYResult } from "sanity/types";
-import { ARTICLES_QUERY } from "~/queries/article-queries";
 import ButtonLink from "~/components/ButtonLink";
-
-export async function getArticles() {
-  const articles = await client.fetch<ARTICLES_QUERYResult>(ARTICLES_QUERY);
-  return articles;
-}
+import { ARTICLES_QUERY, queryByType } from "~/functions/queryFunctions";
 
 export async function loader() {
-  const articles = await getArticles();
+  const articles = await queryByType(ARTICLES_QUERY);
 
   if (!articles) {
     return json("Kunne ikke hente artikler", { status: 404 });

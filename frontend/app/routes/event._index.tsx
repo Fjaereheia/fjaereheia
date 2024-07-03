@@ -1,12 +1,11 @@
 import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import { client } from "sanity/clientConfig";
 import { EVENTS_QUERYResult } from "sanity/types";
-import { EVENTS_QUERY } from "~/queries/event-queries";
 import ButtonLink from "~/components/ButtonLink";
+import { EVENTS_QUERY, queryByType } from "~/functions/queryFunctions";
 
 export async function getEvents() {
-  const events = await client.fetch<EVENTS_QUERYResult>(EVENTS_QUERY);
+  const events = await queryByType(EVENTS_QUERY);
   return events;
 }
 

@@ -2,12 +2,19 @@ import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { EVENT_QUERYResult } from "sanity/types";
-import { EVENT_QUERY } from "~/queries/event-queries";
 import urlFor from "app/functions/imageUrlBuilder";
 import ButtonLinkExternal from "~/components/ButtonLinkExternal";
+import {
+  EVENT_QUERY,
+  queryById,
+  queryByType,
+} from "~/functions/queryFunctions";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const event = await client.fetch<EVENT_QUERYResult>(EVENT_QUERY, params);
+  if (!params.id) {
+    return json("Kunne ikke finne forestilling", { status: 404 });
+  }
+  const event = await queryById(EVENT_QUERY, params.id);
 
   if (!event) {
     return json("Kunne ikke finne forestilling", { status: 404 });

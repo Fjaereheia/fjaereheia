@@ -1,17 +1,16 @@
-import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
+import { LoaderFunctionArgs, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { client } from "sanity/clientConfig";
 import { ARTICLE_QUERYResult } from "sanity/types";
-import { ARTICLE_QUERY } from "~/queries/article-queries";
+import { ARTICLE_QUERY, queryById } from "~/functions/queryFunctions";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const article = await client.fetch<ARTICLE_QUERYResult>(
-    ARTICLE_QUERY,
-    params
-  );
+  if (!params.id) {
+    return json("Kunne ikke hente artikkel", { status: 404 });
+  }
+  const article = await queryById(ARTICLE_QUERY, params.id);
 
   if (!article) {
-    return json("Kunne ikke hente artikler", { status: 404 });
+    return json("Kunne ikke hente artikkel", { status: 404 });
   }
 
   return json(article);
