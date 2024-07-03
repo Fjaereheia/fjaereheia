@@ -29,7 +29,6 @@ export default function Index() {
   return (
     <div>
       <h1>{data?.title}</h1>
-      <p>{data?.preamble}</p>
       <img
         src={urlFor(data?.image?.asset?._ref) || ""}
         alt={data?.image?.alt}
@@ -41,7 +40,6 @@ export default function Index() {
       {data?.event?.title ? (
         <>
           <h2>Forestilling: {data?.event?.title}</h2>
-          <p>Ingress: {data?.event?.preamble}</p>
           <img
             src={urlFor(data?.event?.image?.asset?._ref) || ""}
             alt={data?.event?.image?.alt || ""}

@@ -26,12 +26,6 @@ export const frontpage = defineType({
       hidden: true,
     }),
     defineField({
-      name: 'preamble',
-      title: 'Ingress',
-      type: 'string',
-      group: 'content',
-    }),
-    defineField({
       name: 'image',
       title: 'Bilde',
       type: 'customImage',
