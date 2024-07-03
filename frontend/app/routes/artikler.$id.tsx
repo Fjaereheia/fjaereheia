@@ -3,6 +3,9 @@ import { Link, useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { ARTICLE_QUERYResult } from "sanity/types";
 import { ARTICLE_QUERY } from "~/queries/article-queries";
+import ButtonLink from "~/components/ButtonLink";
+import PortableTextComponent from "~/components/PortableTextComponent";
+import urlFor from "~/functions/imageUrlBuilder";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const article = await client.fetch<ARTICLE_QUERYResult>(
@@ -11,7 +14,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
   );
 
   if (!article) {
-    return json("Kunne ikke hente artikler", { status: 404 });
+    return json("Kunne ikke hente artikkel", { status: 404 });
   }
 
   return json(article);
@@ -19,16 +22,28 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export default function Article() {
   const data = useLoaderData<typeof loader>() as ARTICLE_QUERYResult;
+
   return (
-    <div>
-      <h1>Artikler</h1>
-      {data.map((d) => (
-        <div>
-          <h2>{d.title}</h2>
-          {d.event && (
-            <Link to={`/event/${d.event.slug?.current}`}>
-              <h3>Les mer om forestilling</h3>
-            </Link>
+    <div className="flex flex-col items-center mx-6 mt-">
+      {data.map((article, index) => (
+        <div
+          className="flex flex-col items-start md:w-full lg:w-1/2"
+          key={index}
+        >
+          <h1 className="text-4xl">{article?.title}</h1>
+
+          {article?.image && (
+            <img
+              className="w-3/4 md:w-3/4 lg:w-1/2"
+              src={urlFor(article.image.asset?._ref || "")}
+            ></img>
+          )}
+          {article?.text && <PortableTextComponent textData={article.text} />}
+          {article?.event && (
+            <ButtonLink
+              url={`/event/${article.event?.slug?.current}`}
+              buttonText="Les mer om forestilling"
+            />
           )}
         </div>
       ))}
