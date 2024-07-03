@@ -28,13 +28,27 @@ export async function query(
 }
 
 export async function queryById(query: string, id: string) {
-  const result = await client.fetch(query, { id });
-  return result;
+  switch (query) {
+    case "article":
+      return await client.fetch(ARTICLE_QUERY, { id });
+    case "event":
+      return await client.fetch(EVENT_QUERY, { id });
+    default:
+      return null;
+  }
 }
 
 export async function queryByType(query: string) {
-  const result = await client.fetch(query);
-  return result;
+  switch (query) {
+    case "article":
+      return await client.fetch(ARTICLES_QUERY);
+    case "event":
+      return await client.fetch(EVENTS_QUERY);
+    case "frontpage":
+      return await client.fetch(FRONTPAGE_QUERY);
+    default:
+      return null;
+  }
 }
 
 export async function queryAll(type: string, language: string) {

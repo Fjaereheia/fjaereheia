@@ -5,7 +5,7 @@ import ButtonLink from "~/components/ButtonLink";
 import { EVENTS_QUERY, queryByType } from "~/functions/queryFunctions";
 
 export async function getEvents() {
-  const events = await queryByType(EVENTS_QUERY);
+  const events = await queryByType("event");
   return events;
 }
 

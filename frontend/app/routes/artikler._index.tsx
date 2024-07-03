@@ -5,7 +5,7 @@ import ButtonLink from "~/components/ButtonLink";
 import { ARTICLES_QUERY, queryByType } from "~/functions/queryFunctions";
 
 export async function loader() {
-  const articles = await queryByType(ARTICLES_QUERY);
+  const articles = await queryByType("article");
 
   if (!articles) {
     return json("Kunne ikke hente artikler", { status: 404 });

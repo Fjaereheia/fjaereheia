@@ -1,15 +1,10 @@
 import { json, type MetaFunction } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
-import { client } from "sanity/clientConfig";
+import { useLoaderData } from "@remix-run/react";
 import { FRONTPAGE_QUERYResult } from "sanity/types";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/functions/imageUrlBuilder";
 import ButtonLink from "~/components/ButtonLink";
-import {
-  FRONTPAGE_QUERY,
-  query,
-  queryByType,
-} from "~/functions/queryFunctions";
+import { queryByType } from "~/functions/queryFunctions";
 
 export const meta: MetaFunction = () => {
   return [
@@ -19,7 +14,7 @@ export const meta: MetaFunction = () => {
 };
 
 export async function loader() {
-  const frontpage = await queryByType(FRONTPAGE_QUERY);
+  const frontpage = await queryByType("frontpage");
 
   if (!frontpage) {
     return json("Forside ikke funnet", { status: 404 });

@@ -14,7 +14,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
   if (!params.id) {
     return json("Kunne ikke finne forestilling", { status: 404 });
   }
-  const event = await queryById(EVENT_QUERY, params.id);
+  const event = await queryById("event", params.id);
 
   if (!event) {
     return json("Kunne ikke finne forestilling", { status: 404 });
