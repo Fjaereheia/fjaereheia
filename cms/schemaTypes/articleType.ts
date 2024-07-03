@@ -46,6 +46,12 @@ export const articleType = defineType({
       description: 'Legg til et bilde',
     }),
     defineField({
+      name: 'video',
+      title: 'Video',
+      type: 'mux.video',
+      description: 'Legg til en video',
+    }),
+    defineField({
       name: 'event',
       type: 'reference',
       to: [{type: 'event'}],

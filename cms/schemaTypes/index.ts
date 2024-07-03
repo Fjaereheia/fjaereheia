@@ -7,6 +7,7 @@ import {infopageType} from './infopageType'
 import {footerType} from './footerType'
 import {quoteType} from './objects/quoteType'
 import RichTextEditor from './objects/RichTextEditor'
+import {muxVideo} from './objects/muxVideo'
 
 export const schemaTypes = [
   articleType,
@@ -18,4 +19,5 @@ export const schemaTypes = [
   footerType,
   quoteType,
   RichTextEditor,
+  muxVideo,
 ]

@@ -10,6 +10,9 @@ export default {
       type: 'customImage',
     },
     {
+      type: 'video',
+    },
+    {
       type: 'quote',
     },
   ],
