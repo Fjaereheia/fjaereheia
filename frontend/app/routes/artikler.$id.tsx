@@ -1,8 +1,9 @@
-import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { LoaderFunctionArgs, json } from "@remix-run/node";
+import { Link, MetaFunction, useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { ARTICLE_QUERYResult } from "sanity/types";
 import { getBackgroundColor } from "~/utils/colorCombinations";
+import MuxVideo from "~/components/MuxVideo";
 import { ARTICLE_QUERY } from "~/queries/article-queries";
 import ButtonLink from "~/components/ButtonLink";
 import PortableTextComponent from "~/components/PortableTextComponent";
@@ -60,6 +61,12 @@ export default function Article() {
               alt={data.image.alt}
             ></img>
           )}
+          {data.video ? (
+            <MuxVideo
+              playbackId={data.video?.asset?.playbackId}
+              title={data.title}
+            />
+          ) : null}
           {data?.text && <PortableTextComponent textData={data.text} />}
           {data?.event && (
             <ButtonLink

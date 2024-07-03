@@ -1,9 +1,10 @@
+import MuxPlayer from "@mux/mux-player-react";
 import { PortableText, PortableTextComponentProps } from "@portabletext/react";
 import { Content } from "sanity/types";
 import urlFor from "~/utils/imageUrlBuilder";
 
 interface PortableTextProps {
-  textData: Content;
+  textData: any;
 }
 
 export default function PortableTextComponent({ textData }: PortableTextProps) {
@@ -20,6 +21,20 @@ export default function PortableTextComponent({ textData }: PortableTextProps) {
             src={urlFor(value.asset?._ref)}
             alt={value.alt}
             style={{ maxWidth: "100%" }}
+          />
+        );
+      },
+      video: ({
+        value,
+      }: PortableTextComponentProps<{
+        muxVideo: { asset: { playbackId: string } };
+        title: string;
+      }>) => {
+        console.log(value);
+        return (
+          <MuxPlayer
+            playbackId={value.muxVideo.asset?.playbackId}
+            metadata={value?.title ? { video_title: value.title } : undefined}
           />
         );
       },
