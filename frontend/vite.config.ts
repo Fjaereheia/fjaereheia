@@ -11,6 +11,12 @@ export default defineConfig({
         v3_throwAbortReason: true,
       },
     }),
+
     tsconfigPaths(),
   ],
+  css: {
+    postcss: {
+      plugins: [require("tailwindcss"), require("autoprefixer")],
+    },
+  },
 });
