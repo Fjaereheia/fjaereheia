@@ -1,4 +1,4 @@
-import { json } from "@remix-run/node";
+import { json, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { ARTICLES_QUERYResult } from "sanity/types";
@@ -19,6 +19,15 @@ export async function loader() {
 
   return json(articles);
 }
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Artikler" },
+    {
+      property: "og:description",
+      content: "Oversikt over artikler",
+    },
+  ];
+};
 
 export default function Articles() {
   const data = useLoaderData<typeof loader>() as ARTICLES_QUERYResult;

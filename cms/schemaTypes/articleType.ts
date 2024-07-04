@@ -37,7 +37,7 @@ export const articleType = defineType({
       options: {source: 'title', isUnique: isUniqueOtherThanLanguage},
       hidden: ({document}) => !document?.title,
       description: 'Url: fjaereheia.no/xxx',
-      group: 'content',
+      group: 'seo',
     }),
     defineField({
       name: 'text',

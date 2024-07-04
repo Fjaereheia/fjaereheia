@@ -5,7 +5,6 @@ import { EVENT_QUERYResult } from "sanity/types";
 import { EVENT_QUERY } from "~/queries/event-queries";
 import urlFor from "app/functions/imageUrlBuilder";
 import ButtonLinkExternal from "~/components/ButtonLinkExternal";
-import HeaderData from "~/components/HeaderData";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await client.fetch<EVENT_QUERYResult>(EVENT_QUERY, params);
@@ -17,16 +16,32 @@ export async function loader({ params }: LoaderFunctionArgs) {
   return json(event);
 }
 
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  if (typeof data === "string" || !data) {
+    return [
+      { title: "Forestilling" },
+      {
+        property: "og:description",
+        content: "Informasjon om forestilling",
+      },
+    ];
+  }
+  const eventData = data[0];
+
+  return [
+    { title: eventData.metaTitle ?? "Forestilling" },
+    {
+      property: "og:description",
+      content: eventData.metaDescription ?? "Artikkel",
+    },
+  ];
+};
+
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
 
   return (
     <>
-      <HeaderData
-        description={data[0]?.metaDescription}
-        title={data[0]?.metaTitle}
-        lang={data[0]?.language}
-      />
       <div>
         <h1>Forestilling:</h1>
         {data.map((e, index) => (
