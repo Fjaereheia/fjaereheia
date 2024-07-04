@@ -33,7 +33,10 @@ export default function Event() {
           <div key={index}>
             <h2>{e.title}</h2>
             {e.image?.asset?._ref ? (
-              <img src={urlFor(e.image.asset._ref)} alt={e.title} />
+              <img
+                src={urlFor(e.image.asset._ref, e.image?.hotspot)}
+                alt={e.title}
+              />
             ) : (
               <p>No image available</p>
             )}

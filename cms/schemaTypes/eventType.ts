@@ -1,5 +1,5 @@
 import {defineField, defineType} from 'sanity'
-import {isUniqueOtherThanLanguage} from '../helperFunctions'
+import {isUniqueOtherThanLanguage} from '../structure/documentInternationalization'
 
 export const eventType = defineType({
   name: 'event',
@@ -65,6 +65,9 @@ export const eventType = defineType({
       title: 'Bilde',
       type: 'customImage',
       group: 'content',
+      options: {
+        hotspot: true,
+      },
     }),
     defineField({
       name: 'text',

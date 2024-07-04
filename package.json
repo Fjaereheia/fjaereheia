@@ -1,0 +1,8 @@
+{
+    "scripts": {
+        "all": "concurrently \"cd cms && npm run dev\" \" cd frontend && npm run dev\""
+    },
+    "dependencies": {
+        "concurrently": "^8.2.2"
+    }
+}
