@@ -27,7 +27,7 @@ export default function PortableTextComponent({ textData }: PortableTextProps) {
   };
 
   return (
-    <div>
+    <div className="prose">
       {textData && (
         <PortableText value={textData} components={customComponents} />
       )}
