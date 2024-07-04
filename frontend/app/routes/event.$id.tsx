@@ -5,6 +5,8 @@ import { EVENT_QUERYResult } from "sanity/types";
 import { EVENT_QUERY } from "~/queries/event-queries";
 import urlFor from "app/functions/imageUrlBuilder";
 import ButtonLinkExternal from "~/components/ButtonLinkExternal";
+import EventLabels from "~/components/EventLabels";
+import { split } from "postcss/lib/list";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await client.fetch<EVENT_QUERYResult>(EVENT_QUERY, params);
@@ -18,7 +20,6 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
-
   return (
     <div>
       <h1>Forestilling:</h1>
@@ -33,6 +34,8 @@ export default function Event() {
           ) : (
             <p>No image available</p>
           )}
+          <p>dato: {e.dates}</p>
+          <EventLabels />
           {e.TicketsUrl && (
             <ButtonLinkExternal
               url={e.TicketsUrl}
