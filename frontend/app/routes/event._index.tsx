@@ -35,7 +35,7 @@ export default function Events() {
         </div>
       ))}
       <ButtonLink url="/" buttonText="Tilbake til hovedsiden"></ButtonLink>
-      <StickyFooter infoUrl="/" programUrl="/event"></StickyFooter>
+      <StickyFooter infoUrl="/artikler" programUrl="/event"></StickyFooter>
     </div>
   );
 }

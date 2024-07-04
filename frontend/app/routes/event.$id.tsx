@@ -42,7 +42,7 @@ export default function Event() {
           )}
         </div>
       ))}
-      <StickyFooter infoUrl="/" programUrl="/event"></StickyFooter>
+      <StickyFooter infoUrl="/artikler" programUrl="/event"></StickyFooter>
     </div>
   );
 }
