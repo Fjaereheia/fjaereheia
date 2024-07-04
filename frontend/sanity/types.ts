@@ -528,6 +528,7 @@ export type Event = {
       _key: string;
     } & RoleGroups
   >;
+  TicketsUrl?: string;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 };
@@ -573,7 +574,6 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
-  | ColorCombination
   | MetaDescription
   | MetaTitle
   | Video
@@ -700,6 +700,7 @@ export type ARTICLE_QUERYResult = {
         _key: string;
       } & RoleGroups
     >;
+    TicketsUrl?: string;
     metaTitle?: MetaTitle;
     metaDescription?: MetaDescription;
   } | null;
@@ -744,6 +745,7 @@ export type EVENTS_QUERYResult = Array<{
       _key: string;
     } & RoleGroups
   >;
+  TicketsUrl?: string;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 }>;
