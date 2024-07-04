@@ -10,8 +10,8 @@ export default function StickyFooter({
   infoUrl,
 }: StickyFooterProps) {
   return (
-    <footer className="sticky bottom-0 border-t border-gray-200 shadow">
-      <ul className="flex flex-row justify-center">
+    <footer className="sticky bottom-0 border-t border-gray-200 shadow py-2 bg-white bg-opacity-100 z-10">
+      <ul className="flex flex-row justify-center space-x-6">
         <li>
           <Link
             to={infoUrl}
