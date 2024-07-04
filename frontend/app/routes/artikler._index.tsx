@@ -4,6 +4,7 @@ import { client } from "sanity/clientConfig";
 import { ARTICLES_QUERYResult } from "sanity/types";
 import { ARTICLES_QUERY } from "~/queries/article-queries";
 import ButtonLink from "~/components/ButtonLink";
+import StickyFooter from "~/components/StickyFooter";
 
 export async function getArticles() {
   const articles = await client.fetch<ARTICLES_QUERYResult>(ARTICLES_QUERY);
@@ -34,6 +35,7 @@ export default function Articles() {
         </div>
       ))}
       <ButtonLink url="/" buttonText="Tilbake til hovedsiden"></ButtonLink>
+      <StickyFooter iUrl="/" pUrl="/event"></StickyFooter>
     </div>
   );
 }

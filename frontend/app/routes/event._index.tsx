@@ -4,6 +4,7 @@ import { client } from "sanity/clientConfig";
 import { EVENTS_QUERYResult } from "sanity/types";
 import { EVENTS_QUERY } from "~/queries/event-queries";
 import ButtonLink from "~/components/ButtonLink";
+import StickyFooter from "~/components/StickyFooter";
 
 export async function getEvents() {
   const events = await client.fetch<EVENTS_QUERYResult>(EVENTS_QUERY);
@@ -34,6 +35,7 @@ export default function Events() {
         </div>
       ))}
       <ButtonLink url="/" buttonText="Tilbake til hovedsiden"></ButtonLink>
+      <StickyFooter iUrl="/" pUrl="/event"></StickyFooter>
     </div>
   );
 }

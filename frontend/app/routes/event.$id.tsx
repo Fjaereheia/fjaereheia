@@ -5,6 +5,7 @@ import { EVENT_QUERYResult } from "sanity/types";
 import { EVENT_QUERY } from "~/queries/event-queries";
 import urlFor from "app/functions/imageUrlBuilder";
 import ButtonLinkExternal from "~/components/ButtonLinkExternal";
+import StickyFooter from "~/components/StickyFooter";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await client.fetch<EVENT_QUERYResult>(EVENT_QUERY, params);
@@ -41,6 +42,7 @@ export default function Event() {
           )}
         </div>
       ))}
+      <StickyFooter iUrl="/" pUrl="/event"></StickyFooter>
     </div>
   );
 }

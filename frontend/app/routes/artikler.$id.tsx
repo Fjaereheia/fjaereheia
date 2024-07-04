@@ -2,6 +2,7 @@ import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { ARTICLE_QUERYResult } from "sanity/types";
+import StickyFooter from "~/components/StickyFooter";
 import { ARTICLE_QUERY } from "~/queries/article-queries";
 
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -32,6 +33,7 @@ export default function Article() {
           )}
         </div>
       ))}
+      <StickyFooter iUrl="/" pUrl="/event"></StickyFooter>
     </div>
   );
 }
