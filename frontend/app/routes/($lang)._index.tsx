@@ -5,6 +5,7 @@ import { getFrontpage } from "~/queries/frontpage-queries";
 import ButtonLink from "~/components/ButtonLink";
 import urlFor from "~/utils/imageUrlBuilder";
 import PortableTextComponent from "~/components/PortableTextComponent";
+import Newsletter from "~/components/Newsletter";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   if (!params.lang) {
@@ -42,6 +43,7 @@ export default function Index() {
 
   return (
     <div>
+      <Newsletter />
       <h1>{data?.title}</h1>
       <img
         src={urlFor(data?.image?.asset?._ref || "")}
