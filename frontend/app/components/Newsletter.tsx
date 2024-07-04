@@ -7,7 +7,10 @@ export default function Newsletter() {
     <div>
       <p>
         Knus problemet med å holde deg oppdatert på hva som skjer. Meld deg på
-        vårt <button onClick={() => setShowForm(true)}>nyhetsbrev</button>
+        vårt{" "}
+        <button className="underline" onClick={() => setShowForm(true)}>
+          nyhetsbrev
+        </button>
       </p>
       {showForm ? <NewsletterForm setShowForm={setShowForm} /> : null}
     </div>

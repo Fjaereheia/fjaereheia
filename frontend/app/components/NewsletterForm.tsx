@@ -46,23 +46,16 @@ function NewsletterForm(props: NewsletterFormProps) {
     <div className="fixed inset-0 flex items-center justify-center">
       <div
         ref={ref}
-        className="bg-newsletter w-auto md:w-1/3 h-2/3 m-4 grid grid-cols-1 grid-flow-row"
+        className="bg-newsletter w-auto md:w-1/3 h-2/3 m-4 grid grid-cols-1 grid-rows-8"
       >
-        {/*<button
-          className="w-6 ml-2 mt-2"
-          onClick={() => props.setShowForm(false)}
-        >
-          X
-        </button>
-        */}
         <div className="place-items-center">
           <p className="text-base p-2">
             Meld deg på nyhetsbrev fra Bruddet og få eksklusiv info, billetter
             til redusert pris og andre tilbud!
           </p>
-          <form className="grid grid-cols-1">
+          <form>
             <hr className="border-black" />
-            <div className="space-x-1 p-2 h-auto text-lg">
+            <div className="space-x-1 p-2">
               <label htmlFor="first_name">Fornavn*:</label>
               <input
                 type="text"
@@ -83,7 +76,7 @@ function NewsletterForm(props: NewsletterFormProps) {
                 placeholder="Nordmann"
                 required
                 value={lastName}
-                className="w-full py-1 bg-inherit placeholder-white"
+                className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
                 onChange={(e) => setLastname(e.target.value)}
               />
             </div>
@@ -96,7 +89,7 @@ function NewsletterForm(props: NewsletterFormProps) {
                 placeholder="eksempel@eksempel.com"
                 required
                 value={email}
-                className="w-full py-1 bg-inherit placeholder-white"
+                className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -108,7 +101,7 @@ function NewsletterForm(props: NewsletterFormProps) {
                 type="text"
                 placeholder="999 99 999"
                 value={tlf}
-                className="w-full py-1 bg-inherit placeholder-white"
+                className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
                 onChange={(e) => setTlf(e.target.value)}
               />
             </div>
@@ -120,7 +113,7 @@ function NewsletterForm(props: NewsletterFormProps) {
                 type="text"
                 placeholder="1234"
                 value={postNumber}
-                className="w-full py-1 bg-inherit placeholder-white"
+                className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
                 onChange={(e) => setPostNumber(e.target.value)}
               />
             </div>
@@ -134,7 +127,7 @@ function NewsletterForm(props: NewsletterFormProps) {
           <hr className="border-black" />
           <button
             type="submit"
-            className="w-full h-24 underline"
+            className="w-full h-full underline"
             onClick={handleSubmit}
           >
             Meld på nyhetsbrev
