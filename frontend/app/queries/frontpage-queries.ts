@@ -1,3 +1,11 @@
 import groq from "groq";
+import { client } from "sanity/clientConfig";
 
-export const FRONTPAGE_QUERY = groq`*[_type=="frontpage" && language=="nb"]{title, preamble, event->{title,preamble ,"imageUrl": image.asset->url, slug , text [] {..., asset-> { _id, url}}} , "imageUrl": image.asset->url}[0]`;
+export async function getFrontpage(params: { lang: string }) {
+  const frontpage = await client.fetch(
+    `*[_type=="frontpage" && language=="${params.lang}"]{title, text, image, event->{title, text, image}}[0]`
+  );
+  return frontpage;
+}
+
+export const FRONTPAGE_QUERY = groq`*[_type=="frontpage" && language=="nb"]{title, image, text, event->{title, text, image}}[0]`;

@@ -1,5 +1,5 @@
 import {defineField, defineType} from 'sanity'
-import {isUniqueOtherThanLanguage} from '../helperFunctions'
+import {isUniqueOtherThanLanguage} from '../structure/documentInternationalization'
 
 export const articleType = defineType({
   name: 'article',
@@ -52,6 +52,16 @@ export const articleType = defineType({
       type: 'customImage',
       description: 'Legg til et bilde',
       group: 'content',
+
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
+      name: 'video',
+      title: 'Video',
+      type: 'mux.video',
+      description: 'Legg til en video',
     }),
     defineField({
       name: 'event',
