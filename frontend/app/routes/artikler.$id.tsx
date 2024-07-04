@@ -33,7 +33,7 @@ export default function Article() {
           )}
         </div>
       ))}
-      <StickyFooter iUrl="/" pUrl="/event"></StickyFooter>
+      <StickyFooter infoUrl="/" programUrl="/event"></StickyFooter>
     </div>
   );
 }
