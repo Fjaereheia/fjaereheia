@@ -81,19 +81,15 @@ export const eventType = defineType({
     }),
     defineField({
       name: 'metaTitle',
-      title: 'Tittel',
-      description: 'Tittel for metadata',
-      type: 'string',
+      title: 'SEO tittel',
+      type: 'metaTitle',
       group: 'seo',
-      validation: (rule) => [rule.required(), rule.max(70).warning('Maksimalt 70 tegn')],
     }),
     defineField({
       name: 'metaDescription',
-      title: 'Beskrivelse',
-      description: 'Kort sammendrag (maks 160 tegn)',
-      type: 'string',
+      title: 'SEO beskrivelse',
+      type: 'metaDescription',
       group: 'seo',
-      validation: (rule) => [rule.required(), rule.max(160).warning('Maksimalt 160 tegn')],
     }),
   ],
 })

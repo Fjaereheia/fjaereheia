@@ -1,6 +1,4 @@
-User-agent: *
-Allow: /
-Sitemap:https://www.fjareheia.no/sitemap.xml
+
 
 
 #Start AI crawler block

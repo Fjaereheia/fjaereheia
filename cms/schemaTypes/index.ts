@@ -6,6 +6,8 @@ import customImage from './objects/customImage'
 import {quoteType} from './objects/quoteType'
 import RichTextEditor from './objects/RichTextEditor'
 import {footerType} from './footerType'
+import metaTitle from './objects/metaTitle'
+import metaDescription from './objects/metaDescription'
 
 export const schemaTypes = [
   articleType,
@@ -16,4 +18,6 @@ export const schemaTypes = [
   quoteType,
   RichTextEditor,
   footerType,
+  metaTitle,
+  metaDescription,
 ]
