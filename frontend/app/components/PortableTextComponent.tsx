@@ -4,7 +4,7 @@ import { Content } from "sanity/types";
 import urlFor from "~/utils/imageUrlBuilder";
 
 interface PortableTextProps {
-  textData: any;
+  textData: Content;
 }
 
 export default function PortableTextComponent({ textData }: PortableTextProps) {
@@ -30,7 +30,6 @@ export default function PortableTextComponent({ textData }: PortableTextProps) {
         muxVideo: { asset: { playbackId: string } };
         title: string;
       }>) => {
-        console.log(value);
         return (
           <MuxPlayer
             playbackId={value.muxVideo.asset?.playbackId}
