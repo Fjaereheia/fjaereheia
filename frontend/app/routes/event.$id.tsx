@@ -5,6 +5,7 @@ import { EVENT_QUERYResult } from "sanity/types";
 import { EVENT_QUERY } from "~/queries/event-queries";
 import urlFor from "app/functions/imageUrlBuilder";
 import ButtonLinkExternal from "~/components/ButtonLinkExternal";
+import PortableTextComponent from "~/components/PortableTextComponent";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await client.fetch<EVENT_QUERYResult>(EVENT_QUERY, params);
@@ -21,10 +22,8 @@ export default function Event() {
 
   return (
     <div>
-      <h1>Forestilling:</h1>
       {data.map((e, index) => (
         <div key={index}>
-          <h2>{e.title}</h2>
           {e.image?.asset?._ref ? (
             <img
               src={urlFor(e.image.asset._ref, e.image?.hotspot)}
@@ -33,6 +32,8 @@ export default function Event() {
           ) : (
             <p>No image available</p>
           )}
+          <h1>Tittel: {e.title}</h1>
+          {e.text ? <PortableTextComponent textData={e.text} /> : null}
           {e.TicketsUrl && (
             <ButtonLinkExternal
               url={e.TicketsUrl}
