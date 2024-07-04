@@ -68,6 +68,8 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type ColorCombination = "darkBluePrimaryGreenSecondary" | "lightRedPrimaryDarkBlueSecondary";
+
 export type MetaDescription = string;
 
 export type MetaTitle = string;
@@ -418,6 +420,7 @@ export type Article = {
   _rev: string;
   title?: string;
   language?: string;
+  colorCombination?: ColorCombination;
   slug?: Slug;
   text?: Content;
   image?: {
@@ -451,6 +454,7 @@ export type Event = {
   _rev: string;
   title?: string;
   language?: string;
+  colorCombination?: ColorCombination;
   slug?: Slug;
   preamble?: string;
   dates?: Array<string>;
@@ -506,7 +510,7 @@ export type InternationalizedArrayReference = Array<{
   _key: string;
 } & InternationalizedArrayReferenceValue>;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | MetaDescription | MetaTitle | Video | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Role | Infopage | Frontpage | Article | Event | MuxVideo | CustomImage | Slug | InternationalizedArrayReference;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | ColorCombination | MetaDescription | MetaTitle | Video | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Role | Infopage | Frontpage | Article | Event | MuxVideo | CustomImage | Slug | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -519,6 +523,7 @@ export type ARTICLES_QUERYResult = Array<{
   _rev: string;
   title?: string;
   language?: string;
+  colorCombination?: ColorCombination;
   slug?: Slug;
   text?: Content;
   image?: {
@@ -553,6 +558,7 @@ export type ARTICLE_QUERYResult = Array<{
   _rev: string;
   title?: string;
   language?: string;
+  colorCombination?: ColorCombination;
   slug?: Slug;
   text?: Content;
   image?: {
@@ -576,6 +582,7 @@ export type ARTICLE_QUERYResult = Array<{
     _rev: string;
     title?: string;
     language?: string;
+    colorCombination?: ColorCombination;
     slug?: Slug;
     preamble?: string;
     dates?: Array<string>;
@@ -611,6 +618,7 @@ export type EVENTS_QUERYResult = Array<{
   _rev: string;
   title?: string;
   language?: string;
+  colorCombination?: ColorCombination;
   slug?: Slug;
   preamble?: string;
   dates?: Array<string>;
@@ -642,6 +650,7 @@ export type EVENT_QUERYResult = Array<{
   _rev: string;
   title?: string;
   language?: string;
+  colorCombination?: ColorCombination;
   slug?: Slug;
   preamble?: string;
   dates?: Array<string>;
@@ -744,6 +753,7 @@ export type INFOPAGE_QUERYResult = {
     _rev: string;
     title?: string;
     language?: string;
+    colorCombination?: ColorCombination;
     slug: Slug | null;
     text?: Content;
     image?: {
