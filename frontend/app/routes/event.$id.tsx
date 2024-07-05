@@ -3,7 +3,6 @@ import { useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { EVENT_QUERYResult } from "sanity/types";
 import { EVENT_QUERY } from "~/queries/event-queries";
-import ButtonLinkExternal from "~/components/ButtonLinkExternal";
 import EventLabels from "~/components/EventLabels";
 import { getBackgroundColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
@@ -58,12 +57,7 @@ export default function Event() {
       ) : (
         <p>No image available</p>
       )}
-       {data.dates && (
-              <EventLabels
-                dateTime={e?.dates}
-                ticketUrl={e?.TicketsUrl || ""}
-              />
-            )}
+      {data.dates && <EventLabels dateTickets={data.dates} />}
       {data.text && <PortableTextComponent textData={data.text} />}
 
       {data.dates && <Tickets dateTickets={data.dates} />}
