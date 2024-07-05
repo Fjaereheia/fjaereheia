@@ -11,7 +11,7 @@ export default function Button({ url, buttonText }: ButtonProps) {
   const isHomepage = location.pathname === "/";
 
   const buttonClass = isHomepage
-    ? " text-white px-4 py-2 rounded font-serif"
+    ? " text-white px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl "
     : "";
 
   return (
