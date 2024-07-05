@@ -7,6 +7,7 @@ export const frontpage = defineType({
   groups: [
     {title: 'Innhold', name: 'content'},
     {title: 'Standard visning', name: 'default'},
+    {title: 'SEO', name: 'seo'},
   ],
   fields: [
     defineField({
@@ -51,6 +52,18 @@ export const frontpage = defineType({
       title: 'Forestilling',
       type: 'reference',
       to: [{type: 'event'}],
+    }),
+    defineField({
+      name: 'metaTitle',
+      title: 'SEO tittel',
+      type: 'metaTitle',
+      group: 'seo',
+    }),
+    defineField({
+      name: 'metaDescription',
+      title: 'SEO beskrivelse',
+      type: 'metaDescription',
+      group: 'seo',
     }),
   ],
 })

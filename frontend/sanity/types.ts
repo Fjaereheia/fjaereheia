@@ -68,103 +68,61 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type Footer = {
+export type MetaDescription = string;
+
+export type MetaTitle = string;
+
+export type Video = {
   _id: string;
-  _type: "footer";
+  _type: "video";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  text?: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?:
-          | "normal"
-          | "h1"
-          | "h2"
-          | "h3"
-          | "h4"
-          | "h5"
-          | "h6"
-          | "blockquote";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-        _key: string;
-      }
-  >;
-  links?: Array<{
+  muxVideo?: MuxVideo;
+};
+
+export type Content = Array<{
+  children?: Array<{
+    marks?: Array<string>;
+    text?: string;
+    _type: "span";
+    _key: string;
+  }>;
+  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+  listItem?: "bullet" | "number";
+  markDefs?: Array<{
     href?: string;
-    blank?: boolean;
-    icon?: {
-      name?: "fa-facebook" | "fa-twitter" | "fa-instagram";
-    };
     _type: "link";
     _key: string;
   }>;
-};
-
-export type Content = Array<
-  | {
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }
-  | {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      _type: "customImage";
-      _key: string;
-    }
-  | {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      _key: string;
-      [internalGroqTypeReferenceTo]?: "quote";
-    }
->;
+  level?: number;
+  _type: "block";
+  _key: string;
+} | {
+  asset?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+  };
+  hotspot?: SanityImageHotspot;
+  crop?: SanityImageCrop;
+  alt?: string;
+  _type: "customImage";
+  _key: string;
+} | {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  _key: string;
+  [internalGroqTypeReferenceTo]?: "video";
+} | {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  _key: string;
+  [internalGroqTypeReferenceTo]?: "quote";
+}>;
 
 export type Quote = {
   _id: string;
@@ -235,48 +193,116 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
+export type MuxVideoAsset = {
+  _type: "mux.videoAsset";
+  status?: string;
+  assetId?: string;
+  playbackId?: string;
+  filename?: string;
+  thumbTime?: number;
+  data?: MuxAssetData;
+};
+
+export type MuxAssetData = {
+  _type: "mux.assetData";
+  resolution_tier?: string;
+  upload_id?: string;
+  created_at?: string;
+  id?: string;
+  status?: string;
+  max_stored_resolution?: string;
+  passthrough?: string;
+  encoding_tier?: string;
+  master_access?: string;
+  aspect_ratio?: string;
+  duration?: number;
+  max_stored_frame_rate?: number;
+  mp4_support?: string;
+  max_resolution_tier?: string;
+  tracks?: Array<{
+    _key: string;
+  } & MuxTrack>;
+  playback_ids?: Array<{
+    _key: string;
+  } & MuxPlaybackId>;
+  static_renditions?: MuxStaticRenditions;
+};
+
+export type MuxStaticRenditions = {
+  _type: "mux.staticRenditions";
+  status?: string;
+  files?: Array<{
+    _key: string;
+  } & MuxStaticRenditionFile>;
+};
+
+export type MuxStaticRenditionFile = {
+  _type: "mux.staticRenditionFile";
+  ext?: string;
+  name?: string;
+  width?: number;
+  bitrate?: number;
+  filesize?: number;
+  height?: number;
+};
+
+export type MuxPlaybackId = {
+  _type: "mux.playbackId";
+  id?: string;
+  policy?: string;
+};
+
+export type MuxTrack = {
+  _type: "mux.track";
+  id?: string;
+  type?: string;
+  max_width?: number;
+  max_frame_rate?: number;
+  duration?: number;
+  max_height?: number;
+};
+
 export type TranslationMetadata = {
   _id: string;
   _type: "translation.metadata";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  translations?: Array<
-    {
-      _key: string;
-    } & InternationalizedArrayReferenceValue
-  >;
+  translations?: Array<{
+    _key: string;
+  } & InternationalizedArrayReferenceValue>;
   schemaTypes?: Array<string>;
   slug?: Slug;
 };
 
 export type InternationalizedArrayReferenceValue = {
   _type: "internationalizedArrayReferenceValue";
-  value?:
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "article";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "event";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "frontpage";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "role";
-      };
+  value?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "article";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "event";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "frontpage";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "infopage";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "role";
+  };
 };
 
 export type Role = {
@@ -302,6 +328,57 @@ export type Role = {
   text?: Content;
 };
 
+export type Infopage = {
+  _id: string;
+  _type: "infopage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  language?: string;
+  text?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "customImage";
+    _key: string;
+  }>;
+  links?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "article";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "infopage";
+  }>;
+};
+
 export type Frontpage = {
   _id: string;
   _type: "frontpage";
@@ -310,7 +387,6 @@ export type Frontpage = {
   _rev: string;
   title?: string;
   language?: string;
-  preamble?: string;
   image?: {
     asset?: {
       _ref: string;
@@ -330,6 +406,8 @@ export type Frontpage = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "event";
   };
+  metaTitle?: MetaTitle;
+  metaDescription?: MetaDescription;
 };
 
 export type Article = {
@@ -354,12 +432,15 @@ export type Article = {
     alt?: string;
     _type: "customImage";
   };
+  video?: MuxVideo;
   event?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "event";
   };
+  metaTitle?: MetaTitle;
+  metaDescription?: MetaDescription;
 };
 
 export type Event = {
@@ -388,6 +469,18 @@ export type Event = {
   };
   text?: Content;
   TicketsUrl?: string;
+  metaTitle?: MetaTitle;
+  metaDescription?: MetaDescription;
+};
+
+export type MuxVideo = {
+  _type: "mux.video";
+  asset?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "mux.videoAsset";
+  };
 };
 
 export type CustomImage = {
@@ -409,35 +502,11 @@ export type Slug = {
   source?: string;
 };
 
-export type InternationalizedArrayReference = Array<
-  {
-    _key: string;
-  } & InternationalizedArrayReferenceValue
->;
+export type InternationalizedArrayReference = Array<{
+  _key: string;
+} & InternationalizedArrayReferenceValue>;
 
-export type AllSanitySchemaTypes =
-  | SanityImagePaletteSwatch
-  | SanityImagePalette
-  | SanityImageDimensions
-  | SanityFileAsset
-  | Geopoint
-  | Footer
-  | Content
-  | Quote
-  | SanityImageCrop
-  | SanityImageHotspot
-  | SanityImageAsset
-  | SanityAssetSourceData
-  | SanityImageMetadata
-  | TranslationMetadata
-  | InternationalizedArrayReferenceValue
-  | Role
-  | Frontpage
-  | Article
-  | Event
-  | CustomImage
-  | Slug
-  | InternationalizedArrayReference;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | MetaDescription | MetaTitle | Video | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Role | Infopage | Frontpage | Article | Event | MuxVideo | CustomImage | Slug | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -464,15 +533,18 @@ export type ARTICLES_QUERYResult = Array<{
     alt?: string;
     _type: "customImage";
   };
+  video?: MuxVideo;
   event?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "event";
   };
+  metaTitle?: MetaTitle;
+  metaDescription?: MetaDescription;
 }>;
 // Variable: ARTICLE_QUERY
-// Query: *[_type=="article" && slug.current == $id]
+// Query: *[_type=="article" && slug.current == $id]{..., 'event': event->}
 export type ARTICLE_QUERYResult = Array<{
   _id: string;
   _type: "article";
@@ -495,12 +567,38 @@ export type ARTICLE_QUERYResult = Array<{
     alt?: string;
     _type: "customImage";
   };
-  event?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "event";
-  };
+  video?: MuxVideo;
+  event: {
+    _id: string;
+    _type: "event";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title?: string;
+    language?: string;
+    slug?: Slug;
+    preamble?: string;
+    dates?: Array<string>;
+    duration?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "customImage";
+    };
+    text?: Content;
+    TicketsUrl?: string;
+    metaTitle?: MetaTitle;
+    metaDescription?: MetaDescription;
+  } | null;
+  metaTitle?: MetaTitle;
+  metaDescription?: MetaDescription;
 }>;
 // Source: ../frontend/app/queries/event-queries.ts
 // Variable: EVENTS_QUERY
@@ -531,6 +629,8 @@ export type EVENTS_QUERYResult = Array<{
   };
   text?: Content;
   TicketsUrl?: string;
+  metaTitle?: MetaTitle;
+  metaDescription?: MetaDescription;
 }>;
 // Variable: EVENT_QUERY
 // Query: *[_type=="event" && slug.current == $id]
@@ -560,13 +660,14 @@ export type EVENT_QUERYResult = Array<{
   };
   text?: Content;
   TicketsUrl?: string;
+  metaTitle?: MetaTitle;
+  metaDescription?: MetaDescription;
 }>;
 // Source: ../frontend/app/queries/frontpage-queries.ts
 // Variable: FRONTPAGE_QUERY
-// Query: *[_type=="frontpage" && language=="nb"]{title, preamble, image, text, event->{title,preamble, text, image}}[0]
+// Query: *[_type=="frontpage" && language=="nb"]{title, image, language, metaTitle, metaDescription, text, event->{title, text, image}}[0]
 export type FRONTPAGE_QUERYResult = {
   title: string | null;
-  preamble: string | null;
   image: {
     asset?: {
       _ref: string;
@@ -579,10 +680,12 @@ export type FRONTPAGE_QUERYResult = {
     alt?: string;
     _type: "customImage";
   } | null;
+  language: string | null;
+  metaTitle: MetaTitle | null;
+  metaDescription: MetaDescription | null;
   text: Content | null;
   event: {
     title: string | null;
-    preamble: string | null;
     text: Content | null;
     image: {
       asset?: {
@@ -597,4 +700,122 @@ export type FRONTPAGE_QUERYResult = {
       _type: "customImage";
     } | null;
   } | null;
+} | null;
+// Source: ../frontend/app/queries/info-queries.ts
+// Variable: INFOPAGE_QUERY
+// Query: *[_type=="infopage" && language==$lang]{title, text, links[]->{..., slug}}[0]
+export type INFOPAGE_QUERYResult = {
+  title: string | null;
+  text: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "customImage";
+    _key: string;
+  } | {
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  links: Array<{
+    _id: string;
+    _type: "article";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title?: string;
+    language?: string;
+    slug: Slug | null;
+    text?: Content;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "customImage";
+    };
+    video?: MuxVideo;
+    event?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "event";
+    };
+    metaTitle?: MetaTitle;
+    metaDescription?: MetaDescription;
+  } | {
+    _id: string;
+    _type: "infopage";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title?: string;
+    language?: string;
+    text?: Array<{
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "customImage";
+      _key: string;
+    } | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    links?: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "article";
+    } | {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "infopage";
+    }>;
+    slug: null;
+  }> | null;
 } | null;

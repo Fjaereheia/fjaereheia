@@ -6,7 +6,6 @@ import { EVENT_QUERY } from "~/queries/event-queries";
 import urlFor from "app/functions/imageUrlBuilder";
 import ButtonLinkExternal from "~/components/ButtonLinkExternal";
 import EventLabels from "~/components/EventLabels";
-import { split } from "postcss/lib/list";
 import PortableTextComponent from "~/components/PortableTextComponent";
 
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -19,9 +18,31 @@ export async function loader({ params }: LoaderFunctionArgs) {
   return json(event);
 }
 
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  if (typeof data === "string" || !data) {
+    return [
+      { title: "Forestilling" },
+      {
+        property: "og:description",
+        content: "Informasjon om forestilling",
+      },
+    ];
+  }
+  const eventData = data[0];
+
+  return [
+    { title: eventData.metaTitle ?? "Forestilling" },
+    {
+      property: "og:description",
+      content: eventData.metaDescription ?? "Artikkel",
+    },
+  ];
+};
+
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
   return (
+    
     <>
       <div>
         {data.map((e, index) => (
