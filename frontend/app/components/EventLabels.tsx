@@ -1,18 +1,17 @@
 import { getDayOfWeek, getMonthName } from "~/functions/DateFormatting";
 import ButtonLinkExternal from "./ButtonLinkExternal";
 
-interface EvetLabelProps {
+interface EventLabelProps {
   dateTime: string[];
   ticketUrl: string;
 }
 
-export default function EventLabels({ dateTime, ticketUrl }: EvetLabelProps) {
+export default function EventLabels({ dateTime, ticketUrl }: EventLabelProps) {
   if (!dateTime) {
-    console.log("got here");
     return null;
   }
 
-  const dates = dateTime + " ";
+  const dates = dateTime[0];
   const [dateString, time] = dates.split("T");
   const [year, month, day] = dateString.split("-");
   const [hour, minute, second] = time.split(":");
