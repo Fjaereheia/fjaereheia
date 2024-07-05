@@ -8,7 +8,9 @@ import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
 import { useState } from "react";
-import RoleDropDown from "~/components/RoleDropDown";
+import RoleDropDown from "~/components/RoleDropDown/RoleDropDown";
+import ArrowDown from "~/components/RoleDropDown/arrow-down.svg";
+import ArrowUp from "~/components/RoleDropDown/arrow-up.svg";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await client.fetch<EVENT_QUERYResult>(EVENT_QUERY, params);
@@ -60,8 +62,20 @@ export default function Event() {
       )}
       {data.text && <PortableTextComponent textData={data.text} />}
       {data.dates && <Tickets dateTickets={data.dates} />}
-      <button onClick={() => setOpenRole(!openRole)}>RolleBesetning</button>
-      {openRole && <RoleDropDown roles={e.roles} />}
+      <button
+        className="w-80 h-auto py-4 px-6 grid grid-flow-col bg-inherit border border-black"
+        onClick={() => setOpenRole(!openRole)}
+      >
+        <span className="self-center justify-self-start text-xl">
+          Medvirkende{" "}
+        </span>
+        <img
+          className="w-6 h-6 self-center justify-self-end"
+          src={openRole ? ArrowUp : ArrowDown}
+          alt={openRole ? "Pil opp" : "Pil ned"}
+        />
+      </button>
+      {openRole && <RoleDropDown roles={data.roles} />}
     </div>
   );
 }
