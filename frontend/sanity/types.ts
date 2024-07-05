@@ -528,7 +528,6 @@ export type Event = {
       _key: string;
     } & RoleGroups
   >;
-  TicketsUrl?: string;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 };
@@ -700,7 +699,6 @@ export type ARTICLE_QUERYResult = {
         _key: string;
       } & RoleGroups
     >;
-    TicketsUrl?: string;
     metaTitle?: MetaTitle;
     metaDescription?: MetaDescription;
   } | null;
@@ -745,7 +743,6 @@ export type EVENTS_QUERYResult = Array<{
       _key: string;
     } & RoleGroups
   >;
-  TicketsUrl?: string;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 }>;
