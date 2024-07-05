@@ -750,7 +750,7 @@ export type EVENTS_QUERYResult = Array<{
   metaDescription?: MetaDescription;
 }>;
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && slug.current==$id]{...,roleGroups[]{name,roles[]->{name, occupation,image, text}}}[0]
+// Query: *[_type=="event" && slug.current==$id][0]{...,roleGroups[]{name,roles[]->{name, occupation,image, text}}}
 export type EVENT_QUERYResult = {
   _id: string;
   _type: "event";
