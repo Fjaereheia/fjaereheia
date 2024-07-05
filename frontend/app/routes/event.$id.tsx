@@ -49,6 +49,7 @@ export default function Event() {
     return <></>;
   }
   const [openRole, setOpenRole] = useState(false);
+  console.log(data);
   return (
     <div className={getBackgroundColor(data.colorCombination)}>
       <h1>Forestilling:</h1>
@@ -63,7 +64,7 @@ export default function Event() {
       {data.text && <PortableTextComponent textData={data.text} />}
       {data.dates && <Tickets dateTickets={data.dates} />}
       <button
-        className="w-80 h-auto py-4 px-6 grid grid-flow-col bg-inherit border border-black"
+        className="w-80 h-auto py-4 px-6 m-4 grid grid-flow-col bg-inherit border border-black"
         onClick={() => setOpenRole(!openRole)}
       >
         <span className="self-center justify-self-start text-xl">
@@ -75,7 +76,7 @@ export default function Event() {
           alt={openRole ? "Pil opp" : "Pil ned"}
         />
       </button>
-      {openRole && <RoleDropDown roles={data.roles} />}
+      {openRole && <RoleDropDown roleGroups={data.roleGroups} />}
     </div>
   );
 }

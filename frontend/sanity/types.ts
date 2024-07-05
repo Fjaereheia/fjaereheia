@@ -85,6 +85,18 @@ export type Video = {
   muxVideo?: MuxVideo;
 };
 
+export type RoleGroups = {
+  _type: "roleGroups";
+  name?: string;
+  roles?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "role";
+  }>;
+};
+
 export type Content = Array<
   | {
       children?: Array<{
@@ -334,6 +346,7 @@ export type Role = {
   _updatedAt: string;
   _rev: string;
   name?: string;
+  occupation?: string;
   language?: string;
   image?: {
     asset?: {
@@ -510,13 +523,11 @@ export type Event = {
     _type: "customImage";
   };
   text?: Content;
-  roles?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "role";
-  }>;
+  roleGroups?: Array<
+    {
+      _key: string;
+    } & RoleGroups
+  >;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 };
@@ -566,6 +577,7 @@ export type AllSanitySchemaTypes =
   | MetaDescription
   | MetaTitle
   | Video
+  | RoleGroups
   | Content
   | Quote
   | SanityImageCrop
@@ -683,13 +695,11 @@ export type ARTICLE_QUERYResult = {
       _type: "customImage";
     };
     text?: Content;
-    roles?: Array<{
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      _key: string;
-      [internalGroqTypeReferenceTo]?: "role";
-    }>;
+    roleGroups?: Array<
+      {
+        _key: string;
+      } & RoleGroups
+    >;
     metaTitle?: MetaTitle;
     metaDescription?: MetaDescription;
   } | null;
@@ -729,18 +739,16 @@ export type EVENTS_QUERYResult = Array<{
     _type: "customImage";
   };
   text?: Content;
-  roles?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "role";
-  }>;
+  roleGroups?: Array<
+    {
+      _key: string;
+    } & RoleGroups
+  >;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 }>;
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && slug.current == $id]{..., roles->}[0]
+// Query: *[_type=="event" && slug.current==$id]{...,roleGroups[]{name,roles[]->{name, occupation,image, text}}}[0]
 export type EVENT_QUERYResult = {
   _id: string;
   _type: "event";
@@ -771,27 +779,25 @@ export type EVENT_QUERYResult = {
     _type: "customImage";
   };
   text?: Content;
-  roles: Array<{
-    _id: string;
-    _type: "role";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
-    name?: string;
-    language?: string;
-    image?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      _type: "customImage";
-    };
-    text?: Content;
+  roleGroups: Array<{
+    name: string | null;
+    roles: Array<{
+      name: string | null;
+      occupation: string | null;
+      image: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "customImage";
+      } | null;
+      text: Content | null;
+    }> | null;
   }> | null;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
