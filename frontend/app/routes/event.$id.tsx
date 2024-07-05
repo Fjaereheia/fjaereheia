@@ -8,9 +8,9 @@ import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
 import { useState } from "react";
-import RoleDropDown from "~/components/RoleDropDown/RoleDropDown";
-import ArrowDown from "~/components/RoleDropDown/arrow-down.svg";
-import ArrowUp from "~/components/RoleDropDown/arrow-up.svg";
+import ArrowUp from "public/arrow-up.svg";
+import ArrowDown from "public/arrow-down.svg";
+import RoleDropDown from "~/components/RoleDropDown";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await client.fetch<EVENT_QUERYResult>(EVENT_QUERY, params);
