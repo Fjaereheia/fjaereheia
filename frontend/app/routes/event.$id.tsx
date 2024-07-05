@@ -7,6 +7,8 @@ import { getBackgroundColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
+import { useState } from "react";
+import RoleDropDown from "~/components/RoleDropDown";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await client.fetch<EVENT_QUERYResult>(EVENT_QUERY, params);
@@ -44,7 +46,7 @@ export default function Event() {
   if (!data) {
     return <></>;
   }
-
+  const [openRole, setOpenRole] = useState(false);
   return (
     <div className={getBackgroundColor(data.colorCombination)}>
       <h1>Forestilling:</h1>
@@ -58,6 +60,8 @@ export default function Event() {
       )}
       {data.text && <PortableTextComponent textData={data.text} />}
       {data.dates && <Tickets dateTickets={data.dates} />}
+      <button onClick={() => setOpenRole(!openRole)}>RolleBesetning</button>
+      {openRole && <RoleDropDown roles={e.roles} />}
     </div>
   );
 }
