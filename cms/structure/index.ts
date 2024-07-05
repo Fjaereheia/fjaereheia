@@ -1,7 +1,16 @@
 import {StructureBuilder} from 'sanity/structure'
 import {CalendarIcon, DocumentTextIcon, HomeIcon, UserIcon, InfoOutlineIcon} from '@sanity/icons'
 
-const SINGLETONS = [{id: 'frontpage', title: 'Forside', _type: 'frontpage'}]
+const SINGLETONS = [
+  {id: 'frontpage', title: 'Forside', _type: 'frontpage', icon: HomeIcon, schemaType: 'frontpage'},
+  {
+    id: 'infopage',
+    title: 'Informasjonsside',
+    _type: 'document',
+    icon: InfoOutlineIcon,
+    schemaType: 'infopage',
+  },
+]
 
 const LANGUAGES = [
   {id: `nb`, title: `🇳🇴 Norwegian (Bokmål)`},
@@ -16,7 +25,7 @@ export const deskStructure = (S: StructureBuilder) =>
         S.listItem()
           .title(singleton.title)
           .id(singleton.id)
-          .icon(HomeIcon)
+          .icon(singleton.icon)
           .child(
             S.list()
               .title(singleton.title)
@@ -25,7 +34,7 @@ export const deskStructure = (S: StructureBuilder) =>
               .items(
                 LANGUAGES.map((language) =>
                   S.documentListItem()
-                    .schemaType(`frontpage`)
+                    .schemaType(singleton.schemaType)
                     .id(`${singleton.id}-${language.id}`)
                     .title(`${singleton.title} (${language.id.toLocaleUpperCase()})`),
                 ),
@@ -38,5 +47,4 @@ export const deskStructure = (S: StructureBuilder) =>
       S.documentTypeListItem('article').title('Artikler').icon(DocumentTextIcon),
       S.documentTypeListItem('event').title('Forestillinger').icon(CalendarIcon),
       S.documentTypeListItem('role').title('Roller').icon(UserIcon),
-      S.documentTypeListItem('infopage').title('Informasjonssider').icon(InfoOutlineIcon),
     ])
