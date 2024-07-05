@@ -1,6 +1,6 @@
 import {defineType, defineField} from 'sanity'
 
-export const infopageType = defineType({
+export const infopage = defineType({
   name: 'infopage',
   title: 'Informasjonsside',
   type: 'document',
@@ -13,6 +13,12 @@ export const infopageType = defineType({
         rule.max(100).warning('Anbefaler kortere tittel.'),
         rule.required().min(1).error('Tittel er påkrevd'),
       ],
+    }),
+    defineField({
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
     }),
     defineField({
       name: 'text',
