@@ -31,7 +31,7 @@ export default function App() {
   return (
     <>
       <Outlet />
-      <StickyFooter infoUrl="/artikler" programUrl="/event" />
+      <StickyFooter infoUrl="/info" programUrl="/event" />
     </>
   );
 }

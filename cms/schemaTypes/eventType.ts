@@ -5,11 +5,16 @@ export const eventType = defineType({
   name: 'event',
   title: 'Forestilling',
   type: 'document',
+  groups: [
+    {title: 'Innhold', name: 'content'},
+    {title: 'SEO', name: 'seo'},
+  ],
   fields: [
     defineField({
       name: 'title',
       title: 'Tittel',
       type: 'string',
+      group: 'content',
       validation: (rule) => [
         rule
           .required()
@@ -31,16 +36,19 @@ export const eventType = defineType({
       options: {source: 'title', isUnique: isUniqueOtherThanLanguage},
       hidden: ({document}) => !document?.title,
       description: 'Url: fjaereheia.no/xxx',
+      group: 'seo',
     }),
     defineField({
       name: 'preamble',
       title: 'Ingress',
       type: 'string',
+      group: 'content',
     }),
     defineField({
       name: 'dates',
       title: 'Datoer',
       type: 'array',
+      group: 'content',
       of: [{type: 'datetime'}],
       validation: (rule) => [rule.required().min(1).error('Minst en dato er påkrevd.')],
     }),
@@ -49,12 +57,14 @@ export const eventType = defineType({
       title: 'Varighet',
       type: 'string',
       placeholder: 'e.g 1 time og 30 minutter',
+      group: 'content',
       validation: (rule) => [rule.required().error('Varighet er påkrevd.')],
     }),
     defineField({
       name: 'image',
       title: 'Bilde',
       type: 'customImage',
+      group: 'content',
       options: {
         hotspot: true,
       },
@@ -63,12 +73,26 @@ export const eventType = defineType({
       name: 'text',
       title: 'beskrivelse',
       type: 'content',
+      group: 'content',
     }),
     defineField({
       name: 'TicketsUrl',
       title: 'Billettlenke',
+      group: 'content',
       description: 'Lenke til salg av billetter (ticketmaster.no/xxx)',
       type: 'url',
+    }),
+    defineField({
+      name: 'metaTitle',
+      title: 'SEO tittel',
+      type: 'metaTitle',
+      group: 'seo',
+    }),
+    defineField({
+      name: 'metaDescription',
+      title: 'SEO beskrivelse',
+      type: 'metaDescription',
+      group: 'seo',
     }),
   ],
 })
