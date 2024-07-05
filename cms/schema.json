@@ -326,7 +326,6 @@
     }
   },
   {
-
     "name": "metaDescription",
     "type": "type",
     "value": {
@@ -341,7 +340,6 @@
     }
   },
   {
-
     "name": "video",
     "type": "document",
     "attributes": {
@@ -1934,6 +1932,13 @@
         }
       },
       "title": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "language": {
         "type": "objectAttribute",
         "value": {
           "type": "string"

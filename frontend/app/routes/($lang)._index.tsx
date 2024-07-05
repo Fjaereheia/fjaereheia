@@ -48,7 +48,7 @@ export default function Index() {
         alt={data?.image?.alt}
       />
       <br />
-      <ButtonLink url="/artikler" buttonText="Artikler (Info)"></ButtonLink>
+      <ButtonLink url="/info" buttonText="Info"></ButtonLink>
       <ButtonLink url="/event" buttonText="Program"></ButtonLink>
 
       {data?.event?.title ? (
