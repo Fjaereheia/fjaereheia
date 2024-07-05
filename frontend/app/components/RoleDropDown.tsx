@@ -5,7 +5,7 @@ import {
   internalGroqTypeReferenceTo,
 } from "sanity/types";
 import urlFor from "~/utils/imageUrlBuilder";
-import PortableTextComponent from "../PortableTextComponent";
+import PortableTextComponent from "./PortableTextComponent";
 
 interface RoleDropDownProps {
   roleGroups: Array<{
