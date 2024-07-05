@@ -7,6 +7,8 @@ import {infopageType} from './infopageType'
 import {quoteType} from './objects/quoteType'
 import RichTextEditor from './objects/RichTextEditor'
 import {muxVideo} from './objects/muxVideo'
+import metaTitle from './objects/metaTitle'
+import metaDescription from './objects/metaDescription'
 
 export const schemaTypes = [
   articleType,
@@ -18,4 +20,6 @@ export const schemaTypes = [
   quoteType,
   RichTextEditor,
   muxVideo,
+  metaTitle,
+  metaDescription,
 ]

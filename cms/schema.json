@@ -326,6 +326,22 @@
     }
   },
   {
+
+    "name": "metaDescription",
+    "type": "type",
+    "value": {
+      "type": "string"
+    }
+  },
+  {
+    "name": "metaTitle",
+    "type": "type",
+    "value": {
+      "type": "string"
+    }
+  },
+  {
+
     "name": "video",
     "type": "document",
     "attributes": {
@@ -2405,6 +2421,22 @@
           "dereferencesTo": "event"
         },
         "optional": true
+      },
+      "metaTitle": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "metaTitle"
+        },
+        "optional": true
+      },
+      "metaDescription": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "metaDescription"
+        },
+        "optional": true
       }
     }
   },
@@ -2579,6 +2611,22 @@
           "dereferencesTo": "event"
         },
         "optional": true
+      },
+      "metaTitle": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "metaTitle"
+        },
+        "optional": true
+      },
+      "metaDescription": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "metaDescription"
+        },
+        "optional": true
       }
     }
   },
@@ -2744,6 +2792,22 @@
         "type": "objectAttribute",
         "value": {
           "type": "string"
+        },
+        "optional": true
+      },
+      "metaTitle": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "metaTitle"
+        },
+        "optional": true
+      },
+      "metaDescription": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "metaDescription"
         },
         "optional": true
       }

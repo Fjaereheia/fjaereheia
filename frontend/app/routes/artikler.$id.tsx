@@ -20,10 +20,32 @@ export async function loader({ params }: LoaderFunctionArgs) {
   return json(article);
 }
 
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  if (typeof data === "string" || !data) {
+    return [
+      { title: "Artikkel" },
+      {
+        property: "og:description",
+        content: "Artikkel",
+      },
+    ];
+  }
+  const articleData = data[0];
+
+  return [
+    { title: articleData.metaTitle ?? "Artikkel" },
+    {
+      property: "og:description",
+      content: articleData.metaDescription ?? "Artikkel",
+    },
+  ];
+};
+
 export default function Article() {
   const data = useLoaderData<typeof loader>() as ARTICLE_QUERYResult;
 
   return (
+
     <div className="flex flex-col items-center mx-6 mt-">
       {data.map((article, index) => (
         <div

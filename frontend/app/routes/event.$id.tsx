@@ -16,31 +16,54 @@ export async function loader({ params }: LoaderFunctionArgs) {
   return json(event);
 }
 
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  if (typeof data === "string" || !data) {
+    return [
+      { title: "Forestilling" },
+      {
+        property: "og:description",
+        content: "Informasjon om forestilling",
+      },
+    ];
+  }
+  const eventData = data[0];
+
+  return [
+    { title: eventData.metaTitle ?? "Forestilling" },
+    {
+      property: "og:description",
+      content: eventData.metaDescription ?? "Artikkel",
+    },
+  ];
+};
+
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
 
   return (
-    <div>
-      <h1>Forestilling:</h1>
-      {data.map((e, index) => (
-        <div key={index}>
-          <h2>{e.title}</h2>
-          {e.image?.asset?._ref ? (
-            <img
-              src={urlFor(e.image.asset._ref, e.image?.hotspot)}
-              alt={e.title}
-            />
-          ) : (
-            <p>No image available</p>
-          )}
-          {e.TicketsUrl && (
-            <ButtonLinkExternal
-              url={e.TicketsUrl}
-              buttonText="Kjøp billetter her"
-            />
-          )}
-        </div>
-      ))}
-    </div>
+    <>
+      <div>
+        <h1>Forestilling:</h1>
+        {data.map((e, index) => (
+          <div key={index}>
+            <h2>{e.title}</h2>
+            {e.image?.asset?._ref ? (
+              <img
+                src={urlFor(e.image.asset._ref, e.image?.hotspot)}
+                alt={e.title}
+              />
+            ) : (
+              <p>No image available</p>
+            )}
+            {e.TicketsUrl && (
+              <ButtonLinkExternal
+                url={e.TicketsUrl}
+                buttonText="Kjøp billetter her"
+              />
+            )}
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
