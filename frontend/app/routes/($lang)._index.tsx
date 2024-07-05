@@ -23,7 +23,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
       { title: "Bruddet" },
       {
         property: "og:description",
-        content: "Hjemmesiden til bruddet i Grimstad",
+        content: "Hjemmesiden til Bruddet i Grimstad",
       },
     ];
   }
