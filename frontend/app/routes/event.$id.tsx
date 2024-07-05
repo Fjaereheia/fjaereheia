@@ -22,10 +22,8 @@ export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
   return (
     <div>
-      <h1>Forestilling:</h1>
       {data.map((e, index) => (
         <div key={index}>
-          <h2>{e.title}</h2>
           {e.image?.asset?._ref ? (
             <img
               src={urlFor(e.image.asset._ref, e.image?.hotspot)}
@@ -34,8 +32,8 @@ export default function Event() {
           ) : (
             <p>No image available</p>
           )}
-          <p>dato: {e.dates}</p>
-          <EventLabels />
+          <h2>Tittel: {e.title}</h2>
+          {e.dates ? <EventLabels dates={e?.dates} /> : null}
           {e.TicketsUrl && (
             <ButtonLinkExternal
               url={e.TicketsUrl}
