@@ -26,15 +26,13 @@ export default function Article() {
       {data.map((d) => (
         <div>
           <h1>{d.title}</h1>
-          {d.image?.asset?._ref ? (
+          {d.image?.asset?._ref && (
             <img
               src={urlFor(d.image.asset?._ref, d.image?.hotspot)}
               alt={d.title}
             />
-          ) : (
-            <p>No image available</p>
           )}
-          {d.text ? <PortableTextComponent textData={d.text} /> : null}
+          {d.text && <PortableTextComponent textData={d.text} />}
         </div>
       ))}
     </div>
