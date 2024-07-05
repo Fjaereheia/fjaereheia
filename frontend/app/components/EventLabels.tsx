@@ -52,18 +52,20 @@ export default function EventLabels({ dates }: EvetLabelProps) {
   const monthName = getMonthName(dateTime);
 
   return (
-    <div className="">
+    <div className="m-4">
       <div className="m-1 flex gap-4">
-        <div className="border-2 border-gray-400">
+        <div className="p-1 border-2 border-gray-400">
           {weekDay} {day}.{monthName}
         </div>
-        <div className="border-2 border-gray-400">
+        <div className="p-1 border-2 border-gray-400">
           Kl. {hour}.{minute}
         </div>
       </div>
       <div className="m-1 flex gap-4">
-        <div className="border-2 border-gray-400">Sjanger?</div>
-        <ButtonLinkExternal url={"/"} buttonText="KJØP" />
+        <div className="p-1 border-2 border-gray-400">Sjanger?</div>
+        <div className="border-2 pl-2 pr-2 border-gray-400 bg-slate-400 text-white flex items-center justify-center">
+          <ButtonLinkExternal url={"/"} buttonText="KJØP BILLETT" />
+        </div>
       </div>
     </div>
   );
