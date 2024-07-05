@@ -32,8 +32,8 @@ export default function Event() {
           ) : (
             <p>No image available</p>
           )}
-          <h1>Tittel: {e.title}</h1>
-          {e.text ? <PortableTextComponent textData={e.text} /> : null}
+          <h1>{e.title}</h1>
+          {e.text && <PortableTextComponent textData={e.text} />}
           {e.TicketsUrl && (
             <ButtonLinkExternal
               url={e.TicketsUrl}
