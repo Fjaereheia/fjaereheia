@@ -49,7 +49,6 @@ export default function Event() {
     return <></>;
   }
   const [openRole, setOpenRole] = useState(false);
-  console.log(data);
   return (
     <div className={getBackgroundColor(data.colorCombination)}>
       <h1>Forestilling:</h1>
