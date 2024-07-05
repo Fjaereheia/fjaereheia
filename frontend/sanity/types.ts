@@ -68,6 +68,8 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type ColorCombination = "darkBluePrimaryGreenSecondary" | "lightRedPrimaryDarkBlueSecondary";
+
 export type MetaDescription = string;
 
 export type MetaTitle = string;
@@ -418,6 +420,7 @@ export type Article = {
   _rev: string;
   title?: string;
   language?: string;
+  colorCombination?: ColorCombination;
   slug?: Slug;
   text?: Content;
   image?: {
@@ -451,6 +454,7 @@ export type Event = {
   _rev: string;
   title?: string;
   language?: string;
+  colorCombination?: ColorCombination;
   slug?: Slug;
   preamble?: string;
   dates?: Array<string>;
@@ -506,7 +510,7 @@ export type InternationalizedArrayReference = Array<{
   _key: string;
 } & InternationalizedArrayReferenceValue>;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | MetaDescription | MetaTitle | Video | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Role | Infopage | Frontpage | Article | Event | MuxVideo | CustomImage | Slug | InternationalizedArrayReference;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | ColorCombination | MetaDescription | MetaTitle | Video | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Role | Infopage | Frontpage | Article | Event | MuxVideo | CustomImage | Slug | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -519,6 +523,7 @@ export type ARTICLES_QUERYResult = Array<{
   _rev: string;
   title?: string;
   language?: string;
+  colorCombination?: ColorCombination;
   slug?: Slug;
   text?: Content;
   image?: {
@@ -544,8 +549,8 @@ export type ARTICLES_QUERYResult = Array<{
   metaDescription?: MetaDescription;
 }>;
 // Variable: ARTICLE_QUERY
-// Query: *[_type=="article" && slug.current == $id]{..., 'event': event->}
-export type ARTICLE_QUERYResult = Array<{
+// Query: *[_type=="article" && slug.current == $id][0]{..., 'event': event->}
+export type ARTICLE_QUERYResult = {
   _id: string;
   _type: "article";
   _createdAt: string;
@@ -553,6 +558,7 @@ export type ARTICLE_QUERYResult = Array<{
   _rev: string;
   title?: string;
   language?: string;
+  colorCombination?: ColorCombination;
   slug?: Slug;
   text?: Content;
   image?: {
@@ -576,6 +582,7 @@ export type ARTICLE_QUERYResult = Array<{
     _rev: string;
     title?: string;
     language?: string;
+    colorCombination?: ColorCombination;
     slug?: Slug;
     preamble?: string;
     dates?: Array<string>;
@@ -599,7 +606,7 @@ export type ARTICLE_QUERYResult = Array<{
   } | null;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
-}>;
+} | null;
 // Source: ../frontend/app/queries/event-queries.ts
 // Variable: EVENTS_QUERY
 // Query: *[_type=="event"]
@@ -611,6 +618,7 @@ export type EVENTS_QUERYResult = Array<{
   _rev: string;
   title?: string;
   language?: string;
+  colorCombination?: ColorCombination;
   slug?: Slug;
   preamble?: string;
   dates?: Array<string>;
@@ -633,8 +641,8 @@ export type EVENTS_QUERYResult = Array<{
   metaDescription?: MetaDescription;
 }>;
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && slug.current == $id]
-export type EVENT_QUERYResult = Array<{
+// Query: *[_type=="event" && slug.current == $id][0]
+export type EVENT_QUERYResult = {
   _id: string;
   _type: "event";
   _createdAt: string;
@@ -642,6 +650,7 @@ export type EVENT_QUERYResult = Array<{
   _rev: string;
   title?: string;
   language?: string;
+  colorCombination?: ColorCombination;
   slug?: Slug;
   preamble?: string;
   dates?: Array<string>;
@@ -662,7 +671,7 @@ export type EVENT_QUERYResult = Array<{
   TicketsUrl?: string;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
-}>;
+} | null;
 // Source: ../frontend/app/queries/frontpage-queries.ts
 // Variable: FRONTPAGE_QUERY
 // Query: *[_type=="frontpage" && language=="nb"]{title, image, language, metaTitle, metaDescription, text, event->{title, text, image}}[0]
@@ -744,6 +753,7 @@ export type INFOPAGE_QUERYResult = {
     _rev: string;
     title?: string;
     language?: string;
+    colorCombination?: ColorCombination;
     slug: Slug | null;
     text?: Content;
     image?: {

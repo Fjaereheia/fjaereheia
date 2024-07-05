@@ -5,6 +5,7 @@ import { EVENT_QUERYResult } from "sanity/types";
 import { EVENT_QUERY } from "~/queries/event-queries";
 import urlFor from "app/functions/imageUrlBuilder";
 import ButtonLinkExternal from "~/components/ButtonLinkExternal";
+import { getBackgroundColor } from "~/functions/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
 
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -27,13 +28,12 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
       },
     ];
   }
-  const eventData = data[0];
 
   return [
-    { title: eventData.metaTitle ?? "Forestilling" },
+    { title: data.metaTitle ?? "Forestilling" },
     {
       property: "og:description",
-      content: eventData.metaDescription ?? "Artikkel",
+      content: data.metaDescription ?? "Artikkel",
     },
   ];
 };
@@ -41,31 +41,17 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
 
-  return (
+  if (!data) {
+    return <></>;
+  }
 
+  return (
     <>
-      <div>
-        {data.map((e, index) => (
-          <div key={index}>
-            <h2>{e.title}</h2>
-            {e.image?.asset?._ref ? (
-              <img
-                src={urlFor(e.image.asset._ref, e.image?.hotspot)}
-                alt={e.title}
-              />
-            ) : (
-              <p>No image available</p>
-            )}
-            <h1>{e.title}</h1>
-            {e.text && <PortableTextComponent textData={e.text} />}
-            {e.TicketsUrl && (
-              <ButtonLinkExternal
-                url={e.TicketsUrl}
-                buttonText="Kjøp billetter her"
-              />
-            )}
-          </div>
-        ))}
+      <div className={getBackgroundColor(data.colorCombination)}>
+        <h1>{data.title}</h1>
+        {data.image?.asset?._ref ? <img src={urlFor(data.image.asset._ref, data.image?.hotspot)} alt={data.title} /> : <p>No image available</p>}
+        {data.text && <PortableTextComponent textData={data.text} />}
+        {data.TicketsUrl && <ButtonLinkExternal url={data.TicketsUrl} buttonText='Kjøp billetter her' />}
       </div>
     </>
   );

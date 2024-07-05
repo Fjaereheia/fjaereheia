@@ -38,12 +38,12 @@ export default function Events() {
       <p>Her er det forestillinger</p>
       {data.map((event, index) => (
         <div key={index}>
-          <Link key={event._id} to={event.slug?.current!}>
-            <h2 className="p-4 hover:bg-blue-50">{event.title}</h2>
+          <Link key={event._id} to={event.slug?.current ?? ""}>
+            <h2 className='p-4 hover:bg-blue-50'>{event.title}</h2>
           </Link>
         </div>
       ))}
-      <ButtonLink url="/" buttonText="Tilbake til hovedsiden"></ButtonLink>
+      <ButtonLink url='/' buttonText='Tilbake til hovedsiden'></ButtonLink>
     </div>
   );
 }
