@@ -1,6 +1,6 @@
 import { PortableText, PortableTextComponentProps } from "@portabletext/react";
 import { Content } from "sanity/types";
-import urlFor from "~/functions/imageUrlBuilder";
+import urlFor from "~/utils/imageUrlBuilder";
 
 interface PortableTextProps {
   textData: Content;

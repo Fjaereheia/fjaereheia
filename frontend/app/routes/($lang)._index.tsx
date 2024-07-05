@@ -3,7 +3,7 @@ import { useLoaderData } from "@remix-run/react";
 import { FRONTPAGE_QUERYResult } from "sanity/types";
 import { getFrontpage } from "~/queries/frontpage-queries";
 import ButtonLink from "~/components/ButtonLink";
-import urlFor from "~/functions/imageUrlBuilder";
+import urlFor from "~/utils/imageUrlBuilder";
 import PortableTextComponent from "~/components/PortableTextComponent";
 
 export async function loader({ params }: LoaderFunctionArgs) {

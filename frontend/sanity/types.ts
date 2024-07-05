@@ -457,7 +457,11 @@ export type Event = {
   colorCombination?: ColorCombination;
   slug?: Slug;
   preamble?: string;
-  dates?: Array<string>;
+  dates?: Array<{
+    date?: string;
+    url?: string;
+    _key: string;
+  }>;
   duration?: string;
   image?: {
     asset?: {
@@ -472,7 +476,6 @@ export type Event = {
     _type: "customImage";
   };
   text?: Content;
-  TicketsUrl?: string;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 };
@@ -585,7 +588,11 @@ export type ARTICLE_QUERYResult = {
     colorCombination?: ColorCombination;
     slug?: Slug;
     preamble?: string;
-    dates?: Array<string>;
+    dates?: Array<{
+      date?: string;
+      url?: string;
+      _key: string;
+    }>;
     duration?: string;
     image?: {
       asset?: {
@@ -600,7 +607,6 @@ export type ARTICLE_QUERYResult = {
       _type: "customImage";
     };
     text?: Content;
-    TicketsUrl?: string;
     metaTitle?: MetaTitle;
     metaDescription?: MetaDescription;
   } | null;
@@ -621,7 +627,11 @@ export type EVENTS_QUERYResult = Array<{
   colorCombination?: ColorCombination;
   slug?: Slug;
   preamble?: string;
-  dates?: Array<string>;
+  dates?: Array<{
+    date?: string;
+    url?: string;
+    _key: string;
+  }>;
   duration?: string;
   image?: {
     asset?: {
@@ -636,7 +646,6 @@ export type EVENTS_QUERYResult = Array<{
     _type: "customImage";
   };
   text?: Content;
-  TicketsUrl?: string;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 }>;
@@ -653,7 +662,11 @@ export type EVENT_QUERYResult = {
   colorCombination?: ColorCombination;
   slug?: Slug;
   preamble?: string;
-  dates?: Array<string>;
+  dates?: Array<{
+    date?: string;
+    url?: string;
+    _key: string;
+  }>;
   duration?: string;
   image?: {
     asset?: {
@@ -668,7 +681,6 @@ export type EVENT_QUERYResult = {
     _type: "customImage";
   };
   text?: Content;
-  TicketsUrl?: string;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 } | null;
