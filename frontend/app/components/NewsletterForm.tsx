@@ -46,39 +46,43 @@ function NewsletterForm(props: NewsletterFormProps) {
     <div className="fixed inset-0 flex items-center justify-center">
       <div
         ref={ref}
-        className="bg-newsletter w-auto md:w-1/3 h-2/3 m-4 grid grid-cols-1 grid-rows-auto"
+        className="bg-newsletter w-auto md:w-1/3 h-4/5 md:h-2/3 m-4 grid grid-cols-1 grid-rows-auto"
       >
         <p className="text-base p-2">
           Meld deg på nyhetsbrev fra Bruddet og få eksklusiv info, billetter til
           redusert pris og andre tilbud!
         </p>
-        <form>
-          <div className="space-x-1 p-2 border-t border-black">
-            <label htmlFor="first_name">Fornavn*:</label>
-            <input
-              type="text"
-              id="first_name"
-              placeholder="Ola"
-              required
-              value={firstName}
-              className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
-              onChange={(e) => setFirstname(e.target.value)}
-            />
+        <form className="grid grid-rows-auto">
+          <div className="p-2 border-t border-black">
+            <label htmlFor="first_name" className="w-full">
+              Fornavn*:
+              <input
+                type="text"
+                id="first_name"
+                placeholder="Ola"
+                required
+                value={firstName}
+                className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
+                onChange={(e) => setFirstname(e.target.value)}
+              />
+            </label>
           </div>
-          <div className="space-x-1 p-2 border-t border-black">
-            <label htmlFor="last_name">Etternavn*:</label>
-            <input
-              type="text"
-              id="last_name"
-              placeholder="Nordmann"
-              required
-              value={lastName}
-              className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
-              onChange={(e) => setLastname(e.target.value)}
-            />
+          <div className="p-2 border-t border-black">
+            <label htmlFor="last_name">
+              Etternavn*:
+              <input
+                type="text"
+                id="last_name"
+                placeholder="Nordmann"
+                required
+                value={lastName}
+                className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
+                onChange={(e) => setLastname(e.target.value)}
+              />
+            </label>
           </div>
-          <div className="space-x-1 p-2 border-t border-black">
-            <label htmlFor="email">E-post*:</label>
+          <div className="p-2 border-t border-black">
+            <label htmlFor="email">E-postadresse*:</label>
             <input
               id="email"
               type="email"
@@ -89,7 +93,7 @@ function NewsletterForm(props: NewsletterFormProps) {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="space-x-1 p-2 border-t border-black">
+          <div className="p-2 border-t border-black">
             <label htmlFor="tlf">Telefonnummer:</label>
             <input
               id="tlf"
@@ -100,7 +104,7 @@ function NewsletterForm(props: NewsletterFormProps) {
               onChange={(e) => setTlf(e.target.value)}
             />
           </div>
-          <div className="space-x-1 p-2 border-t border-black">
+          <div className="p-2 border-t border-black">
             <label htmlFor="post_number">Postnummer:</label>
             <input
               id="post_number"
