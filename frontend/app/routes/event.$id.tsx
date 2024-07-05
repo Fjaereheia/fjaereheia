@@ -58,7 +58,9 @@ export default function Event() {
       )}
       {data.text && <PortableTextComponent textData={data.text} />}
 
-      {data.dates && <Tickets dateTickets={data.dates} />}
+      <div id="tickets">
+        {data.dates && <Tickets dateTickets={data.dates} />}
+      </div>
     </div>
   );
 }
