@@ -549,8 +549,8 @@ export type ARTICLES_QUERYResult = Array<{
   metaDescription?: MetaDescription;
 }>;
 // Variable: ARTICLE_QUERY
-// Query: *[_type=="article" && slug.current == $id]{..., 'event': event->}
-export type ARTICLE_QUERYResult = Array<{
+// Query: *[_type=="article" && slug.current == $id][0]{..., 'event': event->}
+export type ARTICLE_QUERYResult = {
   _id: string;
   _type: "article";
   _createdAt: string;
@@ -606,7 +606,7 @@ export type ARTICLE_QUERYResult = Array<{
   } | null;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
-}>;
+} | null;
 // Source: ../frontend/app/queries/event-queries.ts
 // Variable: EVENTS_QUERY
 // Query: *[_type=="event"]
@@ -641,8 +641,8 @@ export type EVENTS_QUERYResult = Array<{
   metaDescription?: MetaDescription;
 }>;
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && slug.current == $id]
-export type EVENT_QUERYResult = Array<{
+// Query: *[_type=="event" && slug.current == $id][0]
+export type EVENT_QUERYResult = {
   _id: string;
   _type: "event";
   _createdAt: string;
@@ -671,7 +671,7 @@ export type EVENT_QUERYResult = Array<{
   TicketsUrl?: string;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
-}>;
+} | null;
 // Source: ../frontend/app/queries/frontpage-queries.ts
 // Variable: FRONTPAGE_QUERY
 // Query: *[_type=="frontpage" && language=="nb"]{title, image, language, metaTitle, metaDescription, text, event->{title, text, image}}[0]
