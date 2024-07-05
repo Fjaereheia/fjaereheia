@@ -1,29 +1,27 @@
-import { c } from "node_modules/vite/dist/node/types.d-aGj9QkWt";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface NewsletterFormProps {
   setShowForm: (showForm: boolean) => void;
 }
 
 function NewsletterForm(props: NewsletterFormProps) {
-  const [firstName, setFirstname] = useState("");
-  const [lastName, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [tlf, setTlf] = useState("");
-  const [postNumber, setPostNumber] = useState("");
+  const [formInfo, setFormInfo] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    tlf: "",
+    postNumber: "",
+  });
 
   function handleSubmit() {
-    if (firstName === "" || lastName === "" || email === "") {
+    if (
+      formInfo.firstName === "" ||
+      formInfo.lastName === "" ||
+      formInfo.email === ""
+    ) {
       alert("Fornavn, etternavn og e-post er påkrevd");
       return;
     }
-    const data = {
-      firstName,
-      lastName,
-      email,
-      tlf,
-      postNumber,
-    };
     alert("Du er meldt på nyhetsbrev");
   }
 
@@ -61,9 +59,11 @@ function NewsletterForm(props: NewsletterFormProps) {
                 id="first_name"
                 placeholder="Ola"
                 required
-                value={firstName}
+                value={formInfo.firstName}
                 className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
-                onChange={(e) => setFirstname(e.target.value)}
+                onChange={(e) =>
+                  setFormInfo({ ...formInfo, firstName: e.target.value })
+                }
               />
             </label>
           </div>
@@ -75,9 +75,11 @@ function NewsletterForm(props: NewsletterFormProps) {
                 id="last_name"
                 placeholder="Nordmann"
                 required
-                value={lastName}
+                value={formInfo.lastName}
                 className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
-                onChange={(e) => setLastname(e.target.value)}
+                onChange={(e) =>
+                  setFormInfo({ ...formInfo, lastName: e.target.value })
+                }
               />
             </label>
           </div>
@@ -88,9 +90,11 @@ function NewsletterForm(props: NewsletterFormProps) {
               type="email"
               placeholder="eksempel@eksempel.com"
               required
-              value={email}
+              value={formInfo.email}
               className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) =>
+                setFormInfo({ ...formInfo, email: e.target.value })
+              }
             />
           </div>
           <div className="p-2 border-t border-black">
@@ -99,9 +103,11 @@ function NewsletterForm(props: NewsletterFormProps) {
               id="tlf"
               type="text"
               placeholder="999 99 999"
-              value={tlf}
+              value={formInfo.tlf}
               className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
-              onChange={(e) => setTlf(e.target.value)}
+              onChange={(e) =>
+                setFormInfo({ ...formInfo, tlf: e.target.value })
+              }
             />
           </div>
           <div className="p-2 border-t border-black">
@@ -110,9 +116,11 @@ function NewsletterForm(props: NewsletterFormProps) {
               id="post_number"
               type="text"
               placeholder="1234"
-              value={postNumber}
+              value={formInfo.postNumber}
               className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
-              onChange={(e) => setPostNumber(e.target.value)}
+              onChange={(e) =>
+                setFormInfo({ ...formInfo, postNumber: e.target.value })
+              }
             />
           </div>
         </form>
