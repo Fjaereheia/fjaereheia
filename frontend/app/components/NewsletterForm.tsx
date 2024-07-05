@@ -4,24 +4,92 @@ interface NewsletterFormProps {
   setShowForm: (showForm: boolean) => void;
 }
 
+interface InputFieldProps {
+  id: string;
+  label: string;
+  type: string;
+  placeholder: string;
+  required?: boolean;
+  value: string;
+  onChange: (value: string) => void;
+}
+
+interface FormField {
+  id: string;
+  label: string;
+  type: string;
+  placeholder: string;
+  required?: boolean;
+}
+
+const formFields: FormField[] = [
+  {
+    id: "first_name",
+    label: "Fornavn*",
+    type: "text",
+    placeholder: "Ola",
+    required: true,
+  },
+  {
+    id: "last_name",
+    label: "Etternavn*",
+    type: "text",
+    placeholder: "Nordmann",
+    required: true,
+  },
+  {
+    id: "email",
+    label: "E-postadresse*",
+    type: "email",
+    placeholder: "eksempel@eksempel.com",
+    required: true,
+  },
+  {
+    id: "tlf",
+    label: "Telefonnummer",
+    type: "text",
+    placeholder: "999 99 999",
+  },
+  {
+    id: "post_number",
+    label: "Postnummer",
+    type: "text",
+    placeholder: "1234",
+  },
+];
+
+function InputField(props: InputFieldProps) {
+  return (
+    <div className="p-2 border-t border-black">
+      <label htmlFor={props.id}>
+        {props.label}:
+        <input
+          type={props.type}
+          id={props.id}
+          placeholder={props.placeholder}
+          required={props.required}
+          value={props.value}
+          className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
+          onChange={(e) => props.onChange(e.target.value)}
+        />
+      </label>
+    </div>
+  );
+}
+
 function NewsletterForm(props: NewsletterFormProps) {
-  const [formInfo, setFormInfo] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    tlf: "",
-    postNumber: "",
-  });
+  const [formInfo, setFormInfo] = useState<{ [key: string]: string }>({});
 
   function handleSubmit() {
-    if (
-      formInfo.firstName === "" ||
-      formInfo.lastName === "" ||
-      formInfo.email === ""
-    ) {
-      alert("Fornavn, etternavn og e-post er påkrevd");
+    const requiredFields = formFields.filter((field) => field.required);
+    const missingFields = requiredFields.filter((field) => !formInfo[field.id]);
+
+    if (missingFields.length > 0) {
+      const missingFieldLabels = missingFields.map((field) => field.label);
+      alert(`${missingFieldLabels.join(", ")} er påkrevd`);
       return;
     }
+
     alert("Du er meldt på nyhetsbrev");
   }
 
@@ -40,6 +108,10 @@ function NewsletterForm(props: NewsletterFormProps) {
     };
   }, [ref]);
 
+  const handleFieldChange = (fieldId: string, value: string) => {
+    setFormInfo({ ...formInfo, [fieldId]: value });
+  };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center">
       <div
@@ -51,78 +123,18 @@ function NewsletterForm(props: NewsletterFormProps) {
           redusert pris og andre tilbud!
         </p>
         <form className="grid grid-rows-auto">
-          <div className="p-2 border-t border-black">
-            <label htmlFor="first_name" className="w-full">
-              Fornavn*:
-              <input
-                type="text"
-                id="first_name"
-                placeholder="Ola"
-                required
-                value={formInfo.firstName}
-                className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
-                onChange={(e) =>
-                  setFormInfo({ ...formInfo, firstName: e.target.value })
-                }
-              />
-            </label>
-          </div>
-          <div className="p-2 border-t border-black">
-            <label htmlFor="last_name">
-              Etternavn*:
-              <input
-                type="text"
-                id="last_name"
-                placeholder="Nordmann"
-                required
-                value={formInfo.lastName}
-                className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
-                onChange={(e) =>
-                  setFormInfo({ ...formInfo, lastName: e.target.value })
-                }
-              />
-            </label>
-          </div>
-          <div className="p-2 border-t border-black">
-            <label htmlFor="email">E-postadresse*:</label>
-            <input
-              id="email"
-              type="email"
-              placeholder="eksempel@eksempel.com"
-              required
-              value={formInfo.email}
-              className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
-              onChange={(e) =>
-                setFormInfo({ ...formInfo, email: e.target.value })
-              }
+          {formFields.map((field) => (
+            <InputField
+              key={field.id}
+              id={field.id}
+              label={field.label}
+              type={field.type}
+              placeholder={field.placeholder}
+              required={field.required}
+              value={formInfo[field.id] || ""}
+              onChange={(value) => handleFieldChange(field.id, value)}
             />
-          </div>
-          <div className="p-2 border-t border-black">
-            <label htmlFor="tlf">Telefonnummer:</label>
-            <input
-              id="tlf"
-              type="text"
-              placeholder="999 99 999"
-              value={formInfo.tlf}
-              className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
-              onChange={(e) =>
-                setFormInfo({ ...formInfo, tlf: e.target.value })
-              }
-            />
-          </div>
-          <div className="p-2 border-t border-black">
-            <label htmlFor="post_number">Postnummer:</label>
-            <input
-              id="post_number"
-              type="text"
-              placeholder="1234"
-              value={formInfo.postNumber}
-              className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
-              onChange={(e) =>
-                setFormInfo({ ...formInfo, postNumber: e.target.value })
-              }
-            />
-          </div>
+          ))}
         </form>
         <p className="text-xs p-2 border-t border-black">
           Ved å melde meg på nyhetsbrev samtykker jeg til at Brudd AS kan sende
