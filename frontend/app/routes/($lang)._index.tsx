@@ -41,7 +41,6 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Index() {
   const data = useLoaderData<typeof loader>() as FRONTPAGE_QUERYResult;
-
   const imageUrl = urlFor(
     data?.event?.image?.asset?._ref || data?.image?.asset?._ref || ""
   );
@@ -68,11 +67,11 @@ export default function Index() {
         <ButtonLink url="/event" buttonText="Program" />
       </div>
 
-      {data?.event?.TicketsUrl && (
-        <a href={data?.event?.TicketsUrl || ""} target="_blank">
+      {data?.event && (
+        <Link to={"/event/" + data?.event?.slug?.current || "/event"}>
           <button className="flex items-center justify-center px-4 pt-20 lg:py-2 "></button>
           <GreenButton text={"Kjøp \nBillett"} />
-        </a>
+        </Link>
       )}
     </div>
   );
