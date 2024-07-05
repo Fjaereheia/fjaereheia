@@ -44,11 +44,11 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
+  const [openRole, setOpenRole] = useState(false);
 
   if (!data) {
     return <></>;
   }
-  const [openRole, setOpenRole] = useState(false);
   return (
     <div className={getBackgroundColor(data.colorCombination)}>
       <h1>Forestilling:</h1>
