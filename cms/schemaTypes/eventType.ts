@@ -89,6 +89,13 @@ export const eventType = defineType({
       group: 'content',
     }),
     defineField({
+      name: 'roles',
+      title: 'Roller',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'role'}]}],
+      group: 'content',
+    }),
+    defineField({
       name: 'metaTitle',
       title: 'SEO tittel',
       type: 'metaTitle',
