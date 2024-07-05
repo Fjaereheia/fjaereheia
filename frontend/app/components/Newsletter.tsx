@@ -12,7 +12,7 @@ export default function Newsletter() {
           nyhetsbrev
         </button>
       </p>
-      {showForm ? <NewsletterForm setShowForm={setShowForm} /> : null}
+      {showForm && <NewsletterForm setShowForm={setShowForm} />}
     </div>
   );
 }
