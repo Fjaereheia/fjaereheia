@@ -68,7 +68,9 @@ export default function Index() {
       </div>
 
       {data?.event && (
-        <Link to={"/event/" + data?.event?.slug?.current || "/event"}>
+        <Link
+          to={"/event/" + data?.event?.slug?.current + "#tickets" || "/event"}
+        >
           <button className="flex items-center justify-center px-4 pt-20 lg:py-2 "></button>
           <GreenButton text={"Kjøp \nBillett"} />
         </Link>
