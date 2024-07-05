@@ -2,10 +2,11 @@ import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { ARTICLE_QUERYResult } from "sanity/types";
+import { getBackgroundColor } from "~/utils/colorCombinations";
 import { ARTICLE_QUERY } from "~/queries/article-queries";
 import ButtonLink from "~/components/ButtonLink";
 import PortableTextComponent from "~/components/PortableTextComponent";
-import urlFor from "~/functions/imageUrlBuilder";
+import urlFor from "~/utils/imageUrlBuilder";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const article = await client.fetch<ARTICLE_QUERYResult>(
@@ -30,13 +31,12 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
       },
     ];
   }
-  const articleData = data[0];
 
   return [
-    { title: articleData.metaTitle ?? "Artikkel" },
+    { title: data.metaTitle ?? "Artikkel" },
     {
       property: "og:description",
-      content: articleData.metaDescription ?? "Artikkel",
+      content: data.metaDescription ?? "Artikkel",
     },
   ];
 };
@@ -44,31 +44,31 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 export default function Article() {
   const data = useLoaderData<typeof loader>() as ARTICLE_QUERYResult;
 
+  if (!data) {
+    return <></>;
+  }
+
   return (
-
-    <div className="flex flex-col items-center mx-6 mt-">
-      {data.map((article, index) => (
-        <div
-          className="flex flex-col items-start md:w-full lg:w-1/2"
-          key={index}
-        >
-          <h1 className="text-4xl">{article?.title}</h1>
-
-          {article?.image && (
+    <div className={getBackgroundColor(data.colorCombination)}>
+      <div className="flex flex-col items-center mx-6 mt- ">
+        <div className="flex flex-col items-start md:w-full lg:w-1/2">
+          <h1 className="text-4xl">{data.title}</h1>
+          {data.image && (
             <img
               className="w-3/4 md:w-3/4 lg:w-1/2"
-              src={urlFor(article.image.asset?._ref || "")}
+              src={urlFor(data.image.asset?._ref || "")}
+              alt={data.image.alt}
             ></img>
           )}
-          {article?.text && <PortableTextComponent textData={article.text} />}
-          {article?.event && (
+          {data?.text && <PortableTextComponent textData={data.text} />}
+          {data?.event && (
             <ButtonLink
-              url={`/event/${article.event?.slug?.current}`}
+              url={`/event/${data.event?.slug?.current}`}
               buttonText="Les mer om forestilling"
             />
           )}
         </div>
-      ))}
+      </div>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import RichTextEditor from './objects/RichTextEditor'
 import {muxVideo} from './objects/muxVideo'
 import metaTitle from './objects/metaTitle'
 import metaDescription from './objects/metaDescription'
+import colorCombination from './objects/colorCombination'
 
 export const schemaTypes = [
   articleType,
@@ -22,4 +23,5 @@ export const schemaTypes = [
   muxVideo,
   metaTitle,
   metaDescription,
+  colorCombination,
 ]

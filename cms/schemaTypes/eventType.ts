@@ -30,6 +30,11 @@ export const eventType = defineType({
       hidden: true,
     }),
     defineField({
+      name: 'colorCombination',
+      title: 'Fargekombinasjon',
+      type: 'colorCombination',
+    }),
+    defineField({
       name: 'slug',
       title: 'slug',
       type: 'slug',
@@ -49,7 +54,15 @@ export const eventType = defineType({
       title: 'Datoer',
       type: 'array',
       group: 'content',
-      of: [{type: 'datetime'}],
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {name: 'date', type: 'datetime', title: 'Dato'},
+            {name: 'url', type: 'url', title: 'Link'},
+          ],
+        },
+      ],
       validation: (rule) => [rule.required().min(1).error('Minst en dato er påkrevd.')],
     }),
     defineField({
@@ -74,13 +87,6 @@ export const eventType = defineType({
       title: 'beskrivelse',
       type: 'content',
       group: 'content',
-    }),
-    defineField({
-      name: 'TicketsUrl',
-      title: 'Billettlenke',
-      group: 'content',
-      description: 'Lenke til salg av billetter (ticketmaster.no/xxx)',
-      type: 'url',
     }),
     defineField({
       name: 'metaTitle',

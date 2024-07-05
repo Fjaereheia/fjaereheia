@@ -31,6 +31,11 @@ export const articleType = defineType({
       hidden: true,
     }),
     defineField({
+      name: 'colorCombination',
+      title: 'Fargekombinasjon',
+      type: 'colorCombination',
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
