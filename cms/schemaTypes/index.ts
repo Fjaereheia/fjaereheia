@@ -12,6 +12,7 @@ import metaDescription from './objects/metaDescription'
 import colorCombination from './objects/colorCombination'
 import roleGroups from './objects/roleGroups'
 import colorCombination from './objects/colorCombination'
+import roleGroups from './objects/roleGroups'
 
 export const schemaTypes = [
   articleType,
