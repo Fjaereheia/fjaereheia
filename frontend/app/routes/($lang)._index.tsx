@@ -40,35 +40,28 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Index() {
   const data = useLoaderData<typeof loader>() as FRONTPAGE_QUERYResult;
-
+  const imageUrl = urlFor(
+    data?.event?.image?.asset?._ref || data?.image?.asset?._ref || ""
+  );
   return (
-    <div>
+    <div
+      className="bg-cover bg-center h-screen w-full flex flex-col items-center justify-center"
+      style={{ backgroundImage: `url(${imageUrl})` }}
+      aria-label={
+        data?.event?.image?.alt || data?.image?.alt || "Background image"
+      }
+    >
       <Newsletter />
-      <h1>{data?.title}</h1>
-      <img
-        src={urlFor(data?.image?.asset?._ref || "")}
-        alt={data?.image?.alt}
-      />
-      <br />
-      <ButtonLink url="/info" buttonText="Info"></ButtonLink>
-      <ButtonLink url="/event" buttonText="Program"></ButtonLink>
+      <h1 className="text-white text-8xl">
+        {data?.event?.title || data?.title}
+      </h1>
 
-      {data?.event?.title ? (
-        <>
-          <h2>Forestilling: {data?.event?.title}</h2>
-          <img
-            src={urlFor(data?.event?.image?.asset?._ref || "")}
-            alt={data?.event?.image?.alt || ""}
-          />
-          {data?.event?.text ? (
-            <PortableTextComponent textData={data?.event?.text} />
-          ) : null}
-        </>
-      ) : (
-        <>
-          {data?.text ? <PortableTextComponent textData={data?.text} /> : null}
-        </>
-      )}
+      <br />
+      <div className="flex flex-row justify-center ">
+        <ButtonLink url="/artikler" buttonText="Info"></ButtonLink>
+        <img className="mb-4 mt-3 mx-1" src="/Vector.png" />
+        <ButtonLink url="/event" buttonText="Program"></ButtonLink>
+      </div>
     </div>
   );
 }
