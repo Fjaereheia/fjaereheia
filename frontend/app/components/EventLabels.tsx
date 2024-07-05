@@ -54,16 +54,15 @@ export default function EventLabels({ dates }: EvetLabelProps) {
   return (
     <div className="">
       <div className="m-1 flex gap-4">
-        <div className="border-2 border-white">
+        <div className="border-2 border-gray-400">
           {weekDay} {day}.{monthName}
         </div>
-        <div className="border-2 border-white">
+        <div className="border-2 border-gray-400">
           Kl. {hour}.{minute}
         </div>
       </div>
       <div className="m-1 flex gap-4">
-        <div className="border-2 border-white">Sjanger?</div>
-        <div className="border-2 border-white">Sjanger-type?</div>
+        <div className="border-2 border-gray-400">Sjanger?</div>
         <ButtonLinkExternal url={"/"} buttonText="KJØP" />
       </div>
     </div>
