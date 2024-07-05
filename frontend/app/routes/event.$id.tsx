@@ -3,9 +3,9 @@ import { useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { EVENT_QUERYResult } from "sanity/types";
 import { EVENT_QUERY } from "~/queries/event-queries";
-import urlFor from "app/functions/imageUrlBuilder";
-import { getBackgroundColor } from "~/functions/colorCombinations";
+import { getBackgroundColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
+import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
 
 export async function loader({ params }: LoaderFunctionArgs) {

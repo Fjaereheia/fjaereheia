@@ -58,7 +58,7 @@ export const eventType = defineType({
         {
           type: 'object',
           fields: [
-            {name: 'date', type: 'date', title: 'Dato'},
+            {name: 'date', type: 'datetime', title: 'Dato'},
             {name: 'url', type: 'url', title: 'Link'},
           ],
         },

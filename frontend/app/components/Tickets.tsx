@@ -11,7 +11,8 @@ type Props = {
 
 export const Tickets = ({ dateTickets }: Props) => {
   return (
-    <div>
+    <div className="flex flex-col items-center mx-6 mt-">
+      <h1 className="text-4xl">Billetter</h1>
       {dateTickets?.map((dateTicket: DateTicketType) => {
         return <DateTicket dateTicket={dateTicket} />;
       })}
