@@ -10,6 +10,7 @@ import {muxVideo} from './objects/muxVideo'
 import metaTitle from './objects/metaTitle'
 import metaDescription from './objects/metaDescription'
 import colorCombination from './objects/colorCombination'
+import roleGroups from './objects/roleGroups'
 
 export const schemaTypes = [
   articleType,
@@ -20,6 +21,7 @@ export const schemaTypes = [
   infopage,
   quoteType,
   RichTextEditor,
+  roleGroups,
   muxVideo,
   metaTitle,
   metaDescription,
