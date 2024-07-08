@@ -1,6 +1,7 @@
 import { PortableText, PortableTextComponentProps } from "@portabletext/react";
-import { Content } from "sanity/types";
+import { Content, Quote } from "sanity/types";
 import urlFor from "~/utils/imageUrlBuilder";
+import QuoteComponent from "./QuoteComponent";
 
 interface PortableTextProps {
   textData: Content;
@@ -22,6 +23,16 @@ export default function PortableTextComponent({ textData }: PortableTextProps) {
             style={{ maxWidth: "100%" }}
           />
         );
+      },
+      quote: ({
+        value,
+      }: PortableTextComponentProps<{
+        company: string;
+        content: string;
+        source: string;
+        date: string;
+      }>) => {
+        return <QuoteComponent quote={value} />;
       },
     },
   };
