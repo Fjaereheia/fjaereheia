@@ -1,15 +1,32 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import {
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  redirect,
+} from "@remix-run/react";
 import "./styles/app.css";
 import StickyFooter from "./components/StickyFooter";
 import Header from "./components/Header/Header";
+import { LoaderFunction } from "@remix-run/node";
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const { pathname, search } = new URL(request.url);
+
+  if (pathname.endsWith("/") && pathname.length > 1) {
+    throw redirect(`${pathname.slice(0, -1)}${search}`, 301);
+  }
+  return null;
+};
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='en'>
+    <html lang="en">
       <head>
-        <meta charSet='utf-8' />
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <link rel='icon' href='/favicon.ico' />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
         <Meta />
         <Links />
       </head>
@@ -24,10 +41,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Header />
-      <Outlet />
-      <StickyFooter infoUrl='/artikler' programUrl='/event' />
-    </>
+      <div className="flex-grow">
+        <Outlet />
+      </div>
+      <StickyFooter infoUrl="/info" programUrl="/event" />
+    </div>
   );
 }
