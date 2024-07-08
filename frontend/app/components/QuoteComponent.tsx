@@ -14,8 +14,8 @@ export default function QuoteComponent({
     <blockquote className="border-none grid grid-flow-row place-items-center text-white text-center">
       <img src={Quotes} alt="" />
       <span className="font-bold text-4xl">{quote.content}</span>
-      <span>{quote.source}</span>
-      <span className="underline">{quote.company}</span>
+      <span className="not-italic">{quote.source}</span>
+      <span className="underline not-italic">{quote.company}</span>
     </blockquote>
   );
 }
