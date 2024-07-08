@@ -1980,8 +1980,7 @@
       "text": {
         "type": "objectAttribute",
         "value": {
-          "type": "inline",
-          "name": "content"
+          "type": "string"
         },
         "optional": true
       }

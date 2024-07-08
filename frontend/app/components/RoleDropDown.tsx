@@ -25,7 +25,7 @@ interface RoleDropDownProps {
         alt?: string;
         _type: "customImage";
       } | null;
-      text: Content | null;
+      text: string | null;
     }> | null;
   }> | null;
 }
@@ -40,14 +40,14 @@ export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
             {roleGroup.roles?.map((role, index) => (
               <div key={index} className="grid grid-flow-col w-fit gap-6">
                 <img
-                  src={urlFor(role.image?.asset?._ref || "")}
-                  alt={role.image?.alt || ""}
+                  src={urlFor(role.image?.asset?._ref ?? "")}
+                  alt={role.image?.alt ?? ""}
                   className="w-36 h-36 object-cover"
                 />
                 <div>
                   <h4 className="text-lg">{role.occupation}</h4>
                   <h5>{role.name}</h5>
-                  {role.text && <PortableTextComponent textData={role.text} />}
+                  <span>{role.text}</span>
                 </div>
               </div>
             ))}

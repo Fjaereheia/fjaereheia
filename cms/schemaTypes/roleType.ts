@@ -44,7 +44,7 @@ export const roleType = defineType({
       name: 'text',
       title: 'Biografi',
       description: 'Hold det kort',
-      type: 'content',
+      type: 'string',
     }),
   ],
 })
