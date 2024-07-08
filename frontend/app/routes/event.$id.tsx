@@ -57,7 +57,6 @@ export default function Event() {
         <p>No image available</p>
       )}
       {data.text && <PortableTextComponent textData={data.text} />}
-
       {data.dates && <Tickets dateTickets={data.dates} />}
     </div>
   );

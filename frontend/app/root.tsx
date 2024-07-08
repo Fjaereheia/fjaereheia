@@ -3,6 +3,7 @@ import {
   Links,
   Meta,
   Outlet,
+  redirect,
   Scripts,
   ScrollRestoration,
   useLoaderData,
@@ -13,15 +14,19 @@ import Header from "./components/Header/Header";
 import { useChangeLanguage } from "remix-i18next/react";
 import { useTranslation } from "react-i18next";
 import i18next from "~/i18next.server";
-
-export async function loader({ request }: LoaderArgs) {
-  console.log("request", request);
-  let locale = await i18next.getLocale(request);
-  return json({ locale });
-}
+import { LoaderFunction } from "@remix-run/node";
 
 export let handle = {
   i18n: "common",
+};
+export const loader: LoaderFunction = async ({ request }) => {
+  const { pathname, search } = new URL(request.url);
+  let locale = await i18next.getLocale(request);
+
+  if (pathname.endsWith("/") && pathname.length > 1) {
+    throw redirect(`${pathname.slice(0, -1)}${search}`, 301);
+  }
+  return { locale };
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {

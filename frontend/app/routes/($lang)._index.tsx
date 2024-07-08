@@ -1,11 +1,13 @@
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, Link } from "@remix-run/react";
 import { FRONTPAGE_QUERYResult } from "sanity/types";
 import { getFrontpage } from "~/queries/frontpage-queries";
 import ButtonLink from "~/components/ButtonLink";
 import urlFor from "~/utils/imageUrlBuilder";
-import PortableTextComponent from "~/components/PortableTextComponent";
 import { useTranslation } from "react-i18next";
+import Newsletter from "~/components/Newsletter";
+import PurpleDot from "~/assets/PurpleDot";
+import GreenButton from "~/assets/GreenButton";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   if (!params.lang) {
@@ -30,10 +32,13 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
   }
 
   return [
-    { title: data.metaTitle ?? "Bruddet" },
+    { title: data.event?.metaTitle ?? data.metaTitle ?? "Bruddet" },
     {
       property: "og:description",
-      content: data.metaDescription ?? "Hjemmesiden til bruddet i Grimstad",
+      content:
+        data.event?.metaDescription ??
+        data.metaDescription ??
+        "Hjemmesiden til bruddet i Grimstad",
     },
   ];
 };
@@ -42,34 +47,47 @@ export default function Index() {
   const data = useLoaderData<typeof loader>() as FRONTPAGE_QUERYResult;
   const { t } = useTranslation("footer");
 
+  const imageUrl = urlFor(
+    data?.event?.image?.asset?._ref || data?.image?.asset?._ref || ""
+  );
   return (
-    <div>
-      <h1>{data?.title}</h1>
-      <img
-        src={urlFor(data?.image?.asset?._ref || "")}
-        alt={data?.image?.alt}
-      />
-      <br />
-      <ButtonLink url="/info" buttonText="Info"></ButtonLink>
-      <ButtonLink url="/event" buttonText="Program"></ButtonLink>
+    <div
+      className="bg-cover bg-center h-screen w-full flex flex-col items-center justify-center pt-64 lg:pt-0"
+      style={{ backgroundImage: `url(${imageUrl})` }}
+      aria-label={
+        data?.event?.image?.alt || data?.image?.alt || "Background image"
+      }
+    >
+      <Newsletter />
+      <h1 className="mx-4 text-center text-white text-5xl lg:text-8xl ">
+        {data?.event?.title || data?.title}
+      </h1>
 
-      {data?.event?.title ? (
-        <>
-          <h2>
-            {t("event")}: {data?.event?.title}
-          </h2>
-          <img
-            src={urlFor(data?.event?.image?.asset?._ref || "")}
-            alt={data?.event?.image?.alt || ""}
-          />
-          {data?.event?.text ? (
-            <PortableTextComponent textData={data?.event?.text} />
-          ) : null}
-        </>
-      ) : (
-        <>
-          {data?.text ? <PortableTextComponent textData={data?.text} /> : null}
-        </>
+      <br />
+      <div className="flex w-full flex-row justify-center content-enter ">
+        <ButtonLink
+          styling="text-white w-48  text-right px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl "
+          url="/artikler"
+          buttonText="Info"
+        />
+        <div className="mb-4 mt-4 lg:mt-5 mx-1">
+          <PurpleDot />
+        </div>
+
+        <ButtonLink
+          styling="text-white w-48 px-4 py-2 text-left rounded self-center font-serif text-2xl lg:text-4xl "
+          url="/event"
+          buttonText="Program"
+        />
+      </div>
+
+      {data?.event && (
+        <Link
+          to={"/event/" + data?.event?.slug?.current + "#tickets" || "/event"}
+        >
+          <button className="flex items-center justify-center px-4 pt-20 lg:py-2 "></button>
+          <GreenButton text={"Kjøp \nBillett"} />
+        </Link>
       )}
     </div>
   );

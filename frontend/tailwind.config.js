@@ -3,7 +3,7 @@ export default {
   content: ["./app/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      colors: { 
+      colors: {
         lightRedPrimaryDarkBlueSecondary: {
           primary: "#FF4D4D",
           secondary: "#182E39",
@@ -12,7 +12,8 @@ export default {
           primary: "#182E39",
           secondary: "#D4FF26",
         },
-      }
+        newsletter: "#59A1B6",
+      },
     },
   },
   plugins: [require("@tailwindcss/typography")],
