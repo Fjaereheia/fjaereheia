@@ -59,7 +59,6 @@ export default function Event() {
       )}
       {data.dates && <EventLabels dateObj={data.dates} />}
       {data.text && <PortableTextComponent textData={data.text} />}
-
       {data.dates && <Tickets dateTickets={data.dates} />}
     </div>
   );

@@ -686,7 +686,7 @@ export type EVENT_QUERYResult = {
 } | null;
 // Source: ../frontend/app/queries/frontpage-queries.ts
 // Variable: FRONTPAGE_QUERY
-// Query: *[_type=="frontpage" && language=="nb"]{title, image, language, metaTitle, metaDescription, text, event->{title, text, image}}[0]
+// Query: *[_type=="frontpage" && language=="nb"]{title, image, language, metaTitle, metaDescription, text, event->{title, text, image, slug, metaTitle, metaDescription}}[0]
 export type FRONTPAGE_QUERYResult = {
   title: string | null;
   image: {
@@ -720,6 +720,9 @@ export type FRONTPAGE_QUERYResult = {
       alt?: string;
       _type: "customImage";
     } | null;
+    slug: Slug | null;
+    metaTitle: MetaTitle | null;
+    metaDescription: MetaDescription | null;
   } | null;
 } | null;
 // Source: ../frontend/app/queries/info-queries.ts
