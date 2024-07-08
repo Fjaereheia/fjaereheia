@@ -61,13 +61,21 @@ export default function Index() {
       </h1>
 
       <br />
-      <div className="flex w-full flex-row  justify-center">
-        <ButtonLink url="/artikler" buttonText=" &nbsp; &nbsp;Info" />
+      <div className="flex w-full flex-row justify-center content-enter ">
+        <ButtonLink
+          styling="text-white w-48  text-right px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl "
+          url="/artikler"
+          buttonText="Info"
+        />
         <div className="mb-4 mt-4 lg:mt-5 mx-1">
           <PurpleDot />
         </div>
 
-        <ButtonLink url="/event" buttonText="Program" />
+        <ButtonLink
+          styling="text-white w-48 px-4 py-2 text-left rounded self-center font-serif text-2xl lg:text-4xl "
+          url="/event"
+          buttonText="Program"
+        />
       </div>
 
       {data?.event && (
