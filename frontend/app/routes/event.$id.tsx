@@ -7,7 +7,7 @@ import { getBackgroundColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
-import { Label } from "~/components/Labels";
+import { EventLabels } from "~/components/EventLabels";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await client.fetch<EVENT_QUERYResult>(EVENT_QUERY, params);
@@ -57,7 +57,7 @@ export default function Event() {
       ) : (
         <p>No image available</p>
       )}
-      {data.dates && <Label eventLabel={data.dates} />}
+      {data.dates && <EventLabels dateObj={data.dates} />}
       {data.text && <PortableTextComponent textData={data.text} />}
 
       {data.dates && <Tickets dateTickets={data.dates} />}
