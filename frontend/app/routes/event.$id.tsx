@@ -8,8 +8,8 @@ import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
 import { useState } from "react";
-import ArrowUp from "public/arrow-up.svg";
-import ArrowDown from "public/arrow-down.svg";
+import ArrowUp from "/arrow-up.svg";
+import ArrowDown from "/arrow-down.svg";
 import RoleDropDown from "~/components/RoleDropDown";
 
 export async function loader({ params }: LoaderFunctionArgs) {
