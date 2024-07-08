@@ -20,7 +20,7 @@ export const DateTicket = ({ dateTicket }: Props) => {
   const formattedDate = formatDayAndDate(dateTicket.date!, language);
   const formattedTimestamp = formatTimestamp(dateTicket.date!, language);
 
-  let { t } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div className="my-4">

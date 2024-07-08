@@ -2,7 +2,7 @@ import { Link } from "@remix-run/react";
 import { useLocation } from "react-router-dom";
 import BlackLogo from "./logo.svg";
 import WhiteLogo from "./logo_white.svg";
-import i18nn from "~/i18n";
+import i18nconfig from "~/i18n";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -13,10 +13,21 @@ export default function Header() {
   const isEnglish = location.pathname.includes("/en/");
   let { i18n } = useTranslation();
   const [displayLanguages, setDisplayLanguages] = useState(false);
-  const supportedLanguages = i18nn.supportedLngs;
+  const supportedLanguages = i18nconfig.supportedLngs;
 
   const changeLanguage = (language: string) => {
     i18n.changeLanguage(language);
+  };
+
+  const className = (index: number, language: string) => {
+    var classNameString = "my-2 px-3";
+    if (index != supportedLanguages.length - 1) {
+      classNameString += " border-r-2";
+    }
+    if (language == i18n.language) {
+      classNameString += " font-bold";
+    }
+    return classNameString;
   };
 
   return (
@@ -34,11 +45,7 @@ export default function Header() {
                     <div key={index} className="flex justify-center">
                       <button
                         onClick={() => changeLanguage(language)}
-                        className={
-                          index != supportedLanguages.length - 1
-                            ? "my-2 px-3 border-r-2"
-                            : "my-2 px-3"
-                        }
+                        className={className(index, language)}
                       >
                         {language}
                       </button>

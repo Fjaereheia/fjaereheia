@@ -5,6 +5,7 @@ import { getFrontpage } from "~/queries/frontpage-queries";
 import ButtonLink from "~/components/ButtonLink";
 import urlFor from "~/utils/imageUrlBuilder";
 import PortableTextComponent from "~/components/PortableTextComponent";
+import { useTranslation } from "react-i18next";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   if (!params.lang) {
@@ -39,6 +40,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Index() {
   const data = useLoaderData<typeof loader>() as FRONTPAGE_QUERYResult;
+  const { t } = useTranslation("footer");
 
   return (
     <div>
@@ -53,7 +55,9 @@ export default function Index() {
 
       {data?.event?.title ? (
         <>
-          <h2>Forestilling: {data?.event?.title}</h2>
+          <h2>
+            {t("event")}: {data?.event?.title}
+          </h2>
           <img
             src={urlFor(data?.event?.image?.asset?._ref || "")}
             alt={data?.event?.image?.alt || ""}

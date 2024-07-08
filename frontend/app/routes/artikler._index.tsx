@@ -4,6 +4,7 @@ import { client } from "sanity/clientConfig";
 import { ARTICLES_QUERYResult } from "sanity/types";
 import { ARTICLES_QUERY } from "~/queries/article-queries";
 import ButtonLink from "~/components/ButtonLink";
+import { useTranslation } from "react-i18next";
 
 export async function getArticles() {
   const articles = await client.fetch<ARTICLES_QUERYResult>(ARTICLES_QUERY);
@@ -31,9 +32,11 @@ export const meta: MetaFunction = () => {
 
 export default function Articles() {
   const data = useLoaderData<typeof loader>() as ARTICLES_QUERYResult;
+  const { t } = useTranslation("footer");
+
   return (
     <div>
-      <h1>Artikler</h1>
+      <h1>{t("articles")}</h1>
       <p>Her er det artikler</p>
       {data.map((article, index) => (
         <div key={index}>

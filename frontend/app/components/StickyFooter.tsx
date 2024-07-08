@@ -1,4 +1,5 @@
 import { Link, useLocation } from "@remix-run/react";
+import { useTranslation } from "react-i18next";
 
 interface StickyFooterProps {
   programUrl: string;
@@ -11,6 +12,7 @@ export default function StickyFooter({
 }: StickyFooterProps) {
   const location = useLocation();
   const showFooter = !["/", "/en"].includes(location.pathname);
+  const { t } = useTranslation("footer");
 
   if (!showFooter) {
     return null;
@@ -23,7 +25,7 @@ export default function StickyFooter({
             to={infoUrl}
             className="hover:underline me-4 md:me-6 hover:text-gray-400"
           >
-            INFO
+            {t("info")}
           </Link>
         </li>
         <li>
@@ -31,7 +33,7 @@ export default function StickyFooter({
             to={programUrl}
             className="hover:underline me-4 md:me-6 hover:text-gray-400"
           >
-            PROGRAM
+            {t("program")}
           </Link>
         </li>
       </ul>
