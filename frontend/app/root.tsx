@@ -41,10 +41,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Header />
-      <Outlet />
-      <StickyFooter infoUrl="/artikler" programUrl="/event" />
-    </>
+      <div className="flex-grow">
+        <Outlet />
+      </div>
+      <StickyFooter infoUrl="/info" programUrl="/event" />
+    </div>
   );
 }
