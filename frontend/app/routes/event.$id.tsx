@@ -3,11 +3,11 @@ import { useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { EVENT_QUERYResult } from "sanity/types";
 import { EVENT_QUERY } from "~/queries/event-queries";
-import EventLabels from "~/components/EventLabels";
 import { getBackgroundColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
+import { Label } from "~/components/Labels";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await client.fetch<EVENT_QUERYResult>(EVENT_QUERY, params);
@@ -57,7 +57,7 @@ export default function Event() {
       ) : (
         <p>No image available</p>
       )}
-      {data.dates && <EventLabels dateTickets={data.dates} />}
+      {data.dates && <Label eventLabel={data.dates} />}
       {data.text && <PortableTextComponent textData={data.text} />}
 
       {data.dates && <Tickets dateTickets={data.dates} />}
