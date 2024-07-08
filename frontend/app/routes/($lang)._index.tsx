@@ -31,10 +31,13 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
   }
 
   return [
-    { title: data.metaTitle ?? "Bruddet" },
+    { title: data.event?.metaTitle ?? data.metaTitle ?? "Bruddet" },
     {
       property: "og:description",
-      content: data.metaDescription ?? "Hjemmesiden til bruddet i Grimstad",
+      content:
+        data.event?.metaDescription ??
+        data.metaDescription ??
+        "Hjemmesiden til bruddet i Grimstad",
     },
   ];
 };
