@@ -717,7 +717,9 @@ export type ARTICLE_QUERYResult = {
   };
   video: {
     title: string;
-    asset: null;
+    asset: {
+      playbackId: string;
+    };
   } | null;
   event: {
     _id: string;
