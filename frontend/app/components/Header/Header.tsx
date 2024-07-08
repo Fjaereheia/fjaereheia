@@ -2,22 +2,21 @@ import { Link } from "@remix-run/react";
 import { useLocation } from "react-router-dom";
 import BlackLogo from "./logo.svg";
 import WhiteLogo from "./logo_white.svg";
-import i18n from "~/i18n";
+import i18nn from "~/i18n";
 import { useState } from "react";
-import { useChangeLanguage } from "remix-i18next/react";
+import { useTranslation } from "react-i18next";
 
 export default function Header() {
   const location = useLocation();
   const frontpageUrl = ["/", "/en"];
   const isProgramPage = location.pathname.includes("/event");
   const isEnglish = location.pathname.includes("/en/");
-
+  let { i18n } = useTranslation();
   const [displayLanguages, setDisplayLanguages] = useState(false);
-  const supportedLanguages = i18n.supportedLngs;
+  const supportedLanguages = i18nn.supportedLngs;
 
   const changeLanguage = (language: string) => {
-    console.log("language", language);
-    useChangeLanguage(language);
+    i18n.changeLanguage(language);
   };
 
   return (
@@ -32,7 +31,7 @@ export default function Header() {
               <div className="flex justify-center">
                 {supportedLanguages.map((language: string, index: number) => {
                   return (
-                    <div className="flex justify-center">
+                    <div key={index} className="flex justify-center">
                       <button
                         onClick={() => changeLanguage(language)}
                         className={
@@ -49,7 +48,15 @@ export default function Header() {
               </div>
             )}
             <button onClick={() => setDisplayLanguages(!displayLanguages)}>
-              <img src="../public/world-icon.svg" alt="Logo" className="w-10" />
+              <img
+                src={
+                  isProgramPage
+                    ? "../public/earth-black.svg"
+                    : "../public/earth-white.svg"
+                }
+                alt="Logo"
+                className="w-8"
+              />
             </button>
           </div>
         </div>
