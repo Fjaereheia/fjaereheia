@@ -61,12 +61,14 @@ export default function Article() {
               alt={data.image.alt}
             ></img>
           )}
-          {data.video ? (
+          {data.video?.asset && (
             <MuxVideo
-              playbackId={data.video?.asset?.playbackId}
+              playbackId={
+                (data.video?.asset as { playbackId?: string })?.playbackId || ""
+              }
               title={data.title}
             />
-          ) : null}
+          )}
           {data?.text && <PortableTextComponent textData={data.text} />}
           {data?.event && (
             <ButtonLink

@@ -145,63 +145,6 @@ export type Quote = {
   date?: string;
 };
 
-export type Footer = {
-  _id: string;
-  _type: "footer";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  text?: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?:
-          | "normal"
-          | "h1"
-          | "h2"
-          | "h3"
-          | "h4"
-          | "h5"
-          | "h6"
-          | "blockquote";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-        _key: string;
-      }
-  >;
-  links?: Array<{
-    href?: string;
-    blank?: boolean;
-    icon?: {
-      name?: "fa-facebook" | "fa-twitter" | "fa-instagram";
-    };
-    _type: "link";
-    _key: string;
-  }>;
-};
-
 export type SanityImageCrop = {
   _type: "sanity.imageCrop";
   top?: number;
@@ -678,7 +621,7 @@ export type ARTICLES_QUERYResult = Array<{
   metaDescription?: MetaDescription;
 }>;
 // Variable: ARTICLE_QUERY
-// Query: *[_type=="article" && slug.current == $id][0]{..., text[]{..., _type=="video" => {muxVideo{asset->{playbackId}}}}, "Video": {video{asset->{playbackId}}},'event': event->}
+// Query: *[_type=="article" && slug.current==$id][0]{..., text[]{..., _type=="video" => {muxVideo{asset->{playbackId}}}}, video{asset->{playbackId}},'event': event->}
 export type ARTICLE_QUERYResult = {
   _id: string;
   _type: "article";
@@ -706,6 +649,15 @@ export type ARTICLE_QUERYResult = {
         crop?: SanityImageCrop;
         alt?: string;
         _type: "customImage";
+      }
+    | {
+        muxVideo: {
+          asset: {
+            playbackId: string;
+          };
+        };
+        _type: "video";
+        _key: string;
       }
     | {
         children?: Array<{
@@ -745,7 +697,11 @@ export type ARTICLE_QUERYResult = {
     alt?: string;
     _type: "customImage";
   };
-  video?: MuxVideo;
+  video: {
+    asset: {
+      playbackId: string;
+    };
+  } | null;
   event: {
     _id: string;
     _type: "event";
