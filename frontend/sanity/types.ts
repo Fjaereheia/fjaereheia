@@ -720,7 +720,7 @@ export type ARTICLE_QUERYResult = {
     title: string;
     muxVideo: {
       asset: {
-        playbackId: "VcdUr5JoeajfUHDzCzMgslehDRcvY00fHyLgp9JsOYRQ";
+        playbackId: string;
       };
     };
   } | null;
