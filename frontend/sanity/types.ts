@@ -125,7 +125,7 @@ export type Content = Array<
       [internalGroqTypeReferenceTo]?: "video";
     }
   | {
-      _type: string;
+      _type: "quote";
       company: string;
       source: string;
       _key: string;
