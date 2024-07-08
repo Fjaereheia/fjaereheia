@@ -1,6 +1,6 @@
 import {defineField, defineType} from 'sanity'
 
-export const muxVideo = defineType({
+export const videoType = defineType({
   name: 'video',
   title: 'Video',
   type: 'document',
