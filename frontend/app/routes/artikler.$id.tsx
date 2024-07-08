@@ -64,9 +64,9 @@ export default function Article() {
           {data.video?.asset && (
             <MuxVideo
               playbackId={
-                (data.video?.asset as { playbackId?: string })?.playbackId || ""
+                (data.video.asset as { playbackId?: string })?.playbackId || ""
               }
-              title={data.title}
+              title={data.video.title}
             />
           )}
           {data?.text && <PortableTextComponent textData={data.text} />}

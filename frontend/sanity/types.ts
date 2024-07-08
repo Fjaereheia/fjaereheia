@@ -82,6 +82,7 @@ export type Video = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  title?: string;
   muxVideo?: MuxVideo;
 };
 
@@ -200,6 +201,16 @@ export type SanityImageMetadata = {
   blurHash?: string;
   hasAlpha?: boolean;
   isOpaque?: boolean;
+};
+
+export type MuxVideo = {
+  _type: "mux.video";
+  asset?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "mux.videoAsset";
+  };
 };
 
 export type MuxVideoAsset = {
@@ -469,7 +480,12 @@ export type Article = {
     alt?: string;
     _type: "customImage";
   };
-  video?: MuxVideo;
+  video?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "video";
+  };
   event?: {
     _ref: string;
     _type: "reference";
@@ -514,14 +530,10 @@ export type Event = {
   metaDescription?: MetaDescription;
 };
 
-export type MuxVideo = {
-  _type: "mux.video";
-  asset?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "mux.videoAsset";
-  };
+export type Document = {
+  _type: "reference";
+  _ref: string;
+  _weak?: boolean;
 };
 
 export type CustomImage = {
@@ -566,6 +578,7 @@ export type AllSanitySchemaTypes =
   | SanityImageAsset
   | SanityAssetSourceData
   | SanityImageMetadata
+  | MuxVideo
   | MuxVideoAsset
   | MuxAssetData
   | MuxStaticRenditions
@@ -579,7 +592,7 @@ export type AllSanitySchemaTypes =
   | Frontpage
   | Article
   | Event
-  | MuxVideo
+  | Document
   | CustomImage
   | Slug
   | InternationalizedArrayReference;
@@ -610,7 +623,12 @@ export type ARTICLES_QUERYResult = Array<{
     alt?: string;
     _type: "customImage";
   };
-  video?: MuxVideo;
+  video?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "video";
+  };
   event?: {
     _ref: string;
     _type: "reference";
@@ -621,7 +639,7 @@ export type ARTICLES_QUERYResult = Array<{
   metaDescription?: MetaDescription;
 }>;
 // Variable: ARTICLE_QUERY
-// Query: *[_type=="article" && slug.current==$id][0]{..., text[]{..., _type=="video" => {muxVideo{asset->{playbackId}}}}, video{asset->{playbackId}},'event': event->}
+// Query: *[_type=="article" && slug.current==$id][0]{..., text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}}, video{title, asset->{playbackId}},'event': event->}
 export type ARTICLE_QUERYResult = {
   _id: string;
   _type: "article";
@@ -698,9 +716,8 @@ export type ARTICLE_QUERYResult = {
     _type: "customImage";
   };
   video: {
-    asset: {
-      playbackId: string;
-    };
+    title: string;
+    asset: null;
   } | null;
   event: {
     _id: string;
@@ -920,7 +937,12 @@ export type INFOPAGE_QUERYResult = {
           alt?: string;
           _type: "customImage";
         };
-        video?: MuxVideo;
+        video?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "video";
+        };
         event?: {
           _ref: string;
           _type: "reference";
