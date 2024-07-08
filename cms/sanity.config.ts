@@ -33,7 +33,7 @@ export default defineConfig({
     templates: (templates) => {
       return templates
         .filter(({schemaType}) => !singletonTypes.has(schemaType))
-        .filter((template) => !['article', 'event'].includes(template.id))
+        .filter((template) => !['article', 'event', 'role'].includes(template.id))
     },
   },
   document: {
