@@ -1,6 +1,7 @@
 import { DateTicketType } from "./Tickets";
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { useTranslation } from "react-i18next";
 import { EVENT_QUERYResult } from "sanity/types";
 import {
   formatDayAndDate,
@@ -18,6 +19,9 @@ export const DateTicket = ({ dateTicket }: Props) => {
   const language = data!.language!;
   const formattedDate = formatDayAndDate(dateTicket.date!, language);
   const formattedTimestamp = formatTimestamp(dateTicket.date!, language);
+
+  let { t } = useTranslation();
+
   return (
     <div className="my-4">
       <p className="capitalize text-2xl">{formattedDate}</p>
@@ -27,7 +31,7 @@ export const DateTicket = ({ dateTicket }: Props) => {
           className="mx-4 p-4 border-2"
           onClick={() => window.open(dateTicket.url, "_blank")}
         >
-          {language == "en" ? "Buy" : "Kjøp"}
+          {t("buybutton")}
         </button>
       </div>
     </div>

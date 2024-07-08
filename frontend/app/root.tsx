@@ -1,15 +1,42 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import {
+  json,
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData,
+} from "@remix-run/react";
 import "./styles/app.css";
 import StickyFooter from "./components/StickyFooter";
 import Header from "./components/Header/Header";
+import { useChangeLanguage } from "remix-i18next/react";
+import { useTranslation } from "react-i18next";
+import i18next from "~/i18next.server";
+
+export async function loader({ request }: LoaderArgs) {
+  console.log("request", request);
+  let locale = await i18next.getLocale(request);
+  return json({ locale });
+}
+
+export let handle = {
+  i18n: "common",
+};
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  let { locale } = useLoaderData<typeof loader>();
+
+  let { i18n } = useTranslation();
+
+  useChangeLanguage(locale);
+
   return (
-    <html lang='en'>
+    <html lang={locale} dir={i18n.dir()}>
       <head>
-        <meta charSet='utf-8' />
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <link rel='icon' href='/favicon.ico' />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
         <Meta />
         <Links />
       </head>
@@ -27,7 +54,7 @@ export default function App() {
     <>
       <Header />
       <Outlet />
-      <StickyFooter infoUrl='/artikler' programUrl='/event' />
+      <StickyFooter infoUrl="/artikler" programUrl="/event" />
     </>
   );
 }

@@ -3,6 +3,12 @@
         "all": "concurrently \"cd cms && npm run dev\" \" cd frontend && npm run dev\""
     },
     "dependencies": {
-        "concurrently": "^8.2.2"
+        "concurrently": "^8.2.2",
+        "i18next": "^23.11.5",
+        "i18next-browser-languagedetector": "^8.0.0",
+        "i18next-fs-backend": "^2.3.1",
+        "i18next-http-backend": "^2.5.2",
+        "react-i18next": "^14.1.2",
+        "remix-i18next": "^6.1.0"
     }
 }
