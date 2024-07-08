@@ -48,7 +48,6 @@ export default function Article() {
   if (!data) {
     return <></>;
   }
-
   return (
     <div className={getBackgroundColor(data.colorCombination)}>
       <div className="flex flex-col items-center mx-6 mt- ">
@@ -61,12 +60,13 @@ export default function Article() {
               alt={data.image.alt}
             ></img>
           )}
-          {data.video?.asset && (
+          {data.video?.muxVideo.asset && (
             <MuxVideo
               playbackId={
-                (data.video.asset as { playbackId?: string })?.playbackId || ""
+                (data.video.muxVideo.asset as { playbackId?: string })
+                  ?.playbackId || ""
               }
-              title={data.video.title}
+              title={data.video.title || ""}
             />
           )}
           {data?.text && <PortableTextComponent textData={data.text} />}

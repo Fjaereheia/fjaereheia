@@ -639,7 +639,7 @@ export type ARTICLES_QUERYResult = Array<{
   metaDescription?: MetaDescription;
 }>;
 // Variable: ARTICLE_QUERY
-// Query: *[_type=="article" && slug.current==$id][0]{..., text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}}, video{title, asset->{playbackId}},'event': event->}
+// Query: *[_type=="article" && slug.current==$id][0]{..., text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}}, video{title, muxVideo{asset->{playbackId}}},'event': event->}
 export type ARTICLE_QUERYResult = {
   _id: string;
   _type: "article";
@@ -676,6 +676,7 @@ export type ARTICLE_QUERYResult = {
         };
         _type: "video";
         _key: string;
+        title: string;
       }
     | {
         children?: Array<{
@@ -717,8 +718,10 @@ export type ARTICLE_QUERYResult = {
   };
   video: {
     title: string;
-    asset: {
-      playbackId: string;
+    muxVideo: {
+      asset: {
+        playbackId: "VcdUr5JoeajfUHDzCzMgslehDRcvY00fHyLgp9JsOYRQ";
+      };
     };
   } | null;
   event: {

@@ -34,6 +34,7 @@ interface PortableTextProps {
         };
         _type: "video";
         _key: string;
+        title: string;
       }
     | {
         children?: Array<{
