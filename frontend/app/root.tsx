@@ -13,6 +13,9 @@ import StickyFooter from "./components/StickyFooter";
 import Header from "./components/Header/Header";
 import PageNotFound from "./components/PageNotFound";
 import { LoaderFunction } from "@remix-run/node";
+import { AnimatePresence, motion } from "framer-motion";
+import { useOutlet } from "react-router-dom";
+import { usePageTransition } from "./utils/pageTransition";
 
 type ErrorWithStatus = {
   status?: number;
@@ -87,12 +90,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  //const { pathname } = useLocation();
+  const { slideDirection, pathname } = usePageTransition();
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
-      <div className="flex-grow">
+      <motion.div
+        key={pathname}
+        initial={{ x: slideDirection * 100 + "%" }}
+        animate={{ x: 0 }}
+        exit={{ x: slideDirection * -100 + "%" }}
+        transition={{ type: "tween", duration: 0.7 }}
+        className="flex-grow"
+      >
+        <Header />
         <Outlet />
-      </div>
+      </motion.div>
       <StickyFooter infoUrl="/info" programUrl="/event" />
     </div>
   );
