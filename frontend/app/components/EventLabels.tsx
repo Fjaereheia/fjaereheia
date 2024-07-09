@@ -10,7 +10,7 @@ type DateObject = {
 };
 
 type Props = {
-  dateObj: dateObject[];
+  dateObj: DateObject[];
 };
 
 export function formatDateOnly(dateString: string): string {
@@ -26,13 +26,12 @@ export const EventLabels = ({ dateObj }: Props) => {
   const language = data!.language!;
 
   const renderLabel = () => {
-    const firstDate = dateObj[0].date;
-    // Håndter dersom det er kun en dato
-    const lastdate = dateObj[dateObj.length - 1].date;
-    const formattedTimestamp = formatTimestamp(firstDate!, language);
+    const firstDate = dateObj[0].date ?? "";
+    const lastdate = dateObj[dateObj.length - 1].date ?? "";
+    const formattedTimestamp = formatTimestamp(firstDate, language);
     const formattedDate = formatDayAndDate(firstDate, language);
-    const datesOnlyFirst = formatDateOnly(firstDate!);
-    const datesOnlyLast = formatDateOnly(lastdate!);
+    const datesOnlyFirst = formatDateOnly(firstDate);
+    const datesOnlyLast = formatDateOnly(lastdate);
 
     return (
       <>
