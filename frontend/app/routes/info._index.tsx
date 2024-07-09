@@ -10,7 +10,9 @@ export async function loader({ params }: LoaderFunctionArgs) {
   const informationPage = await getInfoPage(params as { lang: string });
 
   if (!informationPage) {
-    return json("Kunne ikke hente infoside", { status: 404 });
+    throw new Response("Not Found", {
+      status: 404,
+    });
   }
 
   return json(informationPage);
