@@ -64,7 +64,7 @@ export default function Index() {
       <div className="flex w-full flex-row justify-center content-enter ">
         <ButtonLink
           styling="text-white w-48  text-right px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl "
-          url="/artikler"
+          url="/info"
           buttonText="Info"
         />
         <div className="mb-4 mt-4 lg:mt-5 mx-1">
