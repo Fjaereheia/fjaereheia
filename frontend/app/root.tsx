@@ -5,6 +5,7 @@ import {
   Scripts,
   ScrollRestoration,
   redirect,
+  useLocation,
 } from "@remix-run/react";
 import "./styles/app.css";
 import StickyFooter from "./components/StickyFooter";
@@ -21,6 +22,26 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { pathname } = useLocation();
+
+  let backgroundColorClass = "";
+
+  // Determine background color based on route
+  switch (pathname) {
+    case "/":
+      backgroundColorClass = ""; // Example background color for home page
+      break;
+    case "/info":
+      backgroundColorClass = "bg-[#83D2FF]"; // Example background color for about page
+      break;
+    case "/event":
+      backgroundColorClass = "bg-newsletter"; // Example background color for contact page
+      break;
+    default:
+      backgroundColorClass = "bg-gray-100"; // Default background color if route doesn't match
+      break;
+  }
+
   return (
     <html lang="en">
       <head>
@@ -30,7 +51,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className={backgroundColorClass}>
         {children}
         <ScrollRestoration />
         <Scripts />
