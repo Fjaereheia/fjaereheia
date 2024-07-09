@@ -23,24 +23,17 @@ export function ErrorBoundary() {
   console.debug(error);
 
   return (
-    <html>
-      <head>
-        <title>Oh no!</title>
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        {error?.status === 404 ? (
-          <PageNotFound />
-        ) : (
-          <>
-            <h1>Something went wrong</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-          </>
-        )}
-        <Scripts />
-      </body>
-    </html>
+    <>
+      <title>404 - OPS</title>
+      {error?.status === 404 ? (
+        <PageNotFound />
+      ) : (
+        <div>
+          <h1>Something went wrong</h1>
+          <p>Sorry, an unexpected error has occurred.</p>
+        </div>
+      )}
+    </>
   );
 }
 
