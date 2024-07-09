@@ -53,14 +53,17 @@ export default function Index() {
   );
   return (
     <div
-      className="bg-cover bg-center h-screen w-full flex flex-col items-center justify-center pt-64 lg:pt-0"
+      className="bg-cover bg-center h-screen w-full flex flex-col items-center justify-center "
       style={{ backgroundImage: `url(${imageUrl})` }}
       aria-label={
         data?.event?.image?.alt || data?.image?.alt || "Background image"
       }
     >
-      <Newsletter />
-      <h1 className="mx-4 text-center text-white text-5xl lg:text-8xl ">
+      <div className="text-white pb-32 lg:pb-72 ">
+        <Newsletter />
+      </div>
+
+      <h1 className="mx-4 text-center pt-64 text-white text-5xl lg:text-8xl ">
         {data?.event?.title || data?.title}
       </h1>
 
