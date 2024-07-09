@@ -12,10 +12,14 @@ export async function loader({ params }: LoaderFunctionArgs) {
   if (!params.lang) {
     params = { lang: "nb" };
   }
+
   const frontpage = await getFrontpage(params as { lang: string });
   if (!frontpage) {
-    return json("Forside ikke funnet", { status: 404 });
+    throw new Response("Not Found", {
+      status: 404,
+    });
   }
+
   return json(frontpage);
 }
 

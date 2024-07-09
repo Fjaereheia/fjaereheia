@@ -14,7 +14,9 @@ export async function loader() {
   const events = await getEvents();
 
   if (!events) {
-    return json("Kunne ikke hente forestillinger", { status: 404 });
+    throw new Response("Not Found", {
+      status: 404,
+    });
   }
 
   return json(events);
@@ -32,6 +34,7 @@ export const meta: MetaFunction = () => {
 
 export default function Events() {
   const data = useLoaderData<typeof loader>() as EVENTS_QUERYResult;
+
   return (
     <div>
       <h1>Program</h1>
@@ -39,11 +42,11 @@ export default function Events() {
       {data.map((event, index) => (
         <div key={index}>
           <Link key={event._id} to={event.slug?.current ?? ""}>
-            <h2 className='p-4 hover:bg-blue-50'>{event.title}</h2>
+            <h2 className="p-4 hover:bg-blue-50">{event.title}</h2>
           </Link>
         </div>
       ))}
-      <ButtonLink url='/' buttonText='Tilbake til hovedsiden'></ButtonLink>
+      <ButtonLink url="/" buttonText="Tilbake til hovedsiden"></ButtonLink>
     </div>
   );
 }
