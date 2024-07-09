@@ -15,7 +15,9 @@ export async function loader() {
   const events = await getEvents();
 
   if (!events) {
-    return json("Kunne ikke hente forestillinger", { status: 404 });
+    throw new Response("Not Found", {
+      status: 404,
+    });
   }
 
   return json(events);
@@ -33,6 +35,7 @@ export const meta: MetaFunction = () => {
 
 export default function Events() {
   const data = useLoaderData<typeof loader>() as EVENTS_QUERYResult;
+
   return (
     <div className="bg-newsletter min-h-screen flex flex-col items-center text-white relative">
       <div className="mt-44 text-center">
@@ -49,6 +52,7 @@ export default function Events() {
       <div className="absolute bottom-40  text-lg lg:text-xl w-2/3 ">
         <Newsletter />
       </div>
+
     </div>
   );
 }

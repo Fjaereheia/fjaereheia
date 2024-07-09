@@ -4,12 +4,38 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteError,
   redirect,
 } from "@remix-run/react";
 import "./styles/app.css";
 import StickyFooter from "./components/StickyFooter";
 import Header from "./components/Header/Header";
+import PageNotFound from "./components/PageNotFound";
 import { LoaderFunction } from "@remix-run/node";
+
+type ErrorWithStatus = {
+  status?: number;
+  statusText?: string;
+};
+
+export function ErrorBoundary() {
+  const error = useRouteError() as ErrorWithStatus;
+  console.debug(error);
+
+  return (
+    <>
+      <title>404 - OPS</title>
+      {error?.status === 404 ? (
+        <PageNotFound />
+      ) : (
+        <div>
+          <h1>Something went wrong</h1>
+          <p>Sorry, an unexpected error has occurred.</p>
+        </div>
+      )}
+    </>
+  );
+}
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { pathname, search } = new URL(request.url);
