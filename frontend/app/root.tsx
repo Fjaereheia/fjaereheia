@@ -15,7 +15,7 @@ import PageNotFound from "./components/PageNotFound";
 import { LoaderFunction } from "@remix-run/node";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutlet } from "react-router-dom";
-import { usePageTransition } from "./utils/pageTransition";
+import { backgroundColour, usePageTransition } from "./utils/pageTransition";
 
 type ErrorWithStatus = {
   status?: number;
@@ -55,19 +55,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   let backgroundColorClass = "";
 
-  // Determine background color based on route
   switch (pathname) {
     case "/":
-      backgroundColorClass = ""; // Example background color for home page
+      backgroundColorClass = "";
       break;
     case "/info":
-      backgroundColorClass = "bg-[#83D2FF]"; // Example background color for about page
+      backgroundColorClass = "bg-[#83D2FF]";
       break;
     case "/event":
-      backgroundColorClass = "bg-newsletter"; // Example background color for contact page
+      backgroundColorClass = "bg-newsletter";
       break;
     default:
-      backgroundColorClass = "bg-gray-100"; // Default background color if route doesn't match
+      backgroundColorClass = "bg-gray-100";
       break;
   }
 
@@ -92,20 +91,30 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   //const { pathname } = useLocation();
   const { slideDirection, pathname } = usePageTransition();
+
+  const bg = backgroundColour[pathname] || "#F5F5F5";
+  console.log(bg);
   return (
     <div className="min-h-screen flex flex-col">
       <motion.div
         key={pathname}
-        initial={{ x: slideDirection * 100 + "%" }}
-        animate={{ x: 0 }}
-        exit={{ x: slideDirection * -100 + "%" }}
+        initial={{
+          x: slideDirection * 100 + "%",
+          opacity: 0,
+        }}
+        animate={{ x: 0, backgroundColor: bg, opacity: 1 }}
+        exit={{
+          x: slideDirection * -100 + "%",
+          opacity: 0,
+        }}
         transition={{ type: "tween", duration: 0.7 }}
-        className="flex-grow"
+        className="flex-grow min-h-screen"
+        style={{ backgroundColor: bg }}
       >
         <Header />
         <Outlet />
+        <StickyFooter infoUrl="/info" programUrl="/event" />
       </motion.div>
-      <StickyFooter infoUrl="/info" programUrl="/event" />
     </div>
   );
 }
