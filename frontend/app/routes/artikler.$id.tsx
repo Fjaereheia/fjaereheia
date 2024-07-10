@@ -15,7 +15,9 @@ export async function loader({ params }: LoaderFunctionArgs) {
   );
 
   if (!article) {
-    return json("Kunne ikke hente artikkel", { status: 404 });
+    throw new Response("Not Found", {
+      status: 404,
+    });
   }
 
   return json(article);

@@ -14,7 +14,9 @@ export async function loader() {
   const articles = await getArticles();
 
   if (!articles) {
-    return json("Kunne ikke hente artikler", { status: 404 });
+    throw new Response("Not Found", {
+      status: 404,
+    });
   }
 
   return json(articles);
