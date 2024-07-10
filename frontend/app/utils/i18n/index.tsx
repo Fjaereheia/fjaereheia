@@ -29,20 +29,6 @@ type LanguageProviderProps = {
  *
  * This component should wrap your entire application. It will provide the language to all components that use it.
  *
- * This is done by the SporProvider component, so most likely, you won't need to use it directly, unless you want to use a specific language for a specific part of your application.
- *
- * ```tsx
- * import { LanguageProvider, Language } from "@vygruppen/spor-react";
- *
- * const App = () => {
- *   return (
- *     <LanguageProvider language={Language.NorwegianBokmal}>
- *       <Routes />
- *     </LanguageProvider>
- *   );
- * }
- * ```
- *
  */
 export function LanguageProvider({
   language,
