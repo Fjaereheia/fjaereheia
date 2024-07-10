@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { ARTICLE_QUERYResult } from "sanity/types";
 import { getBackgroundColor } from "~/utils/colorCombinations";
@@ -15,7 +15,9 @@ export async function loader({ params }: LoaderFunctionArgs) {
   );
 
   if (!article) {
-    return json("Kunne ikke hente artikkel", { status: 404 });
+    throw new Response("Not Found", {
+      status: 404,
+    });
   }
 
   return json(article);

@@ -12,10 +12,14 @@ export async function loader({ params }: LoaderFunctionArgs) {
   if (!params.lang) {
     params = { lang: "nb" };
   }
+
   const frontpage = await getFrontpage(params as { lang: string });
   if (!frontpage) {
-    return json("Forside ikke funnet", { status: 404 });
+    throw new Response("Not Found", {
+      status: 404,
+    });
   }
+
   return json(frontpage);
 }
 
@@ -49,14 +53,17 @@ export default function Index() {
   );
   return (
     <div
-      className="bg-cover bg-center h-screen w-full flex flex-col items-center justify-center pt-64 lg:pt-0"
+      className="bg-cover bg-center h-screen w-full flex flex-col items-center justify-center "
       style={{ backgroundImage: `url(${imageUrl})` }}
       aria-label={
         data?.event?.image?.alt || data?.image?.alt || "Background image"
       }
     >
-      <Newsletter />
-      <h1 className="mx-4 text-center text-white text-5xl lg:text-8xl ">
+      <div className="text-white pb-32 lg:pb-72 ">
+        <Newsletter />
+      </div>
+
+      <h1 className="mx-4 text-center pt-64 text-white text-5xl lg:text-8xl ">
         {data?.event?.title || data?.title}
       </h1>
 
@@ -64,7 +71,7 @@ export default function Index() {
       <div className="flex w-full flex-row justify-center content-enter ">
         <ButtonLink
           styling="text-white w-48  text-right px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl "
-          url="/artikler"
+          url="/info"
           buttonText="Info"
         />
         <div className="mb-4 mt-4 lg:mt-5 mx-1">
