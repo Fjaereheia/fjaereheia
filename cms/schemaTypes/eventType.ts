@@ -68,10 +68,7 @@ export const eventType = defineType({
               name: 'url',
               type: 'url',
               title: 'Link',
-              validation: (rule) => [
-                rule.uri().error('Ugyldig URL'),
-                rule.required().error('URL er påkrevd.'),
-              ],
+              validation: (rule) => [rule.required().error('URL er påkrevd.')],
             },
           ],
         },
