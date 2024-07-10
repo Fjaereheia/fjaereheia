@@ -52,7 +52,7 @@ export default function Event() {
     <div
       className={`${getBackgroundColor(
         data.colorCombination
-      )} flex flex-col justify-center`}
+      )} flex flex-col justify-center items-center`}
     >
       <h1>Forestilling:</h1>
       <div className="flex flex-col justify-center">
