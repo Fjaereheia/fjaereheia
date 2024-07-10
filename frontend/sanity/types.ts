@@ -335,6 +335,7 @@ export type Role = {
   _updatedAt: string;
   _rev: string;
   name?: string;
+  occupation?: string;
   language?: string;
   image?: {
     asset?: {
@@ -348,7 +349,7 @@ export type Role = {
     alt?: string;
     _type: "customImage";
   };
-  text?: Content;
+  text?: string;
 };
 
 export type Infopage = {
@@ -511,6 +512,9 @@ export type Event = {
     _type: "customImage";
   };
   text?: Content;
+  roleGroups?: Array<{
+    _key: string;
+  } & RoleGroups>;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 };
@@ -544,46 +548,12 @@ export type Slug = {
   source?: string;
 };
 
-export type InternationalizedArrayReference = Array<
-  {
-    _key: string;
-  } & InternationalizedArrayReferenceValue
->;
+export type InternationalizedArrayReference = Array<{
+  _key: string;
+} & InternationalizedArrayReferenceValue>;
 
-export type AllSanitySchemaTypes =
-  | SanityImagePaletteSwatch
-  | SanityImagePalette
-  | SanityImageDimensions
-  | SanityFileAsset
-  | Geopoint
-  | ColorCombination
-  | MetaDescription
-  | MetaTitle
-  | Video
-  | Content
-  | Quote
-  | SanityImageCrop
-  | SanityImageHotspot
-  | SanityImageAsset
-  | SanityAssetSourceData
-  | SanityImageMetadata
-  | MuxVideoAsset
-  | MuxAssetData
-  | MuxStaticRenditions
-  | MuxStaticRenditionFile
-  | MuxPlaybackId
-  | MuxTrack
-  | TranslationMetadata
-  | InternationalizedArrayReferenceValue
-  | Role
-  | Infopage
-  | Frontpage
-  | Article
-  | Event
-  | MuxVideo
-  | CustomImage
-  | Slug
-  | InternationalizedArrayReference;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | ColorCombination | MetaDescription | MetaTitle | Video | RoleGroups | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Role | Infopage | Frontpage | Article | Event | MuxVideo | CustomImage | Slug | InternationalizedArrayReference;
+
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -677,6 +647,9 @@ export type ARTICLE_QUERYResult = {
       _type: "customImage";
     };
     text?: Content;
+    roleGroups?: Array<{
+      _key: string;
+    } & RoleGroups>;
     metaTitle?: MetaTitle;
     metaDescription?: MetaDescription;
   } | null;
@@ -716,11 +689,14 @@ export type EVENTS_QUERYResult = Array<{
     _type: "customImage";
   };
   text?: Content;
+  roleGroups?: Array<{
+    _key: string;
+  } & RoleGroups>;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 }>;
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && slug.current == $id][0]
+// Query: *[_type=="event" && slug.current ==$id][0]{...,roleGroups[]{name,roles[]->{name, occupation,image, text}}}
 export type EVENT_QUERYResult = {
   _id: string;
   _type: "event";
@@ -751,6 +727,26 @@ export type EVENT_QUERYResult = {
     _type: "customImage";
   };
   text?: Content;
+  roleGroups: Array<{
+    name: string | null;
+    roles: Array<{
+      name: string | null;
+      occupation: string | null;
+      image: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "customImage";
+      } | null;
+      text: string | null;
+    }> | null;
+  }> | null;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 } | null;
