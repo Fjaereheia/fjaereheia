@@ -7,6 +7,7 @@ import { getBackgroundColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
+import ImageMask1 from "~/components/Masks/ImageMask1";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await client.fetch<EVENT_QUERYResult>(EVENT_QUERY, params);
@@ -51,9 +52,9 @@ export default function Event() {
     <div className={getBackgroundColor(data.colorCombination)}>
       <h1>Forestilling:</h1>
       {data.image?.asset?._ref ? (
-        <img
-          src={urlFor(data.image.asset._ref, data.image?.hotspot)}
-          alt={data.title}
+        <ImageMask1
+          url={urlFor(data.image.asset._ref, data.image?.hotspot)}
+          alt={data?.title || "Image"}
         />
       ) : (
         <p>No image available</p>
