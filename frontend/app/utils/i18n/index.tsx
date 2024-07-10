@@ -10,7 +10,9 @@ export enum Language {
 type TranslationObject = {
   [key in Language]: string | React.ReactElement;
 };
-type TranslationFunction = (...args: Array<string | number>) => TranslationObject;
+type TranslationFunction = (
+  ...args: Array<string | number>
+) => TranslationObject;
 
 type Translation = TranslationObject | TranslationFunction;
 export type Translations = {
@@ -42,8 +44,15 @@ type LanguageProviderProps = {
  * ```
  *
  */
-export function LanguageProvider({ language, children }: LanguageProviderProps) {
-  return <LanguageContext.Provider value={language}>{children}</LanguageContext.Provider>;
+export function LanguageProvider({
+  language,
+  children,
+}: LanguageProviderProps) {
+  return (
+    <LanguageContext.Provider value={language}>
+      {children}
+    </LanguageContext.Provider>
+  );
 }
 
 /**
@@ -114,7 +123,6 @@ export function createTexts<T extends Translations>(texts: T) {
 }
 
 export const getLanguageFromPath = (path: string) => {
-  console.log(path);
   try {
     if (path.startsWith("/en/") || path === "/en") {
       return Language.English;
