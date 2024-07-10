@@ -11,8 +11,7 @@ import metaTitle from './objects/metaTitle'
 import metaDescription from './objects/metaDescription'
 import colorCombination from './objects/colorCombination'
 import roleGroups from './objects/roleGroups'
-import colorCombination from './objects/colorCombination'
-import roleGroups from './objects/roleGroups'
+import {reviewType} from './objects/reviewType'
 
 export const schemaTypes = [
   articleType,
@@ -28,4 +27,5 @@ export const schemaTypes = [
   metaTitle,
   metaDescription,
   colorCombination,
+  reviewType,
 ]
