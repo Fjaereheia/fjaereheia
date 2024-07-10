@@ -18,6 +18,16 @@ export async function loader({ params }: LoaderFunctionArgs) {
   return json(informationPage);
 }
 
+function RedirectType(type: string) {
+  if (type == "article") {
+    return "/artikler";
+  } else if (type == "event") {
+    return "/event";
+  } else {
+    return "";
+  }
+}
+
 export default function Info() {
   const data = useLoaderData<typeof loader>() as INFOPAGE_QUERYResult;
   return (
@@ -25,7 +35,9 @@ export default function Info() {
       <h1 className="text-5xl font-bold mb-12">{data?.title}</h1>
       <div className="flex flex-col items-center font-normal gap-4 text-xl pt-12 pr-0 pl-0 pb-12">
         {data?.links?.map((link) => (
-          <Link to={`/${link.slug?.current}`}>{link.title || ""}</Link>
+          <Link to={`${RedirectType(link._type)}/${link.slug?.current}`}>
+            {link.title || ""}
+          </Link>
         ))}
       </div>
     </div>
