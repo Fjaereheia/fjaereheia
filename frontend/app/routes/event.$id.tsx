@@ -66,19 +66,21 @@ export default function Event() {
       {data.dates && <EventLabels dateObj={data.dates} />}
       {data.text && <PortableTextComponent textData={data.text} />}
       {data.dates && <Tickets dateTickets={data.dates} />}
-      <button
-        className="w-80 h-auto py-4 px-6 m-4 grid grid-flow-col bg-inherit border border-black"
-        onClick={() => setOpenRole(!openRole)}
-      >
-        <span className="self-center justify-self-start text-xl">
-          Medvirkende{" "}
-        </span>
-        <img
-          className="w-6 h-6 self-center justify-self-end"
-          src={openRole ? ArrowUp : ArrowDown}
-          alt={openRole ? "Pil opp" : "Pil ned"}
-        />
-      </button>
+      {data.roleGroups && (
+        <button
+          className="w-80 h-auto py-4 px-6 m-4 grid grid-flow-col bg-inherit border border-black"
+          onClick={() => setOpenRole(!openRole)}
+        >
+          <span className="self-center justify-self-start text-xl">
+            Medvirkende{" "}
+          </span>
+          <img
+            className="w-6 h-6 self-center justify-self-end"
+            src={openRole ? ArrowUp : ArrowDown}
+            alt={openRole ? "Pil opp" : "Pil ned"}
+          />
+        </button>
+      )}
       {openRole && <RoleDropDown roleGroups={data.roleGroups} />}
     </div>
   );
