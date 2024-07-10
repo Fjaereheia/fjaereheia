@@ -85,6 +85,18 @@ export type Video = {
   muxVideo?: MuxVideo;
 };
 
+export type RoleGroups = {
+  _type: "roleGroups";
+  name?: string;
+  roles?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "role";
+  }>;
+};
+
 export type Content = Array<
   | {
       children?: Array<{
@@ -512,9 +524,11 @@ export type Event = {
     _type: "customImage";
   };
   text?: Content;
-  roleGroups?: Array<{
-    _key: string;
-  } & RoleGroups>;
+  roleGroups?: Array<
+    {
+      _key: string;
+    } & RoleGroups
+  >;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 };
@@ -548,11 +562,47 @@ export type Slug = {
   source?: string;
 };
 
-export type InternationalizedArrayReference = Array<{
-  _key: string;
-} & InternationalizedArrayReferenceValue>;
+export type InternationalizedArrayReference = Array<
+  {
+    _key: string;
+  } & InternationalizedArrayReferenceValue
+>;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | ColorCombination | MetaDescription | MetaTitle | Video | RoleGroups | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Role | Infopage | Frontpage | Article | Event | MuxVideo | CustomImage | Slug | InternationalizedArrayReference;
+export type AllSanitySchemaTypes =
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
+  | SanityFileAsset
+  | Geopoint
+  | ColorCombination
+  | MetaDescription
+  | MetaTitle
+  | Video
+  | RoleGroups
+  | Content
+  | Quote
+  | SanityImageCrop
+  | SanityImageHotspot
+  | SanityImageAsset
+  | SanityAssetSourceData
+  | SanityImageMetadata
+  | MuxVideoAsset
+  | MuxAssetData
+  | MuxStaticRenditions
+  | MuxStaticRenditionFile
+  | MuxPlaybackId
+  | MuxTrack
+  | TranslationMetadata
+  | InternationalizedArrayReferenceValue
+  | Role
+  | Infopage
+  | Frontpage
+  | Article
+  | Event
+  | MuxVideo
+  | CustomImage
+  | Slug
+  | InternationalizedArrayReference;
 
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries/article-queries.ts
@@ -647,9 +697,11 @@ export type ARTICLE_QUERYResult = {
       _type: "customImage";
     };
     text?: Content;
-    roleGroups?: Array<{
-      _key: string;
-    } & RoleGroups>;
+    roleGroups?: Array<
+      {
+        _key: string;
+      } & RoleGroups
+    >;
     metaTitle?: MetaTitle;
     metaDescription?: MetaDescription;
   } | null;
@@ -689,9 +741,11 @@ export type EVENTS_QUERYResult = Array<{
     _type: "customImage";
   };
   text?: Content;
-  roleGroups?: Array<{
-    _key: string;
-  } & RoleGroups>;
+  roleGroups?: Array<
+    {
+      _key: string;
+    } & RoleGroups
+  >;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 }>;
