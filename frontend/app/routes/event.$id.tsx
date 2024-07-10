@@ -49,16 +49,23 @@ export default function Event() {
   }
 
   return (
-    <div className={getBackgroundColor(data.colorCombination)}>
+    <div
+      className={`${getBackgroundColor(
+        data.colorCombination
+      )} flex flex-col justify-center`}
+    >
       <h1>Forestilling:</h1>
-      {data.image?.asset?._ref ? (
-        <ImageMask1
-          url={urlFor(data.image.asset._ref, data.image?.hotspot)}
-          alt={data?.title || "Image"}
-        />
-      ) : (
-        <p>No image available</p>
-      )}
+      <div className="flex flex-col justify-center">
+        {data.image?.asset?._ref ? (
+          <ImageMask1
+            url={urlFor(data.image.asset._ref, data.image?.hotspot)}
+            alt={data?.title || "Image"}
+            bgColor={getBackgroundColor(data.colorCombination)}
+          />
+        ) : (
+          <p>No image available</p>
+        )}
+      </div>
       {data.text && <PortableTextComponent textData={data.text} />}
       {data.dates && <Tickets dateTickets={data.dates} />}
     </div>

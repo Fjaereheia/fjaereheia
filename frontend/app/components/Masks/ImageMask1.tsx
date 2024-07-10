@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from "react";
+import ImageMask from "~/assets/imageMask";
+
 interface MaskProps {
   url: string;
   alt: string;
@@ -6,21 +7,21 @@ interface MaskProps {
 }
 
 export default function ImageMask1({ url, alt, bgColor }: MaskProps) {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const context = canvas.getContext("2d");
-      context.fillStyle = "#59A1B6";
-      context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-    }
-  }, []);
   return (
     <>
-      <div className="relative w-full">
-        <canvas className="absolute w-full h-44 z-10" ref={canvasRef} />
-        <img src={url} alt={alt} className="relative w-full" />
+      <div className="relative ">
+        <ImageMask />
+        <img
+          src={url}
+          alt={alt}
+          className="relative "
+          style={{
+            clipPath: "url(#imageMask)",
+            objectFit: "cover",
+            width: "450px",
+            height: "450px",
+          }}
+        />
       </div>
     </>
   );
