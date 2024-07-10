@@ -7,12 +7,15 @@ import {
   useRouteError,
   redirect,
   useLocation,
+  json,
+  useLoaderData,
 } from "@remix-run/react";
 import "./styles/app.css";
 import StickyFooter from "./components/StickyFooter";
 import Header from "./components/Header/Header";
 import PageNotFound from "./components/PageNotFound";
 import { LoaderFunction } from "@remix-run/node";
+import { getLanguageFromPath, LanguageProvider } from "./utils/i18n";
 
 type ErrorWithStatus = {
   status?: number;
@@ -44,11 +47,14 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (pathname.endsWith("/") && pathname.length > 1) {
     throw redirect(`${pathname.slice(0, -1)}${search}`, 301);
   }
-  return null;
+
+  const language = getLanguageFromPath(pathname);
+  return json({ language });
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
+  const { language } = useLoaderData<typeof loader>();
 
   let backgroundColorClass = "";
 
@@ -69,7 +75,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <html lang="en">
+    <html lang={language}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -87,13 +93,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  const { language } = useLoaderData<typeof loader>();
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <div className="flex-grow">
-        <Outlet />
+    <LanguageProvider language={language}>
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <div className="flex-grow">
+          <Outlet />
+        </div>
+        <StickyFooter infoUrl="/info" programUrl="/event" />
       </div>
-      <StickyFooter infoUrl="/info" programUrl="/event" />
-    </div>
+    </LanguageProvider>
   );
 }
