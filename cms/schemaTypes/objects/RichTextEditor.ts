@@ -15,5 +15,8 @@ export default {
     {
       type: 'quote',
     },
+    {
+      type: 'review',
+    },
   ],
 }
