@@ -1,7 +1,9 @@
 import MuxPlayer from "@mux/mux-player-react";
 import { PortableText, PortableTextComponentProps } from "@portabletext/react";
 import { CustomContent } from "sanity/types";
+import { Quote } from "sanity/types";
 import urlFor from "~/utils/imageUrlBuilder";
+import QuoteComponent from "./QuoteComponent";
 
 interface PortableTextProps {
   textData: CustomContent;
@@ -36,6 +38,16 @@ export default function PortableTextComponent({ textData }: PortableTextProps) {
             metadata={value?.title ? { video_title: value.title } : undefined}
           />
         );
+      },
+      quote: ({
+        value,
+      }: PortableTextComponentProps<{
+        company: string;
+        content: string;
+        source: string;
+        date: string;
+      }>) => {
+        return <QuoteComponent quote={value} />;
       },
     },
   };

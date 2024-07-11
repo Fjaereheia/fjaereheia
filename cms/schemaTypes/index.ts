@@ -10,6 +10,8 @@ import {videoType} from '././objects/videoType'
 import metaTitle from './objects/metaTitle'
 import metaDescription from './objects/metaDescription'
 import colorCombination from './objects/colorCombination'
+import roleGroups from './objects/roleGroups'
+import {reviewType} from './objects/reviewType'
 
 export const schemaTypes = [
   articleType,
@@ -20,8 +22,10 @@ export const schemaTypes = [
   infopage,
   quoteType,
   RichTextEditor,
+  roleGroups,
   videoType,
   metaTitle,
   metaDescription,
   colorCombination,
+  reviewType,
 ]

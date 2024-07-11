@@ -9,28 +9,37 @@ export default function StickyFooter({
   programUrl,
   infoUrl,
 }: StickyFooterProps) {
+  let textcolor = "black";
+  let bgcolor = "white";
   const location = useLocation();
   const showFooter = !["/", "/en"].includes(location.pathname);
 
   if (!showFooter) {
     return null;
   }
+
+  if (location.pathname.includes("/event")) {
+    textcolor = "white";
+    bgcolor = "newsletter";
+  }
+
+  if (location.pathname === "/info") {
+    textcolor = "black";
+    bgcolor = "[#83D2FF]";
+  }
+
   return (
-    <footer className="sticky bottom-0 border-t border-gray-200 shadow py-2 bg-white bg-opacity-100 z-10">
-      <ul className="flex flex-row justify-center space-x-6">
+    <footer
+      className={`sticky bottom-0 border-t text-${textcolor} bg-${bgcolor} font-serif text-2xl border-${textcolor} shadow py-2  z-10 h-[7vh] lg:h-[5vh]`}
+    >
+      <ul className="flex flex-row justify-evenly lg:justify-center">
         <li>
-          <Link
-            to={infoUrl}
-            className="hover:underline me-4 md:me-6 hover:text-gray-400"
-          >
+          <Link to={infoUrl} className="hover:underline me-4 md:me-6 w-1/2 ">
             INFO
           </Link>
         </li>
         <li>
-          <Link
-            to={programUrl}
-            className="hover:underline me-4 md:me-6 hover:text-gray-400"
-          >
+          <Link to={programUrl} className="hover:underline me-4 md:me-6 w-1/2">
             PROGRAM
           </Link>
         </li>
