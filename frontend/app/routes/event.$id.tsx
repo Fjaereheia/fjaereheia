@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
@@ -7,7 +8,7 @@ import { getBackgroundColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
-import ImageMask1 from "~/components/Masks/ImageMask1";
+import ImageEventPage from "~/components/Masks/ImageEventPage";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await client.fetch<EVENT_QUERYResult>(EVENT_QUERY, params);
@@ -44,6 +45,25 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
 
+  const [viewScale, setViewScale] = useState(1);
+
+  useEffect(() => {
+    const updateViewScale = () => {
+      if (window.matchMedia("(min-width: 1024px)").matches) {
+        setViewScale(2.25);
+      } else {
+        setViewScale(1.25);
+      }
+    };
+
+    updateViewScale();
+    window.addEventListener("resize", updateViewScale);
+
+    return () => {
+      window.removeEventListener("resize", updateViewScale);
+    };
+  }, []);
+
   if (!data) {
     return <></>;
   }
@@ -52,22 +72,22 @@ export default function Event() {
     <div
       className={`${getBackgroundColor(
         data.colorCombination
-      )} flex flex-col justify-center items-center`}
+      )} flex flex-col relative justify-center items-center`}
     >
-      <h1>Forestilling:</h1>
-      <div className="flex flex-col justify-center">
-        {data.image?.asset?._ref ? (
-          <ImageMask1
-            url={urlFor(data.image.asset._ref, data.image?.hotspot)}
-            alt={data?.title || "Image"}
-            bgColor={getBackgroundColor(data.colorCombination)}
-          />
-        ) : (
-          <p>No image available</p>
-        )}
+      {data.image?.asset?._ref ? (
+        <ImageEventPage
+          url={urlFor(data.image.asset._ref, data.image?.hotspot)}
+          alt={data?.title || "Image"}
+          scale={viewScale}
+        />
+      ) : (
+        <p>No image available</p>
+      )}
+      <div className="static">
+        <h1 className="font-serif text-2xl lg:text-4xl">{data.title}</h1>
+        {data.text && <PortableTextComponent textData={data.text} />}
+        {data.dates && <Tickets dateTickets={data.dates} />}
       </div>
-      {data.text && <PortableTextComponent textData={data.text} />}
-      {data.dates && <Tickets dateTickets={data.dates} />}
     </div>
   );
 }
