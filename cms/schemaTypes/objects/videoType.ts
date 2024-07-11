@@ -17,6 +17,7 @@ export const videoType = defineType({
       type: 'mux.video',
       title: 'Mux Video',
       description: 'Velg en video',
+      validation: (rule) => [rule.required().error('Video er påkrevd')],
     }),
   ],
 })
