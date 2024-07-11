@@ -7,6 +7,8 @@ import {
   useRouteError,
   redirect,
   useLocation,
+  json,
+  useLoaderData,
 } from "@remix-run/react";
 import "./styles/app.css";
 import StickyFooter from "./components/StickyFooter";
@@ -15,6 +17,7 @@ import PageNotFound from "./components/PageNotFound";
 import { LoaderFunction } from "@remix-run/node";
 import { motion } from "framer-motion";
 import { usePageTransition } from "./utils/pageTransition";
+import { getLanguageFromPath, LanguageProvider } from "./utils/i18n";
 
 type ErrorWithStatus = {
   status?: number;
@@ -46,11 +49,14 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (pathname.endsWith("/") && pathname.length > 1) {
     throw redirect(`${pathname.slice(0, -1)}${search}`, 301);
   }
-  return null;
+
+  const language = getLanguageFromPath(pathname);
+  return json({ language });
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
+  const { language } = useLoaderData<typeof loader>();
 
   let backgroundColorClass = "";
 
@@ -70,7 +76,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <html lang="en">
+    <html lang={language}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -89,21 +95,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const { slideDirection, pathname } = usePageTransition();
+  const { language } = useLoaderData<typeof loader>();
   return (
-    <motion.div
-      key={pathname}
-      initial={{ x: slideDirection * 100 + "%" }}
-      animate={{ x: 0 }}
-      exit={{
-        x: slideDirection * -100 + "%",
-      }}
-      transition={{
-        duration: 0.5,
-      }}
-    >
-      <Header />
-      <Outlet />
-      <StickyFooter infoUrl="/info" programUrl="/event" />
-    </motion.div>
+    <LanguageProvider language={language}>
+      <motion.div
+        key={pathname}
+        initial={{ x: slideDirection * 100 + "%" }}
+        animate={{ x: 0 }}
+        exit={{
+          x: slideDirection * -100 + "%",
+        }}
+        transition={{
+          duration: 0.5,
+        }}
+      >
+        <Header />
+        <Outlet />
+        <StickyFooter infoUrl="/info" programUrl="/event" />
+      </motion.div>
+    </LanguageProvider>
   );
 }

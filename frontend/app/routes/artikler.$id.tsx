@@ -1,15 +1,16 @@
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
-import { ARTICLE_QUERYResult } from "sanity/types";
+import { Custom_ARTICLE_QUERYResult } from "sanity/types";
 import { getBackgroundColor } from "~/utils/colorCombinations";
 import { ARTICLE_QUERY } from "~/queries/article-queries";
 import ButtonLink from "~/components/ButtonLink";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
+import MuxPlayer from "@mux/mux-player-react";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const article = await client.fetch<ARTICLE_QUERYResult>(
+  const article = await client.fetch<Custom_ARTICLE_QUERYResult>(
     ARTICLE_QUERY,
     params
   );
@@ -44,12 +45,11 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 };
 
 export default function Article() {
-  const data = useLoaderData<typeof loader>() as ARTICLE_QUERYResult;
+  const data = useLoaderData<typeof loader>() as Custom_ARTICLE_QUERYResult;
 
   if (!data) {
     return <></>;
   }
-
   return (
     <div className={getBackgroundColor(data.colorCombination)}>
       <div className="flex flex-col items-center mx-6 mt- ">
@@ -61,6 +61,13 @@ export default function Article() {
               src={urlFor(data.image.asset?._ref || "")}
               alt={data.image.alt}
             ></img>
+          )}
+          {data.video?.muxVideo.asset && (
+            <MuxPlayer
+              disableCookies={true}
+              playbackId={data.video.muxVideo.asset.playbackId}
+              title={data.video.title || ""}
+            />
           )}
           {data?.text && <PortableTextComponent textData={data.text} />}
           {data?.event && (
