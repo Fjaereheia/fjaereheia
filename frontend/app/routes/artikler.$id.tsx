@@ -1,13 +1,13 @@
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
-import { ARTICLE_QUERYResult, Custom_ARTICLE_QUERYResult } from "sanity/types";
+import { Custom_ARTICLE_QUERYResult } from "sanity/types";
 import { getBackgroundColor } from "~/utils/colorCombinations";
 import { ARTICLE_QUERY } from "~/queries/article-queries";
 import ButtonLink from "~/components/ButtonLink";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
-import MuxVideo from "~/components/MuxVideo";
+import MuxPlayer from "@mux/mux-player-react";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const article = await client.fetch<Custom_ARTICLE_QUERYResult>(
@@ -63,11 +63,8 @@ export default function Article() {
             ></img>
           )}
           {data.video?.muxVideo.asset && (
-            <MuxVideo
-              playbackId={
-                (data.video.muxVideo.asset as { playbackId?: string })
-                  ?.playbackId || ""
-              }
+            <MuxPlayer
+              playbackId={data.video.muxVideo.asset.playbackId}
               title={data.video.title || ""}
             />
           )}

@@ -20,7 +20,7 @@ export default function PortableTextComponent({ textData }: PortableTextProps) {
       }>) => {
         return (
           <img
-            src={urlFor(value.asset?._ref)}
+            src={urlFor(value.asset._ref)}
             alt={value.alt}
             style={{ maxWidth: "100%" }}
           />
@@ -32,12 +32,12 @@ export default function PortableTextComponent({ textData }: PortableTextProps) {
         muxVideo: { asset: { playbackId: string } };
         title: string;
       }>) => {
-        return (
+        return value.muxVideo.asset ? (
           <MuxPlayer
-            playbackId={value.muxVideo.asset?.playbackId}
-            metadata={value?.title ? { video_title: value.title } : undefined}
+            playbackId={value.muxVideo.asset.playbackId}
+            metadata={value.title ? { video_title: value.title } : undefined}
           />
-        );
+        ) : null;
       },
       quote: ({
         value,
