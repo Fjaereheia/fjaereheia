@@ -48,6 +48,14 @@ declare module "sanity/types" {
         title: string;
       }
     | {
+        _type: "quote";
+        company: string;
+        source: string;
+        _key: string;
+        content: string;
+        date: string;
+      }
+    | {
         children?: Array<{
           marks?: Array<string>;
           text?: string;
