@@ -58,8 +58,18 @@ export const eventType = defineType({
         {
           type: 'object',
           fields: [
-            {name: 'date', type: 'datetime', title: 'Dato'},
-            {name: 'url', type: 'url', title: 'Link'},
+            {
+              name: 'date',
+              type: 'datetime',
+              title: 'Dato',
+              validation: (rule) => rule.required().error('Dato er påkrevd.'),
+            },
+            {
+              name: 'url',
+              type: 'url',
+              title: 'Link',
+              validation: (rule) => [rule.required().error('URL er påkrevd.')],
+            },
           ],
         },
       ],

@@ -7,6 +7,7 @@ import { getBackgroundColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
+import { EventLabels } from "~/components/EventLabels";
 import { useState } from "react";
 import ArrowUp from "/arrow-up.svg";
 import ArrowDown from "/arrow-down.svg";
@@ -62,6 +63,7 @@ export default function Event() {
       ) : (
         <p>No image available</p>
       )}
+      {data.dates && <EventLabels dateObj={data.dates} />}
       {data.text && <PortableTextComponent textData={data.text} />}
       {data.dates && <Tickets dateTickets={data.dates} />}
       {data.roleGroups && (

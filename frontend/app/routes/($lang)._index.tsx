@@ -7,6 +7,7 @@ import urlFor from "~/utils/imageUrlBuilder";
 import PurpleDot from "~/assets/PurpleDot";
 import GreenButton from "~/assets/GreenButton";
 import Newsletter from "~/components/Newsletter";
+import { createTexts, useTranslation } from "~/utils/i18n";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   if (!params.lang) {
@@ -48,6 +49,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Index() {
   const data = useLoaderData<typeof loader>() as FRONTPAGE_QUERYResult;
+  const { t } = useTranslation();
   const imageUrl = urlFor(
     data?.event?.image?.asset?._ref || data?.image?.asset?._ref || ""
   );
@@ -81,7 +83,7 @@ export default function Index() {
         <ButtonLink
           styling="text-white w-48 px-4 py-2 text-left rounded self-center font-serif text-2xl lg:text-4xl "
           url="/event"
-          buttonText="Program"
+          buttonText={t(texts.programText)}
         />
       </div>
 
@@ -90,9 +92,20 @@ export default function Index() {
           to={"/event/" + data?.event?.slug?.current + "#tickets" || "/event"}
         >
           <button className="flex items-center justify-center px-4 pt-20 lg:py-2 "></button>
-          <GreenButton text={"Kjøp \nBillett"} />
+          <GreenButton text={t(texts.buyTicket)} />
         </Link>
       )}
     </div>
   );
 }
+
+const texts = createTexts({
+  programText: {
+    nb: "Program",
+    en: "Program",
+  },
+  buyTicket: {
+    nb: "Kjøp \nBillett",
+    en: "Buy \nTicket",
+  },
+});
