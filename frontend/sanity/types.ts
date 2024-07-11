@@ -68,6 +68,20 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Review = {
+  _id: string;
+  _type: "review";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  score?: number;
+  content?: string;
+  source?: string;
+  company?: string;
+  link?: string;
+  date?: string;
+};
+
 export type ColorCombination =
   | "darkBluePrimaryGreenSecondary"
   | "lightRedPrimaryDarkBlueSecondary";
@@ -126,7 +140,7 @@ export type Content = Array<
       };
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
-      alt?: string;
+      alt: string;
       _type: "customImage";
       _key: string;
     }
@@ -138,12 +152,18 @@ export type Content = Array<
       [internalGroqTypeReferenceTo]?: "video";
     }
   | {
-      _type: "quote";
-      company: string;
-      source: string;
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
       _key: string;
-      content: string;
-      date: string;
+      [internalGroqTypeReferenceTo]?: "quote";
+    }
+  | {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: "review";
     }
 >;
 
@@ -357,7 +377,7 @@ export type Role = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
+  name: string;
   occupation?: string;
   language?: string;
   image: {
@@ -419,7 +439,7 @@ export type Infopage = {
         };
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
-        alt?: string;
+        alt: string;
         _type: "customImage";
         _key: string;
       }
@@ -545,8 +565,8 @@ export type Event = {
       _key: string;
     } & RoleGroups
   >;
-  metaTitle?: MetaTitle;
-  metaDescription?: MetaDescription;
+  metaTitle: MetaTitle;
+  metaDescription: MetaDescription;
 };
 
 export type Document = {
@@ -586,10 +606,12 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
+  | Review
   | ColorCombination
   | MetaDescription
   | MetaTitle
   | Video
+  | RoleGroups
   | Content
   | Quote
   | SanityImageCrop
@@ -597,6 +619,7 @@ export type AllSanitySchemaTypes =
   | SanityImageAsset
   | SanityAssetSourceData
   | SanityImageMetadata
+  | MuxVideo
   | MuxVideoAsset
   | MuxAssetData
   | MuxStaticRenditions
@@ -610,7 +633,7 @@ export type AllSanitySchemaTypes =
   | Frontpage
   | Article
   | Event
-  | MuxVideo
+  | Document
   | CustomImage
   | Slug
   | InternationalizedArrayReference;
@@ -763,8 +786,8 @@ export type ARTICLE_QUERYResult = {
         _key: string;
       } & RoleGroups
     >;
-    metaTitle?: MetaTitle;
-    metaDescription?: MetaDescription;
+    metaTitle: MetaTitle;
+    metaDescription: MetaDescription;
   } | null;
   metaTitle: MetaTitle;
   metaDescription: MetaDescription;
@@ -807,8 +830,8 @@ export type EVENTS_QUERYResult = Array<{
       _key: string;
     } & RoleGroups
   >;
-  metaTitle?: MetaTitle;
-  metaDescription?: MetaDescription;
+  metaTitle: MetaTitle;
+  metaDescription: MetaDescription;
 }>;
 // Variable: EVENT_QUERY
 // Query: *[_type=="event" && slug.current ==$id][0]{...,roleGroups[]{name,roles[]->{name, occupation,image, text}}}
@@ -845,7 +868,7 @@ export type EVENT_QUERYResult = {
   roleGroups: Array<{
     name: string | null;
     roles: Array<{
-      name: string | null;
+      name: string;
       occupation: string | null;
       image: {
         asset?: {
@@ -856,14 +879,14 @@ export type EVENT_QUERYResult = {
         };
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
-        alt?: string;
+        alt: string;
         _type: "customImage";
-      } | null;
+      };
       text: string | null;
     }> | null;
   }> | null;
-  metaTitle?: MetaTitle;
-  metaDescription?: MetaDescription;
+  metaTitle: MetaTitle;
+  metaDescription: MetaDescription;
 } | null;
 // Source: ../frontend/app/queries/frontpage-queries.ts
 // Variable: FRONTPAGE_QUERY
@@ -910,7 +933,7 @@ export type FRONTPAGE_QUERYResult = {
 // Variable: INFOPAGE_QUERY
 // Query: *[_type=="infopage" && language==$lang]{title, text, links[]->{..., slug}}[0]
 export type INFOPAGE_QUERYResult = {
-  title: string | null;
+  title: string;
   text: Array<
     | {
         asset?: {
@@ -921,7 +944,7 @@ export type INFOPAGE_QUERYResult = {
         };
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
-        alt?: string;
+        alt: string;
         _type: "customImage";
         _key: string;
       }
@@ -959,7 +982,7 @@ export type INFOPAGE_QUERYResult = {
         _createdAt: string;
         _updatedAt: string;
         _rev: string;
-        title?: string;
+        title: string;
         language?: string;
         colorCombination?: ColorCombination;
         slug: Slug | null;
@@ -973,18 +996,23 @@ export type INFOPAGE_QUERYResult = {
           };
           hotspot?: SanityImageHotspot;
           crop?: SanityImageCrop;
-          alt?: string;
+          alt: string;
           _type: "customImage";
         };
-        video?: MuxVideo;
+        video?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "video";
+        };
         event?: {
           _ref: string;
           _type: "reference";
           _weak?: boolean;
           [internalGroqTypeReferenceTo]?: "event";
         };
-        metaTitle?: MetaTitle;
-        metaDescription?: MetaDescription;
+        metaTitle: MetaTitle;
+        metaDescription: MetaDescription;
       }
     | {
         _id: string;
@@ -992,7 +1020,7 @@ export type INFOPAGE_QUERYResult = {
         _createdAt: string;
         _updatedAt: string;
         _rev: string;
-        title?: string;
+        title: string;
         language?: string;
         text?: Array<
           | {
@@ -1004,7 +1032,7 @@ export type INFOPAGE_QUERYResult = {
               };
               hotspot?: SanityImageHotspot;
               crop?: SanityImageCrop;
-              alt?: string;
+              alt: string;
               _type: "customImage";
               _key: string;
             }
