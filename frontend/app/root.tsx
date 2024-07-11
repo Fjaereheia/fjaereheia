@@ -103,7 +103,7 @@ export default function App() {
         <div className="flex-grow">
           <Outlet />
         </div>
-        <StickyFooter infoUrl="/info" programUrl="/event" moveButton={false} />
+        <StickyFooter infoUrl="/info" programUrl="/event" moveButton={true} />
       </div>
     </LanguageProvider>
   );

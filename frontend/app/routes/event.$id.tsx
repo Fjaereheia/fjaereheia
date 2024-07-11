@@ -55,7 +55,7 @@ export default function Event() {
       const footer = document.getElementById("footer");
       //const button = document.getElementById("eventLabelButton");
       if (footer) {
-        if (window.scrollY < 100) {
+        if (window.scrollY < 150) {
           setMoveButton(true);
         } else {
           setMoveButton(false);
@@ -67,6 +67,13 @@ export default function Event() {
       window.removeEventListener("scroll", buttonToFooter);
     };
   }, [setMoveButton]);
+
+  const handleScroll = () => {
+    const target = document.getElementById("tickets");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   if (!data) {
     return <></>;
@@ -84,6 +91,11 @@ export default function Event() {
       )}
       {data.dates && <EventLabels dateObj={data.dates} button={moveButton} />}
       {data.text && <PortableTextComponent textData={data.text} />}
+      {!moveButton && (
+        <div className="fixed bottom-12 left-0 right-0 flex items-center justify-center z-10 bg-red-400 p-3  h-[7vh] lg:h-[5vh]">
+          <button onClick={handleScroll}>Kjøp</button>
+        </div>
+      )}
       {data.dates && <Tickets dateTickets={data.dates} />}
       {data.roleGroups && (
         <button
