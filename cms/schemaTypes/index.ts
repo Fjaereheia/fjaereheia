@@ -11,6 +11,8 @@ import metaTitle from './objects/metaTitle'
 import metaDescription from './objects/metaDescription'
 import colorCombination from './objects/colorCombination'
 import imageMask from './objects/imageMask'
+import roleGroups from './objects/roleGroups'
+import {reviewType} from './objects/reviewType'
 
 export const schemaTypes = [
   articleType,
@@ -21,9 +23,12 @@ export const schemaTypes = [
   infopage,
   quoteType,
   RichTextEditor,
+  roleGroups,
   muxVideo,
   metaTitle,
   metaDescription,
   colorCombination,
   imageMask,
+  reviewType,
+
 ]

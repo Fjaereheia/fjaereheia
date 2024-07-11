@@ -9,6 +9,12 @@ import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
 import ImageEventPage from "~/components/Masks/ImageEventPage";
+import { EventLabels } from "~/components/EventLabels";
+import { useState } from "react";
+import ArrowUp from "/arrow-up.svg";
+import ArrowDown from "/arrow-down.svg";
+import RoleDropDown from "~/components/RoleDropDown";
+
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await client.fetch<EVENT_QUERYResult>(EVENT_QUERY, params);
@@ -44,6 +50,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
+  const [openRole, setOpenRole] = useState(false);
 
   const [viewScale, setViewScale] = useState(1);
 
@@ -67,7 +74,6 @@ export default function Event() {
   if (!data) {
     return <></>;
   }
-
   return (
     <div
       className={`${getBackgroundColor(
@@ -89,6 +95,25 @@ export default function Event() {
         {data.text && <PortableTextComponent textData={data.text} />}
         {data.dates && <Tickets dateTickets={data.dates} />}
       </div>
+      {data.dates && <EventLabels dateObj={data.dates} />}
+      {data.text && <PortableTextComponent textData={data.text} />}
+      {data.dates && <Tickets dateTickets={data.dates} />}
+      {data.roleGroups && (
+        <button
+          className="w-80 h-auto py-4 px-6 m-4 grid grid-flow-col bg-inherit border border-black"
+          onClick={() => setOpenRole(!openRole)}
+        >
+          <span className="self-center justify-self-start text-xl">
+            Medvirkende{" "}
+          </span>
+          <img
+            className="w-6 h-6 self-center justify-self-end"
+            src={openRole ? ArrowUp : ArrowDown}
+            alt={openRole ? "Pil opp" : "Pil ned"}
+          />
+        </button>
+      )}
+      {openRole && <RoleDropDown roleGroups={data.roleGroups} />}
     </div>
   );
 }

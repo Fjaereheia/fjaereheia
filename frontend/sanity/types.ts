@@ -68,9 +68,15 @@ export type Geopoint = {
   alt?: number;
 };
 
+
 export type ImageMask = "smallImageNotCoveringScreen" | "bigImageCoveringScreen";
 
-export type ColorCombination = "darkBluePrimaryGreenSecondary" | "lightRedPrimaryDarkBlueSecondary";
+
+
+export type ColorCombination =
+  | "darkBluePrimaryGreenSecondary"
+  | "lightRedPrimaryDarkBlueSecondary";
+
 
 export type MetaDescription = string;
 
@@ -85,48 +91,66 @@ export type Video = {
   muxVideo?: MuxVideo;
 };
 
-export type Content = Array<{
-  children?: Array<{
-    marks?: Array<string>;
-    text?: string;
-    _type: "span";
-    _key: string;
-  }>;
-  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-  listItem?: "bullet" | "number";
-  markDefs?: Array<{
-    href?: string;
-    _type: "link";
-    _key: string;
-  }>;
-  level?: number;
-  _type: "block";
-  _key: string;
-} | {
-  asset?: {
+export type RoleGroups = {
+  _type: "roleGroups";
+  name?: string;
+  roles?: Array<{
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-  };
-  hotspot?: SanityImageHotspot;
-  crop?: SanityImageCrop;
-  alt?: string;
-  _type: "customImage";
-  _key: string;
-} | {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  _key: string;
-  [internalGroqTypeReferenceTo]?: "video";
-} | {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  _key: string;
-  [internalGroqTypeReferenceTo]?: "quote";
-}>;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "role";
+  }>;
+};
+
+export type Content = Array<
+  | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }
+  | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "customImage";
+      _key: string;
+    }
+  | {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: "video";
+    }
+  | {
+      _type: "quote";
+      company: string;
+      source: string;
+      _key: string;
+      content: string;
+      date: string;
+    }
+>;
 
 export type Quote = {
   _id: string;
@@ -223,21 +247,27 @@ export type MuxAssetData = {
   max_stored_frame_rate?: number;
   mp4_support?: string;
   max_resolution_tier?: string;
-  tracks?: Array<{
-    _key: string;
-  } & MuxTrack>;
-  playback_ids?: Array<{
-    _key: string;
-  } & MuxPlaybackId>;
+  tracks?: Array<
+    {
+      _key: string;
+    } & MuxTrack
+  >;
+  playback_ids?: Array<
+    {
+      _key: string;
+    } & MuxPlaybackId
+  >;
   static_renditions?: MuxStaticRenditions;
 };
 
 export type MuxStaticRenditions = {
   _type: "mux.staticRenditions";
   status?: string;
-  files?: Array<{
-    _key: string;
-  } & MuxStaticRenditionFile>;
+  files?: Array<
+    {
+      _key: string;
+    } & MuxStaticRenditionFile
+  >;
 };
 
 export type MuxStaticRenditionFile = {
@@ -272,41 +302,48 @@ export type TranslationMetadata = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  translations?: Array<{
-    _key: string;
-  } & InternationalizedArrayReferenceValue>;
+  translations?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayReferenceValue
+  >;
   schemaTypes?: Array<string>;
   slug?: Slug;
 };
 
 export type InternationalizedArrayReferenceValue = {
   _type: "internationalizedArrayReferenceValue";
-  value?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "article";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "event";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "frontpage";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "infopage";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "role";
-  };
+  value?:
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "article";
+      }
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "event";
+      }
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "frontpage";
+      }
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "infopage";
+      }
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "role";
+      };
 };
 
 export type Role = {
@@ -316,6 +353,7 @@ export type Role = {
   _updatedAt: string;
   _rev: string;
   name?: string;
+  occupation?: string;
   language?: string;
   image?: {
     asset?: {
@@ -329,7 +367,7 @@ export type Role = {
     alt?: string;
     _type: "customImage";
   };
-  text?: Content;
+  text?: string;
 };
 
 export type Infopage = {
@@ -340,47 +378,61 @@ export type Infopage = {
   _rev: string;
   title?: string;
   language?: string;
-  text?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  } | {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "customImage";
-    _key: string;
-  }>;
-  links?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "article";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "infopage";
-  }>;
+  text?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?:
+          | "normal"
+          | "h1"
+          | "h2"
+          | "h3"
+          | "h4"
+          | "h5"
+          | "h6"
+          | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "customImage";
+        _key: string;
+      }
+  >;
+  links?: Array<
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "article";
+      }
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "infopage";
+      }
+  >;
 };
 
 export type Frontpage = {
@@ -479,6 +531,11 @@ export type Event = {
     _type: "customImage";
   };
   text?: Content;
+  roleGroups?: Array<
+    {
+      _key: string;
+    } & RoleGroups
+  >;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 };
@@ -512,11 +569,51 @@ export type Slug = {
   source?: string;
 };
 
-export type InternationalizedArrayReference = Array<{
-  _key: string;
-} & InternationalizedArrayReferenceValue>;
+export type InternationalizedArrayReference = Array<
+  {
+    _key: string;
+  } & InternationalizedArrayReferenceValue
+>;
+
+export type AllSanitySchemaTypes =
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
+  | SanityFileAsset
+  | Geopoint
+  | ColorCombination
+  | MetaDescription
+  | MetaTitle
+  | Video
+  | RoleGroups
+  | Content
+  | Quote
+  | SanityImageCrop
+  | SanityImageHotspot
+  | SanityImageAsset
+  | SanityAssetSourceData
+  | SanityImageMetadata
+  | MuxVideoAsset
+  | MuxAssetData
+  | MuxStaticRenditions
+  | MuxStaticRenditionFile
+  | MuxPlaybackId
+  | MuxTrack
+  | TranslationMetadata
+  | InternationalizedArrayReferenceValue
+  | Role
+  | Infopage
+  | Frontpage
+  | Article
+  | Event
+  | MuxVideo
+  | CustomImage
+  | Slug
+  | InternationalizedArrayReference;
+
 
 export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | ImageMask | ColorCombination | MetaDescription | MetaTitle | Video | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Role | Infopage | Frontpage | Article | Event | MuxVideo | CustomImage | Slug | InternationalizedArrayReference;
+
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -611,6 +708,11 @@ export type ARTICLE_QUERYResult = {
       _type: "customImage";
     };
     text?: Content;
+    roleGroups?: Array<
+      {
+        _key: string;
+      } & RoleGroups
+    >;
     metaTitle?: MetaTitle;
     metaDescription?: MetaDescription;
   } | null;
@@ -651,11 +753,16 @@ export type EVENTS_QUERYResult = Array<{
     _type: "customImage";
   };
   text?: Content;
+  roleGroups?: Array<
+    {
+      _key: string;
+    } & RoleGroups
+  >;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 }>;
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && slug.current == $id][0]
+// Query: *[_type=="event" && slug.current ==$id][0]{...,roleGroups[]{name,roles[]->{name, occupation,image, text}}}
 export type EVENT_QUERYResult = {
   _id: string;
   _type: "event";
@@ -687,6 +794,26 @@ export type EVENT_QUERYResult = {
     _type: "customImage";
   };
   text?: Content;
+  roleGroups: Array<{
+    name: string | null;
+    roles: Array<{
+      name: string | null;
+      occupation: string | null;
+      image: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "customImage";
+      } | null;
+      text: string | null;
+    }> | null;
+  }> | null;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 } | null;
@@ -736,117 +863,145 @@ export type FRONTPAGE_QUERYResult = {
 // Query: *[_type=="infopage" && language==$lang]{title, text, links[]->{..., slug}}[0]
 export type INFOPAGE_QUERYResult = {
   title: string | null;
-  text: Array<{
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "customImage";
-    _key: string;
-  } | {
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }> | null;
-  links: Array<{
-    _id: string;
-    _type: "article";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
-    title?: string;
-    language?: string;
-    colorCombination?: ColorCombination;
-    slug: Slug | null;
-    text?: Content;
-    image?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      _type: "customImage";
-    };
-    video?: MuxVideo;
-    event?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "event";
-    };
-    metaTitle?: MetaTitle;
-    metaDescription?: MetaDescription;
-  } | {
-    _id: string;
-    _type: "infopage";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
-    title?: string;
-    language?: string;
-    text?: Array<{
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      _type: "customImage";
-      _key: string;
-    } | {
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
+  text: Array<
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "customImage";
         _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
+      }
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?:
+          | "blockquote"
+          | "h1"
+          | "h2"
+          | "h3"
+          | "h4"
+          | "h5"
+          | "h6"
+          | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
         _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-    links?: Array<{
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "article";
-    } | {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "infopage";
-    }>;
-    slug: null;
-  }> | null;
+      }
+  > | null;
+  links: Array<
+    | {
+        _id: string;
+        _type: "article";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        title?: string;
+        language?: string;
+        colorCombination?: ColorCombination;
+        slug: Slug | null;
+        text?: Content;
+        image?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          _type: "customImage";
+        };
+        video?: MuxVideo;
+        event?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "event";
+        };
+        metaTitle?: MetaTitle;
+        metaDescription?: MetaDescription;
+      }
+    | {
+        _id: string;
+        _type: "infopage";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        title?: string;
+        language?: string;
+        text?: Array<
+          | {
+              asset?: {
+                _ref: string;
+                _type: "reference";
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+              };
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              _type: "customImage";
+              _key: string;
+            }
+          | {
+              children?: Array<{
+                marks?: Array<string>;
+                text?: string;
+                _type: "span";
+                _key: string;
+              }>;
+              style?:
+                | "blockquote"
+                | "h1"
+                | "h2"
+                | "h3"
+                | "h4"
+                | "h5"
+                | "h6"
+                | "normal";
+              listItem?: "bullet" | "number";
+              markDefs?: Array<{
+                href?: string;
+                _type: "link";
+                _key: string;
+              }>;
+              level?: number;
+              _type: "block";
+              _key: string;
+            }
+        >;
+        links?: Array<
+          | {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "article";
+            }
+          | {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "infopage";
+            }
+        >;
+        slug: null;
+      }
+  > | null;
 } | null;
