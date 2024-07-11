@@ -1,7 +1,9 @@
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
+import {defineDocuments, presentationTool} from 'sanity/presentation'
 import {schemaTypes} from './schemaTypes'
+import {DocumentTextIcon} from '@sanity/icons'
 import {
   documentInternationalization,
   DeleteTranslationAction,
@@ -13,6 +15,7 @@ import {muxInput} from 'sanity-plugin-mux-input'
 //singleton pages. Before you add the type to singletontypes, the page should be created, since create is not a valid action for singleton types
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
 const singletonTypes = new Set(['frontpage'])
+const SANITY_STUDIO_PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'
 
 export default defineConfig({
   name: 'default',
@@ -23,6 +26,34 @@ export default defineConfig({
 
   plugins: [
     documentInternationalization(PluginConfig),
+    presentationTool({
+      icon: DocumentTextIcon,
+      previewUrl: SANITY_STUDIO_PREVIEW_URL,
+      resolve: {
+        mainDocuments: defineDocuments([
+          {
+            route: '',
+            filter: `_type == "frontpage"`,
+          },
+          {
+            route: '/event',
+            filter: `_type == "event"`,
+          },
+          {
+            route: 'event/:slug',
+            filter: `_type == "event" && slug.current == $slug`,
+          },
+          {
+            route: '/artikler',
+            filter: `_type == "article"`,
+          },
+          {
+            route: '/info',
+            filter: `_type == "infopage`,
+          },
+        ]),
+      },
+    }),
     structureTool({structure: deskStructure}),
     visionTool(),
     muxInput(),
