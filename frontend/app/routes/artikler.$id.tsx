@@ -1,16 +1,16 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { Link, MetaFunction, useLoaderData } from "@remix-run/react";
+import { MetaFunction, useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
-import { ARTICLE_QUERYResult } from "sanity/types";
+import { ARTICLE_QUERYResult, Custom_ARTICLE_QUERYResult } from "sanity/types";
 import { getBackgroundColor } from "~/utils/colorCombinations";
-import MuxVideo from "~/components/MuxVideo";
 import { ARTICLE_QUERY } from "~/queries/article-queries";
 import ButtonLink from "~/components/ButtonLink";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
+import MuxVideo from "~/components/MuxVideo";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const article = await client.fetch<ARTICLE_QUERYResult>(
+  const article = await client.fetch<Custom_ARTICLE_QUERYResult>(
     ARTICLE_QUERY,
     params
   );
@@ -43,7 +43,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 };
 
 export default function Article() {
-  const data = useLoaderData<typeof loader>() as ARTICLE_QUERYResult;
+  const data = useLoaderData<typeof loader>() as Custom_ARTICLE_QUERYResult;
 
   if (!data) {
     return <></>;
