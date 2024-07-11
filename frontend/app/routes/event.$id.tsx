@@ -8,7 +8,7 @@ import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
 import { EventLabels } from "~/components/EventLabels";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ArrowUp from "/arrow-up.svg";
 import ArrowDown from "/arrow-down.svg";
 import RoleDropDown from "~/components/RoleDropDown";
@@ -48,6 +48,25 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
   const [openRole, setOpenRole] = useState(false);
+  const [moveButton, setMoveButton] = useState(false);
+
+  useEffect(() => {
+    const buttonToFooter = () => {
+      const footer = document.getElementById("footer");
+      //const button = document.getElementById("eventLabelButton");
+      if (footer) {
+        if (window.scrollY < 100) {
+          setMoveButton(true);
+        } else {
+          setMoveButton(false);
+        }
+      }
+    };
+    window.addEventListener("scroll", buttonToFooter);
+    return () => {
+      window.removeEventListener("scroll", buttonToFooter);
+    };
+  }, [setMoveButton]);
 
   if (!data) {
     return <></>;
@@ -63,7 +82,7 @@ export default function Event() {
       ) : (
         <p>No image available</p>
       )}
-      {data.dates && <EventLabels dateObj={data.dates} />}
+      {data.dates && <EventLabels dateObj={data.dates} button={moveButton} />}
       {data.text && <PortableTextComponent textData={data.text} />}
       {data.dates && <Tickets dateTickets={data.dates} />}
       {data.roleGroups && (

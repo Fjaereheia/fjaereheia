@@ -16,6 +16,7 @@ import Header from "./components/Header/Header";
 import PageNotFound from "./components/PageNotFound";
 import { LoaderFunction } from "@remix-run/node";
 import { getLanguageFromPath, LanguageProvider } from "./utils/i18n";
+import { useState } from "react";
 
 type ErrorWithStatus = {
   status?: number;
@@ -94,6 +95,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const { language } = useLoaderData<typeof loader>();
+  const [moveButton, setMoveButton] = useState(false);
   return (
     <LanguageProvider language={language}>
       <div className="min-h-screen flex flex-col">
@@ -101,7 +103,7 @@ export default function App() {
         <div className="flex-grow">
           <Outlet />
         </div>
-        <StickyFooter infoUrl="/info" programUrl="/event" />
+        <StickyFooter infoUrl="/info" programUrl="/event" moveButton={false} />
       </div>
     </LanguageProvider>
   );
