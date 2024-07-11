@@ -12,7 +12,7 @@ export default function StickyFooter({
   let textcolor = "black";
   let bgcolor = "white";
   const location = useLocation();
-  const showFooter = !["/", "/en"].includes(location.pathname);
+  const showFooter = !["/", "/en", "/nb"].includes(location.pathname);
 
   if (!showFooter) {
     return null;

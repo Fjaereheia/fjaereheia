@@ -5,7 +5,7 @@ import WhiteLogo from "./logo_white.svg";
 
 export default function Header() {
   const location = useLocation();
-  const frontpageUrl = ["/", "/en"];
+  const frontpageUrl = ["/", "/en", "/nb"];
   const isProgramPage = location.pathname.includes("/event");
   const isEnglish = location.pathname.includes("/en/");
   return (
