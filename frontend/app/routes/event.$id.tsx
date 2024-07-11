@@ -10,11 +10,9 @@ import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
 import ImageEventPage from "~/components/Masks/ImageEventPage";
 import { EventLabels } from "~/components/EventLabels";
-import { useState } from "react";
 import ArrowUp from "/arrow-up.svg";
 import ArrowDown from "/arrow-down.svg";
 import RoleDropDown from "~/components/RoleDropDown";
-
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await client.fetch<EVENT_QUERYResult>(EVENT_QUERY, params);
