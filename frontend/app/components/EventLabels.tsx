@@ -1,6 +1,10 @@
 import { useLoaderData } from "@remix-run/react";
 import { EVENT_QUERYResult } from "sanity/types";
-import { formatDayAndDate, formatTimestamp, getMonth } from "~/utils/dateAndTimeConverters";
+import {
+  formatDayAndDate,
+  formatTimestamp,
+  getMonth,
+} from "~/utils/dateAndTimeConverters";
 import { LoaderFunctionArgs } from "@remix-run/node";
 
 type DateObject = {
@@ -47,11 +51,16 @@ export const EventLabels = ({ dateObj }: Props) => {
                 </>
               )}
             </div>
-            <div className="p-1 border-2 border-gray-400">{formattedTimestamp}</div>
+            <div className="p-1 border-2 border-gray-400">
+              {formattedTimestamp}
+            </div>
           </div>
           <div className="m-1 flex gap-4">
             <div className="p-1 border-2 border-gray-400">Sjanger?</div>
-            <button onClick={handleScroll} className="border-2 pl-2 pr-2 border-gray-400 bg-slate-400 text-white">
+            <button
+              onClick={handleScroll}
+              className="border-2 pl-2 pr-2 border-gray-400 bg-slate-400 text-white"
+            >
               Kjøp Billett
             </button>
           </div>
@@ -60,7 +69,7 @@ export const EventLabels = ({ dateObj }: Props) => {
     );
   };
   const handleScroll = () => {
-    const target = document.getElementById("dateTicket");
+    const target = document.getElementById("tickets");
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
     }
