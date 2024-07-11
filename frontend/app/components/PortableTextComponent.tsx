@@ -34,6 +34,7 @@ export default function PortableTextComponent({ textData }: PortableTextProps) {
       }>) => {
         return value.muxVideo.asset ? (
           <MuxPlayer
+            disableCookies={true}
             playbackId={value.muxVideo.asset.playbackId}
             metadata={value.title ? { video_title: value.title } : undefined}
           />

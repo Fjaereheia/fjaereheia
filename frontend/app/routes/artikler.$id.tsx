@@ -64,6 +64,7 @@ export default function Article() {
           )}
           {data.video?.muxVideo.asset && (
             <MuxPlayer
+              disableCookies={true}
               playbackId={data.video.muxVideo.asset.playbackId}
               title={data.video.title || ""}
             />
