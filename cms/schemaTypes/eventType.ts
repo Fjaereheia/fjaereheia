@@ -35,6 +35,11 @@ export const eventType = defineType({
       type: 'colorCombination',
     }),
     defineField({
+      name: 'imageMask',
+      title: 'Visning av bildet',
+      type: 'imageMask',
+    }),
+    defineField({
       name: 'slug',
       title: 'slug',
       type: 'slug',

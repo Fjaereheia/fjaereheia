@@ -79,6 +79,7 @@ export default function Event() {
           url={urlFor(data.image.asset._ref, data.image?.hotspot)}
           alt={data?.title || "Image"}
           scale={viewScale}
+          imageMaskType={data?.imageMask || ""}
         />
       ) : (
         <p>No image available</p>

@@ -68,6 +68,8 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type ImageMask = "smallImageNotCoveringScreen" | "bigImageCoveringScreen";
+
 export type ColorCombination = "darkBluePrimaryGreenSecondary" | "lightRedPrimaryDarkBlueSecondary";
 
 export type MetaDescription = string;
@@ -455,6 +457,7 @@ export type Event = {
   title?: string;
   language?: string;
   colorCombination?: ColorCombination;
+  imageMask?: ImageMask;
   slug?: Slug;
   preamble?: string;
   dates?: Array<{
@@ -513,7 +516,7 @@ export type InternationalizedArrayReference = Array<{
   _key: string;
 } & InternationalizedArrayReferenceValue>;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | ColorCombination | MetaDescription | MetaTitle | Video | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Role | Infopage | Frontpage | Article | Event | MuxVideo | CustomImage | Slug | InternationalizedArrayReference;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | ImageMask | ColorCombination | MetaDescription | MetaTitle | Video | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Role | Infopage | Frontpage | Article | Event | MuxVideo | CustomImage | Slug | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -586,6 +589,7 @@ export type ARTICLE_QUERYResult = {
     title?: string;
     language?: string;
     colorCombination?: ColorCombination;
+    imageMask?: ImageMask;
     slug?: Slug;
     preamble?: string;
     dates?: Array<{
@@ -625,6 +629,7 @@ export type EVENTS_QUERYResult = Array<{
   title?: string;
   language?: string;
   colorCombination?: ColorCombination;
+  imageMask?: ImageMask;
   slug?: Slug;
   preamble?: string;
   dates?: Array<{
@@ -660,6 +665,7 @@ export type EVENT_QUERYResult = {
   title?: string;
   language?: string;
   colorCombination?: ColorCombination;
+  imageMask?: ImageMask;
   slug?: Slug;
   preamble?: string;
   dates?: Array<{
