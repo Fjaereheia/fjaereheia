@@ -48,7 +48,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
   const [openRole, setOpenRole] = useState(false);
-  const [moveButton, setMoveButton] = useState(false);
+  const [moveButton, setMoveButton] = useState(true);
 
   useEffect(() => {
     const buttonToFooter = () => {
