@@ -16,6 +16,7 @@ import Header from "./components/Header/Header";
 import PageNotFound from "./components/PageNotFound";
 import { LoaderFunction } from "@remix-run/node";
 import { getLanguageFromPath, LanguageProvider } from "./utils/i18n";
+import { Suspense, lazy } from "react";
 
 type ErrorWithStatus = {
   status?: number;
@@ -40,6 +41,7 @@ export function ErrorBoundary() {
     </>
   );
 }
+const LiveVisualEditing = lazy(() => import("~/components/LiveVisualEditing"));
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { pathname, search } = new URL(request.url);
@@ -49,12 +51,19 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
 
   const language = getLanguageFromPath(pathname);
-  return json({ language });
+  const ENV = {
+    SANITY_STUDIO_PROJECT_ID: import.meta.env.VITE_SANITY_STUDIO_PROJECT_ID,
+    SANITY_STUDIO_DATASET: import.meta.env.VITE_SANITY_STUDIO_DATASET,
+    SANITY_STUDIO_URL: import.meta.env.VITE_SANITY_STUDIO_URL,
+    SANITY_STUDIO_STEGA_ENABLED: import.meta.env.SANITY_STUDIO_STEGA_ENABLED,
+  };
+
+  return json({ language, ENV });
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
-  const { language } = useLoaderData<typeof loader>();
+  const { language, ENV } = useLoaderData<typeof loader>();
 
   let backgroundColorClass = "";
 
@@ -85,6 +94,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body className={backgroundColorClass}>
         {children}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify(ENV)}`,
+          }}
+        />
+        {ENV.SANITY_STUDIO_STEGA_ENABLED ? (
+          <Suspense>
+            <LiveVisualEditing />
+          </Suspense>
+        ) : null}
         <ScrollRestoration />
         <Scripts />
       </body>
