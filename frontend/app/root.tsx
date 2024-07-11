@@ -89,7 +89,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  //const { pathname } = useLocation();
   const { slideDirection, pathname } = usePageTransition();
   const bg = backgroundColour[pathname] || "#F5F5F5";
   return (
