@@ -91,30 +91,22 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   //const { pathname } = useLocation();
   const { slideDirection, pathname } = usePageTransition();
-
   const bg = backgroundColour[pathname] || "#F5F5F5";
-  console.log(bg);
   return (
-    <div className="min-h-screen flex flex-col">
-      <motion.div
-        key={pathname}
-        initial={{
-          x: slideDirection * 100 + "%",
-          opacity: 0,
-        }}
-        animate={{ x: 0, backgroundColor: bg, opacity: 1 }}
-        exit={{
-          x: slideDirection * -100 + "%",
-          opacity: 0,
-        }}
-        transition={{ type: "tween", duration: 0.7 }}
-        className="flex-grow min-h-screen"
-        style={{ backgroundColor: bg }}
-      >
-        <Header />
-        <Outlet />
-        <StickyFooter infoUrl="/info" programUrl="/event" />
-      </motion.div>
-    </div>
+    <motion.div
+      key={pathname}
+      initial={{ x: slideDirection * 100 + "%" }}
+      animate={{ x: 0 }}
+      exit={{
+        x: slideDirection * -100 + "%",
+      }}
+      transition={{
+        duration: 0.5,
+      }}
+    >
+      <Header />
+      <Outlet />
+      <StickyFooter infoUrl="/info" programUrl="/event" />
+    </motion.div>
   );
 }
