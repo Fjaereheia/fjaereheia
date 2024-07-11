@@ -13,9 +13,8 @@ import StickyFooter from "./components/StickyFooter";
 import Header from "./components/Header/Header";
 import PageNotFound from "./components/PageNotFound";
 import { LoaderFunction } from "@remix-run/node";
-import { AnimatePresence, motion } from "framer-motion";
-import { useOutlet } from "react-router-dom";
-import { backgroundColour, usePageTransition } from "./utils/pageTransition";
+import { motion } from "framer-motion";
+import { usePageTransition } from "./utils/pageTransition";
 
 type ErrorWithStatus = {
   status?: number;
