@@ -1,17 +1,15 @@
-import { json, type MetaFunction } from "@remix-run/node";
+import { json, LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import { client } from "sanity/clientConfig";
 import { ARTICLES_QUERYResult } from "sanity/types";
-import { ARTICLES_QUERY } from "~/queries/article-queries";
+import { getArticles } from "~/queries/article-queries";
 import ButtonLink from "~/components/ButtonLink";
 
-export async function getArticles() {
-  const articles = await client.fetch<ARTICLES_QUERYResult>(ARTICLES_QUERY);
-  return articles;
-}
+export async function loader({ params }: LoaderFunctionArgs) {
+  if (!params.lang) {
+    params = { lang: "nb" };
+  }
 
-export async function loader() {
-  const articles = await getArticles();
+  const articles = await getArticles(params as { lang: string });
 
   if (!articles) {
     throw new Response("Not Found", {
