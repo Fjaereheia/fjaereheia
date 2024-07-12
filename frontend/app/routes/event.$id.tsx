@@ -73,20 +73,16 @@ export default function Event() {
         data.colorCombination
       )} flex flex-col relative justify-center items-center`}
     >
-      {data.image?.asset?._ref ? (
+      {data.image?.asset?._ref && (
         <ImageEventPage
           url={urlFor(data.image.asset._ref, data.image?.hotspot)}
           alt={data?.title || ""}
           scale={viewScale}
           imageMaskType={data?.imageMask || ""}
         />
-      ) : (
-        <></>
       )}
       <div className="static">
         <h1 className="font-serif text-2xl lg:text-4xl">{data.title}</h1>
-        {data.text && <PortableTextComponent textData={data.text} />}
-        {data.dates && <Tickets dateTickets={data.dates} />}
       </div>
       {data.dates && <EventLabels dateObj={data.dates} />}
       {data.text && <PortableTextComponent textData={data.text} />}
