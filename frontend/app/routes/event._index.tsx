@@ -49,7 +49,7 @@ export default function Events() {
           </div>
         ))}
       </div>
-      <div className="absolute bottom-0 text-lg lg:text-xl w-4/5 lg:w-2/3 ">
+      <div className="absolute flex flex-col items-center bottom-0 text-lg lg:text-xl w-4/5 lg:w-2/3 ">
         <Newsletter />
       </div>
     </div>
