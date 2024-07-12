@@ -113,10 +113,7 @@ export default function App() {
         <Header />
         <LanguageButton />
         <Outlet />
-        <StickyFooter
-          infoUrl={language === "en" ? "en" : "" + "/info"}
-          programUrl={language === "en" ? "en" : "" + "/event"}
-        />
+        <StickyFooter infoUrl={"/info"} programUrl={"/event"} />
       </motion.div>
     </LanguageProvider>
   );
