@@ -88,10 +88,8 @@ export default function Event() {
       )}
       {data.text && <PortableTextComponent textData={data.text} />}
       {!isLabelVisable && !isTicketVisable && (
-        <div className="fixed sm:bottom-6 bottom-12 mb-1 sm:mb-6 md:mb-7 lg:mb-11 left-0 right-0 flex items-top justify-center z-10 text-2xl font-serif bg-red-400 p-3  h-[7vh] lg:h-[5vh]">
-          <button className="lg:px-6 lg:py-3" onClick={handleScroll}>
-            Kjøp
-          </button>
+        <div className="fixed sm:bottom-6 bottom-12 mb-1 sm:mb-6 md:mb-7 lg:mb-11 lg:left-16 left-0 right-0 flex items-top justify-center z-10 text-2xl lg:pb-10 font-serif bg-red-400 p-3 lg:w-20  h-[7vh] lg:h-[5vh]">
+          <button onClick={handleScroll}>Kjøp</button>
         </div>
       )}
       {data.dates && (
