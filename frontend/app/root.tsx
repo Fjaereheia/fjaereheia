@@ -18,6 +18,10 @@ import { LoaderFunction } from "@remix-run/node";
 import { motion } from "framer-motion";
 import { usePageTransition } from "./utils/pageTransition";
 import { getLanguageFromPath, LanguageProvider } from "./utils/i18n";
+import {
+  useBackgroundColor,
+  BackgroundColorProvider,
+} from "./utils/Backgroundcolor/BackgroundColorContext";
 
 type ErrorWithStatus = {
   status?: number;
@@ -57,6 +61,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 export function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
   const { language } = useLoaderData<typeof loader>();
+  const { backgroundColor } = useBackgroundColor();
 
   let backgroundColorClass = "";
 
@@ -84,7 +89,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className={backgroundColorClass}>
+      <body className={backgroundColor}>
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -98,21 +103,23 @@ export default function App() {
   const { language } = useLoaderData<typeof loader>();
   return (
     <LanguageProvider language={language}>
-      <motion.div
-        key={pathname}
-        initial={{ x: slideDirection * 100 + "%" }}
-        animate={{ x: 0 }}
-        exit={{
-          x: slideDirection * -100 + "%",
-        }}
-        transition={{
-          duration: 0.5,
-        }}
-      >
-        <Header />
-        <Outlet />
-        <StickyFooter infoUrl="/info" programUrl="/event" />
-      </motion.div>
+      <BackgroundColorProvider>
+        <motion.div
+          key={pathname}
+          initial={{ x: slideDirection * 100 + "%" }}
+          animate={{ x: 0 }}
+          exit={{
+            x: slideDirection * -100 + "%",
+          }}
+          transition={{
+            duration: 0.5,
+          }}
+        >
+          <Header />
+          <Outlet />
+          <StickyFooter infoUrl="/info" programUrl="/event" />
+        </motion.div>
+      </BackgroundColorProvider>
     </LanguageProvider>
   );
 }

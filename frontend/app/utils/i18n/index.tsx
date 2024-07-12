@@ -118,3 +118,7 @@ export const getLanguageFromPath = (path: string) => {
     return Language.NorwegianBokmal;
   }
 };
+
+//Background global variable
+
+const BackgroundColor = createContext("white");
