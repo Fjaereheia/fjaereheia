@@ -326,6 +326,20 @@
     }
   },
   {
+    "name": "imageMask",
+    "type": "type",
+    "value": {
+      "type": "union",
+      "of": [
+        {
+          "type": "string",
+          "value": "smallImageNotCoveringScreen"
+        },
+        {
+          "type": "string",
+          "value": "bigImageCoveringScreen"
+        }
+      ]
     "name": "review",
     "type": "document",
     "attributes": {
@@ -2978,6 +2992,14 @@
         "value": {
           "type": "inline",
           "name": "colorCombination"
+        },
+        "optional": true
+      },
+      "imageMask": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "imageMask"
         },
         "optional": true
       },
