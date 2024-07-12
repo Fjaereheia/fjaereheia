@@ -116,7 +116,7 @@ function NewsletterForm(props: NewsletterFormProps) {
     <div className="fixed inset-0 flex items-center justify-center">
       <div
         ref={ref}
-        className="bg-newsletter w-auto md:w-1/3 h-4/5 md:h-2/3 m-4 grid grid-cols-1 grid-rows-auto"
+        className="bg-newsletter border-2 w-auto md:w-1/3 h-4/5 md:h-2/3 m-4 grid grid-cols-1 grid-rows-auto"
       >
         <p className="text-base p-2">
           Meld deg på nyhetsbrev fra Bruddet og få eksklusiv info, billetter til

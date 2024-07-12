@@ -5,7 +5,6 @@ import { EVENTS_QUERYResult } from "sanity/types";
 import { EVENTS_QUERY } from "~/queries/event-queries";
 import ButtonLink from "~/components/ButtonLink";
 import Newsletter from "~/components/Newsletter";
-import { createTexts, useTranslation } from "~/utils/i18n";
 
 export async function getEvents() {
   const events = await client.fetch<EVENTS_QUERYResult>(EVENTS_QUERY);
@@ -25,12 +24,11 @@ export async function loader() {
 }
 
 export const meta: MetaFunction = () => {
-  const { t } = useTranslation();
   return [
-    { title: t(texts.metaTitle) },
+    { title: "Forestillinger" },
     {
       property: "og:description",
-      content: t(texts.metaContent),
+      content: "Oversikt over forestillinger",
     },
   ];
 };
@@ -57,14 +55,3 @@ export default function Events() {
     </div>
   );
 }
-
-const texts = createTexts({
-  metaTitle: {
-    nb: "Forestillinger",
-    en: "Events",
-  },
-  metaContent: {
-    nb: "Oversikt over forestillinger satt opp  av Bruddet",
-    en: "Program with events shown in Bruddet",
-  },
-});
