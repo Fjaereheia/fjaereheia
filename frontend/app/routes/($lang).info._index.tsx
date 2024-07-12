@@ -4,10 +4,7 @@ import { INFOPAGE_QUERYResult } from "sanity/types";
 import { getInfoPage } from "~/queries/info-queries";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  if (!params.lang) {
-    params = { lang: "nb" };
-  }
-  const informationPage = await getInfoPage(params as { lang: string });
+  const informationPage = await getInfoPage(params);
 
   if (!informationPage) {
     throw new Response("Not Found", {
