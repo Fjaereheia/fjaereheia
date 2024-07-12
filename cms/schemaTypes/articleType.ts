@@ -64,7 +64,7 @@ export const articleType = defineType({
     defineField({
       name: 'video',
       title: 'Video',
-      type: 'mux.video',
+      type: 'video',
       description: 'Legg til en video',
     }),
     defineField({

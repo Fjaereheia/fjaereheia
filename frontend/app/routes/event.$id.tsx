@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
@@ -7,8 +8,8 @@ import { getBackgroundColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
+import ImageEventPage from "~/components/Masks/ImageEventPage";
 import { EventLabels } from "~/components/EventLabels";
-import { useState } from "react";
 import ArrowUp from "/arrow-up.svg";
 import ArrowDown from "/arrow-down.svg";
 import RoleDropDown from "~/components/RoleDropDown";
@@ -66,26 +67,46 @@ export default function Event() {
     }
   };
 
+  const [viewScale, setViewScale] = useState(1);
+
+  useEffect(() => {
+    const updateViewScale = () => {
+      if (window.matchMedia("(min-width: 1024px)").matches) {
+        setViewScale(2.25);
+      } else {
+        setViewScale(1.25);
+      }
+    };
+    updateViewScale();
+    window.addEventListener("resize", updateViewScale);
+  }, [viewScale]);
+
   if (!data) {
     return <></>;
   }
   return (
-    <div className={getBackgroundColor(data.colorCombination)}>
-      <h1>Forestilling:</h1>
-      {data.image?.asset?._ref ? (
-        <img
-          src={urlFor(data.image.asset._ref, data.image?.hotspot)}
-          alt={data.title}
+    <div
+      className={`${getBackgroundColor(
+        data.colorCombination
+      )} flex flex-col relative justify-center items-center`}
+    >
+      {data.image?.asset?._ref && (
+        <ImageEventPage
+          url={urlFor(data.image.asset._ref, data.image?.hotspot)}
+          alt={data?.title || ""}
+          scale={viewScale}
+          imageMaskType={data?.imageMask || ""}
         />
-      ) : (
-        <p>No image available</p>
       )}
-
+      <div className="static">
+        <h1 className="font-serif text-2xl lg:text-4xl">{data.title}</h1>
+      </div>
       {data.dates && (
         <div ref={setLabelRef}>
           <EventLabels dateObj={data.dates} />
         </div>
       )}
+
       {data.text && <PortableTextComponent textData={data.text} />}
       {!isLabelVisable && !isTicketVisable && (
         <div className="fixed sm:bottom-6 bottom-12 mb-1 sm:mb-6 md:mb-7 lg:mb-11 lg:left-16 left-0 right-0 flex items-top justify-center z-10 text-2xl lg:pb-10 font-serif bg-red-400 p-3 lg:w-20  h-[7vh] lg:h-[5vh]">

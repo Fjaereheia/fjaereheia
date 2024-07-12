@@ -15,6 +15,8 @@ import StickyFooter from "./components/StickyFooter";
 import Header from "./components/Header/Header";
 import PageNotFound from "./components/PageNotFound";
 import { LoaderFunction } from "@remix-run/node";
+import { motion } from "framer-motion";
+import { usePageTransition } from "./utils/pageTransition";
 import { getLanguageFromPath, LanguageProvider } from "./utils/i18n";
 import { useState } from "react";
 
@@ -59,19 +61,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   let backgroundColorClass = "";
 
-  // Determine background color based on route
   switch (pathname) {
     case "/":
-      backgroundColorClass = ""; // Example background color for home page
+      backgroundColorClass = "";
       break;
     case "/info":
-      backgroundColorClass = "bg-[#83D2FF]"; // Example background color for about page
+      backgroundColorClass = "bg-[#83D2FF]";
       break;
     case "/event":
-      backgroundColorClass = "bg-newsletter"; // Example background color for contact page
+      backgroundColorClass = "bg-newsletter";
       break;
     default:
-      backgroundColorClass = "bg-gray-100"; // Default background color if route doesn't match
+      backgroundColorClass = "bg-gray-100";
       break;
   }
 
@@ -94,16 +95,25 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  const { slideDirection, pathname } = usePageTransition();
   const { language } = useLoaderData<typeof loader>();
   return (
     <LanguageProvider language={language}>
-      <div className="min-h-screen flex flex-col">
+      <motion.div
+        key={pathname}
+        initial={{ x: slideDirection * 100 + "%" }}
+        animate={{ x: 0 }}
+        exit={{
+          x: slideDirection * -100 + "%",
+        }}
+        transition={{
+          duration: 0.5,
+        }}
+      >
         <Header />
-        <div className="flex-grow">
-          <Outlet />
-        </div>
+        <Outlet />
         <StickyFooter infoUrl="/info" programUrl="/event" />
-      </div>
+      </motion.div>
     </LanguageProvider>
   );
 }

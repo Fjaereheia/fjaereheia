@@ -1,10 +1,11 @@
+import MuxPlayer from "@mux/mux-player-react";
 import { PortableText, PortableTextComponentProps } from "@portabletext/react";
-import { Content, Quote } from "sanity/types";
+import { CustomContent } from "sanity/types";
 import urlFor from "~/utils/imageUrlBuilder";
 import QuoteComponent from "./QuoteComponent";
 
 interface PortableTextProps {
-  textData: Content;
+  textData: CustomContent;
 }
 
 export default function PortableTextComponent({ textData }: PortableTextProps) {
@@ -18,11 +19,25 @@ export default function PortableTextComponent({ textData }: PortableTextProps) {
       }>) => {
         return (
           <img
-            src={urlFor(value.asset?._ref)}
+            src={urlFor(value.asset._ref)}
             alt={value.alt}
             style={{ maxWidth: "100%" }}
           />
         );
+      },
+      video: ({
+        value,
+      }: PortableTextComponentProps<{
+        muxVideo: { asset: { playbackId: string } };
+        title: string;
+      }>) => {
+        return value.muxVideo.asset ? (
+          <MuxPlayer
+            disableCookies={true}
+            playbackId={value.muxVideo.asset.playbackId}
+            metadata={value.title ? { video_title: value.title } : undefined}
+          />
+        ) : null;
       },
       quote: ({
         value,
