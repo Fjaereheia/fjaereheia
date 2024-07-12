@@ -10,11 +10,8 @@ import Newsletter from "~/components/Newsletter";
 import { createTexts, useTranslation } from "~/utils/i18n";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  if (!params.lang) {
-    params = { lang: "nb" };
-  }
+  const frontpage = await getFrontpage(params);
 
-  const frontpage = await getFrontpage(params as { lang: string });
   if (!frontpage) {
     throw new Response("Not Found", {
       status: 404,
