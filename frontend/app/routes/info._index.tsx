@@ -36,7 +36,9 @@ export default function Info() {
       <div className="flex flex-col items-center font-normal gap-4 text-xl pt-12 pr-0 pl-0 pb-12">
         {data?.links?.map((link) => (
           <Link to={`${RedirectType(link._type)}/${link.slug?.current}`}>
-            {link.title || ""}
+            <p className="p-4 hover:underline font-serif text-2xl lg:text-4xl">
+              {link.title || ""}
+            </p>
           </Link>
         ))}
       </div>

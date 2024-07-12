@@ -60,7 +60,7 @@ const formFields: FormField[] = [
 
 function InputField(props: InputFieldProps) {
   return (
-    <div className="p-2 border-t border-black">
+    <div className="p-2 border-t border-black focus-within:bg-white ">
       <label htmlFor={props.id}>
         {props.label}:
         <input
@@ -69,7 +69,7 @@ function InputField(props: InputFieldProps) {
           placeholder={props.placeholder}
           required={props.required}
           value={props.value}
-          className="w-full bg-inherit focus:outline-white focus:outline-none focus:ring-0 placeholder-white"
+          className="w-full bg-inherit focus:outline-white  placeholder-slate-700 focus:placeholder-slate-400"
           onChange={(e) => props.onChange(e.target.value)}
         />
       </label>
@@ -116,13 +116,13 @@ function NewsletterForm(props: NewsletterFormProps) {
     <div className="fixed inset-0 flex items-center justify-center">
       <div
         ref={ref}
-        className="bg-newsletter w-auto md:w-1/3 h-4/5 md:h-2/3 m-4 grid grid-cols-1 grid-rows-auto"
+        className="bg-newsletter border-2 border-black text-black w-auto md:w-1/3 h-4/5 md:h-2/3 m-4 grid grid-cols-1 grid-rows-auto"
       >
-        <p className="text-base p-2">
+        <p className="flex flex-col justify-center text-base lg:text-xl p-2 text-center ">
           Meld deg på nyhetsbrev fra Bruddet og få eksklusiv info, billetter til
           redusert pris og andre tilbud!
         </p>
-        <form className="grid grid-rows-auto">
+        <form className="grid grid-rows-auto text-black ">
           {formFields.map((field) => (
             <InputField
               key={field.id}
@@ -136,14 +136,14 @@ function NewsletterForm(props: NewsletterFormProps) {
             />
           ))}
         </form>
-        <p className="text-xs p-2 border-t border-black">
+        <p className="flex flex-col justify-center text-s p-2 border-t lg: text-base border-black">
           Ved å melde meg på nyhetsbrev samtykker jeg til at Brudd AS kan sende
           meg nyheter, tilbud om billetter og annen nyttig informasjon om Brudd
           og forestillinger, i kanalene jeg samtykker til under. *
         </p>
         <button
           type="submit"
-          className="w-full h-full underline border-t border-black"
+          className="w-full h-full lg:text-xl underline border-t border-black hover:bg-[#69c1db]"
           onClick={handleSubmit}
         >
           Meld på nyhetsbrev
