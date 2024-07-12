@@ -58,8 +58,6 @@ export default function ImageEventPage({
       </>
     );
   } else {
-    console.log("Jeg breaker");
-
     return (
       <>
         <div className="flex flex-col  justify-center pt-3  items-center w-full">

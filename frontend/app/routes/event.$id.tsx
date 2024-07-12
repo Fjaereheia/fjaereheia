@@ -60,14 +60,9 @@ export default function Event() {
         setViewScale(1.25);
       }
     };
-
     updateViewScale();
     window.addEventListener("resize", updateViewScale);
-
-    return () => {
-      window.removeEventListener("resize", updateViewScale);
-    };
-  }, []);
+  }, [viewScale]);
 
   if (!data) {
     return <></>;
@@ -81,12 +76,12 @@ export default function Event() {
       {data.image?.asset?._ref ? (
         <ImageEventPage
           url={urlFor(data.image.asset._ref, data.image?.hotspot)}
-          alt={data?.title || "Image"}
+          alt={data?.title || ""}
           scale={viewScale}
           imageMaskType={data?.imageMask || ""}
         />
       ) : (
-        <p>No image available</p>
+        <></>
       )}
       <div className="static">
         <h1 className="font-serif text-2xl lg:text-4xl">{data.title}</h1>
