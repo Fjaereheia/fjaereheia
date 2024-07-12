@@ -95,7 +95,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const { language } = useLoaderData<typeof loader>();
-  const [moveButton, setMoveButton] = useState(false);
   return (
     <LanguageProvider language={language}>
       <div className="min-h-screen flex flex-col">
@@ -103,7 +102,7 @@ export default function App() {
         <div className="flex-grow">
           <Outlet />
         </div>
-        <StickyFooter infoUrl="/info" programUrl="/event" moveButton={true} />
+        <StickyFooter infoUrl="/info" programUrl="/event" />
       </div>
     </LanguageProvider>
   );

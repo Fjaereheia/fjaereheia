@@ -15,7 +15,6 @@ type DateObject = {
 
 type Props = {
   dateObj: DateObject[];
-  button: boolean | undefined;
 };
 
 export function formatDateOnly(dateString: string): string {
@@ -26,7 +25,7 @@ export function formatDateOnly(dateString: string): string {
 
 export async function loader({ params }: LoaderFunctionArgs) {}
 
-export const EventLabels = ({ dateObj, button }: Props) => {
+export const EventLabels = ({ dateObj }: Props) => {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
   const language = data!.language!;
 
@@ -58,15 +57,13 @@ export const EventLabels = ({ dateObj, button }: Props) => {
           </div>
           <div className="m-1 flex gap-4">
             <div className="p-1 border-2 border-gray-400">Sjanger?</div>
-            {button && (
-              <button
-                id="eventLabelButton"
-                onClick={handleScroll}
-                className="border-2 pl-2 pr-2 border-gray-400 bg-slate-400 text-white"
-              >
-                Kjøp Billett
-              </button>
-            )}
+            <button
+              id="eventLabelButton"
+              onClick={handleScroll}
+              className="border-2 pl-2 pr-2 border-gray-400 bg-slate-400 text-white"
+            >
+              Kjøp Billett
+            </button>
           </div>
         </div>
       </>

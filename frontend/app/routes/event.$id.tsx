@@ -8,10 +8,11 @@ import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
 import { EventLabels } from "~/components/EventLabels";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ArrowUp from "/arrow-up.svg";
 import ArrowDown from "/arrow-down.svg";
 import RoleDropDown from "~/components/RoleDropDown";
+import useIntersectionObserver from "~/utils/ticketsVisability";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await client.fetch<EVENT_QUERYResult>(EVENT_QUERY, params);
@@ -48,25 +49,15 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
   const [openRole, setOpenRole] = useState(false);
-  const [moveButton, setMoveButton] = useState(true);
+  const [isTicketVisable, setIsTicketVisable] = useState(false);
+  const [isLabelVisable, setIsLabelVisalbe] = useState(false);
 
-  useEffect(() => {
-    const buttonToFooter = () => {
-      const footer = document.getElementById("footer");
-      //const button = document.getElementById("eventLabelButton");
-      if (footer) {
-        if (window.scrollY < 150) {
-          setMoveButton(true);
-        } else {
-          setMoveButton(false);
-        }
-      }
-    };
-    window.addEventListener("scroll", buttonToFooter);
-    return () => {
-      window.removeEventListener("scroll", buttonToFooter);
-    };
-  }, [setMoveButton]);
+  const setTicketRef = useIntersectionObserver((isIntersecting) => {
+    setIsTicketVisable(isIntersecting);
+  });
+  const setLabelRef = useIntersectionObserver((isIntersecting) => {
+    setIsLabelVisalbe(isIntersecting);
+  });
 
   const handleScroll = () => {
     const target = document.getElementById("tickets");
@@ -89,14 +80,25 @@ export default function Event() {
       ) : (
         <p>No image available</p>
       )}
-      {data.dates && <EventLabels dateObj={data.dates} button={moveButton} />}
-      {data.text && <PortableTextComponent textData={data.text} />}
-      {!moveButton && (
-        <div className="fixed bottom-12 left-0 right-0 flex items-center justify-center z-10 bg-red-400 p-3  h-[7vh] lg:h-[5vh]">
-          <button onClick={handleScroll}>Kjøp</button>
+
+      {data.dates && (
+        <div ref={setLabelRef}>
+          <EventLabels dateObj={data.dates} />
         </div>
       )}
-      {data.dates && <Tickets dateTickets={data.dates} />}
+      {data.text && <PortableTextComponent textData={data.text} />}
+      {!isLabelVisable && !isTicketVisable && (
+        <div className="fixed sm:bottom-6 bottom-12 mb-1 sm:mb-6 md:mb-7 lg:mb-11 left-0 right-0 flex items-top justify-center z-10 text-2xl font-serif bg-red-400 p-3  h-[7vh] lg:h-[5vh]">
+          <button className="lg:px-6 lg:py-3" onClick={handleScroll}>
+            Kjøp
+          </button>
+        </div>
+      )}
+      {data.dates && (
+        <div ref={setTicketRef}>
+          <Tickets dateTickets={data.dates} />
+        </div>
+      )}
       {data.roleGroups && (
         <button
           className="w-80 h-auto py-4 px-6 m-4 grid grid-flow-col bg-inherit border border-black"

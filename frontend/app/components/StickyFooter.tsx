@@ -3,13 +3,11 @@ import { Link, useLocation } from "@remix-run/react";
 interface StickyFooterProps {
   programUrl: string;
   infoUrl: string;
-  moveButton: boolean;
 }
 
 export default function StickyFooter({
   programUrl,
   infoUrl,
-  moveButton,
 }: StickyFooterProps) {
   let textcolor = "black";
   let bgcolor = "white";
@@ -46,7 +44,6 @@ export default function StickyFooter({
             PROGRAM
           </Link>
         </li>
-        {!moveButton && <button>Click me</button>}
       </ul>
     </footer>
   );
