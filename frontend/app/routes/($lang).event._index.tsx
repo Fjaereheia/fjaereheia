@@ -5,11 +5,7 @@ import Newsletter from "~/components/Newsletter";
 import { getEvents } from "~/queries/event-queries";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  if (!params.lang) {
-    params = { lang: "nb" };
-  }
-
-  const events = await getEvents(params as { lang: string });
+  const events = await getEvents(params);
 
   if (!events) {
     throw new Response("Not Found", {

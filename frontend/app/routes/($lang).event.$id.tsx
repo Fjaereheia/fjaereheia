@@ -1,8 +1,6 @@
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { client } from "sanity/clientConfig";
 import { EVENT_QUERYResult } from "sanity/types";
-import { EVENT_QUERY } from "~/queries/event-queries";
 import { getBackgroundColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
@@ -12,9 +10,10 @@ import { useState } from "react";
 import ArrowUp from "/arrow-up.svg";
 import ArrowDown from "/arrow-down.svg";
 import RoleDropDown from "~/components/RoleDropDown";
+import { getEvent } from "~/queries/event-queries";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const event = await client.fetch<EVENT_QUERYResult>(EVENT_QUERY, params);
+  const event = await getEvent(params);
 
   if (!event) {
     throw new Response("Not Found", {
