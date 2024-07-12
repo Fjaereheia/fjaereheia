@@ -484,13 +484,20 @@
           "type": "string"
         }
       },
+      "title": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "muxVideo": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",
           "name": "mux.video"
         },
-        "optional": true
+        "optional": false
       }
     }
   },
@@ -795,7 +802,7 @@
                 "value": {
                   "type": "string"
                 },
-                "optional": true
+                "optional": false
               },
               "_type": {
                 "type": "objectAttribute",
@@ -972,14 +979,14 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "source": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "company": {
         "type": "objectAttribute",
@@ -1328,6 +1335,52 @@
           "type": "objectAttribute",
           "value": {
             "type": "boolean"
+          },
+          "optional": true
+        }
+      }
+    }
+  },
+  {
+    "name": "mux.video",
+    "type": "type",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "mux.video"
+          }
+        },
+        "asset": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "object",
+            "attributes": {
+              "_ref": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                }
+              },
+              "_type": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string",
+                  "value": "reference"
+                }
+              },
+              "_weak": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "boolean"
+                },
+                "optional": true
+              }
+            },
+            "dereferencesTo": "mux.videoAsset"
           },
           "optional": true
         }
@@ -2022,7 +2075,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "occupation": {
         "type": "objectAttribute",
@@ -2094,7 +2147,7 @@
               "value": {
                 "type": "string"
               },
-              "optional": true
+              "optional": false
             },
             "_type": {
               "type": "objectAttribute",
@@ -2105,7 +2158,7 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "text": {
         "type": "objectAttribute",
@@ -2156,7 +2209,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "language": {
         "type": "objectAttribute",
@@ -2398,7 +2451,7 @@
                     "value": {
                       "type": "string"
                     },
-                    "optional": true
+                    "optional": false
                   },
                   "_type": {
                     "type": "objectAttribute",
@@ -2531,7 +2584,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "language": {
         "type": "objectAttribute",
@@ -2596,7 +2649,7 @@
               "value": {
                 "type": "string"
               },
-              "optional": true
+              "optional": false
             },
             "_type": {
               "type": "objectAttribute",
@@ -2607,7 +2660,7 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "text": {
         "type": "objectAttribute",
@@ -2653,7 +2706,7 @@
           "type": "inline",
           "name": "metaTitle"
         },
-        "optional": true
+        "optional": false
       },
       "metaDescription": {
         "type": "objectAttribute",
@@ -2661,7 +2714,7 @@
           "type": "inline",
           "name": "metaDescription"
         },
-        "optional": true
+        "optional": false
       }
     }
   },
@@ -2705,7 +2758,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "language": {
         "type": "objectAttribute",
@@ -2794,7 +2847,7 @@
               "value": {
                 "type": "string"
               },
-              "optional": true
+              "optional": false
             },
             "_type": {
               "type": "objectAttribute",
@@ -2810,8 +2863,30 @@
       "video": {
         "type": "objectAttribute",
         "value": {
-          "type": "inline",
-          "name": "mux.video"
+          "type": "object",
+          "attributes": {
+            "_ref": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              }
+            },
+            "_type": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string",
+                "value": "reference"
+              }
+            },
+            "_weak": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "boolean"
+              },
+              "optional": true
+            }
+          },
+          "dereferencesTo": "video"
         },
         "optional": true
       },
@@ -2851,7 +2926,7 @@
           "type": "inline",
           "name": "metaTitle"
         },
-        "optional": true
+        "optional": false
       },
       "metaDescription": {
         "type": "objectAttribute",
@@ -2859,7 +2934,7 @@
           "type": "inline",
           "name": "metaDescription"
         },
-        "optional": true
+        "optional": false
       }
     }
   },
@@ -2903,7 +2978,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "language": {
         "type": "objectAttribute",
@@ -2978,14 +3053,14 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "duration": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "image": {
         "type": "objectAttribute",
@@ -3043,7 +3118,7 @@
               "value": {
                 "type": "string"
               },
-              "optional": true
+              "optional": false
             },
             "_type": {
               "type": "objectAttribute",
@@ -3092,7 +3167,7 @@
           "type": "inline",
           "name": "metaTitle"
         },
-        "optional": true
+        "optional": false
       },
       "metaDescription": {
         "type": "objectAttribute",
@@ -3100,12 +3175,12 @@
           "type": "inline",
           "name": "metaDescription"
         },
-        "optional": true
+        "optional": false
       }
     }
   },
   {
-    "name": "mux.video",
+    "name": "document",
     "type": "type",
     "value": {
       "type": "object",
@@ -3114,36 +3189,19 @@
           "type": "objectAttribute",
           "value": {
             "type": "string",
-            "value": "mux.video"
+            "value": "reference"
           }
         },
-        "asset": {
+        "_ref": {
           "type": "objectAttribute",
           "value": {
-            "type": "object",
-            "attributes": {
-              "_ref": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                }
-              },
-              "_type": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string",
-                  "value": "reference"
-                }
-              },
-              "_weak": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "boolean"
-                },
-                "optional": true
-              }
-            },
-            "dereferencesTo": "mux.videoAsset"
+            "type": "string"
+          }
+        },
+        "_weak": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "boolean"
           },
           "optional": true
         }
@@ -3214,7 +3272,7 @@
           "value": {
             "type": "string"
           },
-          "optional": true
+          "optional": false
         }
       }
     }
@@ -3237,7 +3295,7 @@
           "value": {
             "type": "string"
           },
-          "optional": true
+          "optional": false
         },
         "source": {
           "type": "objectAttribute",

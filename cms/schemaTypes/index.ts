@@ -6,7 +6,7 @@ import customImage from './objects/customImage'
 import {infopage} from './infopage'
 import {quoteType} from './objects/quoteType'
 import RichTextEditor from './objects/RichTextEditor'
-import {muxVideo} from './objects/muxVideo'
+import {videoType} from '././objects/videoType'
 import metaTitle from './objects/metaTitle'
 import metaDescription from './objects/metaDescription'
 import colorCombination from './objects/colorCombination'
@@ -24,7 +24,7 @@ export const schemaTypes = [
   quoteType,
   RichTextEditor,
   roleGroups,
-  muxVideo,
+  videoType,
   metaTitle,
   metaDescription,
   colorCombination,
