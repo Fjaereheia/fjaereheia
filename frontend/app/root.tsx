@@ -18,6 +18,7 @@ import { LoaderFunction } from "@remix-run/node";
 import { motion } from "framer-motion";
 import { usePageTransition } from "./utils/pageTransition";
 import { getLanguageFromPath, LanguageProvider } from "./utils/i18n";
+import LanguageButton from "./components/LanguageButton";
 
 type ErrorWithStatus = {
   status?: number;
@@ -110,6 +111,7 @@ export default function App() {
         }}
       >
         <Header />
+        <LanguageButton />
         <Outlet />
         <StickyFooter infoUrl="/info" programUrl="/event" />
       </motion.div>
