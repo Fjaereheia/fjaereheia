@@ -62,13 +62,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
   let backgroundColorClass = "";
 
   switch (pathname) {
-    case "/":
+    case "/" || "/en":
       backgroundColorClass = "";
       break;
-    case "/info":
+    case "/info" || "/en/info":
       backgroundColorClass = "bg-[#83D2FF]";
       break;
-    case "/event":
+    case "/event" || "/en/event":
       backgroundColorClass = "bg-newsletter";
       break;
     default:
@@ -113,7 +113,10 @@ export default function App() {
         <Header />
         <LanguageButton />
         <Outlet />
-        <StickyFooter infoUrl="/info" programUrl="/event" />
+        <StickyFooter
+          infoUrl={language === "en" ? "en" : "" + "/info"}
+          programUrl={language === "en" ? "en" : "" + "/event"}
+        />
       </motion.div>
     </LanguageProvider>
   );
