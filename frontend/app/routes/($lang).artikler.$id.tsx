@@ -9,10 +9,6 @@ import urlFor from "~/utils/imageUrlBuilder";
 import MuxPlayer from "@mux/mux-player-react";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  if (!params.lang) {
-    params = { lang: "nb" };
-  }
-
   const article = await getArticle(params);
 
   if (!article) {

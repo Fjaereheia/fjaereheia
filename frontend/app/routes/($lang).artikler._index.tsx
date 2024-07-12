@@ -5,11 +5,7 @@ import { getArticles } from "~/queries/article-queries";
 import ButtonLink from "~/components/ButtonLink";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  if (!params.lang) {
-    params = { lang: "nb" };
-  }
-
-  const articles = await getArticles(params as { lang: string });
+  const articles = await getArticles(params);
 
   if (!articles) {
     throw new Response("Not Found", {
@@ -43,7 +39,7 @@ export default function Articles() {
             key={article._id}
             to={
               isEnglish
-                ? "/en/" + article.slug?.current
+                ? "/en/artikler/" + article.slug?.current
                 : article.slug?.current!
             }
           >
