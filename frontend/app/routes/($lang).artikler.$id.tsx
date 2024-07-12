@@ -1,19 +1,19 @@
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { client } from "sanity/clientConfig";
 import { Custom_ARTICLE_QUERYResult } from "sanity/types";
 import { getBackgroundColor } from "~/utils/colorCombinations";
-import { ARTICLE_QUERY } from "~/queries/article-queries";
+import { getArticle } from "~/queries/article-queries";
 import ButtonLink from "~/components/ButtonLink";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import MuxPlayer from "@mux/mux-player-react";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const article = await client.fetch<Custom_ARTICLE_QUERYResult>(
-    ARTICLE_QUERY,
-    params
-  );
+  if (!params.lang) {
+    params = { lang: "nb" };
+  }
+
+  const article = await getArticle(params);
 
   if (!article) {
     throw new Response("Not Found", {
