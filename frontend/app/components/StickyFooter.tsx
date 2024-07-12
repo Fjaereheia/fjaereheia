@@ -27,6 +27,10 @@ export default function StickyFooter({
     textcolor = "black";
     bgcolor = "[#83D2FF]";
   }
+  if (location.pathname.startsWith("/artikler")) {
+    textcolor = "black";
+    bgcolor = "gray-100";
+  }
 
   return (
     <footer
