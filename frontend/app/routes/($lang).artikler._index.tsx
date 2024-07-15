@@ -27,8 +27,7 @@ export const meta: MetaFunction = () => {
 
 export default function Articles() {
   const data = useLoaderData<typeof loader>() as ARTICLES_QUERYResult;
-  const location = useLocation();
-  const isEnglish = location.pathname.includes("/en/");
+  const params = useParams();
   return (
     <div>
       <h1>Artikler</h1>
@@ -38,7 +37,7 @@ export default function Articles() {
           <Link
             key={article._id}
             to={
-              isEnglish
+              params.lang == "en"
                 ? "/en/artikler/" + article.slug?.current
                 : article.slug?.current!
             }
@@ -48,7 +47,7 @@ export default function Articles() {
         </div>
       ))}
       <ButtonLink
-        url={isEnglish ? "/en" : "/"}
+        url={params.lang == "en" ? "/en" : "/"}
         buttonText="Tilbake til hovedsiden"
       ></ButtonLink>
     </div>

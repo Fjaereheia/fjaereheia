@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { Link, useLoaderData, useLocation } from "@remix-run/react";
+import { Link, useLoaderData, useLocation, useParams } from "@remix-run/react";
 import { INFOPAGE_QUERYResult } from "sanity/types";
 import { getInfoPage } from "~/queries/info-queries";
 
@@ -27,8 +27,7 @@ function RedirectType(type: string) {
 
 export default function Info() {
   const data = useLoaderData<typeof loader>() as INFOPAGE_QUERYResult;
-  const location = useLocation();
-  const isEnglish = location.pathname.includes("/en/");
+  const params = useParams();
   return (
     <div className="min-h-screen flex flex-col items-center text-[#1B1C20] font-serif">
       <h1 className="text-5xl font-bold mb-12">{data?.title}</h1>
@@ -37,7 +36,7 @@ export default function Info() {
           <Link
             key={index}
             to={
-              isEnglish
+              params.lang == "en"
                 ? "/en" + `${RedirectType(link._type)}/${link.slug?.current}`
                 : `${RedirectType(link._type)}/${link.slug?.current}`
             }

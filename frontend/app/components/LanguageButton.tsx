@@ -1,18 +1,13 @@
+import { useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
 
 export default function LanguageButton() {
   const [isEnglish, setIsEnglish] = useState<boolean>(false);
+  const params = useParams();
 
   useEffect(() => {
-    const checkLanguage = () => {
-      const currentURL = window.location.href;
-      const url = new URL(currentURL);
-      let path = url.pathname;
-      setIsEnglish(path.startsWith("/en" || "/en/"));
-    };
-
-    checkLanguage();
-  }, []);
+    setIsEnglish(params.lang === "en");
+  }, [params]);
 
   function setLanguage(lang: "NO" | "EN" | string) {
     const currentURL = window.location.href;
