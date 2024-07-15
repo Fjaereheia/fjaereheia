@@ -12,6 +12,8 @@ export default function StickyFooter({
   let textcolor = "black";
   let bgcolor = "white";
   const location = useLocation();
+  const isEnglish =
+    location.pathname.includes("/en/") || location.pathname === "/en";
   const showFooter = !["/", "/en"].includes(location.pathname);
 
   if (!showFooter) {
@@ -35,12 +37,18 @@ export default function StickyFooter({
     >
       <ul className="flex flex-row justify-evenly lg:justify-center">
         <li>
-          <Link to={infoUrl} className="hover:underline me-4 md:me-6 w-1/2 ">
+          <Link
+            to={isEnglish ? "/en" + infoUrl : infoUrl}
+            className="hover:underline me-4 md:me-6 w-1/2 "
+          >
             INFO
           </Link>
         </li>
         <li>
-          <Link to={programUrl} className="hover:underline me-4 md:me-6 w-1/2">
+          <Link
+            to={isEnglish ? "/en" + programUrl : programUrl}
+            className="hover:underline me-4 md:me-6 w-1/2"
+          >
             PROGRAM
           </Link>
         </li>

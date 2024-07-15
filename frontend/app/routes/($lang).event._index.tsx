@@ -1,18 +1,11 @@
-import { json, type MetaFunction } from "@remix-run/node";
+import { json, LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import { client } from "sanity/clientConfig";
 import { EVENTS_QUERYResult } from "sanity/types";
-import { EVENTS_QUERY } from "~/queries/event-queries";
-import ButtonLink from "~/components/ButtonLink";
 import Newsletter from "~/components/Newsletter";
+import { getEvents } from "~/queries/event-queries";
 
-export async function getEvents() {
-  const events = await client.fetch<EVENTS_QUERYResult>(EVENTS_QUERY);
-  return events;
-}
-
-export async function loader() {
-  const events = await getEvents();
+export async function loader({ params }: LoaderFunctionArgs) {
+  const events = await getEvents(params);
 
   if (!events) {
     throw new Response("Not Found", {
@@ -37,8 +30,8 @@ export default function Events() {
   const data = useLoaderData<typeof loader>() as EVENTS_QUERYResult;
 
   return (
-    <div className="bg-newsletter min-h-screen flex flex-col items-center text-white relative">
-      <div className="mt-44 text-center">
+    <div className="bg-newsletter h-[80vh] lg:h-[85vh] flex flex-col items-center text-white relative">
+      <div className="absolute pt-[151px] text-center ">
         {data.map((event, index) => (
           <div key={index}>
             <Link key={event._id} to={event.slug?.current ?? ""}>
@@ -49,10 +42,9 @@ export default function Events() {
           </div>
         ))}
       </div>
-      <div className="absolute bottom-40  text-lg lg:text-xl w-2/3 ">
+      <div className="absolute flex flex-col items-center bottom-0 text-lg lg:text-xl w-4/5 lg:w-2/3 ">
         <Newsletter />
       </div>
-
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
-import { useLoaderData, Link } from "@remix-run/react";
+import { useLoaderData, Link, useLocation, useParams } from "@remix-run/react";
 import { FRONTPAGE_QUERYResult } from "sanity/types";
 import { getFrontpage } from "~/queries/frontpage-queries";
 import ButtonLink from "~/components/ButtonLink";
@@ -10,11 +10,8 @@ import Newsletter from "~/components/Newsletter";
 import { createTexts, useTranslation } from "~/utils/i18n";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  if (!params.lang) {
-    params = { lang: "nb" };
-  }
+  const frontpage = await getFrontpage(params);
 
-  const frontpage = await getFrontpage(params as { lang: string });
   if (!frontpage) {
     throw new Response("Not Found", {
       status: 404,
@@ -53,6 +50,7 @@ export default function Index() {
   const imageUrl = urlFor(
     data?.event?.image?.asset?._ref || data?.image?.asset?._ref || ""
   );
+  const params = useParams();
   return (
     <div
       className="bg-cover bg-center h-screen w-full flex flex-col items-center justify-center "
@@ -61,7 +59,7 @@ export default function Index() {
         data?.event?.image?.alt || data?.image?.alt || "Background image"
       }
     >
-      <div className="text-white pb-32 lg:pb-72 ">
+      <div className="text-white text-xl pb-32 lg:pb-72 flex flex-col items-center ">
         <Newsletter />
       </div>
 
@@ -73,7 +71,7 @@ export default function Index() {
       <div className="flex w-full flex-row justify-center content-enter ">
         <ButtonLink
           styling="text-white w-48  text-right px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl "
-          url="/info"
+          url={params.lang == "en" ? "/en/info" : "/info"}
           buttonText="Info"
         />
         <div className="mb-4 mt-4 lg:mt-5 mx-1">
@@ -82,7 +80,7 @@ export default function Index() {
 
         <ButtonLink
           styling="text-white w-48 px-4 py-2 text-left rounded self-center font-serif text-2xl lg:text-4xl "
-          url="/event"
+          url={params.lang == "en" ? "/en/event" : "/event"}
           buttonText={t(texts.programText)}
         />
       </div>
