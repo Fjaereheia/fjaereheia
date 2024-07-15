@@ -41,7 +41,9 @@ export default function Info() {
                 : `${RedirectType(link._type)}/${link.slug?.current}`
             }
           >
-            {link.title || ""}
+            <p className="p-4 hover:underline font-serif text-2xl lg:text-4xl">
+              {link.title || ""}
+            </p>
           </Link>
         ))}
       </div>

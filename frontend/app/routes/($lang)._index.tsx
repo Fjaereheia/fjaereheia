@@ -59,7 +59,7 @@ export default function Index() {
         data?.event?.image?.alt || data?.image?.alt || "Background image"
       }
     >
-      <div className="text-white pb-32 lg:pb-72 ">
+      <div className="text-white text-xl pb-32 lg:pb-72 flex flex-col items-center ">
         <Newsletter />
       </div>
 
