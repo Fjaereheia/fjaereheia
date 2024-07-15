@@ -18,7 +18,6 @@ import { LoaderFunction } from "@remix-run/node";
 import { motion } from "framer-motion";
 import { usePageTransition } from "./utils/pageTransition";
 import { getLanguageFromPath, LanguageProvider } from "./utils/i18n";
-import { useState } from "react";
 
 type ErrorWithStatus = {
   status?: number;
