@@ -46,10 +46,6 @@ export default function Articles() {
           </Link>
         </div>
       ))}
-      <ButtonLink
-        url={params.lang == "en" ? "/en" : "/"}
-        buttonText="Tilbake til hovedsiden"
-      ></ButtonLink>
     </div>
   );
 }
