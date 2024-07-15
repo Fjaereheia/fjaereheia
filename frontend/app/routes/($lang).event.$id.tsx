@@ -12,6 +12,7 @@ import ArrowUp from "/arrow-up.svg";
 import ArrowDown from "/arrow-down.svg";
 import RoleDropDown from "~/components/RoleDropDown";
 import { getEvent } from "~/queries/event-queries";
+import useIntersectionObserver from "~/utils/ticketsVisability";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
@@ -48,8 +49,22 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
   const [openRole, setOpenRole] = useState(false);
-
+  const [isTicketVisable, setIsTicketVisable] = useState(false);
+  const [isLabelVisable, setIsLabelVisalbe] = useState(false);
   const [viewScale, setViewScale] = useState(1);
+
+  const setTicketRef = useIntersectionObserver((isIntersecting) => {
+    setIsTicketVisable(isIntersecting);
+  });
+  const setLabelRef = useIntersectionObserver((isIntersecting) => {
+    setIsLabelVisalbe(isIntersecting);
+  });
+  const handleScroll = () => {
+    const target = document.getElementById("tickets");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     const updateViewScale = () => {
@@ -70,7 +85,7 @@ export default function Event() {
     <div
       className={`${getBackgroundColor(
         data.colorCombination
-      )} flex flex-col relative justify-center items-center`}
+      )} flex flex-col justify-center items-center min-h-screen`}
     >
       {data.image?.asset?._ref && (
         <ImageEventPage
@@ -83,9 +98,23 @@ export default function Event() {
       <div className="static">
         <h1 className="font-serif text-2xl lg:text-4xl">{data.title}</h1>
       </div>
-      {data.dates && <EventLabels dateObj={data.dates} />}
+      {data.dates && (
+        <div ref={setLabelRef}>
+          <EventLabels dateObj={data.dates} />
+        </div>
+      )}
       {data.text && <PortableTextComponent textData={data.text} />}
-      {data.dates && <Tickets dateTickets={data.dates} />}
+
+      {data.dates && (
+        <div ref={setTicketRef}>
+          <Tickets dateTickets={data.dates} />
+        </div>
+      )}
+      {!isLabelVisable && !isTicketVisable && (
+        <div className="sticky bottom-40 flex flex-col justify-center items-center z-10 text-2xl w-full md:w-20 font-serif bg-red-400 p-3 h-[5vh]">
+          <button onClick={handleScroll}>Kjøp</button>
+        </div>
+      )}
       {data.roleGroups && (
         <button
           className="w-80 h-auto py-4 px-6 m-4 grid grid-flow-col bg-inherit border border-black"
