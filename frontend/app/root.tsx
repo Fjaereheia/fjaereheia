@@ -18,6 +18,7 @@ import { LoaderFunction } from "@remix-run/node";
 import { motion } from "framer-motion";
 import { usePageTransition } from "./utils/pageTransition";
 import { getLanguageFromPath, LanguageProvider } from "./utils/i18n";
+import LanguageButton from "./components/LanguageButton";
 
 type ErrorWithStatus = {
   status?: number;
@@ -61,13 +62,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
   let backgroundColorClass = "";
 
   switch (pathname) {
-    case "/":
+    case "/" || "/en":
       backgroundColorClass = "";
       break;
-    case "/info":
+    case "/info" || "/en/info":
       backgroundColorClass = "bg-[#83D2FF]";
       break;
-    case "/event":
+    case "/event" || "/en/event":
       backgroundColorClass = "bg-newsletter";
       break;
     default:
@@ -110,8 +111,9 @@ export default function App() {
         }}
       >
         <Header />
+        <LanguageButton />
         <Outlet />
-        <StickyFooter infoUrl="/info" programUrl="/event" />
+        <StickyFooter infoUrl={"/info"} programUrl={"/event"} />
       </motion.div>
     </LanguageProvider>
   );

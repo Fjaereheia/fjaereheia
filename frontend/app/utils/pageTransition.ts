@@ -23,7 +23,7 @@ export const usePageTransition = () => {
       slideDirection = previousLocation == "/event" ? -1 : 1;
       break;
     default:
-      slideDirection = 0;
+      slideDirection = previousLocation == "/event" ? -1 : 1;
       break;
   }
 
