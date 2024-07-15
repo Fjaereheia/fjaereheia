@@ -1,18 +1,11 @@
-import { json, type MetaFunction } from "@remix-run/node";
+import { json, LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import { client } from "sanity/clientConfig";
 import { EVENTS_QUERYResult } from "sanity/types";
-import { EVENTS_QUERY } from "~/queries/event-queries";
-import ButtonLink from "~/components/ButtonLink";
 import Newsletter from "~/components/Newsletter";
+import { getEvents } from "~/queries/event-queries";
 
-export async function getEvents() {
-  const events = await client.fetch<EVENTS_QUERYResult>(EVENTS_QUERY);
-  return events;
-}
-
-export async function loader() {
-  const events = await getEvents();
+export async function loader({ params }: LoaderFunctionArgs) {
+  const events = await getEvents(params);
 
   if (!events) {
     throw new Response("Not Found", {
