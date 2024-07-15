@@ -18,6 +18,11 @@ import { LoaderFunction } from "@remix-run/node";
 import { motion } from "framer-motion";
 import { usePageTransition } from "./utils/pageTransition";
 import { getLanguageFromPath, LanguageProvider } from "./utils/i18n";
+import {
+  useBackgroundColor,
+  BackgroundColorProvider,
+} from "./utils/backgroundColor";
+import { useEffect } from "react";
 
 type ErrorWithStatus = {
   status?: number;
@@ -57,23 +62,28 @@ export const loader: LoaderFunction = async ({ request }) => {
 export function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
   const { language } = useLoaderData<typeof loader>();
+  const { color, setColor } = useBackgroundColor();
 
-  let backgroundColorClass = "";
+  useEffect(() => {
+    let backgroundColorClass = "";
 
-  switch (pathname) {
-    case "/":
-      backgroundColorClass = "";
-      break;
-    case "/info":
-      backgroundColorClass = "bg-[#83D2FF]";
-      break;
-    case "/event":
-      backgroundColorClass = "bg-newsletter";
-      break;
-    default:
-      backgroundColorClass = "bg-gray-100";
-      break;
-  }
+    switch (pathname) {
+      case "/":
+        backgroundColorClass = "bg-black";
+        break;
+      case "/info":
+        backgroundColorClass = "bg-[#83D2FF]";
+        break;
+      case "/event":
+        backgroundColorClass = "bg-newsletter";
+        break;
+      default:
+        backgroundColorClass = "bg-gray-100";
+        break;
+    }
+
+    setColor(backgroundColorClass);
+  }, [pathname, setColor]);
 
   return (
     <html lang={language}>
@@ -84,7 +94,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className={backgroundColorClass}>
+      <body className={color}>
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -96,23 +106,27 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   const { slideDirection, pathname } = usePageTransition();
   const { language } = useLoaderData<typeof loader>();
+  const { color } = useBackgroundColor();
+
   return (
     <LanguageProvider language={language}>
-      <motion.div
-        key={pathname}
-        initial={{ x: slideDirection * 100 + "%" }}
-        animate={{ x: 0 }}
-        exit={{
-          x: slideDirection * -100 + "%",
-        }}
-        transition={{
-          duration: 0.5,
-        }}
-      >
-        <Header />
-        <Outlet />
-        <StickyFooter infoUrl="/info" programUrl="/event" />
-      </motion.div>
+      <BackgroundColorProvider color={color}>
+        <motion.div
+          key={pathname}
+          initial={{ x: slideDirection * 100 + "%" }}
+          animate={{ x: 0 }}
+          exit={{
+            x: slideDirection * -100 + "%",
+          }}
+          transition={{
+            duration: 0.5,
+          }}
+        >
+          <Header />
+          <Outlet />
+          <StickyFooter infoUrl="/info" programUrl="/event" />
+        </motion.div>
+      </BackgroundColorProvider>
     </LanguageProvider>
   );
 }
