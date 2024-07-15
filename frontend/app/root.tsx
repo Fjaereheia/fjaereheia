@@ -62,9 +62,11 @@ export const loader: LoaderFunction = async ({ request }) => {
 export function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
   const { language } = useLoaderData<typeof loader>();
-  const { color, setColor } = useBackgroundColor();
+  const context = useBackgroundColor();
 
   useEffect(() => {
+    console.log("kjører useeffect");
+
     let backgroundColorClass = "";
 
     switch (pathname) {
@@ -80,10 +82,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
     }
     console.log(pathname);
 
-    setColor(backgroundColorClass);
-  }, [pathname, setColor]);
+    context.setColor(backgroundColorClass);
+  }, [pathname, context.color]);
 
-  console.log(color);
+  console.log("root:" + context.color);
+
+  useEffect(() => {
+    document.body.className = context.color;
+  }, [context.color]);
 
   return (
     <html lang={language}>
@@ -94,7 +100,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className={color}>
+      <body className={context.color}>
         {children}
         <ScrollRestoration />
         <Scripts />

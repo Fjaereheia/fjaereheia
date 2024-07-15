@@ -45,8 +45,9 @@ export function useBackgroundColor(newColor?: string) {
     if (newColor) {
       context.setColor(newColor);
     }
-  }, [newColor]);
-  console.log(context.color);
+  }, []);
+
+  console.log("index:" + context.color);
 
   return context;
 }
