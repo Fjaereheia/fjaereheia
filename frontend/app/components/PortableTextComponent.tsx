@@ -3,6 +3,7 @@ import { PortableText, PortableTextComponentProps } from "@portabletext/react";
 import { CustomContent } from "sanity/types";
 import urlFor from "~/utils/imageUrlBuilder";
 import QuoteComponent from "./QuoteComponent";
+import ReviewComponent from "./ReviewComponent";
 
 interface PortableTextProps {
   textData: CustomContent;
@@ -48,6 +49,17 @@ export default function PortableTextComponent({ textData }: PortableTextProps) {
         date: string;
       }>) => {
         return <QuoteComponent quote={value} />;
+      },
+      review: ({
+        value,
+      }: PortableTextComponentProps<{
+        score?: number;
+        content?: string;
+        source?: string;
+        date?: string;
+        link?: string;
+      }>) => {
+        return <ReviewComponent review={value} />;
       },
     },
   };
