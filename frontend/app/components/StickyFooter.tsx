@@ -23,11 +23,11 @@ export default function StickyFooter({
     bgcolor = "newsletter";
   }
 
-  if (location.pathname === "/info") {
+  if (location.pathname.includes("/info")) {
     textcolor = "black";
     bgcolor = "[#83D2FF]";
   }
-  if (location.pathname.startsWith("/artikler")) {
+  if (location.pathname.includes("/artikler")) {
     textcolor = "black";
     bgcolor = "gray-100";
   }
