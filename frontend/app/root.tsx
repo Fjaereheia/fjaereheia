@@ -22,7 +22,7 @@ import {
   useBackgroundColor,
   BackgroundColorProvider,
 } from "./utils/backgroundColor";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type ErrorWithStatus = {
   status?: number;
@@ -77,13 +77,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
       case "/event":
         backgroundColorClass = "bg-newsletter";
         break;
-      default:
-        backgroundColorClass = "bg-gray-100";
-        break;
     }
+    console.log(pathname);
 
     setColor(backgroundColorClass);
   }, [pathname, setColor]);
+
+  console.log(color);
 
   return (
     <html lang={language}>

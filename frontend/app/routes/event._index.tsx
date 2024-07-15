@@ -5,6 +5,7 @@ import { EVENTS_QUERYResult } from "sanity/types";
 import { EVENTS_QUERY } from "~/queries/event-queries";
 import ButtonLink from "~/components/ButtonLink";
 import Newsletter from "~/components/Newsletter";
+import { useBackgroundColor } from "~/utils/backgroundColor";
 
 export async function getEvents() {
   const events = await client.fetch<EVENTS_QUERYResult>(EVENTS_QUERY);
@@ -34,6 +35,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Events() {
+  useBackgroundColor("bg-newsletter");
   const data = useLoaderData<typeof loader>() as EVENTS_QUERYResult;
 
   return (

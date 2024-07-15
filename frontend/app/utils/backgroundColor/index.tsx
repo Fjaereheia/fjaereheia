@@ -1,8 +1,8 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
-interface backgroundcolorProps {
+interface BackgroundColorProps {
   color: string;
-  children: React.ReactElement;
+  children: React.ReactNode;
 }
 
 interface BackgroundColorContextType {
@@ -11,36 +11,42 @@ interface BackgroundColorContextType {
 }
 
 const defaultContext: BackgroundColorContextType = {
-  color: "bg-newsletter",
+  color: "bg-white",
   setColor: () => {},
 };
 
-const BackgroundColorContext = createContext<
-  BackgroundColorContextType | undefined
->(defaultContext);
+const BackgroundColorContext =
+  createContext<BackgroundColorContextType>(defaultContext);
 
 export function BackgroundColorProvider({
   color,
   children,
-}: backgroundcolorProps) {
+}: BackgroundColorProps) {
   const [backgroundColor, setBackgroundColor] = useState<string>(color);
+
   return (
     <BackgroundColorContext.Provider
-      value={{ color: color, setColor: setBackgroundColor }}
+      value={{ color: backgroundColor, setColor: setBackgroundColor }}
     >
       {children}
     </BackgroundColorContext.Provider>
   );
 }
 
-export function useBackgroundColor(color?: string) {
-  const colorGlobal = useContext(BackgroundColorContext);
-  if (!colorGlobal) {
-    throw new Error("Please wrap ypu application in a BackgroundColorProvider");
-  }
-  if (color) {
-    colorGlobal.setColor(color);
+export function useBackgroundColor(newColor?: string) {
+  const context = useContext(BackgroundColorContext);
+  if (!context) {
+    throw new Error(
+      "Please wrap your application in a BackgroundColorProvider"
+    );
   }
 
-  return colorGlobal;
+  useEffect(() => {
+    if (newColor) {
+      context.setColor(newColor);
+    }
+  }, [newColor]);
+  console.log(context.color);
+
+  return context;
 }
