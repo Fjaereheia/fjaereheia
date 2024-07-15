@@ -53,7 +53,7 @@ export default function Article() {
   return (
     <div className={getBackgroundColor(data.colorCombination)}>
       <div className="flex flex-col items-center mx-6 mt- ">
-        <div className="flex flex-col items-start md:w-full lg:w-1/2">
+        <div className="flex flex-col items-center md:w-full lg:w-1/2">
           <h1 className="text-4xl">{data.title}</h1>
           {data.image && (
             <img
