@@ -3,6 +3,7 @@ import { Link, useLocation } from "@remix-run/react";
 interface StickyFooterProps {
   programUrl: string;
   infoUrl: string;
+  bgColor?: string;
 }
 
 export default function StickyFooter({
@@ -22,17 +23,13 @@ export default function StickyFooter({
 
   if (location.pathname.includes("/event")) {
     textcolor = "white";
-    bgcolor = "newsletter";
-  }
-
-  if (location.pathname === "/info") {
+  } else if (location.pathname === "/info") {
     textcolor = "black";
-    bgcolor = "[#83D2FF]";
   }
 
   return (
     <footer
-      className={`sticky bottom-0 border-t text-${textcolor} bg-${bgcolor} font-serif text-2xl border-${textcolor} shadow py-2  z-10 h-[7vh] lg:h-[5vh]`}
+      className={`sticky bottom-0 border-t text-${textcolor} bg-inherit font-serif text-2xl border-${textcolor} shadow py-2  z-10 h-[7vh] lg:h-[5vh]`}
     >
       <ul className="flex flex-row justify-evenly lg:justify-center">
         <li>

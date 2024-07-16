@@ -59,23 +59,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
   const { language } = useLoaderData<typeof loader>();
 
-  let backgroundColorClass = "";
-
-  switch (pathname) {
-    case "/" || "/en":
-      backgroundColorClass = "";
-      break;
-    case "/info" || "/en/info":
-      backgroundColorClass = "bg-[#83D2FF]";
-      break;
-    case "/event" || "/en/event":
-      backgroundColorClass = "bg-newsletter";
-      break;
-    default:
-      backgroundColorClass = "bg-gray-100";
-      break;
-  }
-
   return (
     <html lang={language}>
       <head>
@@ -85,7 +68,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className={backgroundColorClass}>
+      <body>
         {children}
         <ScrollRestoration />
         <Scripts />

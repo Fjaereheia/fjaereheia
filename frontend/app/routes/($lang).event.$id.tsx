@@ -48,8 +48,10 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
   const [openRole, setOpenRole] = useState(false);
-
   const [viewScale, setViewScale] = useState(1);
+  document.body.style.backgroundColor = getBackgroundColor(
+    data?.colorCombination
+  );
 
   useEffect(() => {
     const updateViewScale = () => {
@@ -68,9 +70,7 @@ export default function Event() {
   }
   return (
     <div
-      className={`${getBackgroundColor(
-        data.colorCombination
-      )} flex flex-col relative justify-center items-center`}
+      className={` min-h-screen pb-14 flex flex-col relative justify-center items-center`}
     >
       {data.image?.asset?._ref && (
         <ImageEventPage

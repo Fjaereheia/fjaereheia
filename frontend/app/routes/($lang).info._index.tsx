@@ -28,6 +28,7 @@ function RedirectType(type: string) {
 export default function Info() {
   const data = useLoaderData<typeof loader>() as INFOPAGE_QUERYResult;
   const params = useParams();
+  document.body.style.backgroundColor = "#83D2FF";
   return (
     <div className="min-h-screen flex flex-col items-center text-[#1B1C20] font-serif">
       <h1 className="text-5xl font-bold mb-12">{data?.title}</h1>

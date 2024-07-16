@@ -28,6 +28,7 @@ export const meta: MetaFunction = () => {
 export default function Articles() {
   const data = useLoaderData<typeof loader>() as ARTICLES_QUERYResult;
   const params = useParams();
+  document.body.style.backgroundColor = "white";
   return (
     <div>
       <h1>Artikler</h1>

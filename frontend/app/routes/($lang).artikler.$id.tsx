@@ -42,13 +42,16 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Article() {
   const data = useLoaderData<typeof loader>() as Custom_ARTICLE_QUERYResult;
+  document.body.style.backgroundColor = getBackgroundColor(
+    data?.colorCombination
+  );
 
   if (!data) {
     return <></>;
   }
   return (
-    <div className={getBackgroundColor(data.colorCombination)}>
-      <div className="flex flex-col items-center mx-6 mt- ">
+    <div>
+      <div className="flex flex-col items-center mx-6 ">
         <div className="flex flex-col items-start md:w-full lg:w-1/2">
           <h1 className="text-4xl">{data.title}</h1>
           {data.image && (
