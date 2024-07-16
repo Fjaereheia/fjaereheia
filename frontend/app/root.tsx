@@ -66,10 +66,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
     case "/" || "/en":
       backgroundColorClass = "";
       break;
-    case "/info" || "/en/info":
+    case "/info":
+    case "/en/info":
       backgroundColorClass = "bg-[#83D2FF]";
       break;
-    case "/event" || "/en/event":
+    case "/event":
+    case "/en/event":
       backgroundColorClass = "bg-newsletter";
       break;
     default:
