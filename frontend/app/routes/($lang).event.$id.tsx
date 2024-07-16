@@ -111,8 +111,10 @@ export default function Event() {
         </div>
       )}
       {!isLabelVisable && !isTicketVisable && (
-        <div className="sticky bottom-40 flex flex-col justify-center items-center z-10 text-2xl w-full md:w-20 font-serif bg-red-400 p-3 h-[5vh]">
-          <button onClick={handleScroll}>Kjøp</button>
+        <div className="sticky bottom-24 w-full md:left-auto flex flex-col items-center md:items-start bg-red-400 md:w-20 z-10 text-2xl font-serif">
+          <div className="md:relative md:bottom-0 md:left-0 bg-red-400 p-3 h-[5vh]">
+            <button onClick={handleScroll}>Kjøp</button>
+          </div>
         </div>
       )}
       {data.roleGroups && (
