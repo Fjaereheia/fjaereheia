@@ -9,6 +9,7 @@ import {
   useLocation,
   json,
   useLoaderData,
+  useRouteLoaderData,
 } from "@remix-run/react";
 import "./styles/app.css";
 import StickyFooter from "./components/StickyFooter";
@@ -19,10 +20,10 @@ import { motion } from "framer-motion";
 import { usePageTransition } from "./utils/pageTransition";
 import { getLanguageFromPath, LanguageProvider } from "./utils/i18n";
 import {
-  useBackgroundColor,
   BackgroundColorProvider,
+  useBackgroundColor,
 } from "./utils/backgroundColor";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 type ErrorWithStatus = {
   status?: number;
@@ -62,32 +63,21 @@ export const loader: LoaderFunction = async ({ request }) => {
 export function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
   const { language } = useLoaderData<typeof loader>();
-  const context = useBackgroundColor();
+  const { color, setColor } = useBackgroundColor();
 
-  /*
   useEffect(() => {
-    let backgroundColorClass = "";
-
     switch (pathname) {
       case "/":
-        backgroundColorClass = "bg-black";
+        setColor("bg-black");
         break;
       case "/info":
-        backgroundColorClass = "bg-[#83D2FF]";
+        setColor("bg-[#83D2FF]");
         break;
       case "/event":
-        backgroundColorClass = "bg-newsletter";
+        setColor("bg-newsletter");
         break;
     }
-
-    context.setColor(backgroundColorClass); //endrer ikke fargen?
-  }, [pathname, context.color]);
-*/
-  useEffect(() => {
-    console.log("root useffect: " + context.color);
-
-    document.body.className = context.color;
-  }, [context.color]);
+  }, [pathname]);
 
   return (
     <html lang={language}>
@@ -98,7 +88,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className={context.color}>
+      <body className={color}>
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -109,15 +99,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const { slideDirection, pathname } = usePageTransition();
-  const { language } = useLoaderData<typeof loader>();
-  const context = useBackgroundColor();
+  const { language } = useRouteLoaderData<typeof loader>("root");
 
   return (
     <LanguageProvider language={language}>
-      <BackgroundColorProvider
-        color={context.color}
-        setColor={context.setColor}
-      >
+      <BackgroundColorProvider>
         <motion.div
           key={pathname}
           initial={{ x: slideDirection * 100 + "%" }}

@@ -3,8 +3,8 @@ import { Link, useLoaderData } from "@remix-run/react";
 import { client } from "sanity/clientConfig";
 import { EVENTS_QUERYResult } from "sanity/types";
 import { EVENTS_QUERY } from "~/queries/event-queries";
-import ButtonLink from "~/components/ButtonLink";
 import Newsletter from "~/components/Newsletter";
+import { useEffect } from "react";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 
 export async function getEvents() {
@@ -35,8 +35,12 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Events() {
-  useBackgroundColor("bg-newsletter");
+  const { setColor } = useBackgroundColor();
   const data = useLoaderData<typeof loader>() as EVENTS_QUERYResult;
+
+  useEffect(() => {
+    setColor("bg-newsletter");
+  }, [setColor]);
 
   return (
     <div className="bg-newsletter h-[80vh] lg:h-[85vh] flex flex-col items-center text-white relative">
