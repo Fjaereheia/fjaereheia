@@ -33,6 +33,7 @@ export const eventType = defineType({
       name: 'colorCombination',
       title: 'Fargekombinasjon',
       type: 'colorCombination',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'imageMask',

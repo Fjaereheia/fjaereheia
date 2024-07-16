@@ -34,6 +34,7 @@ export const articleType = defineType({
       name: 'colorCombination',
       title: 'Fargekombinasjon',
       type: 'colorCombination',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'slug',

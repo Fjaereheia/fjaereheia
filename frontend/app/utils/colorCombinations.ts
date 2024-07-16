@@ -1,4 +1,4 @@
-export function getBackgroundColor(colorCombination: string | undefined) {
+export function getBackgroundColor(colorCombination: string) {
   switch (colorCombination) {
     case "lightRedPrimaryDarkBlueSecondary":
       return "bg-lightRedPrimaryDarkBlueSecondary-primary text-black";
@@ -9,7 +9,7 @@ export function getBackgroundColor(colorCombination: string | undefined) {
   }
 }
 
-export function getSecondaryColor(colorCombination: string | undefined) {
+export function getSecondaryColor(colorCombination: string) {
   switch (colorCombination) {
     case "lightRedPrimaryDarkBlueSecondary":
       return "lightRedPrimaryDarkBlueSecondary-secondary";

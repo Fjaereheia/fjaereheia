@@ -326,20 +326,6 @@
     }
   },
   {
-    "name": "imageMask",
-    "type": "type",
-    "value": {
-      "type": "union",
-      "of": [
-        {
-          "type": "string",
-          "value": "smallImageNotCoveringScreen"
-        },
-        {
-          "type": "string",
-          "value": "bigImageCoveringScreen"
-        }
-      ]
     "name": "review",
     "type": "document",
     "attributes": {
@@ -386,14 +372,14 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "source": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "company": {
         "type": "objectAttribute",
@@ -416,6 +402,23 @@
         },
         "optional": true
       }
+    }
+  },
+  {
+    "name": "imageMask",
+    "type": "type",
+    "value": {
+      "type": "union",
+      "of": [
+        {
+          "type": "string",
+          "value": "smallImageNotCoveringScreen"
+        },
+        {
+          "type": "string",
+          "value": "bigImageCoveringScreen"
+        }
+      ]
     }
   },
   {
@@ -519,7 +522,7 @@
           "value": {
             "type": "string"
           },
-          "optional": true
+          "optional": false
         },
         "roles": {
           "type": "objectAttribute",
@@ -2082,7 +2085,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
+        "optional": false
       },
       "language": {
         "type": "objectAttribute",
@@ -2773,7 +2776,7 @@
           "type": "inline",
           "name": "colorCombination"
         },
-        "optional": true
+        "optional": false
       },
       "slug": {
         "type": "objectAttribute",
@@ -2993,7 +2996,7 @@
           "type": "inline",
           "name": "colorCombination"
         },
-        "optional": true
+        "optional": false
       },
       "imageMask": {
         "type": "objectAttribute",
@@ -3030,14 +3033,14 @@
                 "value": {
                   "type": "string"
                 },
-                "optional": true
+                "optional": false
               },
               "url": {
                 "type": "objectAttribute",
                 "value": {
                   "type": "string"
                 },
-                "optional": true
+                "optional": false
               }
             },
             "rest": {

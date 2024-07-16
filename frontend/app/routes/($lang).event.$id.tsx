@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useLocation } from "@remix-run/react";
 import { EVENT_QUERYResult } from "sanity/types";
 import { getBackgroundColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
@@ -12,6 +12,7 @@ import ArrowUp from "/arrow-up.svg";
 import ArrowDown from "/arrow-down.svg";
 import RoleDropDown from "~/components/RoleDropDown";
 import { getEvent } from "~/queries/event-queries";
+import { BackgroundColorContext } from "~/BackgroundColorContext";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
@@ -50,6 +51,17 @@ export default function Event() {
   const [openRole, setOpenRole] = useState(false);
 
   const [viewScale, setViewScale] = useState(1);
+
+  const { color, setColor } = useContext(BackgroundColorContext);
+
+  useEffect(() => {
+    const newBackgroundColor = getBackgroundColor(data!.colorCombination);
+    setColor(newBackgroundColor);
+  }, [data!.colorCombination]);
+
+  useEffect(() => {
+    document.body.className = color;
+  }, [setColor, color]);
 
   useEffect(() => {
     const updateViewScale = () => {
