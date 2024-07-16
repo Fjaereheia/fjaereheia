@@ -9,6 +9,7 @@ import {
   useLocation,
   json,
   useLoaderData,
+  useRouteLoaderData,
 } from "@remix-run/react";
 import "./styles/app.css";
 import StickyFooter from "./components/StickyFooter";
@@ -57,7 +58,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
-  const { language } = useLoaderData<typeof loader>();
+  const { language } = useRouteLoaderData<typeof loader>("root");
 
   let backgroundColorClass = "";
 
@@ -96,7 +97,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const { slideDirection, pathname } = usePageTransition();
-  const { language } = useLoaderData<typeof loader>();
+  const { language } = useRouteLoaderData<typeof loader>("root");
   return (
     <LanguageProvider language={language}>
       <motion.div
