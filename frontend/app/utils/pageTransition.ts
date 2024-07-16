@@ -1,8 +1,8 @@
 import { useRef, useEffect } from "react";
 import { useLocation } from "@remix-run/react";
 
-export const usePrevious = (value: any) => {
-  const ref = useRef();
+export const usePrevious = (value: any): string | undefined => {
+  const ref = useRef<string | undefined>();
   useEffect(() => {
     ref.current = value;
   });
@@ -15,17 +15,23 @@ export const usePageTransition = () => {
 
   let slideDirection = 0;
 
-  switch (location.pathname) {
-    case "/info":
-      slideDirection = previousLocation == "/info" ? 1 : -1;
-      break;
-    case "/event":
-      slideDirection = previousLocation == "/event" ? -1 : 1;
-      break;
-    default:
-      slideDirection = previousLocation == "/event" ? -1 : 1;
-      break;
-  }
+  if (location.pathname.includes("/info")) {
+    if (previousLocation?.includes("/artikler")) slideDirection = 1;
+    else slideDirection = -1;
+  } else if (location.pathname.includes("/artikler")) {
+    slideDirection = -1;
+  } else if (location.pathname.includes("/event")) {
+    if (previousLocation?.includes("/event/")) slideDirection = -1;
+    else slideDirection = 1;
+  } else if (location.pathname === "/" || location.pathname === "/en") {
+    if (
+      previousLocation?.includes("/info") ||
+      previousLocation?.includes("/artikler")
+    )
+      slideDirection = 1;
+    else if (previousLocation?.includes("/event")) slideDirection = -1;
+    else slideDirection = 0;
+  } else slideDirection = 0;
 
   return { slideDirection, pathname: location.pathname };
 };
