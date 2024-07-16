@@ -44,6 +44,7 @@ export const deskStructure = (S: StructureBuilder) =>
               ),
           ),
       ),
+      S.divider(),
       S.documentTypeListItem('article').title('Artikler').icon(DocumentTextIcon),
       S.documentTypeListItem('event').title('Forestillinger').icon(CalendarIcon),
       S.documentTypeListItem('role').title('Roller').icon(UserIcon),
