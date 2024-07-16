@@ -1,8 +1,11 @@
 import { json, LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
+import { useEffect } from "react";
 import { EVENTS_QUERYResult } from "sanity/types";
 import Newsletter from "~/components/Newsletter";
 import { getEvents } from "~/queries/event-queries";
+import { useAppContext } from "~/utils/Context";
+import { getBackgroundColor } from "~/utils/colorCombinations";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const events = await getEvents(params);
@@ -29,21 +32,32 @@ export const meta: MetaFunction = () => {
 export default function Events() {
   const data = useLoaderData<typeof loader>() as EVENTS_QUERYResult;
 
+  const { textColor, setTextColor } = useAppContext();
+
+  useEffect(() => {
+    setTextColor("newsletter");
+  }, [setTextColor]);
+
   return (
-    <div className="bg-newsletter h-[80vh] lg:h-[85vh] flex flex-col items-center text-white relative">
-      <div className="absolute pt-[151px] text-center ">
-        {data.map((event, index) => (
-          <div key={index}>
-            <Link key={event._id} to={event.slug?.current ?? ""}>
-              <p className="p-4 hover:underline font-serif text-2xl lg:text-4xl">
-                {event.title}
-              </p>
-            </Link>
+    <div className="min-h-screen">
+      <div className="bg-newsletter h-[80vh] lg:h-[85vh] flex flex-col items-center text-white relative">
+        <div className="absolute pt-[151px] text-center ">
+          {data.map((event, index) => (
+            <div key={index}>
+              <Link key={event._id} to={event.slug?.current ?? ""}>
+                <p className="p-4 hover:underline font-serif text-2xl lg:text-4xl">
+                  {event.title}
+                </p>
+              </Link>
+            </div>
+          ))}
+        </div>
+        <div className="absolute flex flex-col items-center bottom-0 text-lg lg:text-xl w-4/5 lg:w-2/3 ">
+          <div>
+            <p className={`text-${textColor}`}>This is some text</p>
           </div>
-        ))}
-      </div>
-      <div className="absolute flex flex-col items-center bottom-0 text-lg lg:text-xl w-4/5 lg:w-2/3 ">
-        <Newsletter />
+          <Newsletter />
+        </div>
       </div>
     </div>
   );

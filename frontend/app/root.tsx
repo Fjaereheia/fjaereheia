@@ -20,6 +20,7 @@ import { motion } from "framer-motion";
 import { usePageTransition } from "./utils/pageTransition";
 import { getLanguageFromPath, LanguageProvider } from "./utils/i18n";
 import LanguageButton from "./components/LanguageButton";
+import { AppProvider, useAppContext } from "./utils/Context";
 
 type ErrorWithStatus = {
   status?: number;
@@ -59,7 +60,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 export function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
   const { language } = useRouteLoaderData<typeof loader>("root");
-
+  const { textColor } = useAppContext();
   let backgroundColorClass = "";
 
   switch (pathname) {
@@ -86,8 +87,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className={backgroundColorClass}>
-        {children}
+      <body className={`bg-${textColor}`}>
+        <div>{children}</div>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -98,24 +99,27 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   const { slideDirection, pathname } = usePageTransition();
   const { language } = useRouteLoaderData<typeof loader>("root");
+
   return (
-    <LanguageProvider language={language}>
-      <motion.div
-        key={pathname}
-        initial={{ x: slideDirection * 100 + "%" }}
-        animate={{ x: 0 }}
-        exit={{
-          x: slideDirection * -100 + "%",
-        }}
-        transition={{
-          duration: 0.5,
-        }}
-      >
-        <Header />
-        <LanguageButton />
-        <Outlet />
-        <StickyFooter infoUrl={"/info"} programUrl={"/event"} />
-      </motion.div>
-    </LanguageProvider>
+    <AppProvider>
+      <LanguageProvider language={language}>
+        <motion.div
+          key={pathname}
+          initial={{ x: slideDirection * 100 + "%" }}
+          animate={{ x: 0 }}
+          exit={{
+            x: slideDirection * -100 + "%",
+          }}
+          transition={{
+            duration: 0.5,
+          }}
+        >
+          <Header />
+          <LanguageButton />
+          <Outlet />
+          <StickyFooter infoUrl={"/info"} programUrl={"/event"} />
+        </motion.div>
+      </LanguageProvider>
+    </AppProvider>
   );
 }
