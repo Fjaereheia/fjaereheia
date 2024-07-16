@@ -1,7 +1,9 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { backgroundColour } from "../pageTransition";
 
 interface BackgroundColorProps {
   color: string;
+  setColor: (color: string) => void;
   children: React.ReactNode;
 }
 
@@ -20,10 +22,15 @@ const BackgroundColorContext =
 
 export function BackgroundColorProvider({
   color,
+  setColor,
   children,
 }: BackgroundColorProps) {
   const [backgroundColor, setBackgroundColor] = useState<string>(color);
 
+  useEffect(() => {
+    console.log("Index useEffect: " + backgroundColor);
+    setColor(backgroundColor);
+  }, [backgroundColor]);
   return (
     <BackgroundColorContext.Provider
       value={{ color: backgroundColor, setColor: setBackgroundColor }}
@@ -35,6 +42,8 @@ export function BackgroundColorProvider({
 
 export function useBackgroundColor(newColor?: string) {
   const context = useContext(BackgroundColorContext);
+  console.log("index: " + context.color);
+
   if (!context) {
     throw new Error(
       "Please wrap your application in a BackgroundColorProvider"
@@ -45,9 +54,7 @@ export function useBackgroundColor(newColor?: string) {
     if (newColor) {
       context.setColor(newColor);
     }
-  }, []);
-
-  console.log("index:" + context.color);
+  }, [context.color]);
 
   return context;
 }

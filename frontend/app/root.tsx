@@ -64,9 +64,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const { language } = useLoaderData<typeof loader>();
   const context = useBackgroundColor();
 
+  /*
   useEffect(() => {
-    console.log("kjører useeffect");
-
     let backgroundColorClass = "";
 
     switch (pathname) {
@@ -80,14 +79,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         backgroundColorClass = "bg-newsletter";
         break;
     }
-    console.log(pathname);
 
-    context.setColor(backgroundColorClass);
+    context.setColor(backgroundColorClass); //endrer ikke fargen?
   }, [pathname, context.color]);
-
-  console.log("root:" + context.color);
-
+*/
   useEffect(() => {
+    console.log("root useffect: " + context.color);
+
     document.body.className = context.color;
   }, [context.color]);
 
@@ -112,11 +110,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   const { slideDirection, pathname } = usePageTransition();
   const { language } = useLoaderData<typeof loader>();
-  const { color } = useBackgroundColor();
+  const context = useBackgroundColor();
 
   return (
     <LanguageProvider language={language}>
-      <BackgroundColorProvider color={color}>
+      <BackgroundColorProvider
+        color={context.color}
+        setColor={context.setColor}
+      >
         <motion.div
           key={pathname}
           initial={{ x: slideDirection * 100 + "%" }}
