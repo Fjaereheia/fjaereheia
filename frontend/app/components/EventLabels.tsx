@@ -64,7 +64,7 @@ export const EventLabels = ({ dateObj }: Props) => {
     );
   };
   const handleScroll = () => {
-    const target = document.getElementById("dateTicket");
+    const target = document.getElementById("tickets");
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
     }
