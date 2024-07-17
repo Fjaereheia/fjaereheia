@@ -9,6 +9,8 @@ import urlFor from "~/utils/imageUrlBuilder";
 import MuxPlayer from "@mux/mux-player-react";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 import { useEffect } from "react";
+import { useTranslation } from "~/utils/i18n";
+
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const article = await getArticle(params);
@@ -49,6 +51,7 @@ export default function Article() {
   useEffect(() => {
     setColor(bgColor);
   }, [setColor]);
+  const { t } = useTranslation();
 
   if (!data) {
     return <></>;
@@ -76,7 +79,7 @@ export default function Article() {
           {data?.event && (
             <ButtonLink
               url={`/event/${data.event?.slug?.current}`}
-              buttonText="Les mer om forestilling"
+              buttonText={t(texts.readMore)}
             />
           )}
         </div>
@@ -84,3 +87,10 @@ export default function Article() {
     </div>
   );
 }
+
+const texts = {
+  readMore: {
+    en: "Read more about the event",
+    nb: "Les mer om forestillingen",
+  },
+};
