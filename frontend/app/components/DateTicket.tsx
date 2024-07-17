@@ -31,7 +31,7 @@ export const DateTicket = ({ dateTicket }: Props) => {
 
 const texts = {
   buy: {
-    en: "Buy",
-    nb: "Kjøp",
+    en: "Buy Ticket",
+    nb: "Kjøp Billett",
   },
 };

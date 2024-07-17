@@ -6,13 +6,13 @@ import ButtonLink from "~/components/ButtonLink";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 import { useEffect } from "react";
 
-
 export async function loader({ params }: LoaderFunctionArgs) {
   const articles = await getArticles(params);
 
   if (!articles) {
     throw new Response("Not Found", {
-      status: 404,ButtonLink
+      status: 404,
+      ButtonLink,
     });
   }
 
