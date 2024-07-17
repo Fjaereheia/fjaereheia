@@ -1,7 +1,9 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
 import { Link, useLoaderData, useLocation, useParams } from "@remix-run/react";
+import { useEffect } from "react";
 import { INFOPAGE_QUERYResult } from "sanity/types";
 import { getInfoPage } from "~/queries/info-queries";
+import { useBackgroundColor } from "~/utils/backgroundColor";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const informationPage = await getInfoPage(params);
@@ -27,6 +29,10 @@ function RedirectType(type: string) {
 
 export default function Info() {
   const data = useLoaderData<typeof loader>() as INFOPAGE_QUERYResult;
+  const { setColor } = useBackgroundColor();
+  useEffect(() => {
+    setColor("bg-lightblue");
+  }, [setColor]);
   const params = useParams();
   return (
     <div className="min-h-screen flex flex-col items-center text-[#1B1C20] font-serif">

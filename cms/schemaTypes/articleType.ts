@@ -71,6 +71,14 @@ export const articleType = defineType({
       name: 'event',
       type: 'reference',
       to: [{type: 'event'}],
+      options: {
+        filter: ({document}) => {
+          return {
+            filter: 'language == $lang',
+            params: {lang: document.language},
+          }
+        },
+      },
       description: 'Arrangement',
       group: 'content',
     }),

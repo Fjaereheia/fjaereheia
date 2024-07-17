@@ -52,6 +52,14 @@ export const frontpage = defineType({
       title: 'Forestilling',
       type: 'reference',
       to: [{type: 'event'}],
+      options: {
+        filter: ({document}) => {
+          return {
+            filter: 'language == $lang',
+            params: {lang: document.language},
+          }
+        },
+      },
     }),
     defineField({
       name: 'metaTitle',

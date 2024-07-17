@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "~/utils/i18n";
 
 interface NewsletterFormProps {
   setShowForm: (showForm: boolean) => void;
@@ -22,42 +23,6 @@ interface FormField {
   required?: boolean;
 }
 
-const formFields: FormField[] = [
-  {
-    id: "first_name",
-    label: "Fornavn*",
-    type: "text",
-    placeholder: "Ola",
-    required: true,
-  },
-  {
-    id: "last_name",
-    label: "Etternavn*",
-    type: "text",
-    placeholder: "Nordmann",
-    required: true,
-  },
-  {
-    id: "email",
-    label: "E-postadresse*",
-    type: "email",
-    placeholder: "eksempel@eksempel.com",
-    required: true,
-  },
-  {
-    id: "tlf",
-    label: "Telefonnummer",
-    type: "text",
-    placeholder: "999 99 999",
-  },
-  {
-    id: "post_number",
-    label: "Postnummer",
-    type: "text",
-    placeholder: "1234",
-  },
-];
-
 function InputField(props: InputFieldProps) {
   return (
     <div className="p-2 border-t border-black focus-within:bg-white ">
@@ -79,6 +44,42 @@ function InputField(props: InputFieldProps) {
 
 function NewsletterForm(props: NewsletterFormProps) {
   const [formInfo, setFormInfo] = useState<{ [key: string]: string }>({});
+  const { t } = useTranslation();
+  const formFields: FormField[] = [
+    {
+      id: "first_name",
+      label: t(texts.firstName.label),
+      type: "text",
+      placeholder: t(texts.firstName.placeholder),
+      required: true,
+    },
+    {
+      id: "last_name",
+      label: t(texts.lastName.label),
+      type: "text",
+      placeholder: t(texts.lastName.placeholder),
+      required: true,
+    },
+    {
+      id: "email",
+      label: t(texts.email.label),
+      type: "email",
+      placeholder: t(texts.email.placeholder),
+      required: true,
+    },
+    {
+      id: "tlf",
+      label: t(texts.phone.label),
+      type: "text",
+      placeholder: t(texts.phone.placeholder),
+    },
+    {
+      id: "post_number",
+      label: t(texts.postalCode.label),
+      type: "text",
+      placeholder: t(texts.postalCode.placeholder),
+    },
+  ];
 
   function handleSubmit() {
     const requiredFields = formFields.filter((field) => field.required);
@@ -86,11 +87,11 @@ function NewsletterForm(props: NewsletterFormProps) {
 
     if (missingFields.length > 0) {
       const missingFieldLabels = missingFields.map((field) => field.label);
-      alert(`${missingFieldLabels.join(", ")} er påkrevd`);
+      alert(`${missingFieldLabels.join(", ")} ${t(texts.required)}`);
       return;
     }
 
-    alert("Du er meldt på nyhetsbrev");
+    alert(t(texts.feedback));
   }
 
   const ref = useRef<HTMLDivElement>(null);
@@ -119,8 +120,7 @@ function NewsletterForm(props: NewsletterFormProps) {
         className="bg-newsletter border-2 border-black text-black w-auto md:w-1/3 h-4/5 md:h-2/3 m-4 grid grid-cols-1 grid-rows-auto"
       >
         <p className="flex flex-col justify-center text-base lg:text-xl p-2 text-center ">
-          Meld deg på nyhetsbrev fra Bruddet og få eksklusiv info, billetter til
-          redusert pris og andre tilbud!
+          {t(texts.blurb)}
         </p>
         <form className="grid grid-rows-auto text-black ">
           {formFields.map((field) => (
@@ -137,20 +137,91 @@ function NewsletterForm(props: NewsletterFormProps) {
           ))}
         </form>
         <p className="flex flex-col justify-center text-s p-2 border-t lg: text-base border-black">
-          Ved å melde meg på nyhetsbrev samtykker jeg til at Brudd AS kan sende
-          meg nyheter, tilbud om billetter og annen nyttig informasjon om Brudd
-          og forestillinger, i kanalene jeg samtykker til under. *
+          {t(texts.consent)}
         </p>
         <button
           type="submit"
           className="w-full h-full lg:text-xl underline border-t border-black hover:bg-[#69c1db]"
           onClick={handleSubmit}
         >
-          Meld på nyhetsbrev
+          {t(texts.submit)}
         </button>
       </div>
     </div>
   );
 }
+
+const texts = {
+  blurb: {
+    nb: "Meld deg på nyhetsbrev fra Bruddet og få eksklusiv info, billetter til redusert pris og andre tilbud!",
+    en: "Sign up for our newsletter and get exclusive info, tickets at reduced prices and other offers!",
+  },
+  consent: {
+    nb: "Ved å melde meg på nyhetsbrev samtykker jeg til at Brudd AS kan sende meg nyheter, tilbud om billetter og annen nyttig informasjon om Brudd og forestillinger, i kanalene jeg samtykker til under. *",
+    en: "By signing up for the newsletter, I consent to Brudd AS sending me news, ticket offers and other useful information about Brudd and performances, in the channels I consent to below. *",
+  },
+  submit: {
+    nb: "Meld på nyhetsbrev",
+    en: "Sign up for newsletter",
+  },
+  feedback: {
+    nb: "Du er meldt på nyhetsbrev",
+    en: "You are signed up for the newsletter",
+  },
+  required: {
+    nb: "er påkrevd",
+    en: "is required",
+  },
+  firstName: {
+    label: {
+      nb: "Fornavn*",
+      en: "First name*",
+    },
+    placeholder: {
+      nb: "Ola",
+      en: "John",
+    },
+  },
+  lastName: {
+    label: {
+      nb: "Etternavn*",
+      en: "Last name*",
+    },
+    placeholder: {
+      nb: "Nordmann",
+      en: "Smith",
+    },
+  },
+  email: {
+    label: {
+      nb: "E-postadresse*",
+      en: "Email*",
+    },
+    placeholder: {
+      nb: "eksempel@eksempel.com",
+      en: "example@example.com",
+    },
+  },
+  phone: {
+    label: {
+      nb: "Telefonnummer",
+      en: "Phone number",
+    },
+    placeholder: {
+      nb: "+47 999 99 999",
+      en: "+44 7123 456789",
+    },
+  },
+  postalCode: {
+    label: {
+      nb: "Postnummer",
+      en: "Postal code",
+    },
+    placeholder: {
+      nb: "1234",
+      en: "SW1W 0NY",
+    },
+  },
+};
 
 export default NewsletterForm;

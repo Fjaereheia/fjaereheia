@@ -7,6 +7,10 @@ import ButtonLink from "~/components/ButtonLink";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import MuxPlayer from "@mux/mux-player-react";
+import { useBackgroundColor } from "~/utils/backgroundColor";
+import { useEffect } from "react";
+import { useTranslation } from "~/utils/i18n";
+
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const article = await getArticle(params);
@@ -42,6 +46,12 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Article() {
   const data = useLoaderData<typeof loader>() as Custom_ARTICLE_QUERYResult;
+  const bgColor = getBackgroundColor(data?.colorCombination);
+  const { setColor } = useBackgroundColor();
+  useEffect(() => {
+    setColor(bgColor);
+  }, [setColor]);
+  const { t } = useTranslation();
 
   if (!data) {
     return <></>;
@@ -69,7 +79,7 @@ export default function Article() {
           {data?.event && (
             <ButtonLink
               url={`/event/${data.event?.slug?.current}`}
-              buttonText="Les mer om forestilling"
+              buttonText={t(texts.readMore)}
             />
           )}
         </div>
@@ -77,3 +87,10 @@ export default function Article() {
     </div>
   );
 }
+
+const texts = {
+  readMore: {
+    en: "Read more about the event",
+    nb: "Les mer om forestillingen",
+  },
+};

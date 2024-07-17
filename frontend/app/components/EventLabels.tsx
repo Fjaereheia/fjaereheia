@@ -1,7 +1,9 @@
-import { useLoaderData } from "@remix-run/react";
-import { EVENT_QUERYResult } from "sanity/types";
-import { formatDayAndDate, formatTimestamp, getMonth } from "~/utils/dateAndTimeConverters";
-import { LoaderFunctionArgs } from "@remix-run/node";
+import {
+  formatDayAndDate,
+  formatTimestamp,
+  getMonth,
+} from "~/utils/dateAndTimeConverters";
+import { useTranslation } from "~/utils/i18n";
 
 type DateObject = {
   date?: string | undefined;
@@ -19,11 +21,8 @@ export function formatDateOnly(dateString: string): string {
   return day[day.length - 1];
 }
 
-export async function loader({ params }: LoaderFunctionArgs) {}
-
 export const EventLabels = ({ dateObj }: Props) => {
-  const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
-  const language = data!.language!;
+  const { language, t } = useTranslation();
 
   const renderLabel = () => {
     const firstDate = dateObj[0].date ?? "";
@@ -42,17 +41,22 @@ export const EventLabels = ({ dateObj }: Props) => {
                 formattedDate
               ) : (
                 <>
-                  Spilles {datesOnlyFirst}-{datesOnlyLast}
-                  {getMonth(firstDate!, language)}
+                  {t(texts.plays)} {datesOnlyFirst + ".-"}
+                  {datesOnlyLast + "."} {getMonth(firstDate!, language)}
                 </>
               )}
             </div>
-            <div className="p-1 border-2 border-gray-400">{formattedTimestamp}</div>
+            <div className="p-1 border-2 border-gray-400">
+              {formattedTimestamp}
+            </div>
           </div>
           <div className="m-1 flex gap-4">
-            <div className="p-1 border-2 border-gray-400">Sjanger?</div>
-            <button onClick={handleScroll} className="border-2 pl-2 pr-2 border-gray-400 bg-slate-400 text-white">
-              Kjøp Billett
+            <div className="p-1 border-2 border-gray-400">{t(texts.genre)}</div>
+            <button
+              onClick={handleScroll}
+              className="border-2 pl-2 pr-2 border-gray-400 bg-slate-400 text-white"
+            >
+              {t(texts.buyTicket)}
             </button>
           </div>
         </div>
@@ -60,10 +64,25 @@ export const EventLabels = ({ dateObj }: Props) => {
     );
   };
   const handleScroll = () => {
-    const target = document.getElementById("dateTicket");
+    const target = document.getElementById("tickets");
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
     }
   };
   return renderLabel();
+};
+
+const texts = {
+  plays: {
+    en: "Performs",
+    nb: "Spilles",
+  },
+  genre: {
+    en: "Genre",
+    nb: "Sjanger",
+  },
+  buyTicket: {
+    en: "Buy ticket",
+    nb: "Kjøp billett",
+  },
 };
