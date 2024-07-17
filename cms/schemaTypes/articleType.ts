@@ -64,13 +64,21 @@ export const articleType = defineType({
     defineField({
       name: 'video',
       title: 'Video',
-      type: 'mux.video',
+      type: 'video',
       description: 'Legg til en video',
     }),
     defineField({
       name: 'event',
       type: 'reference',
       to: [{type: 'event'}],
+      options: {
+        filter: ({document}) => {
+          return {
+            filter: 'language == $lang',
+            params: {lang: document.language},
+          }
+        },
+      },
       description: 'Arrangement',
       group: 'content',
     }),

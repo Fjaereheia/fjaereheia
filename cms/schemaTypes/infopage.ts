@@ -42,6 +42,14 @@ export const infopage = defineType({
         {
           type: 'reference',
           to: [{type: 'article'}, {type: 'infopage'}],
+          options: {
+            filter: ({document}) => {
+              return {
+                filter: 'language == $lang',
+                params: {lang: document.language},
+              }
+            },
+          },
         },
       ],
     }),

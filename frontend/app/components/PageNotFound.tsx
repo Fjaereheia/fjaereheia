@@ -1,15 +1,32 @@
+import { useTranslation } from "~/utils/i18n";
 import Button from "./ButtonLink";
 
 export default function PageNotFound() {
+  const { t } = useTranslation();
   return (
     <div className="h-screen bg-newsletter flex flex-col items-center justify-center">
-      <h1 className="text-6xl text-white">404 - OPS! </h1>
-      <p className="mt-4n text-white">Siden du leter etter eksisterer ikke</p>
+      <h1 className="text-6xl text-white">{t(texts.notFound)}</h1>
+      <p className="mt-4n text-white">{t(texts.notFoundText)}</p>
       <Button
         url="/"
-        buttonText=" Gå tilbake til hovedsiden"
+        buttonText={t(texts.backToMain)}
         styling="text-xl text-white underline mt-6"
       />
     </div>
   );
 }
+
+const texts = {
+  notFound: {
+    en: "404 - OOPS! ",
+    nb: "404 - OPS! ",
+  },
+  notFoundText: {
+    en: "The page you are looking for does not exist",
+    nb: "Siden du leter etter eksisterer ikke",
+  },
+  backToMain: {
+    en: " Back to main page",
+    nb: " Gå tilbake til hovedsiden",
+  },
+};

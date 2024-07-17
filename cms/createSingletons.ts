@@ -18,7 +18,10 @@ import {getCliClient} from 'sanity/cli'
  * 5. Update your desk structure to use the new documents
  */
 
-const SINGLETONS = [{id: 'frontpage', title: 'Forside', _type: 'frontpage'}]
+const SINGLETONS = [
+  {id: 'frontpage', title: 'Forside', _type: 'frontpage'},
+  {id: 'infopage', title: 'Info', _type: 'infopage'},
+]
 
 const LANGUAGES = [
   {id: `nb`, title: `🇳🇴 Norwegian (Bokmål)`},

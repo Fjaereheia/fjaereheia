@@ -19,6 +19,14 @@ export default {
         {
           type: 'reference',
           to: [{type: 'role'}],
+          options: {
+            filter: ({document}) => {
+              return {
+                filter: 'language == $lang',
+                params: {lang: document.language},
+              }
+            },
+          },
         },
       ],
     }),

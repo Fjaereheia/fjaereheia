@@ -9,13 +9,21 @@ import {
   useLocation,
   json,
   useLoaderData,
+  useRouteLoaderData,
 } from "@remix-run/react";
 import "./styles/app.css";
 import StickyFooter from "./components/StickyFooter";
 import Header from "./components/Header/Header";
 import PageNotFound from "./components/PageNotFound";
 import { LoaderFunction } from "@remix-run/node";
+import { motion } from "framer-motion";
+import { usePageTransition } from "./utils/pageTransition";
 import { getLanguageFromPath, LanguageProvider } from "./utils/i18n";
+import {
+  BackgroundColorProvider,
+  useBackgroundColor,
+} from "./utils/backgroundColor";
+import LanguageButton from "./components/LanguageButton";
 import { Suspense, lazy } from "react";
 
 type ErrorWithStatus = {
@@ -46,6 +54,12 @@ const LiveVisualEditing = lazy(() => import("~/components/LiveVisualEditing"));
 export const loader: LoaderFunction = async ({ request }) => {
   const { pathname, search } = new URL(request.url);
 
+  const newPathname = pathname.replace(/\/nb/g, "");
+
+  if (newPathname !== pathname) {
+    throw redirect(`${newPathname}${search}`, 301);
+  }
+
   if (pathname.endsWith("/") && pathname.length > 1) {
     throw redirect(`${pathname.slice(0, -1)}${search}`, 301);
   }
@@ -62,26 +76,8 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { pathname } = useLocation();
-  const { language, ENV } = useLoaderData<typeof loader>();
-
-  let backgroundColorClass = "";
-
-  // Determine background color based on route
-  switch (pathname) {
-    case "/":
-      backgroundColorClass = ""; // Example background color for home page
-      break;
-    case "/info":
-      backgroundColorClass = "bg-[#83D2FF]"; // Example background color for about page
-      break;
-    case "/event":
-      backgroundColorClass = "bg-newsletter"; // Example background color for contact page
-      break;
-    default:
-      backgroundColorClass = "bg-gray-100"; // Default background color if route doesn't match
-      break;
-  }
+  const { language, ENV } = useRouteLoaderData<typeof loader>("root");
+  const { color } = useBackgroundColor();
 
   return (
     <html lang={language}>
@@ -92,7 +88,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className={backgroundColorClass}>
+      <body className={color}>
         {children}
         <script
           dangerouslySetInnerHTML={{
@@ -112,16 +108,27 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  const { language } = useLoaderData<typeof loader>();
+  const { slideDirection, pathname } = usePageTransition();
+  const { language } = useRouteLoaderData<typeof loader>("root");
   return (
     <LanguageProvider language={language}>
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        <div className="flex-grow">
+      <BackgroundColorProvider>
+        <motion.div
+          key={pathname}
+          initial={{ x: slideDirection * 100 + "%" }}
+          animate={{ x: 0 }}
+          exit={{
+            x: slideDirection * -100 + "%",
+          }}
+          transition={{
+            duration: 0.5,
+          }}
+        >
+          <Header />
           <Outlet />
-        </div>
-        <StickyFooter infoUrl="/info" programUrl="/event" />
-      </div>
+          <StickyFooter infoUrl="/info" programUrl="/event" />
+        </motion.div>
+      </BackgroundColorProvider>
     </LanguageProvider>
   );
 }
