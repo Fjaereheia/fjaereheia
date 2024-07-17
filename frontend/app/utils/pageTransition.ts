@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import { useLocation } from "@remix-run/react";
 
-export const usePrevious = (value: any): string | undefined => {
+export const usePrevious = (value: string) => {
   const ref = useRef<string | undefined>();
   useEffect(() => {
     ref.current = value;
