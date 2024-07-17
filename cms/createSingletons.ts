@@ -21,6 +21,7 @@ import {getCliClient} from 'sanity/cli'
 const SINGLETONS = [
   {id: 'frontpage', title: 'Forside', _type: 'frontpage'},
   {id: 'infopage', title: 'Info', _type: 'infopage'},
+  {id: 'programpage', title: 'Program', _type: 'programpage'},
 ]
 
 const LANGUAGES = [
