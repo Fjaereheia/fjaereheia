@@ -13,6 +13,7 @@ type DateObject = {
 
 type Props = {
   dateObj: DateObject[];
+  genre?: string | undefined;
 };
 
 export function formatDateOnly(dateString: string): string {
@@ -21,7 +22,7 @@ export function formatDateOnly(dateString: string): string {
   return day[day.length - 1];
 }
 
-export const EventLabels = ({ dateObj }: Props) => {
+export const EventLabels = ({ dateObj, genre }: Props) => {
   const { language, t } = useTranslation();
 
   const renderLabel = () => {
@@ -51,7 +52,10 @@ export const EventLabels = ({ dateObj }: Props) => {
             </div>
           </div>
           <div className="m-1 flex gap-4">
-            <div className="p-1 border-2 border-gray-400">{t(texts.genre)}</div>
+            <div className="p-1 border-2 border-gray-400">
+              {genre}
+              {t(texts.genre)}
+            </div>
             <button
               onClick={handleScroll}
               className="border-2 pl-2 pr-2 border-gray-400 bg-slate-400 text-white"
