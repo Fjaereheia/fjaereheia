@@ -1,19 +1,11 @@
-import { json, type MetaFunction } from "@remix-run/node";
+import { json, LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import { client } from "sanity/clientConfig";
 import { EVENTS_QUERYResult } from "sanity/types";
-import { EVENTS_QUERY } from "~/queries/event-queries";
 import Newsletter from "~/components/Newsletter";
-import { useEffect } from "react";
-import { useBackgroundColor } from "~/utils/backgroundColor";
+import { getEvents } from "~/queries/event-queries";
 
-export async function getEvents() {
-  const events = await client.fetch<EVENTS_QUERYResult>(EVENTS_QUERY);
-  return events;
-}
-
-export async function loader() {
-  const events = await getEvents();
+export async function loader({ params }: LoaderFunctionArgs) {
+  const events = await getEvents(params);
 
   if (!events) {
     throw new Response("Not Found", {
@@ -36,11 +28,6 @@ export const meta: MetaFunction = () => {
 
 export default function Events() {
   const data = useLoaderData<typeof loader>() as EVENTS_QUERYResult;
-
-  const { setColor } = useBackgroundColor();
-  useEffect(() => {
-    setColor("bg-newsletter");
-  }, [setColor]);
 
   return (
     <div className="bg-newsletter h-[80vh] lg:h-[85vh] flex flex-col items-center text-white relative">

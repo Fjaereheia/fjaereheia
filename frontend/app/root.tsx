@@ -24,6 +24,7 @@ import {
   useBackgroundColor,
 } from "./utils/backgroundColor";
 import { useEffect } from "react";
+import LanguageButton from "./components/LanguageButton";
 
 type ErrorWithStatus = {
   status?: number;
@@ -62,7 +63,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
-  const { language } = useLoaderData<typeof loader>();
+  const { language } = useRouteLoaderData<typeof loader>("root");
   const { color } = useBackgroundColor();
 
   return (
@@ -86,7 +87,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   const { slideDirection, pathname } = usePageTransition();
   const { language } = useRouteLoaderData<typeof loader>("root");
-
   return (
     <LanguageProvider language={language}>
       <BackgroundColorProvider>

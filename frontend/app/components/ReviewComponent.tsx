@@ -12,7 +12,6 @@ export default function ReviewComponent({
     link?: string;
   };
 }) {
-  console.log(review);
   return (
     <blockquote className="border-none grid grid-flow-row place-items-center text-white text-center">
       <img src={Quotes} alt="" />
