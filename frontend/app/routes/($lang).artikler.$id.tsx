@@ -11,6 +11,7 @@ import { useBackgroundColor } from "~/utils/backgroundColor";
 import { useEffect } from "react";
 import { useTranslation } from "~/utils/i18n";
 
+
 export async function loader({ params }: LoaderFunctionArgs) {
   const article = await getArticle(params);
 

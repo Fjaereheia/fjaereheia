@@ -15,6 +15,7 @@ import { createTexts, useTranslation } from "~/utils/i18n";
 import { getEvent } from "~/queries/event-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 import useIntersectionObserver from "~/utils/ticketsVisability";
+import { useBackgroundColor } from "~/utils/backgroundColor";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
