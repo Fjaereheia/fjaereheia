@@ -372,14 +372,14 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "source": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "company": {
         "type": "objectAttribute",
@@ -500,7 +500,7 @@
           "type": "inline",
           "name": "mux.video"
         },
-        "optional": false
+        "optional": true
       }
     }
   },
@@ -522,7 +522,7 @@
           "value": {
             "type": "string"
           },
-          "optional": false
+          "optional": true
         },
         "roles": {
           "type": "objectAttribute",
@@ -805,7 +805,7 @@
                 "value": {
                   "type": "string"
                 },
-                "optional": false
+                "optional": true
               },
               "_type": {
                 "type": "objectAttribute",
@@ -982,14 +982,14 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "source": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "company": {
         "type": "objectAttribute",
@@ -2078,14 +2078,14 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "occupation": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "language": {
         "type": "objectAttribute",
@@ -2150,7 +2150,7 @@
               "value": {
                 "type": "string"
               },
-              "optional": false
+              "optional": true
             },
             "_type": {
               "type": "objectAttribute",
@@ -2161,7 +2161,7 @@
             }
           }
         },
-        "optional": false
+        "optional": true
       },
       "text": {
         "type": "objectAttribute",
@@ -2212,7 +2212,7 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "language": {
         "type": "objectAttribute",
@@ -2454,7 +2454,7 @@
                     "value": {
                       "type": "string"
                     },
-                    "optional": false
+                    "optional": true
                   },
                   "_type": {
                     "type": "objectAttribute",
@@ -2587,7 +2587,7 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "language": {
         "type": "objectAttribute",
@@ -2652,7 +2652,7 @@
               "value": {
                 "type": "string"
               },
-              "optional": false
+              "optional": true
             },
             "_type": {
               "type": "objectAttribute",
@@ -2663,7 +2663,7 @@
             }
           }
         },
-        "optional": false
+        "optional": true
       },
       "text": {
         "type": "objectAttribute",
@@ -2709,7 +2709,7 @@
           "type": "inline",
           "name": "metaTitle"
         },
-        "optional": false
+        "optional": true
       },
       "metaDescription": {
         "type": "objectAttribute",
@@ -2717,7 +2717,7 @@
           "type": "inline",
           "name": "metaDescription"
         },
-        "optional": false
+        "optional": true
       }
     }
   },
@@ -2761,7 +2761,7 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "language": {
         "type": "objectAttribute",
@@ -2850,7 +2850,7 @@
               "value": {
                 "type": "string"
               },
-              "optional": false
+              "optional": true
             },
             "_type": {
               "type": "objectAttribute",
@@ -2929,7 +2929,7 @@
           "type": "inline",
           "name": "metaTitle"
         },
-        "optional": false
+        "optional": true
       },
       "metaDescription": {
         "type": "objectAttribute",
@@ -2937,7 +2937,7 @@
           "type": "inline",
           "name": "metaDescription"
         },
-        "optional": false
+        "optional": true
       }
     }
   },
@@ -2981,9 +2981,16 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "language": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "genre": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
@@ -3033,14 +3040,14 @@
                 "value": {
                   "type": "string"
                 },
-                "optional": false
+                "optional": true
               },
               "url": {
                 "type": "objectAttribute",
                 "value": {
                   "type": "string"
                 },
-                "optional": false
+                "optional": true
               }
             },
             "rest": {
@@ -3056,14 +3063,14 @@
             }
           }
         },
-        "optional": false
+        "optional": true
       },
       "duration": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "image": {
         "type": "objectAttribute",
@@ -3121,7 +3128,7 @@
               "value": {
                 "type": "string"
               },
-              "optional": false
+              "optional": true
             },
             "_type": {
               "type": "objectAttribute",
@@ -3170,7 +3177,7 @@
           "type": "inline",
           "name": "metaTitle"
         },
-        "optional": false
+        "optional": true
       },
       "metaDescription": {
         "type": "objectAttribute",
@@ -3178,7 +3185,7 @@
           "type": "inline",
           "name": "metaDescription"
         },
-        "optional": false
+        "optional": true
       }
     }
   },
@@ -3275,7 +3282,7 @@
           "value": {
             "type": "string"
           },
-          "optional": false
+          "optional": true
         }
       }
     }
@@ -3298,7 +3305,7 @@
           "value": {
             "type": "string"
           },
-          "optional": false
+          "optional": true
         },
         "source": {
           "type": "objectAttribute",
