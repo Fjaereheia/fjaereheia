@@ -13,6 +13,7 @@ import ArrowDown from "/arrow-down.svg";
 import RoleDropDown from "~/components/RoleDropDown";
 import { createTexts, useTranslation } from "~/utils/i18n";
 import { getEvent } from "~/queries/event-queries";
+import { useBackgroundColor } from "~/utils/backgroundColor";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
@@ -50,6 +51,11 @@ export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
   const [openRole, setOpenRole] = useState(false);
   const [viewScale, setViewScale] = useState(1);
+  const bgColor = getBackgroundColor(data?.colorCombination);
+  const { setColor } = useBackgroundColor();
+  useEffect(() => {
+    setColor(bgColor);
+  }, [setColor]);
   const { t } = useTranslation();
 
   useEffect(() => {

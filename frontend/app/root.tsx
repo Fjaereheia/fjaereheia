@@ -19,6 +19,10 @@ import { LoaderFunction } from "@remix-run/node";
 import { motion } from "framer-motion";
 import { usePageTransition } from "./utils/pageTransition";
 import { getLanguageFromPath, LanguageProvider } from "./utils/i18n";
+import {
+  BackgroundColorProvider,
+  useBackgroundColor,
+} from "./utils/backgroundColor";
 import LanguageButton from "./components/LanguageButton";
 
 type ErrorWithStatus = {
@@ -65,25 +69,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 export function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
   const { language } = useRouteLoaderData<typeof loader>("root");
-
-  let backgroundColorClass = "";
-
-  switch (pathname) {
-    case "/" || "/en":
-      backgroundColorClass = "";
-      break;
-    case "/info":
-    case "/en/info":
-      backgroundColorClass = "bg-[#83D2FF]";
-      break;
-    case "/event":
-    case "/en/event":
-      backgroundColorClass = "bg-newsletter";
-      break;
-    default:
-      backgroundColorClass = "bg-gray-100";
-      break;
-  }
+  const { color } = useBackgroundColor();
 
   return (
     <html lang={language}>
@@ -94,7 +80,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className={backgroundColorClass}>
+      <body className={color}>
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -108,22 +94,23 @@ export default function App() {
   const { language } = useRouteLoaderData<typeof loader>("root");
   return (
     <LanguageProvider language={language}>
-      <motion.div
-        key={pathname}
-        initial={{ x: slideDirection * 100 + "%" }}
-        animate={{ x: 0 }}
-        exit={{
-          x: slideDirection * -100 + "%",
-        }}
-        transition={{
-          duration: 0.5,
-        }}
-      >
-        <Header />
-        <LanguageButton />
-        <Outlet />
-        <StickyFooter infoUrl={"/info"} programUrl={"/event"} />
-      </motion.div>
+      <BackgroundColorProvider>
+        <motion.div
+          key={pathname}
+          initial={{ x: slideDirection * 100 + "%" }}
+          animate={{ x: 0 }}
+          exit={{
+            x: slideDirection * -100 + "%",
+          }}
+          transition={{
+            duration: 0.5,
+          }}
+        >
+          <Header />
+          <Outlet />
+          <StickyFooter infoUrl="/info" programUrl="/event" />
+        </motion.div>
+      </BackgroundColorProvider>
     </LanguageProvider>
   );
 }
