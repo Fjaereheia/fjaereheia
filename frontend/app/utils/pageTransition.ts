@@ -22,6 +22,9 @@ export const usePageTransition = () => {
     case "/event":
       slideDirection = previousLocation == "/event" ? -1 : 1;
       break;
+    case "/program":
+      slideDirection = previousLocation == "/event" ? -1 : 1;
+      break;
     default:
       slideDirection = previousLocation == "/event" ? -1 : 1;
       break;

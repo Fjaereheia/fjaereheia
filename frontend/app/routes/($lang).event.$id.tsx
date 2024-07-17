@@ -16,6 +16,9 @@ import { getEvent } from "~/queries/event-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 
 export async function loader({ params }: LoaderFunctionArgs) {
+  console.log(params);
+  console.log("hei");
+
   const event = await getEvent(params);
 
   if (!event) {

@@ -10,6 +10,13 @@ const SINGLETONS = [
     icon: InfoOutlineIcon,
     schemaType: 'infopage',
   },
+  {
+    id: 'programpage',
+    title: 'Programsiden',
+    _type: 'document',
+    icon: InfoOutlineIcon,
+    schemaType: 'programpage',
+  },
 ]
 
 const LANGUAGES = [

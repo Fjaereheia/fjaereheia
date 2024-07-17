@@ -36,12 +36,12 @@ export const programpage = defineType({
     }),
     defineField({
       name: 'links',
-      title: 'Undersider',
+      title: 'Forestillinger',
       type: 'array',
       of: [
         {
           type: 'reference',
-          to: [{type: 'event'}, {type: 'programpage'}],
+          to: [{type: 'event'}],
           options: {
             filter: ({document}) => {
               return {

@@ -1,7 +1,7 @@
 import {defineType, defineField} from 'sanity'
 
 export const infopage = defineType({
-  name: 'programpage',
+  name: 'infopage',
   title: 'Informasjonsside',
   type: 'document',
   fields: [
@@ -41,7 +41,7 @@ export const infopage = defineType({
       of: [
         {
           type: 'reference',
-          to: [{type: 'article'}, {type: 'infopage'}],
+          to: [{type: 'article'}],
           options: {
             filter: ({document}) => {
               return {
