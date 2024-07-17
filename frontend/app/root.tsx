@@ -53,6 +53,12 @@ export function ErrorBoundary() {
 export const loader: LoaderFunction = async ({ request }) => {
   const { pathname, search } = new URL(request.url);
 
+  const newPathname = pathname.replace(/\/nb/g, "");
+
+  if (newPathname !== pathname) {
+    throw redirect(`${newPathname}${search}`, 301);
+  }
+
   if (pathname.endsWith("/") && pathname.length > 1) {
     throw redirect(`${pathname.slice(0, -1)}${search}`, 301);
   }
