@@ -86,7 +86,7 @@ export const deskStructure = (S: StructureBuilder) =>
                     .child(
                       S.documentList()
                         .title(`${language.id.toLocaleUpperCase()}`)
-                        .filter(`_type=="article" && language=="${language.id}"`),
+                        .filter(`_type=="${multi.id}" && language=="${language.id}"`),
                     ),
                 ),
               ]),
