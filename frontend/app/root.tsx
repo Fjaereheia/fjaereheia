@@ -107,6 +107,7 @@ export default function App() {
           }}
         >
           <Header />
+          <LanguageButton />
           <Outlet />
           <StickyFooter infoUrl="/info" programUrl="/event" />
         </motion.div>
