@@ -3,6 +3,8 @@ import { Link, useLoaderData, useLocation, useParams } from "@remix-run/react";
 import { ARTICLES_QUERYResult } from "sanity/types";
 import { getArticles } from "~/queries/article-queries";
 import ButtonLink from "~/components/ButtonLink";
+import { useBackgroundColor } from "~/utils/backgroundColor";
+import { useEffect } from "react";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const articles = await getArticles(params);
@@ -28,6 +30,10 @@ export const meta: MetaFunction = () => {
 export default function Articles() {
   const data = useLoaderData<typeof loader>() as ARTICLES_QUERYResult;
   const params = useParams();
+  const { setColor } = useBackgroundColor();
+  useEffect(() => {
+    setColor("bg-white");
+  }, [setColor]);
   return (
     <div className="h-[90vh] lg:h-[95vh] flex flex-col items-center">
       <div className="text-center absolute pt-[151px]">

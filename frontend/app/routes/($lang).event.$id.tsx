@@ -12,6 +12,7 @@ import ArrowUp from "/arrow-up.svg";
 import ArrowDown from "/arrow-down.svg";
 import RoleDropDown from "~/components/RoleDropDown";
 import { getEvent } from "~/queries/event-queries";
+import { useBackgroundColor } from "~/utils/backgroundColor";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
@@ -48,8 +49,12 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
   const [openRole, setOpenRole] = useState(false);
-
   const [viewScale, setViewScale] = useState(1);
+  const bgColor = getBackgroundColor(data?.colorCombination);
+  const { setColor } = useBackgroundColor();
+  useEffect(() => {
+    setColor(bgColor);
+  }, [setColor]);
 
   useEffect(() => {
     const updateViewScale = () => {

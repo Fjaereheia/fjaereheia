@@ -52,7 +52,6 @@ export default function Index() {
   const imageUrl = urlFor(
     data?.event?.image?.asset?._ref || data?.image?.asset?._ref || ""
   );
-
   const { setColor } = useBackgroundColor();
   useEffect(() => {
     setColor("bg-white");
