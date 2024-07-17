@@ -23,7 +23,6 @@ import {
   BackgroundColorProvider,
   useBackgroundColor,
 } from "./utils/backgroundColor";
-import { useEffect } from "react";
 import LanguageButton from "./components/LanguageButton";
 
 type ErrorWithStatus = {
