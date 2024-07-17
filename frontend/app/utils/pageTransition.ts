@@ -29,9 +29,3 @@ export const usePageTransition = () => {
 
   return { slideDirection, pathname: location.pathname };
 };
-
-export const backgroundColour: { [key: string]: string } = {
-  "/": "",
-  "/info": "#83D2FF",
-  "/event": "#newsletter",
-};

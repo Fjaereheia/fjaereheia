@@ -20,6 +20,7 @@ import { motion } from "framer-motion";
 import { usePageTransition } from "./utils/pageTransition";
 import { getLanguageFromPath, LanguageProvider } from "./utils/i18n";
 import LanguageButton from "./components/LanguageButton";
+import { useEffect } from "react";
 
 type ErrorWithStatus = {
   status?: number;
@@ -66,6 +67,20 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
   const { language } = useRouteLoaderData<typeof loader>("root");
 
+  useEffect(() => {
+    const logHeight = () => {
+      console.log("body height:", document.body.clientHeight);
+      const motionContainer = document.querySelector(".motion-container");
+      if (motionContainer) {
+        console.log(".motion-container height:", motionContainer.clientHeight);
+      }
+    };
+
+    logHeight(); // Log height on mount
+    window.addEventListener("resize", logHeight); // Log height on resize
+    return () => window.removeEventListener("resize", logHeight); // Cleanup on unmount
+  }, [pathname]); // Run effect on pathname change
+
   let backgroundColorClass = "";
 
   switch (pathname) {
@@ -86,7 +101,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <html lang={language}>
+    <html lang={language} style={{ height: "100%" }}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

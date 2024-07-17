@@ -70,7 +70,7 @@ export default function Event() {
     <div
       className={`${getBackgroundColor(
         data.colorCombination
-      )} flex flex-col relative justify-center items-center`}
+      )} flex flex-col min-h-screen justify-center items-center`}
     >
       {data.image?.asset?._ref && (
         <ImageEventPage

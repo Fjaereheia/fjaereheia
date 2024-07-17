@@ -30,20 +30,22 @@ export default function Events() {
   const data = useLoaderData<typeof loader>() as EVENTS_QUERYResult;
 
   return (
-    <div className="bg-newsletter h-[80vh] lg:h-[85vh] flex flex-col items-center text-white relative">
-      <div className="absolute pt-[151px] text-center ">
-        {data.map((event, index) => (
-          <div key={index}>
-            <Link key={event._id} to={event.slug?.current ?? ""}>
-              <p className="p-4 hover:underline font-serif text-2xl lg:text-4xl">
-                {event.title}
-              </p>
-            </Link>
-          </div>
-        ))}
-      </div>
-      <div className="absolute flex flex-col items-center bottom-0 text-lg lg:text-xl w-4/5 lg:w-2/3 ">
-        <Newsletter />
+    <div className="h-[100vh]">
+      <div className=" h-[80vh] lg:h-[85vh] flex flex-col items-center text-white relative">
+        <div className="absolute pt-[151px] text-center ">
+          {data.map((event, index) => (
+            <div key={index}>
+              <Link key={event._id} to={event.slug?.current ?? ""}>
+                <p className="p-4 hover:underline font-serif text-2xl lg:text-4xl">
+                  {event.title}
+                </p>
+              </Link>
+            </div>
+          ))}
+        </div>
+        <div className="absolute flex flex-col items-center bottom-0 text-lg lg:text-xl w-4/5 lg:w-2/3 ">
+          <Newsletter />
+        </div>
       </div>
     </div>
   );
