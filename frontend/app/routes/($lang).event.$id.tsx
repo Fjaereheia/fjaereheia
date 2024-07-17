@@ -11,7 +11,9 @@ import { EventLabels } from "~/components/EventLabels";
 import ArrowUp from "/arrow-up.svg";
 import ArrowDown from "/arrow-down.svg";
 import RoleDropDown from "~/components/RoleDropDown";
+import { createTexts, useTranslation } from "~/utils/i18n";
 import { getEvent } from "~/queries/event-queries";
+import { useBackgroundColor } from "~/utils/backgroundColor";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
@@ -40,7 +42,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     { title: data.metaTitle ?? "Forestilling" },
     {
       property: "og:description",
-      content: data.metaDescription ?? "Artikkel",
+      content: data.metaDescription ?? "Informasjon om forestilling",
     },
   ];
 };
@@ -48,8 +50,13 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
   const [openRole, setOpenRole] = useState(false);
-
   const [viewScale, setViewScale] = useState(1);
+  const bgColor = getBackgroundColor(data?.colorCombination);
+  const { setColor } = useBackgroundColor();
+  useEffect(() => {
+    setColor(bgColor);
+  }, [setColor]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const updateViewScale = () => {
@@ -92,12 +99,16 @@ export default function Event() {
           onClick={() => setOpenRole(!openRole)}
         >
           <span className="self-center justify-self-start text-xl">
-            Medvirkende{" "}
+            {t(texts.roleDropDown)}{" "}
           </span>
           <img
             className="w-6 h-6 self-center justify-self-end"
             src={openRole ? ArrowUp : ArrowDown}
-            alt={openRole ? "Pil opp" : "Pil ned"}
+            alt={
+              openRole
+                ? t(texts.roleDropDownAltUp)
+                : t(texts.roleDropDownAltDown)
+            }
           />
         </button>
       )}
@@ -105,3 +116,18 @@ export default function Event() {
     </div>
   );
 }
+
+const texts = createTexts({
+  roleDropDown: {
+    nb: "Medvirkende",
+    en: "Participants",
+  },
+  roleDropDownAltUp: {
+    nb: "Pil opp",
+    en: "Arrow Up",
+  },
+  roleDropDownAltDown: {
+    nb: "Pil ned",
+    en: "Arrow Down",
+  },
+});
