@@ -38,27 +38,28 @@ export const EventLabels = ({ dateObj }: Props) => {
           <div className="m-2 left-0 flex gap-4 md:float-start bg-inherit">
             <div className="-mr-2 border p-2 border-[#F8F8F8] bg-inherit">
               {dateObj.length === 1 ? (
-                formattedDate
+                formattedDate.toUpperCase()
               ) : (
                 <>
-                  {t(texts.plays)} {datesOnlyFirst + ".-"}
-                  {datesOnlyLast + "."} {getMonth(firstDate!, language)}
+                  {t(texts.plays).toUpperCase()} {datesOnlyFirst + ".-"}
+                  {datesOnlyLast + "."}{" "}
+                  {getMonth(firstDate!, language)?.toUpperCase()}
                 </>
               )}
             </div>
             <div className="p-2 border border-[#F8F8F8]">
-              {formattedTimestamp}
+              {formattedTimestamp.toUpperCase()}
             </div>
           </div>
           <div className="m-2 flex gap-4">
             <div className="-mr-2 p-2 border border-[#F8F8F8]">
-              {t(texts.genre)}
+              {t(texts.genre).toUpperCase()}
             </div>
             <button
               onClick={handleScroll}
               className="pl-2 p-2 bg-[#F8F8F8] font-bold text-darkBluePrimaryGreenSecondary-primary"
             >
-              {t(texts.buyTicket)}
+              {t(texts.buyTicket).toUpperCase()}
             </button>
           </div>
         </div>
