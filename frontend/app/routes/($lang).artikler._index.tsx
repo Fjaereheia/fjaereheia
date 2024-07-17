@@ -2,7 +2,6 @@ import { json, LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData, useLocation, useParams } from "@remix-run/react";
 import { ARTICLES_QUERYResult } from "sanity/types";
 import { getArticles } from "~/queries/article-queries";
-import ButtonLink from "~/components/ButtonLink";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const articles = await getArticles(params);
