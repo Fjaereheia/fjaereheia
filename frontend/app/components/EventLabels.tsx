@@ -34,8 +34,8 @@ export const EventLabels = ({ dateObj }: Props) => {
 
     return (
       <>
-        <div className="m-4">
-          <div className="m-1 flex gap-4">
+        <div className="m-4 mr-auto md:mr-0 md:relative text-lg md:text-xl">
+          <div className="mb-4 left-0 flex gap-4 md:float-start text-inherit">
             <div className="p-1 border-2 border-gray-400">
               {dateObj.length === 1 ? (
                 formattedDate
@@ -50,7 +50,7 @@ export const EventLabels = ({ dateObj }: Props) => {
               {formattedTimestamp}
             </div>
           </div>
-          <div className="m-1 flex gap-4">
+          <div className="flex gap-4">
             <div className="p-1 border-2 border-gray-400">{t(texts.genre)}</div>
             <button
               onClick={handleScroll}
