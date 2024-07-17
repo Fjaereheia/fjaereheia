@@ -11,8 +11,8 @@ type Props = {
 
 export const Tickets = ({ dateTickets }: Props) => {
   return (
-    <div id="tickets" className="flex flex-col items-center mx-6 mt-">
-      <h1 className="text-4xl">Billetter</h1>
+    <div id="tickets" className="flex flex-col">
+      <h1 className="text-2xl font-sans py-8">Billetter</h1>
       {dateTickets?.map((dateTicket: DateTicketType, index) => {
         return <DateTicket key={index} dateTicket={dateTicket} />;
       })}

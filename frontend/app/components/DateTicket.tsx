@@ -19,12 +19,12 @@ export const DateTicket = ({ dateTicket }: Props) => {
   const formattedDate = formatDayAndDate(dateTicket.date!, language);
   const formattedTimestamp = formatTimestamp(dateTicket.date!, language);
   return (
-    <div className="my-4">
+    <div className="flex flex-col gap-2 my-4">
       <p className="capitalize text-2xl">{formattedDate}</p>
-      <div className="flex items-center my-6 mx-1">
+      <div className="flex flex-col gap-2 mx-1">
         <p>{formattedTimestamp}</p>
         <button
-          className="mx-4 p-4 border-2"
+          className="py-2 w-32 text-base px-10 border"
           onClick={() => window.open(dateTicket.url, "_blank")}
         >
           {language == "en" ? "Buy" : "Kjøp"}
