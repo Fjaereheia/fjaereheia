@@ -12,6 +12,30 @@ const SINGLETONS = [
   },
 ]
 
+const MULTI = [
+  {
+    id: 'article',
+    title: 'Artikler',
+    _type: 'document',
+    icon: DocumentTextIcon,
+    schemaType: 'article',
+  },
+  {
+    id: 'event',
+    title: 'Forestillinger',
+    _type: 'document',
+    icon: CalendarIcon,
+    schemaType: 'event',
+  },
+  {
+    id: 'role',
+    title: 'Roller',
+    _type: 'document',
+    icon: UserIcon,
+    schemaType: 'role',
+  },
+]
+
 const LANGUAGES = [
   {id: `nb`, title: `🇳🇴 Norwegian (Bokmål)`},
   {id: `en`, title: `🇬🇧 English`},
@@ -45,7 +69,27 @@ export const deskStructure = (S: StructureBuilder) =>
           ),
       ),
       S.divider(),
-      S.documentTypeListItem('article').title('Artikler').icon(DocumentTextIcon),
-      S.documentTypeListItem('event').title('Forestillinger').icon(CalendarIcon),
-      S.documentTypeListItem('role').title('Roller').icon(UserIcon),
+      ...MULTI.map((multi) =>
+        S.listItem()
+          .title(multi.title)
+          .id(multi.id)
+          .icon(multi.icon)
+          .child(
+            S.list()
+              .title(multi.title)
+              .id(multi.id)
+              .items([
+                ...LANGUAGES.map((language) =>
+                  S.listItem()
+                    .title(`${multi.title} (${language.id.toLocaleUpperCase()})`)
+                    .icon(multi.icon)
+                    .child(
+                      S.documentList()
+                        .title(`${language.id.toLocaleUpperCase()}`)
+                        .filter(`_type=="article" && language=="${language.id}"`),
+                    ),
+                ),
+              ]),
+          ),
+      ),
     ])
