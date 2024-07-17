@@ -59,22 +59,25 @@ export default function Index() {
   const params = useParams();
   return (
     <div
-      className="bg-cover bg-center h-screen w-full flex flex-col items-center justify-center "
-      style={{ backgroundImage: `url(${imageUrl})` }}
+      className="bg-cover bg-center bg-no-repeat h-screen w-full grid grid-cols-1"
+      style={{
+        backgroundImage: `url(${imageUrl})`,
+        height: "100vh",
+        overflow: "hidden",
+      }}
       aria-label={
         data?.event?.image?.alt || data?.image?.alt || "Background image"
       }
     >
-      <div className="text-white text-xl pb-32 lg:pb-72 flex flex-col items-center ">
+      <div className="text-white text-xl md:pb-32 lg:pb-72 flex flex-col items-center">
         <Newsletter />
       </div>
 
-      <h1 className="mx-4 text-center pt-64 text-white text-5xl lg:text-8xl ">
+      <h1 className="mx-4 text-center lg:pt-64 text-white text-5xl lg:text-8xl ">
         {data?.event?.title || data?.title}
       </h1>
 
-      <br />
-      <div className="flex w-full flex-row justify-center content-enter ">
+      <div className="grid grid-flow-col auto-cols-max justify-center items-center w-full">
         <ButtonLink
           styling="text-white w-48  text-right px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl "
           url={params.lang == "en" ? "/en/info" : "/info"}
@@ -92,12 +95,14 @@ export default function Index() {
       </div>
 
       {data?.event && (
-        <Link
-          to={"/event/" + data?.event?.slug?.current + "#tickets" || "/event"}
-        >
-          <button className="flex items-center justify-center px-4 pt-20 lg:py-2 "></button>
-          <GreenButton text={t(texts.buyTicket)} />
-        </Link>
+        <div className="justify-self-center">
+          <Link
+            to={"/event/" + data?.event?.slug?.current + "#tickets" || "/event"}
+          >
+            <button aria-label={t(texts.buyTicket)}></button>
+            <GreenButton text={t(texts.buyTicket)} />
+          </Link>
+        </div>
       )}
     </div>
   );
