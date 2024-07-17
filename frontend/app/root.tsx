@@ -63,21 +63,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 export function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
   const { language } = useLoaderData<typeof loader>();
-  const { color, setColor } = useBackgroundColor();
-
-  useEffect(() => {
-    switch (pathname) {
-      case "/":
-        setColor("bg-black");
-        break;
-      case "/info":
-        setColor("bg-[#83D2FF]");
-        break;
-      case "/event":
-        setColor("bg-newsletter");
-        break;
-    }
-  }, [pathname]);
+  const { color } = useBackgroundColor();
 
   return (
     <html lang={language}>

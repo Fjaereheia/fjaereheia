@@ -8,6 +8,8 @@ import PurpleDot from "~/assets/PurpleDot";
 import GreenButton from "~/assets/GreenButton";
 import Newsletter from "~/components/Newsletter";
 import { createTexts, useTranslation } from "~/utils/i18n";
+import { useBackgroundColor } from "~/utils/backgroundColor";
+import { useEffect } from "react";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   if (!params.lang) {
@@ -53,6 +55,11 @@ export default function Index() {
   const imageUrl = urlFor(
     data?.event?.image?.asset?._ref || data?.image?.asset?._ref || ""
   );
+
+  const { setColor } = useBackgroundColor();
+  useEffect(() => {
+    setColor("bg-white");
+  }, [setColor]);
   return (
     <div
       className="bg-cover bg-center h-screen w-full flex flex-col items-center justify-center "

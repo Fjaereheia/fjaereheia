@@ -8,6 +8,8 @@ import ButtonLink from "~/components/ButtonLink";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import MuxPlayer from "@mux/mux-player-react";
+import { useBackgroundColor } from "~/utils/backgroundColor";
+import { useEffect } from "react";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const article = await client.fetch<Custom_ARTICLE_QUERYResult>(
@@ -46,6 +48,11 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Article() {
   const data = useLoaderData<typeof loader>() as Custom_ARTICLE_QUERYResult;
+  const bgColor = getBackgroundColor(data?.colorCombination);
+  const { setColor } = useBackgroundColor();
+  useEffect(() => {
+    setColor(bgColor);
+  }, [setColor]);
 
   if (!data) {
     return <></>;

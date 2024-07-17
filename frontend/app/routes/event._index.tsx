@@ -35,9 +35,9 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Events() {
-  const { setColor } = useBackgroundColor();
   const data = useLoaderData<typeof loader>() as EVENTS_QUERYResult;
 
+  const { setColor } = useBackgroundColor();
   useEffect(() => {
     setColor("bg-newsletter");
   }, [setColor]);

@@ -4,6 +4,8 @@ import { client } from "sanity/clientConfig";
 import { ARTICLES_QUERYResult } from "sanity/types";
 import { ARTICLES_QUERY } from "~/queries/article-queries";
 import ButtonLink from "~/components/ButtonLink";
+import { useBackgroundColor } from "~/utils/backgroundColor";
+import { useEffect } from "react";
 
 export async function getArticles() {
   const articles = await client.fetch<ARTICLES_QUERYResult>(ARTICLES_QUERY);
@@ -33,6 +35,10 @@ export const meta: MetaFunction = () => {
 
 export default function Articles() {
   const data = useLoaderData<typeof loader>() as ARTICLES_QUERYResult;
+  const { setColor } = useBackgroundColor();
+  useEffect(() => {
+    setColor("bg-white");
+  }, [setColor]);
   return (
     <div>
       <h1>Artikler</h1>

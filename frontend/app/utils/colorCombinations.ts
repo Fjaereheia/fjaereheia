@@ -1,11 +1,11 @@
 export function getBackgroundColor(colorCombination: string | undefined) {
   switch (colorCombination) {
     case "lightRedPrimaryDarkBlueSecondary":
-      return "bg-lightRedPrimaryDarkBlueSecondary-primary text-black";
+      return "bg-lightRedPrimaryDarkBlueSecondary-primary";
     case "darkBluePrimaryGreenSecondary":
-      return "bg-darkBluePrimaryGreenSecondary-primary text-white";
+      return "bg-darkBluePrimaryGreenSecondary-primary";
     default:
-      return "";
+      return "bg-white";
   }
 }
 
@@ -16,6 +16,17 @@ export function getSecondaryColor(colorCombination: string | undefined) {
     case "darkBluePrimaryGreenSecondary":
       return "darkBluePrimaryGreenSecondary-secondary";
     default:
-      return "";
+      return "bg-white";
+  }
+}
+
+export function getTextColor(colorCombination: string | undefined) {
+  switch (colorCombination) {
+    case "lightRedPrimaryDarkBlueSecondary":
+      return "text-black";
+    case "darkBluePrimaryGreenSecondary":
+      return "text-white";
+    default:
+      return "bg-black";
   }
 }

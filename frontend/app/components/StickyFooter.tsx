@@ -1,4 +1,5 @@
 import { Link, useLocation } from "@remix-run/react";
+import { useBackgroundColor } from "~/utils/backgroundColor";
 
 interface StickyFooterProps {
   programUrl: string;
@@ -13,6 +14,7 @@ export default function StickyFooter({
   let bgcolor = "white";
   const location = useLocation();
   const showFooter = !["/", "/en"].includes(location.pathname);
+  const { color } = useBackgroundColor();
 
   if (!showFooter) {
     return null;
@@ -30,7 +32,7 @@ export default function StickyFooter({
 
   return (
     <footer
-      className={`sticky bottom-0 border-t text-${textcolor} bg-${bgcolor} font-serif text-2xl border-${textcolor} shadow py-2  z-10 h-[7vh] lg:h-[5vh]`}
+      className={`sticky bottom-0 border-t text-${textcolor} ${color} font-serif text-2xl border-${textcolor} shadow py-2  z-10 h-[7vh] lg:h-[5vh]`}
     >
       <ul className="flex flex-row justify-evenly lg:justify-center">
         <li>
