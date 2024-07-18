@@ -53,7 +53,6 @@ export default function Event() {
   const [viewScale, setViewScale] = useState(1);
   const {
     bgColor,
-    primaryBorder,
     primaryText,
     secondaryBgColor,
     secondaryBorder,
