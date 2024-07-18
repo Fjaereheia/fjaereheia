@@ -33,10 +33,10 @@ export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
     <div className="m-2 lg:w-1/3 border">
       {roleGroups?.map((roleGroup, index) => (
         <div key={index} className="w-fit m-4 mb-10">
-          <h3 className="text-base font-semibold mb-3">{roleGroup.name}</h3>
+          <h3 className="text-base font-semibold">{roleGroup.name}</h3>
           <div>
             {roleGroup.roles?.map((role, index) => (
-              <div key={index} className="w-fit gap-6">
+              <div key={index} className="flex flex-row mt-8 w-fit gap-6">
                 <img
                   src={urlFor(role.image?.asset?._ref ?? "")}
                   alt={role.image?.alt ?? ""}
