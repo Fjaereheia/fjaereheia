@@ -59,51 +59,56 @@ export default function Index() {
   const params = useParams();
   return (
     <div
-      className="bg-cover bg-center bg-no-repeat h-screen w-full grid grid-cols-1"
+      className="bg-cover bg-center bg-no-repeat h-screen w-full"
       style={{
         backgroundImage: `url(${imageUrl})`,
         height: "100vh",
-        overflow: "hidden",
       }}
       aria-label={
         data?.event?.image?.alt || data?.image?.alt || "Background image"
       }
     >
-      <div className="text-white text-xl md:pb-32 lg:pb-72 flex flex-col items-center">
-        <Newsletter />
-      </div>
-
-      <h1 className="mx-4 text-center lg:pt-64 text-white text-5xl lg:text-8xl ">
-        {data?.event?.title || data?.title}
-      </h1>
-
-      <div className="grid grid-flow-col auto-cols-max justify-center items-center w-full">
-        <ButtonLink
-          styling="text-white w-48  text-right px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl "
-          url={params.lang == "en" ? "/en/info" : "/info"}
-          buttonText="Info"
-        />
-        <div className="mb-4 mt-4 lg:mt-5 mx-1">
-          <PurpleDot />
+      <div className="flex flex-col h-screen w-full overflow-hidden">
+        <div className="text-white text-xl mt-0 flex flex-col items-center">
+          <Newsletter />
         </div>
 
-        <ButtonLink
-          styling="text-white w-48 px-4 py-2 text-left rounded self-center font-serif text-2xl lg:text-4xl "
-          url={params.lang == "en" ? "/en/event" : "/event"}
-          buttonText={t(texts.programText)}
-        />
-      </div>
+        <div className="mt-auto">
+          <h1 className="flex flex-col mx-4 text-center text-white text-5xl lg:text-8xl ">
+            {data?.event?.title || data?.title}
+          </h1>
 
-      {data?.event && (
-        <div className="justify-self-center">
-          <Link
-            to={"/event/" + data?.event?.slug?.current + "#tickets" || "/event"}
-          >
-            <button aria-label={t(texts.buyTicket)}></button>
-            <GreenButton text={t(texts.buyTicket)} />
-          </Link>
+          <div className="flex flex-row justify-center content-center  w-full">
+            <ButtonLink
+              styling="text-white w-48  text-right px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl "
+              url={params.lang == "en" ? "/en/info" : "/info"}
+              buttonText="Info"
+            />
+            <div className="mb-4 mt-4 lg:mt-5 mx-1">
+              <PurpleDot />
+            </div>
+            <ButtonLink
+              styling="text-white w-48 px-4 py-2 text-left rounded self-center font-serif text-2xl lg:text-4xl "
+              url={params.lang == "en" ? "/en/event" : "/event"}
+              buttonText={t(texts.programText)}
+            />
+          </div>
+
+          {data?.event && (
+            <div className="flex justify-center content-center mb-4">
+              <Link
+                to={
+                  "/event/" + data?.event?.slug?.current + "#tickets" ||
+                  "/event"
+                }
+              >
+                <button aria-label={t(texts.buyTicket)}></button>
+                <GreenButton text={t(texts.buyTicket)} />
+              </Link>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }
