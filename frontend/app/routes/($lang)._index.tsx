@@ -59,46 +59,56 @@ export default function Index() {
   const params = useParams();
   return (
     <div
-      className="bg-cover bg-center h-screen w-full flex flex-col items-center justify-center "
-      style={{ backgroundImage: `url(${imageUrl})` }}
+      className="bg-cover bg-center bg-no-repeat h-screen w-full"
+      style={{
+        backgroundImage: `url(${imageUrl})`,
+        height: "100vh",
+      }}
       aria-label={
         data?.event?.image?.alt || data?.image?.alt || "Background image"
       }
     >
-      <div className="text-white text-xl pb-32 lg:pb-72 flex flex-col items-center ">
-        <Newsletter />
-      </div>
-
-      <h1 className="mx-4 text-center pt-64 text-white text-5xl lg:text-8xl ">
-        {data?.event?.title || data?.title}
-      </h1>
-
-      <br />
-      <div className="flex w-full flex-row justify-center content-enter ">
-        <ButtonLink
-          styling="text-white w-48  text-right px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl "
-          url={params.lang == "en" ? "/en/info" : "/info"}
-          buttonText="Info"
-        />
-        <div className="mb-4 mt-4 lg:mt-5 mx-1">
-          <PurpleDot />
+      <div className="flex flex-col h-screen w-full overflow-hidden">
+        <div className="text-white text-xl mt-10 flex flex-col items-center">
+          <Newsletter />
         </div>
 
-        <ButtonLink
-          styling="text-white w-48 px-4 py-2 text-left rounded self-center font-serif text-2xl lg:text-4xl "
-          url={params.lang == "en" ? "/en/event" : "/event"}
-          buttonText={t(texts.programText)}
-        />
-      </div>
+        <div className="mt-auto">
+          <h1 className="flex flex-col mx-4 text-center text-white text-5xl lg:text-8xl ">
+            {data?.event?.title || data?.title}
+          </h1>
 
-      {data?.event && (
-        <Link
-          to={"/event/" + data?.event?.slug?.current + "#tickets" || "/event"}
-        >
-          <button className="flex items-center justify-center px-4 pt-20 lg:py-2 "></button>
-          <GreenButton text={t(texts.buyTicket)} />
-        </Link>
-      )}
+          <div className="flex flex-row justify-center content-center  w-full">
+            <ButtonLink
+              styling="text-white w-48  text-right px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl "
+              url={params.lang == "en" ? "/en/info" : "/info"}
+              buttonText="Info"
+            />
+            <div className="mb-4 mt-4 lg:mt-5 mx-1">
+              <PurpleDot />
+            </div>
+            <ButtonLink
+              styling="text-white w-48 px-4 py-2 text-left rounded self-center font-serif text-2xl lg:text-4xl "
+              url={params.lang == "en" ? "/en/program" : "/program"}
+              buttonText={t(texts.programText)}
+            />
+          </div>
+
+          {data?.event && (
+            <div className="flex justify-center content-center mb-4">
+              <Link
+                to={
+                  "/event/" + data?.event?.slug?.current + "#tickets" ||
+                  "/event"
+                }
+              >
+                <button aria-label={t(texts.buyTicket)}></button>
+                <GreenButton text={t(texts.buyTicket)} />
+              </Link>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

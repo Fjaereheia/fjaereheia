@@ -1,8 +1,8 @@
 import {defineType, defineField} from 'sanity'
 
-export const infopage = defineType({
-  name: 'infopage',
-  title: 'Informasjonsside',
+export const programpage = defineType({
+  name: 'programpage',
+  title: 'Programside',
   type: 'document',
   fields: [
     defineField({
@@ -21,27 +21,13 @@ export const infopage = defineType({
       hidden: true,
     }),
     defineField({
-      name: 'text',
-      title: 'Tekst',
-      type: 'array',
-      description: 'Innhold',
-      of: [
-        {
-          type: 'block',
-        },
-        {
-          type: 'customImage',
-        },
-      ],
-    }),
-    defineField({
       name: 'links',
-      title: 'Undersider',
+      title: 'Forestillinger',
       type: 'array',
       of: [
         {
           type: 'reference',
-          to: [{type: 'article'}],
+          to: [{type: 'event'}],
           options: {
             filter: ({document}) => {
               return {

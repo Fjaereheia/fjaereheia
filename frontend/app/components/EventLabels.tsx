@@ -35,31 +35,34 @@ export const EventLabels = ({ dateObj, genre }: Props) => {
 
     return (
       <>
-        <div className="m-4">
-          <div className="m-1 flex gap-4">
-            <div className="p-1 border-2 border-gray-400">
+        <div className="m-2 mr-auto md:mr-0 md:relative font-serif text-white md:text-lg">
+          <div className="m-2 left-0 flex gap-4 md:float-start bg-inherit">
+            <div className="-mr-2 border p-2 border-[#F8F8F8] bg-inherit">
               {dateObj.length === 1 ? (
-                formattedDate
+                formattedDate.toUpperCase()
               ) : (
                 <>
-                  {t(texts.plays)} {datesOnlyFirst + ".-"}
-                  {datesOnlyLast + "."} {getMonth(firstDate!, language)}
+                  {t(texts.plays).toUpperCase()} {datesOnlyFirst + ".-"}
+                  {datesOnlyLast + "."}{" "}
+                  {getMonth(firstDate!, language)?.toUpperCase()}
                 </>
               )}
             </div>
-            <div className="p-1 border-2 border-gray-400">
-              {formattedTimestamp}
+            <div className="p-2 border border-[#F8F8F8]">
+              {formattedTimestamp.toUpperCase()}
             </div>
           </div>
-          <div className="m-1 flex gap-4">
+
+          <div className="m-2 flex gap-4">
             {genre && (
-              <div className="p-1 border-2 border-gray-400">{genre}</div>
+              <div className="-mr-2 p-2 border border-[#F8F8F8]">{genre}.toUpperCase()</div>
             )}
+
             <button
               onClick={handleScroll}
-              className="border-2 pl-2 pr-2 border-gray-400 bg-slate-400 text-white"
+              className="pl-2 p-2 bg-[#F8F8F8] font-bold text-darkBluePrimaryGreenSecondary-primary"
             >
-              {t(texts.buyTicket)}
+              {t(texts.buyTicket).toUpperCase()}
             </button>
           </div>
         </div>

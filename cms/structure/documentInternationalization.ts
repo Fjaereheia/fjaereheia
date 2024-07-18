@@ -28,7 +28,7 @@ export const PluginConfig = {
     {id: 'nb', title: '🇳🇴 Norwegian (Bokmål)'},
     {id: 'en', title: '🇬🇧 English'},
   ],
-  schemaTypes: ['article', 'event', 'frontpage', 'infopage', 'role'],
+  schemaTypes: ['article', 'event', 'frontpage', 'infopage', 'role', 'programpage'],
   metadataFields: [
     defineField({
       name: 'slug',

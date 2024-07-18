@@ -1,5 +1,12 @@
 import {StructureBuilder} from 'sanity/structure'
-import {CalendarIcon, DocumentTextIcon, HomeIcon, UserIcon, InfoOutlineIcon} from '@sanity/icons'
+import {
+  CalendarIcon,
+  DocumentTextIcon,
+  HomeIcon,
+  UserIcon,
+  InfoOutlineIcon,
+  EqualIcon,
+} from '@sanity/icons'
 
 const SINGLETONS = [
   {id: 'frontpage', title: 'Forside', _type: 'frontpage', icon: HomeIcon, schemaType: 'frontpage'},
@@ -9,6 +16,13 @@ const SINGLETONS = [
     _type: 'document',
     icon: InfoOutlineIcon,
     schemaType: 'infopage',
+  },
+  {
+    id: 'programpage',
+    title: 'Programside',
+    _type: 'document',
+    icon: EqualIcon,
+    schemaType: 'programpage',
   },
 ]
 

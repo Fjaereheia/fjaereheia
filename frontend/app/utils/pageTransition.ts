@@ -23,13 +23,21 @@ export const usePageTransition = () => {
   } else if (location.pathname.includes("/event")) {
     if (previousLocation?.includes("/event/")) slideDirection = -1;
     else slideDirection = 1;
+  } else if (location.pathname.includes("/program")) {
+    if (previousLocation?.includes("/event/")) slideDirection = -1;
+    else slideDirection = 1;
   } else if (location.pathname === "/" || location.pathname === "/en") {
     if (
       previousLocation?.includes("/info") ||
       previousLocation?.includes("/artikler")
     )
       slideDirection = 1;
-    else if (previousLocation?.includes("/event")) slideDirection = -1;
+    else if (
+      previousLocation?.includes("/event") ||
+      previousLocation?.includes("/program")
+    )
+      slideDirection = -1;
+
     else slideDirection = 0;
   } else slideDirection = 0;
 
