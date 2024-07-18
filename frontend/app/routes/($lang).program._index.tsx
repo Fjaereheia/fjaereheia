@@ -40,7 +40,10 @@ export default function Program() {
       <div className="bg-newsletter h-[80vh] lg:h-[85vh] flex flex-col items-center text-white relative">
         <div className="absolute pt-[151px] text-center "></div>{" "}
         {data?.links?.map((link, index) => (
-          <Link key={index} to={"/event/" + link.slug?.current ?? ""}>
+          <Link
+            key={index}
+            to={link.slug?.current ? "/event/" + link.slug.current : ""}
+          >
             <p className="p-4 hover:underline font-serif text-2xl lg:text-4xl">
               {link.title}
             </p>
