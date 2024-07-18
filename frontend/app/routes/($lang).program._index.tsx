@@ -7,8 +7,6 @@ import { getProgramPage } from "~/queries/program-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  console.log(params);
-
   const programPage = await getProgramPage(params);
 
   if (!programPage) {
