@@ -34,6 +34,7 @@ export default function Events() {
   useEffect(() => {
     setColor("bg-newsletter");
   }, [setColor]);
+  //console.log(data);
 
   return (
     <div className="bg-newsletter h-[80vh] lg:h-[85vh] flex flex-col items-center text-white relative">
