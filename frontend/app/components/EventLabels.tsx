@@ -52,10 +52,7 @@ export const EventLabels = ({ dateObj, genre }: Props) => {
             </div>
           </div>
           <div className="m-1 flex gap-4">
-            <div className="p-1 border-2 border-gray-400">
-              {genre}
-              {t(texts.genre)}
-            </div>
+            <div className="p-1 border-2 border-gray-400">{genre}</div>
             <button
               onClick={handleScroll}
               className="border-2 pl-2 pr-2 border-gray-400 bg-slate-400 text-white"
@@ -80,10 +77,6 @@ const texts = {
   plays: {
     en: "Performs",
     nb: "Spilles",
-  },
-  genre: {
-    en: "Genre",
-    nb: "Sjanger",
   },
   buyTicket: {
     en: "Buy ticket",
