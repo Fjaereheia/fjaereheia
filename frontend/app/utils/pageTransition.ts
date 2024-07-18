@@ -37,6 +37,7 @@ export const usePageTransition = () => {
       previousLocation?.includes("/program")
     )
       slideDirection = -1;
+
     else slideDirection = 0;
   } else slideDirection = 0;
 
