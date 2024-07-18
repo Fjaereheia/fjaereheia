@@ -1,9 +1,13 @@
 export function getBackgroundColor(colorCombination: string | undefined) {
   switch (colorCombination) {
-    case "lightRedPrimaryDarkBlueSecondary":
-      return "bg-lightRedPrimaryDarkBlueSecondary-primary";
-    case "darkBluePrimaryGreenSecondary":
-      return "bg-darkBluePrimaryGreenSecondary-primary";
+    case "dayThemeBlueBlack":
+      return "bg-dayThemeBlueBlack-primary";
+    case "dayThemePeachBlu":
+      return "bg-dayThemePeachBlue-primary";
+    case "nightThemePurpleWhite":
+      return "bg-nightThemePurpleWhite-primary";
+    case "nightThemeBlueYellow":
+      return "bg-nightThemeBlueYellow-primary";
     default:
       return "bg-white";
   }
@@ -11,10 +15,14 @@ export function getBackgroundColor(colorCombination: string | undefined) {
 
 export function getSecondaryColor(colorCombination: string | undefined) {
   switch (colorCombination) {
-    case "lightRedPrimaryDarkBlueSecondary":
-      return "lightRedPrimaryDarkBlueSecondary-secondary";
-    case "darkBluePrimaryGreenSecondary":
-      return "darkBluePrimaryGreenSecondary-secondary";
+    case "dayThemeBlueBlack":
+      return "bg-dayThemeBlueBlack-secondary";
+    case "dayThemePeachBlu":
+      return "dayThemePeachBlu-secondary";
+    case "nightThemePurpleWhite":
+      return "bg-nightThemePurpleWhite-secondary";
+    case "nightThemeBlueYellow":
+      return "bg-nightThemeBlueYellow-secondary";
     default:
       return "bg-white";
   }

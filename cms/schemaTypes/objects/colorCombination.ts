@@ -1,8 +1,10 @@
 //These are temporary values, they will be replaced by the actual values from the design system
 
 const COLORCOMBINATION = [
-  {title: 'Mørk blå primær, grønn sekundær', value: 'darkBluePrimaryGreenSecondary'},
-  {title: 'Lys rød primær, mørk blå sekundær', value: 'lightRedPrimaryDarkBlueSecondary'},
+  {title: 'Lys blå primær, sort sekundær', value: 'dayThemeBlueBlack'},
+  {title: 'Lys orange primær, blå sekundær', value: 'dayThemePeachBlu'},
+  {title: 'Mørk lilla primær, hvit sekundær', value: 'nightThemePurpleWhite'},
+  {title: 'Mørk blå primær, gul sekundær', value: 'nightThemeBlueYellow'},
 ]
 const colorCombination = {
   name: 'colorCombination',
