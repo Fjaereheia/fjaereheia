@@ -21,20 +21,6 @@ export const programpage = defineType({
       hidden: true,
     }),
     defineField({
-      name: 'text',
-      title: 'Tekst',
-      type: 'array',
-      description: 'Innhold',
-      of: [
-        {
-          type: 'block',
-        },
-        {
-          type: 'customImage',
-        },
-      ],
-    }),
-    defineField({
       name: 'links',
       title: 'Forestillinger',
       type: 'array',
