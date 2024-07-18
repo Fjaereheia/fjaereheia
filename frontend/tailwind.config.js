@@ -4,17 +4,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        lightRedPrimaryDarkBlueSecondary: {
-          primary: "#FF4D4D",
-          secondary: "#182E39",
-        },
-        darkBluePrimaryGreenSecondary: {
-          primary: "#182E39",
-          secondary: "#D4FF26",
-        },
         dayThemeBlueBlack: {
           primary: "#B6E3FD",
-          secondary: "black",
+          secondary: "#000000",
         },
         dayThemePeachBlue: {
           primary: "#FFD3CE",
@@ -22,7 +14,7 @@ export default {
         },
         nightThemePurpleWhite: {
           primary: "#556090",
-          secondary: "white",
+          secondary: "#FFFFFF",
         },
         nightThemeBlueYellow: {
           primary: "#182E39",

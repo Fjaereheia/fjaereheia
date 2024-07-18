@@ -66,6 +66,7 @@ export default function Event() {
   }, [setColor]);
   const { t } = useTranslation();
 
+  console.log(secondaryColor);
   useEffect(() => {
     const updateViewScale = () => {
       if (window.matchMedia("(min-width: 1024px)").matches) {
@@ -83,9 +84,7 @@ export default function Event() {
   }
   return (
     <div
-      className={`${getBackgroundColor(
-        data.colorCombination
-      )} flex flex-col relative justify-center items-center`}
+      className={`bg-${primaryColor} flex flex-col relative justify-center text-${textColor} items-center`}
     >
       {data.image?.asset?._ref && (
         <ImageEventPage
@@ -96,9 +95,7 @@ export default function Event() {
         />
       )}
       <div className="static">
-        <h1 className={`font-serif text-${textColor} text-2xl lg:text-4xl`}>
-          {data.title}
-        </h1>
+        <h1 className={`font-serif  text-2xl lg:text-4xl`}>{data.title}</h1>
       </div>
       {data.dates && (
         <EventLabels

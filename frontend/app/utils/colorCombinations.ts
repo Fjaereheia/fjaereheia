@@ -18,7 +18,7 @@ export function getSecondaryColor(colorCombination: string | undefined) {
     case "dayThemeBlueBlack":
       return "dayThemeBlueBlack-secondary";
     case "dayThemePeachBlue":
-      return "dayThemePeachBlu-secondary";
+      return "dayThemePeachBlue-secondary";
     case "nightThemePurpleWhite":
       return "nightThemePurpleWhite-secondary";
     case "nightThemeBlueYellow":
@@ -33,7 +33,7 @@ export function getPrimaryColor(colorCombination: string | undefined) {
     case "dayThemeBlueBlack":
       return "dayThemeBlueBlack-primary";
     case "dayThemePeachBlue":
-      return "dayThemePeachBlu-primary";
+      return "dayThemePeachBlue-primary";
     case "nightThemePurpleWhite":
       return "nightThemePurpleWhite-primary";
     case "nightThemeBlueYellow":
