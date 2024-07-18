@@ -89,7 +89,7 @@ export default function Index() {
             </div>
             <ButtonLink
               styling="text-white w-48 px-4 py-2 text-left rounded self-center font-serif text-2xl lg:text-4xl "
-              url={params.lang == "en" ? "/en/event" : "/event"}
+              url={params.lang == "en" ? "/en/program" : "/program"}
               buttonText={t(texts.programText)}
             />
           </div>
