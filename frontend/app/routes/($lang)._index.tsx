@@ -69,7 +69,7 @@ export default function Index() {
       }
     >
       <div className="flex flex-col h-screen w-full overflow-hidden">
-        <div className="text-white text-xl mt-0 flex flex-col items-center">
+        <div className="text-white text-xl mt-10 flex flex-col items-center">
           <Newsletter />
         </div>
 
