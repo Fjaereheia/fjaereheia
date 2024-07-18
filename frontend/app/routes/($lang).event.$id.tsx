@@ -2,12 +2,7 @@ import { useEffect, useState } from "react";
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { EVENT_QUERYResult } from "sanity/types";
-import {
-  getBackgroundColor,
-  getSecondaryColor,
-  getPrimaryColor,
-  getTextColor,
-} from "~/utils/colorCombinations";
+import { getColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
@@ -56,17 +51,20 @@ export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
   const [openRole, setOpenRole] = useState(false);
   const [viewScale, setViewScale] = useState(1);
-  const bgColor = getBackgroundColor(data?.colorCombination);
-  const secondaryColor = getSecondaryColor(data?.colorCombination);
-  const primaryColor = getPrimaryColor(data?.colorCombination);
-  const textColor = getTextColor(data?.colorCombination);
+  const {
+    bgColor,
+    primaryBorder,
+    primaryText,
+    secondaryBgColor,
+    secondaryBorder,
+    textColor,
+    textColorBorder,
+  } = getColor(data?.colorCombination);
   const { setColor } = useBackgroundColor();
   useEffect(() => {
     setColor(bgColor);
   }, [setColor]);
   const { t } = useTranslation();
-
-  console.log(secondaryColor);
   useEffect(() => {
     const updateViewScale = () => {
       if (window.matchMedia("(min-width: 1024px)").matches) {
@@ -84,7 +82,7 @@ export default function Event() {
   }
   return (
     <div
-      className={`bg-${primaryColor} flex flex-col relative justify-center text-${textColor} items-center`}
+      className={` flex flex-col relative justify-center ${textColor} items-center`}
     >
       {data.image?.asset?._ref && (
         <ImageEventPage
@@ -100,9 +98,11 @@ export default function Event() {
       {data.dates && (
         <EventLabels
           dateObj={data.dates}
-          primary={primaryColor}
-          secondary={secondaryColor}
+          primaryText={primaryText}
+          secondaryBgColor={secondaryBgColor}
+          secondaryBorder={secondaryBorder}
           textColor={textColor}
+          textColorBorder={textColorBorder}
         />
       )}
       {data.text && (

@@ -1,59 +1,88 @@
 export function getBackgroundColor(colorCombination: string | undefined) {
-  switch (colorCombination) {
-    case "dayThemeBlueBlack":
-      return "bg-dayThemeBlueBlack-primary";
-    case "dayThemePeachBlue":
-      return "bg-dayThemePeachBlue-primary";
-    case "nightThemePurpleWhite":
-      return "bg-nightThemePurpleWhite-primary";
-    case "nightThemeBlueYellow":
-      return "bg-nightThemeBlueYellow-primary";
-    default:
-      return "bg-white";
+  if (colorCombination) {
+    const style = "bg-" + colorCombination + "-primary";
+    return style;
+  } else {
+    return "bg-white";
   }
 }
 
-export function getSecondaryColor(colorCombination: string | undefined) {
-  switch (colorCombination) {
-    case "dayThemeBlueBlack":
-      return "dayThemeBlueBlack-secondary";
-    case "dayThemePeachBlue":
-      return "dayThemePeachBlue-secondary";
-    case "nightThemePurpleWhite":
-      return "nightThemePurpleWhite-secondary";
-    case "nightThemeBlueYellow":
-      return "nightThemeBlueYellow-secondary";
-    default:
-      return "white";
+export function getPrimaryBorderColor(colorCombination: string | undefined) {
+  if (colorCombination) {
+    const style = "border-" + colorCombination + "-primary";
+    return style;
+  } else {
+    return "border-white";
   }
 }
 
-export function getPrimaryColor(colorCombination: string | undefined) {
-  switch (colorCombination) {
-    case "dayThemeBlueBlack":
-      return "dayThemeBlueBlack-primary";
-    case "dayThemePeachBlue":
-      return "dayThemePeachBlue-primary";
-    case "nightThemePurpleWhite":
-      return "nightThemePurpleWhite-primary";
-    case "nightThemeBlueYellow":
-      return "nightThemeBlueYellow-primary";
-    default:
-      return "white";
+export function getPrimaryTextColor(colorCombination: string | undefined) {
+  if (colorCombination) {
+    const style = "text-" + colorCombination + "-primary";
+    return style;
+  } else {
+    return "text-white";
+  }
+}
+
+export function getSecondaryBackgroundColor(
+  colorCombination: string | undefined
+) {
+  if (colorCombination) {
+    const style = "bg-" + colorCombination + "-secondary";
+    return style;
+  } else {
+    return "bg-white";
+  }
+}
+
+export function getSecondaryBorderColor(colorCombination: string | undefined) {
+  if (colorCombination) {
+    const style = "border-" + colorCombination + "-secondary";
+    return style;
+  } else {
+    return "border-white";
   }
 }
 
 export function getTextColor(colorCombination: string | undefined) {
   switch (colorCombination) {
     case "dayThemeBlueBlack":
-      return "black";
+      return "text-black";
     case "dayThemePeachBlue":
-      return "black";
+      return "text-black";
     case "nightThemePurpleWhite":
-      return "white";
+      return "text-white";
     case "nightThemeBlueYellow":
-      return "white";
+      return "text-white";
     default:
-      return "black";
+      return "text-black";
   }
+}
+
+export function getTextColorBorder(colorCombination: string | undefined) {
+  switch (colorCombination) {
+    case "dayThemeBlueBlack":
+      return "border-black";
+    case "dayThemePeachBlue":
+      return "border-black";
+    case "nightThemePurpleWhite":
+      return "border-white";
+    case "nightThemeBlueYellow":
+      return "border-white";
+    default:
+      return "border-black";
+  }
+}
+
+export function getColor(colorCombination: string | undefined) {
+  return {
+    bgColor: getBackgroundColor(colorCombination),
+    primaryBorder: getPrimaryBorderColor(colorCombination),
+    primaryText: getPrimaryTextColor(colorCombination),
+    secondaryBgColor: getSecondaryBackgroundColor(colorCombination),
+    secondaryBorder: getSecondaryBorderColor(colorCombination),
+    textColor: getTextColor(colorCombination),
+    textColorBorder: getTextColorBorder(colorCombination),
+  };
 }
