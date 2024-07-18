@@ -28,6 +28,7 @@ import {
 import LanguageButton from "./components/LanguageButton";
 import { SlugProvider } from "./utils/i18n/SlugProvider";
 import NoTranslation from "./components/NoTranslation";
+import { Suspense, lazy } from "react";
 
 type ErrorWithStatus = {
   status?: number;
@@ -102,6 +103,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   const { slideDirection, pathname } = usePageTransition();
   const { language } = useRouteLoaderData<typeof loader>("root");
+
+  const ENV = import.meta.env.VITE_SANITY_STUDIO_STEGA_ENABLED;
+
+  const LiveVisualEditing = lazy(
+    () => import("~/components/LiveVisualEditing")
+  );
+
   return (
     <LanguageProvider language={language}>
       <BackgroundColorProvider>

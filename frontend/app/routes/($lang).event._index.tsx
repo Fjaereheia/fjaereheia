@@ -8,6 +8,7 @@ import { useBackgroundColor } from "~/utils/backgroundColor";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const events = await getEvents(params);
+  console.log("events", events);
 
   if (!events) {
     throw new Response("Not Found", {

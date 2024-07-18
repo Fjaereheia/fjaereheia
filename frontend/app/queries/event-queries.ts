@@ -7,6 +7,7 @@ export async function getEvents(params: Params<string>) {
     params = { lang: "nb" };
   }
   const EVENTS_QUERY = groq`*[_type=="event" && language==$lang]`;
+
   const events = await client.fetch(EVENTS_QUERY, params);
   return events;
 }

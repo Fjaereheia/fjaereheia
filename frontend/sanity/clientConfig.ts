@@ -5,4 +5,8 @@ export const client = createClient({
   dataset: import.meta.env.VITE_SANITY_STUDIO_DATASET ?? "production",
   apiVersion: "2024-06-24",
   useCdn: import.meta.env.VITE_SANITY_STUDIO_USE_CDN ?? true,
+  stega: {
+    enabled: Boolean(import.meta.env.VITE_SANITY_STUDIO_STEGA_ENABLED) ?? true,
+    studioUrl: import.meta.env.VITE_SANITY_STUDIO_PREVIEW_URL,
+  },
 });

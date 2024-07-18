@@ -4,6 +4,7 @@ import { ARTICLES_QUERYResult } from "sanity/types";
 import { getArticles } from "~/queries/article-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 import { useEffect } from "react";
+import type { SanityDocument } from "@sanity/client";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const articles = await getArticles(params);
