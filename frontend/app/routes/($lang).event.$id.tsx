@@ -8,10 +8,7 @@ import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
 import ImageEventPage from "~/components/Masks/ImageEventPage";
 import { EventLabels } from "~/components/EventLabels";
-import ArrowUp from "/arrow-up.svg";
-import ArrowDown from "/arrow-down.svg";
 import RoleDropDown from "~/components/RoleDropDown";
-import { createTexts, useTranslation } from "~/utils/i18n";
 import { getEvent } from "~/queries/event-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 
@@ -49,14 +46,12 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
-  const [openRole, setOpenRole] = useState(false);
   const [viewScale, setViewScale] = useState(1);
   const bgColor = getBackgroundColor(data?.colorCombination);
   const { setColor } = useBackgroundColor();
   useEffect(() => {
     setColor(bgColor);
   }, [setColor]);
-  const { t } = useTranslation();
 
   useEffect(() => {
     const updateViewScale = () => {
@@ -93,41 +88,7 @@ export default function Event() {
       {data.dates && <EventLabels dateObj={data.dates} />}
       {data.text && <PortableTextComponent textData={data.text} />}
       {data.dates && <Tickets dateTickets={data.dates} />}
-      {data.roleGroups && (
-        <button
-          className="w-80 h-auto py-4 px-6 m-4 grid grid-flow-col bg-inherit border border-black"
-          onClick={() => setOpenRole(!openRole)}
-        >
-          <span className="self-center justify-self-start text-xl">
-            {t(texts.roleDropDown)}{" "}
-          </span>
-          <img
-            className="w-6 h-6 self-center justify-self-end"
-            src={openRole ? ArrowUp : ArrowDown}
-            alt={
-              openRole
-                ? t(texts.roleDropDownAltUp)
-                : t(texts.roleDropDownAltDown)
-            }
-          />
-        </button>
-      )}
-      {openRole && <RoleDropDown roleGroups={data.roleGroups} />}
+      {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
     </div>
   );
 }
-
-const texts = createTexts({
-  roleDropDown: {
-    nb: "Medvirkende",
-    en: "Participants",
-  },
-  roleDropDownAltUp: {
-    nb: "Pil opp",
-    en: "Arrow Up",
-  },
-  roleDropDownAltDown: {
-    nb: "Pil ned",
-    en: "Arrow Down",
-  },
-});
