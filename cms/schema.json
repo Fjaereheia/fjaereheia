@@ -326,6 +326,23 @@
     }
   },
   {
+    "name": "eventGenre",
+    "type": "type",
+    "value": {
+      "type": "union",
+      "of": [
+        {
+          "type": "string",
+          "value": "Konsert"
+        },
+        {
+          "type": "string",
+          "value": "Skuespill"
+        }
+      ]
+    }
+  },
+  {
     "name": "review",
     "type": "document",
     "attributes": {
@@ -2990,10 +3007,11 @@
         },
         "optional": true
       },
-      "genre": {
+      "eventGenre": {
         "type": "objectAttribute",
         "value": {
-          "type": "string"
+          "type": "inline",
+          "name": "eventGenre"
         },
         "optional": true
       },

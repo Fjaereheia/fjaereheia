@@ -30,9 +30,9 @@ export const eventType = defineType({
       hidden: true,
     }),
     defineField({
-      name: 'genre',
+      name: 'eventGenre',
       title: 'Sjanger',
-      type: 'string',
+      type: 'eventGenre',
     }),
     defineField({
       name: 'colorCombination',

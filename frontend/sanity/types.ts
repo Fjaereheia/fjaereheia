@@ -68,6 +68,8 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type EventGenre = "Konsert" | "Skuespill";
+
 export type Review = {
   _id: string;
   _type: "review";
@@ -505,7 +507,7 @@ export type Event = {
   _rev: string;
   title: string;
   language?: string;
-  genre?: string;
+  eventGenre?: EventGenre;
   colorCombination?: ColorCombination;
   imageMask?: ImageMask;
   slug?: Slug;
@@ -565,7 +567,7 @@ export type InternationalizedArrayReference = Array<{
   _key: string;
 } & InternationalizedArrayReferenceValue>;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Review | ImageMask | ColorCombination | MetaDescription | MetaTitle | Video | RoleGroups | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Role | Infopage | Frontpage | Article | Event | Document | CustomImage | Slug | InternationalizedArrayReference;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | ColorCombination | MetaDescription | MetaTitle | Video | RoleGroups | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Role | Infopage | Frontpage | Article | Event | Document | CustomImage | Slug | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -676,7 +678,7 @@ export type ARTICLE_QUERYResult = {
     _rev: string;
     title: string;
     language?: string;
-    genre?: string;
+    eventGenre?: EventGenre;
     colorCombination?: ColorCombination;
     imageMask?: ImageMask;
     slug?: Slug;
@@ -720,7 +722,7 @@ export type EVENTS_QUERYResult = Array<{
   _rev: string;
   title: string;
   language?: string;
-  genre?: string;
+  eventGenre?: EventGenre;
   colorCombination?: ColorCombination;
   imageMask?: ImageMask;
   slug?: Slug;
@@ -760,7 +762,7 @@ export type EVENT_QUERYResult = {
   _rev: string;
   title: string;
   language?: string;
-  genre?: string;
+  eventGenre?: EventGenre;
   colorCombination?: ColorCombination;
   imageMask?: ImageMask;
   slug?: Slug;
