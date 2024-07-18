@@ -13,6 +13,7 @@ type DateObject = {
 
 type Props = {
   dateObj: DateObject[];
+  genre?: string | undefined;
 };
 
 export function formatDateOnly(dateString: string): string {
@@ -21,7 +22,7 @@ export function formatDateOnly(dateString: string): string {
   return day[day.length - 1];
 }
 
-export const EventLabels = ({ dateObj }: Props) => {
+export const EventLabels = ({ dateObj, genre }: Props) => {
   const { language, t } = useTranslation();
 
   const renderLabel = () => {
@@ -51,10 +52,12 @@ export const EventLabels = ({ dateObj }: Props) => {
               {formattedTimestamp.toUpperCase()}
             </div>
           </div>
+
           <div className="m-2 flex gap-4">
-            <div className="-mr-2 p-2 border border-[#F8F8F8]">
-              {t(texts.genre).toUpperCase()}
-            </div>
+            {genre && (
+              <div className="-mr-2 p-2 border border-[#F8F8F8]">{genre}.toUpperCase()</div>
+            )}
+
             <button
               onClick={handleScroll}
               className="pl-2 p-2 bg-[#F8F8F8] font-bold text-darkBluePrimaryGreenSecondary-primary"
@@ -79,10 +82,6 @@ const texts = {
   plays: {
     en: "Performs",
     nb: "Spilles",
-  },
-  genre: {
-    en: "Genre",
-    nb: "Sjanger",
   },
   buyTicket: {
     en: "Buy ticket",

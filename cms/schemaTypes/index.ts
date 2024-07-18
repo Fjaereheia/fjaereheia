@@ -13,7 +13,9 @@ import colorCombination from './objects/colorCombination'
 import imageMask from './objects/imageMask'
 import roleGroups from './objects/roleGroups'
 import {reviewType} from './objects/reviewType'
+import eventGenre from './objects/eventGenre'
 import {programpage} from './programpage'
+
 
 export const schemaTypes = [
   articleType,
@@ -31,5 +33,6 @@ export const schemaTypes = [
   colorCombination,
   imageMask,
   reviewType,
+  eventGenre,
   programpage,
 ]

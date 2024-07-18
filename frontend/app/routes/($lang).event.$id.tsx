@@ -90,7 +90,9 @@ export default function Event() {
       <div className="static">
         <h1 className="font-serif text-2xl lg:text-4xl">{data.title}</h1>
       </div>
-      {data.dates && <EventLabels dateObj={data.dates} />}
+      {data.dates && (
+        <EventLabels dateObj={data.dates} genre={data.eventGenre} />
+      )}
       {data.text && <PortableTextComponent textData={data.text} />}
       {data.dates && <Tickets dateTickets={data.dates} />}
       {data.roleGroups && (
