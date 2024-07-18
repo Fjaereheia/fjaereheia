@@ -97,6 +97,7 @@ export default function Event() {
       {data.dates && (
         <EventLabels
           dateObj={data.dates}
+          genre={data.eventGenre}
           primaryText={primaryText}
           secondaryBgColor={secondaryBgColor}
           secondaryBorder={secondaryBorder}

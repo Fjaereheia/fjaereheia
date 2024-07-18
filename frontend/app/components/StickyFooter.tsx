@@ -22,7 +22,10 @@ export default function StickyFooter({
     return null;
   }
 
-  if (location.pathname.includes("/event")) {
+  if (
+    location.pathname.includes("/event") ||
+    location.pathname.includes("/program")
+  ) {
     textcolor = "white";
     bgcolor = "newsletter";
   }

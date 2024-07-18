@@ -18,6 +18,7 @@ type Props = {
   secondaryBorder?: string;
   textColor?: string;
   textColorBorder?: string;
+  genre?: string | undefined;
 };
 
 export function formatDateOnly(dateString: string): string {
@@ -28,6 +29,7 @@ export function formatDateOnly(dateString: string): string {
 
 export const EventLabels = ({
   dateObj,
+  genre,
   primaryText,
   secondaryBgColor,
   secondaryBorder,
@@ -46,31 +48,38 @@ export const EventLabels = ({
 
     return (
       <>
-        <div className="m-4">
-          <div className="m-1 flex gap-4">
-            <div className={`p-1 border-2 ${textColorBorder} ${textColor}`}>
+        <div className="m-2 mr-auto md:mr-0 md:relative font-serif  md:text-lg">
+          <div className="m-2 left-0 flex gap-4 md:float-start ">
+            <div className={`mr-2 border p-2 ${textColorBorder} ${textColor} `}>
               {dateObj.length === 1 ? (
-                formattedDate
+                formattedDate.toUpperCase()
               ) : (
                 <>
-                  {t(texts.plays)} {datesOnlyFirst + ".-"}
-                  {datesOnlyLast + "."} {getMonth(firstDate!, language)}
+                  {t(texts.plays).toUpperCase()} {datesOnlyFirst + ".-"}
+                  {datesOnlyLast + "."}{" "}
+                  {getMonth(firstDate!, language)?.toUpperCase()}
                 </>
               )}
             </div>
-            <div className={`p-1 border-2 ${textColorBorder} ${textColor}`}>
+            <div className={`p-2 border ${textColorBorder} ${textColor}`}>
               {formattedTimestamp}
             </div>
           </div>
-          <div className="m-1 flex gap-4">
-            <div className={`p-1 border-2 ${textColorBorder} ${textColor}`}>
-              {t(texts.genre)}
-            </div>
+
+          <div className="m-2 flex gap-4">
+            {genre && (
+              <div
+                className={`-mr-2 p-2 border ${textColorBorder} ${textColor}`}
+              >
+                {genre}.toUpperCase()
+              </div>
+            )}
+
             <button
               onClick={handleScroll}
-              className={`pl-2 pr-2 border-2 ${secondaryBorder} ${secondaryBgColor}   ${primaryText}`}
+              className={`pl-2 p-2 ${secondaryBorder} ${secondaryBgColor}   ${primaryText} font-bold `}
             >
-              {t(texts.buyTicket)}
+              {t(texts.buyTicket).toUpperCase()}
             </button>
           </div>
         </div>
@@ -90,10 +99,6 @@ const texts = {
   plays: {
     en: "Performs",
     nb: "Spilles",
-  },
-  genre: {
-    en: "Genre",
-    nb: "Sjanger",
   },
   buyTicket: {
     en: "Buy ticket",
