@@ -13,6 +13,9 @@ type DateObject = {
 
 type Props = {
   dateObj: DateObject[];
+  primary?: string;
+  secondary?: string;
+  textColor?: string;
 };
 
 export function formatDateOnly(dateString: string): string {
@@ -21,7 +24,12 @@ export function formatDateOnly(dateString: string): string {
   return day[day.length - 1];
 }
 
-export const EventLabels = ({ dateObj }: Props) => {
+export const EventLabels = ({
+  dateObj,
+  primary,
+  secondary,
+  textColor,
+}: Props) => {
   const { language, t } = useTranslation();
 
   const renderLabel = () => {
@@ -36,7 +44,9 @@ export const EventLabels = ({ dateObj }: Props) => {
       <>
         <div className="m-4">
           <div className="m-1 flex gap-4">
-            <div className="p-1 border-2 border-gray-400">
+            <div
+              className={`p-1 border-2 border-${secondary} text-${textColor}`}
+            >
               {dateObj.length === 1 ? (
                 formattedDate
               ) : (
@@ -46,15 +56,21 @@ export const EventLabels = ({ dateObj }: Props) => {
                 </>
               )}
             </div>
-            <div className="p-1 border-2 border-gray-400">
+            <div
+              className={`p-1 border-2 border-${secondary} text-${textColor}`}
+            >
               {formattedTimestamp}
             </div>
           </div>
           <div className="m-1 flex gap-4">
-            <div className="p-1 border-2 border-gray-400">{t(texts.genre)}</div>
+            <div
+              className={`p-1 border-2 border-${secondary} text-${textColor}`}
+            >
+              {t(texts.genre)}
+            </div>
             <button
               onClick={handleScroll}
-              className="border-2 pl-2 pr-2 border-gray-400 bg-slate-400 text-white"
+              className={`pl-2 pr-2 border-2 border-${secondary} bg-${secondary} text-${primary}`}
             >
               {t(texts.buyTicket)}
             </button>

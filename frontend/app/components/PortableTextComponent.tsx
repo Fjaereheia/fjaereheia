@@ -7,9 +7,13 @@ import ReviewComponent from "./ReviewComponent";
 
 interface PortableTextProps {
   textData: CustomContent;
+  textColor?: string;
 }
 
-export default function PortableTextComponent({ textData }: PortableTextProps) {
+export default function PortableTextComponent({
+  textData,
+  textColor,
+}: PortableTextProps) {
   const customComponents = {
     types: {
       customImage: ({
@@ -65,7 +69,7 @@ export default function PortableTextComponent({ textData }: PortableTextProps) {
   };
 
   return (
-    <div className="prose">
+    <div className={`prose text-${textColor}`}>
       {textData && (
         <PortableText value={textData} components={customComponents} />
       )}

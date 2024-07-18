@@ -11,7 +11,7 @@ export default function QuoteComponent({
   };
 }) {
   return (
-    <blockquote className="border-none grid grid-flow-row place-items-center text-white text-center">
+    <blockquote className="border-none grid grid-flow-row place-items-center text-center">
       <img src={Quotes} alt="" />
       <span className="font-bold text-4xl">{quote.content}</span>
       <span className="not-italic">{quote.source}</span>

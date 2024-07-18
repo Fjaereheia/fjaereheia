@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { EVENT_QUERYResult } from "sanity/types";
-import { getBackgroundColor } from "~/utils/colorCombinations";
+import {
+  getBackgroundColor,
+  getSecondaryColor,
+  getPrimaryColor,
+  getTextColor,
+} from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
@@ -52,6 +57,9 @@ export default function Event() {
   const [openRole, setOpenRole] = useState(false);
   const [viewScale, setViewScale] = useState(1);
   const bgColor = getBackgroundColor(data?.colorCombination);
+  const secondaryColor = getSecondaryColor(data?.colorCombination);
+  const primaryColor = getPrimaryColor(data?.colorCombination);
+  const textColor = getTextColor(data?.colorCombination);
   const { setColor } = useBackgroundColor();
   useEffect(() => {
     setColor(bgColor);
@@ -88,10 +96,21 @@ export default function Event() {
         />
       )}
       <div className="static">
-        <h1 className="font-serif text-2xl lg:text-4xl">{data.title}</h1>
+        <h1 className={`font-serif text-${textColor} text-2xl lg:text-4xl`}>
+          {data.title}
+        </h1>
       </div>
-      {data.dates && <EventLabels dateObj={data.dates} />}
-      {data.text && <PortableTextComponent textData={data.text} />}
+      {data.dates && (
+        <EventLabels
+          dateObj={data.dates}
+          primary={primaryColor}
+          secondary={secondaryColor}
+          textColor={textColor}
+        />
+      )}
+      {data.text && (
+        <PortableTextComponent textData={data.text} textColor={textColor} />
+      )}
       {data.dates && <Tickets dateTickets={data.dates} />}
       {data.roleGroups && (
         <button
