@@ -8,7 +8,6 @@ import {
   redirect,
   useLocation,
   json,
-  useLoaderData,
   useRouteLoaderData,
 } from "@remix-run/react";
 import "./styles/app.css";
@@ -72,7 +71,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const { color } = useBackgroundColor();
 
   return (
-    <html lang={language} className="overflow-x-hidden">
+    <html lang={language} className="overflow-x-hidden w-full h-full">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -109,7 +108,7 @@ export default function App() {
           <Header />
           <LanguageButton />
           <Outlet />
-          <StickyFooter infoUrl="/info" programUrl="/event" />
+          <StickyFooter infoUrl="/info" programUrl="/program" />
         </motion.div>
       </BackgroundColorProvider>
     </LanguageProvider>
