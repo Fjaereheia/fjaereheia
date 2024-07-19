@@ -1,11 +1,9 @@
-import { useLoaderData } from "@remix-run/react";
-import { EVENT_QUERYResult } from "sanity/types";
 import {
   formatDayAndDate,
   formatTimestamp,
   getMonth,
 } from "~/utils/dateAndTimeConverters";
-import { LoaderFunctionArgs } from "@remix-run/node";
+import { useTranslation } from "~/utils/i18n";
 
 type DateObject = {
   date?: string | undefined;
@@ -15,6 +13,7 @@ type DateObject = {
 
 type Props = {
   dateObj: DateObject[];
+  genre?: string | undefined;
 };
 
 export function formatDateOnly(dateString: string): string {
@@ -23,11 +22,8 @@ export function formatDateOnly(dateString: string): string {
   return day[day.length - 1];
 }
 
-export async function loader({ params }: LoaderFunctionArgs) {}
-
-export const EventLabels = ({ dateObj }: Props) => {
-  const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
-  const language = data!.language!;
+export const EventLabels = ({ dateObj, genre }: Props) => {
+  const { language, t } = useTranslation();
 
   const renderLabel = () => {
     const firstDate = dateObj[0].date ?? "";
@@ -39,30 +35,36 @@ export const EventLabels = ({ dateObj }: Props) => {
 
     return (
       <>
-        <div className="m-4">
-          <div className="m-1 flex gap-4">
-            <div className="p-1 border-2 border-gray-400">
+        <div className="m-2 mr-auto md:mr-0 md:relative font-serif text-white md:text-lg">
+          <div className="m-2 left-0 flex gap-4 md:float-start bg-inherit">
+            <div className="-mr-2 border p-2 border-[#F8F8F8] bg-inherit">
               {dateObj.length === 1 ? (
-                formattedDate
+                formattedDate.toUpperCase()
               ) : (
                 <>
-                  Spilles {datesOnlyFirst}-{datesOnlyLast}
-                  {getMonth(firstDate!, language)}
+                  {t(texts.plays).toUpperCase()} {datesOnlyFirst + ".-"}
+                  {datesOnlyLast + "."}{" "}
+                  {getMonth(firstDate!, language)?.toUpperCase()}
                 </>
               )}
             </div>
-            <div className="p-1 border-2 border-gray-400">
-              {formattedTimestamp}
+            <div className="p-2 border border-[#F8F8F8]">
+              {formattedTimestamp.toUpperCase()}
             </div>
           </div>
-          <div className="m-1 flex gap-4">
-            <div className="p-1 border-2 border-gray-400">Sjanger?</div>
+
+          <div className="m-2 flex gap-4">
+            {genre && (
+              <div className="-mr-2 p-2 border border-[#F8F8F8]">
+                {genre.toUpperCase()}
+              </div>
+            )}
+
             <button
-              id="eventLabelButton"
               onClick={handleScroll}
-              className="border-2 pl-2 pr-2 border-gray-400 bg-slate-400 text-white"
+              className="pl-2 p-2 bg-[#F8F8F8] font-bold text-darkBluePrimaryGreenSecondary-primary"
             >
-              Kjøp Billett
+              {t(texts.buyTicket).toUpperCase()}
             </button>
           </div>
         </div>
@@ -76,4 +78,15 @@ export const EventLabels = ({ dateObj }: Props) => {
     }
   };
   return renderLabel();
+};
+
+const texts = {
+  plays: {
+    en: "Performs",
+    nb: "Spilles",
+  },
+  buyTicket: {
+    en: "Buy ticket",
+    nb: "Kjøp billett",
+  },
 };

@@ -16,7 +16,7 @@ export async function getEvent(params: Params<string>) {
   if (!params.lang) {
     params = { lang: "nb", id: eventId };
   }
-  const EVENT_QUERY = groq`*[_type=="event" && slug.current ==$id][0]{
+  const EVENT_QUERY = groq`*[_type=="event" && language==$lang && slug.current==$id][0]{
   ...,roleGroups[]{name,roles[]->{name, occupation,image, text}}
   }`;
   const event = await client.fetch(EVENT_QUERY, params);

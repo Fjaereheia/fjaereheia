@@ -1,5 +1,12 @@
 import {StructureBuilder} from 'sanity/structure'
-import {CalendarIcon, DocumentTextIcon, HomeIcon, UserIcon, InfoOutlineIcon} from '@sanity/icons'
+import {
+  CalendarIcon,
+  DocumentTextIcon,
+  HomeIcon,
+  UserIcon,
+  InfoOutlineIcon,
+  EqualIcon,
+} from '@sanity/icons'
 
 const SINGLETONS = [
   {id: 'frontpage', title: 'Forside', _type: 'frontpage', icon: HomeIcon, schemaType: 'frontpage'},
@@ -9,6 +16,37 @@ const SINGLETONS = [
     _type: 'document',
     icon: InfoOutlineIcon,
     schemaType: 'infopage',
+  },
+  {
+    id: 'programpage',
+    title: 'Programside',
+    _type: 'document',
+    icon: EqualIcon,
+    schemaType: 'programpage',
+  },
+]
+
+const MULTI = [
+  {
+    id: 'article',
+    title: 'Artikler',
+    _type: 'document',
+    icon: DocumentTextIcon,
+    schemaType: 'article',
+  },
+  {
+    id: 'event',
+    title: 'Forestillinger',
+    _type: 'document',
+    icon: CalendarIcon,
+    schemaType: 'event',
+  },
+  {
+    id: 'role',
+    title: 'Roller',
+    _type: 'document',
+    icon: UserIcon,
+    schemaType: 'role',
   },
 ]
 
@@ -44,7 +82,28 @@ export const deskStructure = (S: StructureBuilder) =>
               ),
           ),
       ),
-      S.documentTypeListItem('article').title('Artikler').icon(DocumentTextIcon),
-      S.documentTypeListItem('event').title('Forestillinger').icon(CalendarIcon),
-      S.documentTypeListItem('role').title('Roller').icon(UserIcon),
+      S.divider(),
+      ...MULTI.map((multi) =>
+        S.listItem()
+          .title(multi.title)
+          .id(multi.id)
+          .icon(multi.icon)
+          .child(
+            S.list()
+              .title(multi.title)
+              .id(multi.id)
+              .items([
+                ...LANGUAGES.map((language) =>
+                  S.listItem()
+                    .title(`${multi.title} (${language.id.toLocaleUpperCase()})`)
+                    .icon(multi.icon)
+                    .child(
+                      S.documentList()
+                        .title(`${language.id.toLocaleUpperCase()}`)
+                        .filter(`_type=="${multi.id}" && language=="${language.id}"`),
+                    ),
+                ),
+              ]),
+          ),
+      ),
     ])

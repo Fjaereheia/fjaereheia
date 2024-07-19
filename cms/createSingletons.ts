@@ -6,21 +6,25 @@ import {getCliClient} from 'sanity/cli'
  * and creating the translations.metadata document
  *
  * 1. Take a backup of your dataset with:
- * `npx sanity@latest dataset export`
+ * `npx sanity dataset export`
  *
  * 2. Copy this file to the root of your Sanity Studio project
  *
  * 3. Update the SINGLETONS and LANGUAGES constants to your needs
  *
  * 4. Run the script (replace <schema-type> with the name of your schema type):
- * npx sanity@latest exec ./createSingletons.ts --with-user-token
+ * npx sanity exec ./createSingletons.ts --with-user-token
  *
  * 5. Update your desk structure to use the new documents
+ *
+ * 6. Import the saved dataset:
+ * npx sanity dataset import [exported dataset].tar.gz [your chosen dataset] --missing
  */
 
 const SINGLETONS = [
   {id: 'frontpage', title: 'Forside', _type: 'frontpage'},
   {id: 'infopage', title: 'Info', _type: 'infopage'},
+  {id: 'programpage', title: 'Program', _type: 'programpage'},
 ]
 
 const LANGUAGES = [

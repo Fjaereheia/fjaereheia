@@ -1,3 +1,4 @@
+import { useTranslation } from "~/utils/i18n";
 import { DateTicket } from "./DateTicket";
 
 export type DateTicketType = {
@@ -10,12 +11,20 @@ type Props = {
 };
 
 export const Tickets = ({ dateTickets }: Props) => {
+  const { t } = useTranslation();
   return (
-    <div id="tickets" className="flex flex-col items-center mx-6 mt-">
-      <h1 className="text-4xl">Billetter</h1>
+    <div id="tickets" className="flex flex-col">
+      <h1 className="text-2xl text-white font-sans py-8">{t(texts.tickets)}</h1>
       {dateTickets?.map((dateTicket: DateTicketType, index) => {
         return <DateTicket key={index} dateTicket={dateTicket} />;
       })}
     </div>
   );
+};
+
+const texts = {
+  tickets: {
+    en: "Tickets",
+    nb: "Billetter",
+  },
 };

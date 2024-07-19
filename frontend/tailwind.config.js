@@ -2,6 +2,10 @@
 export default {
   content: ["./app/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontFamily: {
+      serif: ['"PT Serif"'],
+      sans: ["calibri"],
+    },
     extend: {
       colors: {
         lightRedPrimaryDarkBlueSecondary: {
@@ -13,6 +17,7 @@ export default {
           secondary: "#D4FF26",
         },
         newsletter: "#59A1B6",
+        lightblue: "#83D2FF",
       },
     },
   },

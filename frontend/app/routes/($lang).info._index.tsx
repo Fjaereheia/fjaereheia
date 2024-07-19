@@ -1,7 +1,10 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
 import { Link, useLoaderData, useLocation, useParams } from "@remix-run/react";
+import { useEffect } from "react";
 import { INFOPAGE_QUERYResult } from "sanity/types";
 import { getInfoPage } from "~/queries/info-queries";
+import { useBackgroundColor } from "~/utils/backgroundColor";
+import { useTranslation } from "~/utils/i18n";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const informationPage = await getInfoPage(params);
@@ -27,7 +30,12 @@ function RedirectType(type: string) {
 
 export default function Info() {
   const data = useLoaderData<typeof loader>() as INFOPAGE_QUERYResult;
+  const { setColor } = useBackgroundColor();
+  useEffect(() => {
+    setColor("bg-lightblue");
+  }, [setColor]);
   const params = useParams();
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen flex flex-col items-center text-[#1B1C20] font-serif">
       <h1 className="text-5xl font-bold mb-12">{data?.title}</h1>
@@ -46,7 +54,20 @@ export default function Info() {
             </p>
           </Link>
         ))}
+        <p>...</p>
+        <Link to={params.lang == "en" ? "/en/artikler" : "/artikler"}>
+          <p className="p-4 hover:underline font-serif text-2xl lg:text-4xl">
+            {t(texts.allArticles)}
+          </p>
+        </Link>
       </div>
     </div>
   );
 }
+
+const texts = {
+  allArticles: {
+    en: "All articles",
+    nb: "Alle artikler",
+  },
+};
