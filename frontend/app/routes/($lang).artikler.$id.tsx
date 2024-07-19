@@ -11,7 +11,6 @@ import { useBackgroundColor } from "~/utils/backgroundColor";
 import { useEffect } from "react";
 import { useTranslation } from "~/utils/i18n";
 
-
 export async function loader({ params }: LoaderFunctionArgs) {
   const article = await getArticle(params);
 
@@ -46,7 +45,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Article() {
   const data = useLoaderData<typeof loader>() as Custom_ARTICLE_QUERYResult;
-  const bgColor = getBackgroundColor(data?.colorCombination);
+  const bgColor = getBackgroundColor(data?.colorCombinationDay);
   const { setColor } = useBackgroundColor();
   useEffect(() => {
     setColor(bgColor);
@@ -57,7 +56,7 @@ export default function Article() {
     return <></>;
   }
   return (
-    <div className={getBackgroundColor(data.colorCombination)}>
+    <div className={getBackgroundColor(data.colorCombinationDay)}>
       <div className="flex flex-col items-center mx-6 mt- ">
         <div className="flex flex-col items-center md:w-full lg:w-1/2">
           <h1 className="text-4xl">{data.title}</h1>

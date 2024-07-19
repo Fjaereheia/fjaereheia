@@ -58,7 +58,7 @@ export default function Event() {
     secondaryBorder,
     textColor,
     textColorBorder,
-  } = getColor(data?.colorCombination);
+  } = getColor(data?.colorCombinationNight);
   const { setColor } = useBackgroundColor();
   useEffect(() => {
     setColor(bgColor);
