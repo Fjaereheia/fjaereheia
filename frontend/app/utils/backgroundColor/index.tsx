@@ -22,7 +22,7 @@ export function BackgroundColorProvider({
   const [color, setColor] = useState<string>("bg-white");
 
   useEffect(() => {
-    document.body.className = color + " w-full h-screen";
+    document.body.className = color + " w-full h-screen overflow-x-hidden";
   }, [color]);
 
   return (
