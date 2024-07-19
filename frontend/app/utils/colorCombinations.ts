@@ -1,107 +1,58 @@
-export function getBackgroundColor(colorCombination: string | undefined) {
-  switch (colorCombination) {
-    case "dayThemeBlueBlack":
-      return "bg-dayThemeBlueBlack-primary";
-    case "dayThemePeachBlue":
-      return "bg-dayThemePeachBlue-primary";
-    case "nightThemePurpleWhite":
-      return "bg-nightThemePurpleWhite-primary";
-    case "nightThemeBlueYellow":
-      return "bg-nightThemeBlueYellow-primary";
-    default:
-      return "bg-white";
-  }
+import {
+  COLORCOMBINATION,
+  ColorCombination,
+} from "../../../cms/schemaTypes/objects/colorCombination";
+
+function getColorProperty<T extends keyof ColorCombination>(
+  colorCombination: string | undefined,
+  property: T
+): ColorCombination[T] | string {
+  const theme = COLORCOMBINATION.find(
+    (theme) => theme.value === colorCombination
+  );
+  return theme ? theme[property] : "default-value";
 }
 
-export function getPrimaryBorderColor(colorCombination: string | undefined) {
-  switch (colorCombination) {
-    case "dayThemeBlueBlack":
-      return "border-dayThemeBlueBlack-primary";
-    case "dayThemePeachBlue":
-      return "border-dayThemePeachBlue-primary";
-    case "nightThemePurpleWhite":
-      return "border-nightThemePurpleWhite-primary";
-    case "nightThemeBlueYellow":
-      return "border-nightThemeBlueYellow-primary";
-    default:
-      return "border-white";
-  }
+export function getBackgroundColor(
+  colorCombination: string | undefined
+): string {
+  return getColorProperty(colorCombination, "primaryBg") || "bg-white";
 }
 
-export function getPrimaryTextColor(colorCombination: string | undefined) {
-  switch (colorCombination) {
-    case "dayThemeBlueBlack":
-      return "text-dayThemeBlueBlack-primary";
-    case "dayThemePeachBlue":
-      return "text-dayThemePeachBlue-primary";
-    case "nightThemePurpleWhite":
-      return "text-nightThemePurpleWhite-primary";
-    case "nightThemeBlueYellow":
-      return "text-nightThemeBlueYellow-primary";
-    default:
-      return "text-white";
-  }
+export function getPrimaryBorderColor(
+  colorCombination: string | undefined
+): string {
+  return getColorProperty(colorCombination, "primaryBorder") || "border-white";
+}
+
+export function getPrimaryTextColor(
+  colorCombination: string | undefined
+): string {
+  return getColorProperty(colorCombination, "primaryText") || "text-white";
 }
 
 export function getSecondaryBackgroundColor(
   colorCombination: string | undefined
-) {
-  switch (colorCombination) {
-    case "dayThemeBlueBlack":
-      return "bg-dayThemeBlueBlack-secondary";
-    case "dayThemePeachBlue":
-      return "bg-dayThemePeachBlue-secondary";
-    case "nightThemePurpleWhite":
-      return "bg-nightThemePurpleWhite-secondary";
-    case "nightThemeBlueYellow":
-      return "bg-nightThemeBlueYellow-secondary";
-    default:
-      return "bg-white";
-  }
-}
-export function getSecondaryBorderColor(colorCombination: string | undefined) {
-  switch (colorCombination) {
-    case "dayThemeBlueBlack":
-      return "border-dayThemeBlueBlack-secondary";
-    case "dayThemePeachBlue":
-      return "border-dayThemePeachBlue-secondary";
-    case "nightThemePurpleWhite":
-      return "border-nightThemePurpleWhite-secondary";
-    case "nightThemeBlueYellow":
-      return "border-nightThemeBlueYellow-secondary";
-    default:
-      return "border-white";
-  }
+): string {
+  return getColorProperty(colorCombination, "secondaryBg") || "bg-white";
 }
 
-export function getTextColor(colorCombination: string | undefined) {
-  switch (colorCombination) {
-    case "dayThemeBlueBlack":
-      return "text-black";
-    case "dayThemePeachBlue":
-      return "text-black";
-    case "nightThemePurpleWhite":
-      return "text-white";
-    case "nightThemeBlueYellow":
-      return "text-white";
-    default:
-      return "text-black";
-  }
+export function getSecondaryBorderColor(
+  colorCombination: string | undefined
+): string {
+  return (
+    getColorProperty(colorCombination, "secondaryBorder") || "border-white"
+  );
 }
 
-export function getTextColorBorder(colorCombination: string | undefined) {
-  switch (colorCombination) {
-    case "dayThemeBlueBlack":
-      return "border-black";
-    case "dayThemePeachBlue":
-      return "border-black";
-    case "nightThemePurpleWhite":
-      return "border-white";
-    case "nightThemeBlueYellow":
-      return "border-white";
-    default:
-      return "border-black";
-  }
+export function getTextColor(colorCombination: string | undefined): string {
+  return getColorProperty(colorCombination, "text") || "text-black";
+}
+
+export function getTextColorBorder(
+  colorCombination: string | undefined
+): string {
+  return getColorProperty(colorCombination, "textBorder") || "border-black";
 }
 
 export function getColor(colorCombination: string | undefined) {
