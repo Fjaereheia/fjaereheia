@@ -104,6 +104,21 @@ export function getTextColorBorder(colorCombination: string | undefined) {
   }
 }
 
+export function getPortabletextStyle(colorCombination: string | undefined) {
+  switch (colorCombination) {
+    case "dayThemeBlueBlack":
+      return "prose-h1:text-black prose-h2:text-black text-black";
+    case "dayThemePeachBlue":
+      return "prose-h1:text-black prose-h2:text-black text-black";
+    case "nightThemePurpleWhite":
+      return "prose-h1:text-white prose-h2:text-white text-white";
+    case "nightThemeBlueYellow":
+      return "prose-h1:text-white prose-h2:text-white text-white";
+    default:
+      return "prose-h1:text-black prose-h2:text-black text-black";
+  }
+}
+
 export function getColor(colorCombination: string | undefined) {
   return {
     bgColor: getBackgroundColor(colorCombination),
@@ -113,5 +128,6 @@ export function getColor(colorCombination: string | undefined) {
     secondaryBorder: getSecondaryBorderColor(colorCombination),
     textColor: getTextColor(colorCombination),
     textColorBorder: getTextColorBorder(colorCombination),
+    portabletextStyle: getPortabletextStyle(colorCombination),
   };
 }

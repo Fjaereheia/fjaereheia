@@ -58,6 +58,7 @@ export default function Event() {
     secondaryBorder,
     textColor,
     textColorBorder,
+    portabletextStyle,
   } = getColor(data?.colorCombinationNight);
   const { setColor } = useBackgroundColor();
   useEffect(() => {
@@ -106,7 +107,10 @@ export default function Event() {
         />
       )}
       {data.text && (
-        <PortableTextComponent textData={data.text} textColor={textColor} />
+        <PortableTextComponent
+          textData={data.text}
+          textStyle={portabletextStyle}
+        />
       )}
       {data.dates && <Tickets dateTickets={data.dates} />}
       {data.roleGroups && (

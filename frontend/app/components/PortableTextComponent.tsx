@@ -7,12 +7,12 @@ import ReviewComponent from "./ReviewComponent";
 
 interface PortableTextProps {
   textData: CustomContent;
-  textColor?: string;
+  textStyle?: string;
 }
 
 export default function PortableTextComponent({
   textData,
-  textColor,
+  textStyle,
 }: PortableTextProps) {
   const customComponents = {
     types: {
@@ -69,9 +69,7 @@ export default function PortableTextComponent({
   };
 
   return (
-    <div
-      className={`prose prose-h1:${textColor} prose-h2:${textColor}  ${textColor} font-serif font-normal text-base`}
-    >
+    <div className={`prose ${textStyle} font-serif font-normal text-base`}>
       {textData && (
         <PortableText value={textData} components={customComponents} />
       )}
