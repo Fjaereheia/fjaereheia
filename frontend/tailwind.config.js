@@ -2,6 +2,10 @@
 export default {
   content: ["./app/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontFamily: {
+      serif: ['"PT Serif"'],
+      sans: ["calibri"],
+    },
     extend: {
       colors: {
         lightRedPrimaryDarkBlueSecondary: {

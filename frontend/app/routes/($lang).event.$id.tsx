@@ -77,7 +77,7 @@ export default function Event() {
     <div
       className={`${getBackgroundColor(
         data.colorCombination
-      )} flex flex-col relative justify-center items-center`}
+      )} flex flex-col relative justify-center p-4`}
     >
       {data.image?.asset?._ref && (
         <ImageEventPage
@@ -88,7 +88,9 @@ export default function Event() {
         />
       )}
       <div className="static">
-        <h1 className="font-serif text-2xl lg:text-4xl">{data.title}</h1>
+        <h1 className="font-serif text-white text-2xl lg:text-4xl">
+          {data.title}
+        </h1>
       </div>
       {data.dates && (
         <EventLabels dateObj={data.dates} genre={data.eventGenre} />
