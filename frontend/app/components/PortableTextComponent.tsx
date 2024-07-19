@@ -69,7 +69,9 @@ export default function PortableTextComponent({
   };
 
   return (
-    <div className="prose prose-h1:${textColor} prose-h2:${textColor}  ${textColor} font-serif font-normal text-base">
+    <div
+      className={`prose prose-h1:${textColor} prose-h2:${textColor}  ${textColor} font-serif font-normal text-base`}
+    >
       {textData && (
         <PortableText value={textData} components={customComponents} />
       )}
