@@ -1,19 +1,5 @@
-import { json, useParams } from "@remix-run/react";
+import { useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
-import { getEvents } from "~/queries/event-queries";
-
-/*export const loader: Loaderfunction = async ({params}) => {
-  const lang = params.lang || "nb";
-  const slug = params.slug;
-
-  const data: Event = await sanityClient.fetch(EVENTS_QUERY, {lang, id:slug})
-
-  if(!data){
-    throw new Response("NOT FOUND")
-  }
-  return json ({data})
-}
-*/
 
 export default function LanguageButton() {
   const [isEnglish, setIsEnglish] = useState<boolean>(false);

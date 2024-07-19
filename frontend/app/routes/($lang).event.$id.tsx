@@ -14,6 +14,7 @@ import RoleDropDown from "~/components/RoleDropDown";
 import { createTexts, useTranslation } from "~/utils/i18n";
 import { getEvent } from "~/queries/event-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
+import { useLanguageSwitcher } from "~/utils/i18n/LanguageSwitcher";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
@@ -52,6 +53,7 @@ export default function Event() {
   const [openRole, setOpenRole] = useState(false);
   const [viewScale, setViewScale] = useState(1);
   const bgColor = getBackgroundColor(data?.colorCombination);
+  const { setSlugs } = useLanguageSwitcher();
   const { setColor } = useBackgroundColor();
   useEffect(() => {
     setColor(bgColor);
@@ -68,6 +70,9 @@ export default function Event() {
     };
     updateViewScale();
     window.addEventListener("resize", updateViewScale);
+    {
+      data && setSlugs(data._translations);
+    }
   }, [viewScale]);
 
   if (!data) {

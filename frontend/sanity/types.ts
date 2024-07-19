@@ -709,7 +709,7 @@ export type ARTICLE_QUERYResult = {
 } | null;
 // Source: ../frontend/app/queries/event-queries.ts
 // Variable: EVENTS_QUERY
-// Query: *[_type=="event" && language==$lang]{  ...,  "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    title,    slug,    language    }  }
+// Query: *[_type=="event" && language==$lang]
 export type EVENTS_QUERYResult = Array<{
   _id: string;
   _type: "event";
@@ -746,22 +746,9 @@ export type EVENTS_QUERYResult = Array<{
   } & RoleGroups>;
   metaTitle: MetaTitle;
   metaDescription: MetaDescription;
-  _translations: Array<{
-    title: null;
-    slug: null;
-    language: string | null;
-  } | {
-    title: string;
-    slug: null;
-    language: string | null;
-  } | {
-    title: string;
-    slug: Slug | null;
-    language: string | null;
-  } | null>;
 }>;
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{  ...,roleGroups[]{name,roles[]->{name, occupation,image, text}}  }
+// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{  ..., "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language    }, roleGroups[]{name,roles[]->{name, occupation,image, text}}  }
 export type EVENT_QUERYResult = {
   _id: string;
   _type: "event";
@@ -815,6 +802,13 @@ export type EVENT_QUERYResult = {
   }> | null;
   metaTitle: MetaTitle;
   metaDescription: MetaDescription;
+  _translations: Array<{
+    slug: null;
+    language: string | null;
+  } | {
+    slug: Slug | null;
+    language: string | null;
+  } | null>;
 } | null;
 // Source: ../frontend/app/queries/frontpage-queries.ts
 // Variable: FRONTPAGE_QUERY
