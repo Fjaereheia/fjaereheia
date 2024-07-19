@@ -2,15 +2,18 @@ import { useParams } from "@remix-run/react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useTranslation } from ".";
 
+interface Slug {
+  _type: string;
+  current: string;
+}
+type Translation = {
+  slug: Slug;
+  language: string;
+};
 interface LanguageSwitherContextData {
   language: string;
-  slugs: {
-    slug: {
-      _type: string;
-      current: string;
-    };
-    language: string;
-  }[];
+  slugs: Translation[];
+
   setSlugs: (slugs: []) => void;
 }
 

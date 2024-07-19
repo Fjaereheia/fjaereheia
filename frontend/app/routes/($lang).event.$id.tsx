@@ -14,7 +14,6 @@ import RoleDropDown from "~/components/RoleDropDown";
 import { createTexts, useTranslation } from "~/utils/i18n";
 import { getEvent } from "~/queries/event-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
-import { useLanguageSwitcher } from "~/utils/i18n/LanguageSwitcher";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
@@ -53,7 +52,6 @@ export default function Event() {
   const [openRole, setOpenRole] = useState(false);
   const [viewScale, setViewScale] = useState(1);
   const bgColor = getBackgroundColor(data?.colorCombination);
-  const { setSlugs } = useLanguageSwitcher();
   const { setColor } = useBackgroundColor();
   useEffect(() => {
     setColor(bgColor);
@@ -70,9 +68,6 @@ export default function Event() {
     };
     updateViewScale();
     window.addEventListener("resize", updateViewScale);
-    {
-      data && setSlugs(data._translations);
-    }
   }, [viewScale]);
 
   if (!data) {
@@ -82,7 +77,7 @@ export default function Event() {
     <div
       className={`${getBackgroundColor(
         data.colorCombination
-      )} flex flex-col relative justify-center items-center`}
+      )} flex flex-col relative justify-center p-4`}
     >
       {data.image?.asset?._ref && (
         <ImageEventPage
@@ -93,9 +88,13 @@ export default function Event() {
         />
       )}
       <div className="static">
-        <h1 className="font-serif text-2xl lg:text-4xl">{data.title}</h1>
+        <h1 className="font-serif text-white text-2xl lg:text-4xl">
+          {data.title}
+        </h1>
       </div>
-      {data.dates && <EventLabels dateObj={data.dates} />}
+      {data.dates && (
+        <EventLabels dateObj={data.dates} genre={data.eventGenre} />
+      )}
       {data.text && <PortableTextComponent textData={data.text} />}
       {data.dates && <Tickets dateTickets={data.dates} />}
       {data.roleGroups && (
