@@ -1,18 +1,17 @@
 import { json, LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
-import { Link, useLoaderData, useLocation, useParams } from "@remix-run/react";
+import { Link, useLoaderData, useParams } from "@remix-run/react";
 import { ARTICLES_QUERYResult } from "sanity/types";
 import { getArticles } from "~/queries/article-queries";
 import ButtonLink from "~/components/ButtonLink";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 import { useEffect } from "react";
 
-
 export async function loader({ params }: LoaderFunctionArgs) {
   const articles = await getArticles(params);
 
   if (!articles) {
     throw new Response("Not Found", {
-      status: 404,ButtonLink
+      status: 404,
     });
   }
 
@@ -36,7 +35,7 @@ export default function Articles() {
     setColor("bg-white");
   }, [setColor]);
   return (
-    <div className="h-[90vh] lg:h-[95vh] flex flex-col items-center">
+    <div className="min-h-screen flex flex-col items-center">
       <div className="text-center absolute pt-[151px]">
         {data.map((article, index) => (
           <div key={index}>

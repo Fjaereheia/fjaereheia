@@ -2,13 +2,25 @@
 export default {
   content: ["./app/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontFamily: {
+      serif: ['"PT Serif"'],
+      sans: ["calibri"],
+    },
     extend: {
       colors: {
-        lightRedPrimaryDarkBlueSecondary: {
-          primary: "#FF4D4D",
-          secondary: "#182E39",
+        dayThemeBlueBlack: {
+          primary: "#B6E3FD",
+          secondary: "#000000",
         },
-        darkBluePrimaryGreenSecondary: {
+        dayThemePeachBlue: {
+          primary: "#FFD3CE",
+          secondary: "#350E94",
+        },
+        nightThemePurpleWhite: {
+          primary: "#556090",
+          secondary: "#FFFFFF",
+        },
+        nightThemeBlueYellow: {
           primary: "#182E39",
           secondary: "#D4FF26",
         },

@@ -9,10 +9,11 @@ import RichTextEditor from './objects/RichTextEditor'
 import {videoType} from '././objects/videoType'
 import metaTitle from './objects/metaTitle'
 import metaDescription from './objects/metaDescription'
-import colorCombination from './objects/colorCombination'
+import {colorCombinationsDay, colorCombinationsNight} from './objects/colorCombination'
 import imageMask from './objects/imageMask'
 import roleGroups from './objects/roleGroups'
 import {reviewType} from './objects/reviewType'
+import eventGenre from './objects/eventGenre'
 import {programpage} from './programpage'
 
 export const schemaTypes = [
@@ -28,8 +29,10 @@ export const schemaTypes = [
   videoType,
   metaTitle,
   metaDescription,
-  colorCombination,
+  colorCombinationsDay,
+  colorCombinationsNight,
   imageMask,
   reviewType,
+  eventGenre,
   programpage,
 ]

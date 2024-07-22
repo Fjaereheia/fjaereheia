@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { EVENT_QUERYResult } from "sanity/types";
-import { getBackgroundColor } from "~/utils/colorCombinations";
+import { getColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
@@ -47,12 +47,19 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
   const [viewScale, setViewScale] = useState(1);
-  const bgColor = getBackgroundColor(data?.colorCombination);
+  const {
+    bgColor,
+    primaryText,
+    secondaryBgColor,
+    secondaryBorder,
+    textColor,
+    textColorBorder,
+    portabletextStyle,
+  } = getColor(data?.colorCombinationsNight);
   const { setColor } = useBackgroundColor();
   useEffect(() => {
     setColor(bgColor);
   }, [setColor]);
-
   useEffect(() => {
     const updateViewScale = () => {
       if (window.matchMedia("(min-width: 1024px)").matches) {
@@ -70,9 +77,7 @@ export default function Event() {
   }
   return (
     <div
-      className={`${getBackgroundColor(
-        data.colorCombination
-      )} flex flex-col relative justify-center items-center`}
+      className={` in-h-screen flex flex-col relative justify-center ${textColor} items-center p-4`}
     >
       {data.image?.asset?._ref && (
         <ImageEventPage
@@ -83,10 +88,25 @@ export default function Event() {
         />
       )}
       <div className="static">
-        <h1 className="font-serif text-2xl lg:text-4xl">{data.title}</h1>
+        <h1 className={`font-serif  text-2xl lg:text-4xl`}>{data.title}</h1>
       </div>
-      {data.dates && <EventLabels dateObj={data.dates} />}
-      {data.text && <PortableTextComponent textData={data.text} />}
+      {data.dates && (
+        <EventLabels
+          dateObj={data.dates}
+          genre={data.eventGenre}
+          primaryText={primaryText}
+          secondaryBgColor={secondaryBgColor}
+          secondaryBorder={secondaryBorder}
+          textColor={textColor}
+          textColorBorder={textColorBorder}
+        />
+      )}
+      {data.text && (
+        <PortableTextComponent
+          textData={data.text}
+          textStyle={portabletextStyle}
+        />
+      )}
       {data.dates && <Tickets dateTickets={data.dates} />}
       {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
     </div>
