@@ -1,14 +1,14 @@
 //These are temporary values, they will be replaced by the actual values from the design system
 
-const COLORCOMBINATION = [
+const COLORCOMBINATIONS = [
   {title: 'Lys blå primær, sort sekundær', value: 'dayThemeBlueBlack', theme: 'day'},
   {title: 'Lys orange primær, blå sekundær', value: 'dayThemePeachBlue', theme: 'day'},
   {title: 'Mørk lilla primær, hvit sekundær', value: 'nightThemePurpleWhite', theme: 'night'},
   {title: 'Mørk blå primær, gul sekundær', value: 'nightThemeBlueYellow', theme: 'night'},
 ]
 
-const dayThemes = COLORCOMBINATION.filter((theme) => theme.theme === 'day')
-const nightThemes = COLORCOMBINATION.filter((theme) => theme.theme === 'night')
+const dayThemes = COLORCOMBINATIONS.filter((theme) => theme.theme === 'day')
+const nightThemes = COLORCOMBINATIONS.filter((theme) => theme.theme === 'night')
 
 export const colorCombinationsDay = {
   name: 'colorCombinationsDay',
