@@ -50,7 +50,7 @@ export const EventLabels = ({
       <>
         <div className="prose mr-auto sm:m-0 font-serif  lg:text-lg py-2">
           <div className="flex gap-4 sm:float-start  pt-2 sm:pr-2">
-            <div className={`mr-2 border p-2 ${textColorBorder} ${textColor} `}>
+            <div className={`border p-2 ${textColorBorder} ${textColor} `}>
               {dateObj.length === 1 ? (
                 formattedDate.toUpperCase()
               ) : (
@@ -61,23 +61,23 @@ export const EventLabels = ({
                 </>
               )}
             </div>
-            <div className={`p-2 border ${textColorBorder} ${textColor}`}>
+            <div
+              className={`sm:mr-2 p-2 border ${textColorBorder} ${textColor}`}
+            >
               {formattedTimestamp}
             </div>
           </div>
 
           <div className="pt-2 flex gap-4 sm:float-start">
             {genre && (
-              <div
-                className={`-mr-2 p-2 border ${textColorBorder} ${textColor}`}
-              >
+              <div className={` p-2 border ${textColorBorder} ${textColor}`}>
                 {genre.toUpperCase()}
               </div>
             )}
 
             <button
               onClick={handleScroll}
-              className={`pl-2 p-2 ${secondaryBorder} ${secondaryBgColor}   ${primaryText} font-bold `}
+              className={`p-1 border ${secondaryBorder} ${secondaryBgColor} ${primaryText} font-bold `}
             >
               {t(texts.buyTicket).toUpperCase()}
             </button>
