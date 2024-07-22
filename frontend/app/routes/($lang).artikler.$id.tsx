@@ -45,7 +45,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Article() {
   const data = useLoaderData<typeof loader>() as Custom_ARTICLE_QUERYResult;
-  const bgColor = getBackgroundColor(data?.colorCombination);
+  const bgColor = getBackgroundColor(data?.colorCombinationsDay);
   const { setColor } = useBackgroundColor();
   useEffect(() => {
     setColor(bgColor);
@@ -58,7 +58,7 @@ export default function Article() {
   return (
     <div
       className={`${getBackgroundColor(
-        data.colorCombination
+        data.colorCombinationsDay
       )} min-h-screen flex flex-col items-center mx-6`}
     >
       <div className="flex flex-col items-center md:w-full lg:w-1/2">
