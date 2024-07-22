@@ -16,7 +16,7 @@ export const DateTicket = ({ dateTicket }: Props) => {
   return (
     <div className="flex flex-col gap-2 my-4">
       <p className="capitalize text-2xl">{formattedDate}</p>
-      <div className="flex flex-col gap-2 mx-1">
+      <div className="flex flex-col gap-2">
         <p>{formattedTimestamp}</p>
         <button
           className="py-2 w-32 text-base px-10 border"

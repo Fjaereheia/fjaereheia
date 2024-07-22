@@ -94,33 +94,33 @@ export default function Event() {
     return <></>;
   }
   return (
-    <>
+    <div
+      className={`min-h-screen flex flex-col relative justify-center ${textColor} items-center p-4`}
+    >
+      {data.image?.asset?._ref && (
+        <ImageEventPage
+          url={urlFor(data.image.asset._ref, data.image?.hotspot)}
+          alt={data?.title || ""}
+          scale={viewScale}
+          imageMaskType={data?.imageMask || ""}
+        />
+      )}
       <div
-        className={` min-h-screen flex flex-col relative justify-center ${textColor} items-center p-4`}
+        className={`flex flex-col relative justify-center ${textColor} items-center gap-6`}
       >
-        {data.image?.asset?._ref && (
-          <ImageEventPage
-            url={urlFor(data.image.asset._ref, data.image?.hotspot)}
-            alt={data?.title || ""}
-            scale={viewScale}
-            imageMaskType={data?.imageMask || ""}
-          />
-        )}
         <div className="static">
-          <h1 className={`font-serif  text-2xl lg:text-4xl`}>{data.title}</h1>
+          <h1 className={`font-serif text-2xl lg:text-4xl`}>{data.title}</h1>
         </div>
         {data.dates && (
-          <div ref={setLabelRef}>
-            <EventLabels
-              dateObj={data.dates}
-              genre={data.eventGenre}
-              primaryText={primaryText}
-              secondaryBgColor={secondaryBgColor}
-              secondaryBorder={secondaryBorder}
-              textColor={textColor}
-              textColorBorder={textColorBorder}
-            />
-          </div>
+          <EventLabels
+            dateObj={data.dates}
+            genre={data.eventGenre}
+            primaryText={primaryText}
+            secondaryBgColor={secondaryBgColor}
+            secondaryBorder={secondaryBorder}
+            textColor={textColor}
+            textColorBorder={textColorBorder}
+          />
         )}
         {data.text && (
           <PortableTextComponent
@@ -144,7 +144,7 @@ export default function Event() {
           <button onClick={handleScroll}>{t(text.allEvents)}</button>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
