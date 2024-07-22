@@ -10,8 +10,8 @@ const COLORCOMBINATION = [
 const dayThemes = COLORCOMBINATION.filter((theme) => theme.theme === 'day')
 const nightThemes = COLORCOMBINATION.filter((theme) => theme.theme === 'night')
 
-export const colorCombinationDay = {
-  name: 'colorCombinationDay',
+export const colorCombinationsDay = {
+  name: 'colorCombinationsDay',
   title: 'Fargekombinasjon',
   type: 'string',
   options: {
@@ -21,8 +21,8 @@ export const colorCombinationDay = {
   },
 }
 
-export const colorCombinationNight = {
-  name: 'colorCombinationNight',
+export const colorCombinationsNight = {
+  name: 'colorCombinationsNight',
   title: 'Fargekombinasjon',
   type: 'string',
   options: {

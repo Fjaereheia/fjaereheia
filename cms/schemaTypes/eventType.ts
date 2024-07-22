@@ -35,9 +35,9 @@ export const eventType = defineType({
       type: 'eventGenre',
     }),
     defineField({
-      name: 'colorCombinationNight',
+      name: 'colorCombinationsNight',
       title: 'Fargekombinasjon',
-      type: 'colorCombinationNight',
+      type: 'colorCombinationsNight',
     }),
     defineField({
       name: 'imageMask',

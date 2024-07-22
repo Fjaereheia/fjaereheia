@@ -439,7 +439,7 @@
     }
   },
   {
-    "name": "colorCombinationNight",
+    "name": "colorCombinationsNight",
     "type": "type",
     "value": {
       "type": "union",
@@ -456,7 +456,7 @@
     }
   },
   {
-    "name": "colorCombinationDay",
+    "name": "colorCombinationsDay",
     "type": "type",
     "value": {
       "type": "union",
@@ -2905,11 +2905,11 @@
         },
         "optional": true
       },
-      "colorCombinationDay": {
+      "colorCombinationsDay": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",
-          "name": "colorCombinationDay"
+          "name": "colorCombinationsDay"
         },
         "optional": true
       },
@@ -3133,11 +3133,11 @@
         },
         "optional": true
       },
-      "colorCombinationNight": {
+      "colorCombinationsNight": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",
-          "name": "colorCombinationNight"
+          "name": "colorCombinationsNight"
         },
         "optional": true
       },

@@ -59,7 +59,7 @@ export default function Event() {
     textColor,
     textColorBorder,
     portabletextStyle,
-  } = getColor(data?.colorCombinationNight);
+  } = getColor(data?.colorCombinationsNight);
   const { setColor } = useBackgroundColor();
   useEffect(() => {
     setColor(bgColor);
@@ -83,7 +83,6 @@ export default function Event() {
   return (
     <div
       className={` in-h-screen flex flex-col relative justify-center ${textColor} items-center p-4`}
-
     >
       {data.image?.asset?._ref && (
         <ImageEventPage
