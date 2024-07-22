@@ -18,16 +18,6 @@ export async function loader({ params }: LoaderFunctionArgs) {
   return json(programPage);
 }
 
-function RedirectType(type: string) {
-  if (type == "article") {
-    return "/artikler";
-  } else if (type == "event") {
-    return "/event";
-  } else {
-    return "";
-  }
-}
-
 export default function Program() {
   const data = useLoaderData<typeof loader>() as PROGRAMPAGE_QUERYResult;
   const { setColor } = useBackgroundColor();
@@ -42,7 +32,13 @@ export default function Program() {
         {data?.links?.map((link, index) => (
           <Link
             key={index}
-            to={link.slug?.current ? "/event/" + link.slug.current : ""}
+            to={
+              link.slug?.current
+                ? `${params.lang === "en" ? "/en/event/" : "/event/"}${
+                    link.slug.current
+                  }`
+                : ""
+            }
           >
             <p className="p-4 hover:underline font-serif text-2xl lg:text-4xl">
               {link.title}
