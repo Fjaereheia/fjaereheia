@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useParams } from "@remix-run/react";
 import { Custom_ARTICLE_QUERYResult } from "sanity/types";
 import { getBackgroundColor } from "~/utils/colorCombinations";
 import { getArticle } from "~/queries/article-queries";
@@ -51,6 +51,7 @@ export default function Article() {
     setColor(bgColor);
   }, [setColor]);
   const { t } = useTranslation();
+  const params = useParams();
 
   if (!data) {
     return <></>;
@@ -80,7 +81,11 @@ export default function Article() {
         {data?.text && <PortableTextComponent textData={data.text} />}
         {data?.event && (
           <ButtonLink
-            url={`/event/${data.event?.slug?.current}`}
+            url={
+              params.lang == "en"
+                ? `/en/event/${data.event?.slug?.current}`
+                : `/event/${data.event?.slug?.current}`
+            }
             buttonText={t(texts.readMore)}
           />
         )}
