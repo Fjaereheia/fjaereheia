@@ -107,13 +107,13 @@ export function getTextColorBorder(colorCombination: string | undefined) {
 export function getPortabletextStyle(colorCombination: string | undefined) {
   switch (colorCombination) {
     case "dayThemeBlueBlack":
-      return "prose-h1:text-black prose-h2:text-black text-black";
+      return "prose-h1:text-black prose-h2:text-dayThemeBlueBlack-secondary text-black";
     case "dayThemePeachBlue":
-      return "prose-h1:text-black prose-h2:text-black text-black";
+      return "prose-h1:text-black prose-h2:text-dayThemePeachBlue-secondary text-black";
     case "nightThemePurpleWhite":
-      return "prose-h1:text-white prose-h2:text-white text-white";
+      return "prose-h1:text-white prose-h2:text-nightThemePurpleWhite-secondary text-white";
     case "nightThemeBlueYellow":
-      return "prose-h1:text-white prose-h2:text-white text-white";
+      return "prose-h1:text-white prose-h2:text-nightThemeBlueYellow-secondary text-white";
     default:
       return "prose-h1:text-black prose-h2:text-black text-black";
   }

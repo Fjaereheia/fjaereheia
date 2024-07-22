@@ -71,7 +71,7 @@ export const EventLabels = ({
               <div
                 className={`-mr-2 p-2 border ${textColorBorder} ${textColor}`}
               >
-                {genre}.toUpperCase()
+                {genre.toUpperCase()}
               </div>
             )}
 
