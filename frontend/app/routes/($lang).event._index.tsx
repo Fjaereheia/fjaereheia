@@ -57,7 +57,7 @@ export default function Events() {
           </div>
         ))}
       </div>
-      <div className="grid place-items-center text-lg lg:text-xl w-4/5 lg:w-2/3 ">
+      <div className="mt-auto flex flex-col items-center text-lg lg:text-xl w-4/5 lg:w-2/3">
         <Newsletter />
       </div>
     </div>
