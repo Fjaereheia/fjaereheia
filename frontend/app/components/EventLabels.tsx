@@ -35,8 +35,8 @@ export const EventLabels = ({ dateObj, genre }: Props) => {
 
     return (
       <>
-        <div className="m-2 mr-auto md:mr-0 md:relative font-serif text-white md:text-lg">
-          <div className="m-2 left-0 flex gap-4 md:float-start bg-inherit">
+        <div className="prose mr-auto sm:m-0 sm:relative font-serif text-white md:text-lg">
+          <div className="left-0 flex gap-4 sm:float-start bg-inherit pt-2 sm:pr-2">
             <div className="-mr-2 border p-2 border-[#F8F8F8] bg-inherit">
               {dateObj.length === 1 ? (
                 formattedDate.toUpperCase()
@@ -53,14 +53,16 @@ export const EventLabels = ({ dateObj, genre }: Props) => {
             </div>
           </div>
 
-          <div className="m-2 flex gap-4">
+          <div className="left-0 pt-2 flex gap-4 sm:float-start">
             {genre && (
-              <div className="-mr-2 p-2 border border-[#F8F8F8]">{genre}.toUpperCase()</div>
+              <div className="-mr-2 p-2 border border-[#F8F8F8]">
+                {genre}.toUpperCase()
+              </div>
             )}
 
             <button
               onClick={handleScroll}
-              className="pl-2 p-2 bg-[#F8F8F8] font-bold text-darkBluePrimaryGreenSecondary-primary"
+              className="pl-2 p-2 border bg-[#F8F8F8] font-bold text-darkBluePrimaryGreenSecondary-primary"
             >
               {t(texts.buyTicket).toUpperCase()}
             </button>
