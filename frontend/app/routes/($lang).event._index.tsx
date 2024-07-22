@@ -1,5 +1,5 @@
 import { json, LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData, useParams } from "@remix-run/react";
 import { useEffect } from "react";
 import { EVENTS_QUERYResult } from "sanity/types";
 import Newsletter from "~/components/Newsletter";
@@ -34,13 +34,22 @@ export default function Events() {
   useEffect(() => {
     setColor("bg-newsletter");
   }, [setColor]);
-
+  const params = useParams();
   return (
     <div className="min-h-screen flex flex-col items-center text-white relative pb-36">
       <div className="flex flex-col items-center font-normal gap-4 text-xl py-12 px-0">
         {data.map((event, index) => (
           <div key={index}>
-            <Link key={event._id} to={event.slug?.current ?? ""}>
+            <Link
+              key={event._id}
+              to={
+                event.slug?.current
+                  ? `${params.lang === "en" ? "/en/event/" : "/event/"}${
+                      event.slug.current
+                    }`
+                  : ""
+              }
+            >
               <p className="text-center p-4 hover:underline font-serif text-2xl lg:text-4xl">
                 {event.title}
               </p>
