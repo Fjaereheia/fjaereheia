@@ -2,20 +2,16 @@ import { useEffect, useState } from "react";
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { EVENT_QUERYResult } from "sanity/types";
-import { getBackgroundColor } from "~/utils/colorCombinations";
+import { getBackgroundColor, getColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
 import ImageEventPage from "~/components/Masks/ImageEventPage";
 import { EventLabels } from "~/components/EventLabels";
-import ArrowUp from "/arrow-up.svg";
-import ArrowDown from "/arrow-down.svg";
 import RoleDropDown from "~/components/RoleDropDown";
-import { createTexts, useTranslation } from "~/utils/i18n";
 import { getEvent } from "~/queries/event-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 import useIntersectionObserver from "~/utils/ticketsVisability";
-import { useBackgroundColor } from "~/utils/backgroundColor";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
@@ -51,7 +47,6 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
-  const [openRole, setOpenRole] = useState(false);
   const [isTicketVisable, setIsTicketVisable] = useState(false);
   const [isLabelVisable, setIsLabelVisalbe] = useState(false);
   const [viewScale, setViewScale] = useState(1);
@@ -68,13 +63,19 @@ export default function Event() {
       target.scrollIntoView({ behavior: "smooth" });
     }
   };
-  const bgColor = getBackgroundColor(data?.colorCombination);
+  const {
+    bgColor,
+    primaryText,
+    secondaryBgColor,
+    secondaryBorder,
+    textColor,
+    textColorBorder,
+    portabletextStyle,
+  } = getColor(data?.colorCombinationsNight);
   const { setColor } = useBackgroundColor();
   useEffect(() => {
     setColor(bgColor);
   }, [setColor]);
-  const { t } = useTranslation();
-
   useEffect(() => {
     const updateViewScale = () => {
       if (window.matchMedia("(min-width: 1024px)").matches) {
@@ -92,9 +93,7 @@ export default function Event() {
   }
   return (
     <div
-      className={`${getBackgroundColor(
-        data.colorCombination
-      )} flex flex-col justify-center items-center min-h-screen`}
+      className={` in-h-screen flex flex-col relative justify-center ${textColor} items-center p-4`}
     >
       {data.image?.asset?._ref && (
         <ImageEventPage
@@ -105,16 +104,27 @@ export default function Event() {
         />
       )}
       <div className="static">
-        <h1 className="font-serif text-white text-2xl lg:text-4xl">
-          {data.title}
-        </h1>
+        <h1 className={`font-serif  text-2xl lg:text-4xl`}>{data.title}</h1>
       </div>
       {data.dates && (
         <div ref={setLabelRef}>
-          <EventLabels dateObj={data.dates} genre={data.eventGenre} />
+          <EventLabels
+            dateObj={data.dates}
+            genre={data.eventGenre}
+            primaryText={primaryText}
+            secondaryBgColor={secondaryBgColor}
+            secondaryBorder={secondaryBorder}
+            textColor={textColor}
+            textColorBorder={textColorBorder}
+          />
         </div>
       )}
-      {data.text && <PortableTextComponent textData={data.text} />}
+      {data.text && (
+        <PortableTextComponent
+          textData={data.text}
+          textStyle={portabletextStyle}
+        />
+      )}
 
       {data.dates && (
         <div ref={setTicketRef}>
@@ -128,41 +138,7 @@ export default function Event() {
           </div>
         </div>
       )}
-      {data.roleGroups && (
-        <button
-          className="w-80 h-auto py-4 px-6 m-4 grid grid-flow-col bg-inherit border border-black"
-          onClick={() => setOpenRole(!openRole)}
-        >
-          <span className="self-center justify-self-start text-xl">
-            {t(texts.roleDropDown)}{" "}
-          </span>
-          <img
-            className="w-6 h-6 self-center justify-self-end"
-            src={openRole ? ArrowUp : ArrowDown}
-            alt={
-              openRole
-                ? t(texts.roleDropDownAltUp)
-                : t(texts.roleDropDownAltDown)
-            }
-          />
-        </button>
-      )}
-      {openRole && <RoleDropDown roleGroups={data.roleGroups} />}
+      {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
     </div>
   );
 }
-
-const texts = createTexts({
-  roleDropDown: {
-    nb: "Medvirkende",
-    en: "Participants",
-  },
-  roleDropDownAltUp: {
-    nb: "Pil opp",
-    en: "Arrow Up",
-  },
-  roleDropDownAltDown: {
-    nb: "Pil ned",
-    en: "Arrow Down",
-  },
-});

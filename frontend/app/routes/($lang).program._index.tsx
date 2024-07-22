@@ -18,16 +18,6 @@ export async function loader({ params }: LoaderFunctionArgs) {
   return json(programPage);
 }
 
-function RedirectType(type: string) {
-  if (type == "article") {
-    return "/artikler";
-  } else if (type == "event") {
-    return "/event";
-  } else {
-    return "";
-  }
-}
-
 export default function Program() {
   const data = useLoaderData<typeof loader>() as PROGRAMPAGE_QUERYResult;
   const { setColor } = useBackgroundColor();
@@ -36,13 +26,19 @@ export default function Program() {
   }, [setColor]);
   const params = useParams();
   return (
-    <div className="min-h-screen">
-      <div className="bg-newsletter h-[80vh] lg:h-[85vh] flex flex-col items-center text-white relative">
-        <div className="absolute pt-[151px] text-center "></div>{" "}
+    <div className="min-h-screen flex flex-col items-center text-white relative pb-36">
+      <h1 className="text-5xl font-bold mb-12">{data?.title}</h1>
+      <div className="flex flex-col items-center font-normal gap-4 text-xl py-12 px-0">
         {data?.links?.map((link, index) => (
           <Link
             key={index}
-            to={link.slug?.current ? "/event/" + link.slug.current : ""}
+            to={
+              link.slug?.current
+                ? `${params.lang === "en" ? "/en/event/" : "/event/"}${
+                    link.slug.current
+                  }`
+                : ""
+            }
           >
             <p className="p-4 hover:underline font-serif text-2xl lg:text-4xl">
               {link.title}
@@ -50,7 +46,7 @@ export default function Program() {
           </Link>
         ))}
       </div>
-      <div className="absolute flex flex-col items-center bottom-0 text-lg lg:text-xl w-4/5 lg:w-2/3 ">
+      <div className="mt-auto flex flex-col items-center text-lg lg:text-xl w-4/5 lg:w-2/3">
         <Newsletter />
       </div>
     </div>
