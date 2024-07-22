@@ -82,7 +82,8 @@ export default function Event() {
   }
   return (
     <div
-      className={` flex flex-col relative justify-center ${textColor} items-center p-4`}
+      className={` in-h-screen flex flex-col relative justify-center ${textColor} items-center p-4`}
+
     >
       {data.image?.asset?._ref && (
         <ImageEventPage
