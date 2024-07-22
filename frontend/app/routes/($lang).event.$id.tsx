@@ -12,6 +12,7 @@ import RoleDropDown from "~/components/RoleDropDown";
 import { getEvent } from "~/queries/event-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 import useIntersectionObserver from "~/utils/ticketsVisability";
+import { useTranslation } from "~/utils/i18n";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
@@ -50,6 +51,7 @@ export default function Event() {
   const [isTicketVisable, setIsTicketVisable] = useState(false);
   const [isLabelVisable, setIsLabelVisalbe] = useState(false);
   const [viewScale, setViewScale] = useState(1);
+  const { t } = useTranslation();
 
   const setTicketRef = useIntersectionObserver((isIntersecting) => {
     setIsTicketVisable(isIntersecting);
@@ -92,53 +94,63 @@ export default function Event() {
     return <></>;
   }
   return (
-    <div
-      className={` in-h-screen flex flex-col relative justify-center ${textColor} items-center p-4`}
-    >
-      {data.image?.asset?._ref && (
-        <ImageEventPage
-          url={urlFor(data.image.asset._ref, data.image?.hotspot)}
-          alt={data?.title || ""}
-          scale={viewScale}
-          imageMaskType={data?.imageMask || ""}
-        />
-      )}
-      <div className="static">
-        <h1 className={`font-serif  text-2xl lg:text-4xl`}>{data.title}</h1>
-      </div>
-      {data.dates && (
-        <div ref={setLabelRef}>
-          <EventLabels
-            dateObj={data.dates}
-            genre={data.eventGenre}
-            primaryText={primaryText}
-            secondaryBgColor={secondaryBgColor}
-            secondaryBorder={secondaryBorder}
-            textColor={textColor}
-            textColorBorder={textColorBorder}
+    <>
+      <div
+        className={` min-h-screen flex flex-col relative justify-center ${textColor} items-center p-4`}
+      >
+        {data.image?.asset?._ref && (
+          <ImageEventPage
+            url={urlFor(data.image.asset._ref, data.image?.hotspot)}
+            alt={data?.title || ""}
+            scale={viewScale}
+            imageMaskType={data?.imageMask || ""}
           />
+        )}
+        <div className="static">
+          <h1 className={`font-serif  text-2xl lg:text-4xl`}>{data.title}</h1>
         </div>
-      )}
-      {data.text && (
-        <PortableTextComponent
-          textData={data.text}
-          textStyle={portabletextStyle}
-        />
-      )}
-
-      {data.dates && (
-        <div ref={setTicketRef}>
-          <Tickets dateTickets={data.dates} />
-        </div>
-      )}
-      {!isLabelVisable && !isTicketVisable && (
-        <div className="sticky bottom-24 w-full md:left-auto flex flex-col items-center md:items-start bg-red-400 md:w-20 z-10 text-2xl font-serif">
-          <div className="md:relative md:bottom-0 md:left-0 bg-red-400 p-3 h-[5vh]">
-            <button onClick={handleScroll}>Kjøp</button>
+        {data.dates && (
+          <div ref={setLabelRef}>
+            <EventLabels
+              dateObj={data.dates}
+              genre={data.eventGenre}
+              primaryText={primaryText}
+              secondaryBgColor={secondaryBgColor}
+              secondaryBorder={secondaryBorder}
+              textColor={textColor}
+              textColorBorder={textColorBorder}
+            />
           </div>
+        )}
+        {data.text && (
+          <PortableTextComponent
+            textData={data.text}
+            textStyle={portabletextStyle}
+          />
+        )}
+
+        {data.dates && (
+          <div ref={setTicketRef}>
+            <Tickets dateTickets={data.dates} />
+          </div>
+        )}
+        {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
+      </div>
+
+      {!isLabelVisable && !isTicketVisable && (
+        <div
+          className={`sticky bottom-12 md:bottom-14 md:w-[100px] p-2 z-10 w-full flex flex-col ${textColor} text-center items-center md:items-start bg-red-400 text-lg lg:text-xl font-serif`}
+        >
+          <button onClick={handleScroll}>{t(text.allEvents)}</button>
         </div>
       )}
-      {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
-    </div>
+    </>
   );
 }
+
+const text = {
+  allEvents: {
+    en: "Buy ticket",
+    nb: "Kjøp billett",
+  },
+};
