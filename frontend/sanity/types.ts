@@ -86,7 +86,9 @@ export type Review = {
 
 export type ImageMask = "smallImageNotCoveringScreen" | "bigImageCoveringScreen";
 
-export type ColorCombination = "darkBluePrimaryGreenSecondary" | "lightRedPrimaryDarkBlueSecondary";
+export type ColorCombinationsNight = "nightThemePurpleWhite" | "nightThemeBlueYellow";
+
+export type ColorCombinationsDay = "dayThemeBlueBlack" | "dayThemePeachBlue";
 
 export type MetaDescription = string;
 
@@ -367,36 +369,6 @@ export type Programpage = {
   _rev: string;
   title: string;
   language?: string;
-  text?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  } | {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "customImage";
-    _key: string;
-  }>;
   links?: Array<{
     _ref: string;
     _type: "reference";
@@ -472,12 +444,8 @@ export type Infopage = {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
+    _key: string;
     [internalGroqTypeReferenceTo]?: "article";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "infopage";
   }>;
 };
 
@@ -520,7 +488,7 @@ export type Article = {
   _rev: string;
   title: string;
   language?: string;
-  colorCombination?: ColorCombination;
+  colorCombinationsDay?: ColorCombinationsDay;
   slug?: Slug;
   text?: Content;
   image?: {
@@ -560,7 +528,7 @@ export type Event = {
   title: string;
   language?: string;
   eventGenre?: EventGenre;
-  colorCombination?: ColorCombination;
+  colorCombinationsNight?: ColorCombinationsNight;
   imageMask?: ImageMask;
   slug?: Slug;
   preamble?: string;
@@ -619,8 +587,7 @@ export type InternationalizedArrayReference = Array<{
   _key: string;
 } & InternationalizedArrayReferenceValue>;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | ColorCombination | MetaDescription | MetaTitle | Video | RoleGroups | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Role | Infopage | Frontpage | Article | Event | Document | CustomImage | Slug | InternationalizedArrayReference;
-
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | ColorCombinationsNight | ColorCombinationsDay | MetaDescription | MetaTitle | Video | RoleGroups | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Role | Infopage | Frontpage | Article | Event | Document | CustomImage | Slug | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -633,7 +600,7 @@ export type ARTICLES_QUERYResult = Array<{
   _rev: string;
   title: string;
   language?: string;
-  colorCombination?: ColorCombination;
+  colorCombinationsDay?: ColorCombinationsDay;
   slug?: Slug;
   text?: Content;
   image?: {
@@ -673,7 +640,7 @@ export type ARTICLE_QUERYResult = {
   _rev: string;
   title: string;
   language?: string;
-  colorCombination?: ColorCombination;
+  colorCombinationsDay?: ColorCombinationsDay;
   slug?: Slug;
   text: Array<{
     _ref: string;
@@ -732,7 +699,7 @@ export type ARTICLE_QUERYResult = {
     title: string;
     language?: string;
     eventGenre?: EventGenre;
-    colorCombination?: ColorCombination;
+    colorCombinationsNight?: ColorCombinationsNight;
     imageMask?: ImageMask;
     slug?: Slug;
     preamble?: string;
@@ -776,7 +743,7 @@ export type EVENTS_QUERYResult = Array<{
   title: string;
   language?: string;
   eventGenre?: EventGenre;
-  colorCombination?: ColorCombination;
+  colorCombinationsNight?: ColorCombinationsNight;
   imageMask?: ImageMask;
   slug?: Slug;
   preamble?: string;
@@ -816,7 +783,7 @@ export type EVENT_QUERYResult = {
   title: string;
   language?: string;
   eventGenre?: EventGenre;
-  colorCombination?: ColorCombination;
+  colorCombinationsNight?: ColorCombinationsNight;
   imageMask?: ImageMask;
   slug?: Slug;
   preamble?: string;
@@ -946,7 +913,7 @@ export type INFOPAGE_QUERYResult = {
     _rev: string;
     title: string;
     language?: string;
-    colorCombination?: ColorCombination;
+    colorCombinationsDay?: ColorCombinationsDay;
     slug: Slug | null;
     text?: Content;
     image?: {
@@ -975,56 +942,6 @@ export type INFOPAGE_QUERYResult = {
     };
     metaTitle: MetaTitle;
     metaDescription: MetaDescription;
-  } | {
-    _id: string;
-    _type: "infopage";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
-    title: string;
-    language?: string;
-    text?: Array<{
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt: string;
-      _type: "customImage";
-      _key: string;
-    } | {
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-    links?: Array<{
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "article";
-    } | {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "infopage";
-    }>;
-    slug: null;
   }> | null;
 } | null;
 // Source: ../frontend/app/queries/program-queries.ts
@@ -1032,36 +949,7 @@ export type INFOPAGE_QUERYResult = {
 // Query: *[_type=="programpage" && language==$lang]{title, text, links[]->{title, slug}}[0]
 export type PROGRAMPAGE_QUERYResult = {
   title: string;
-  text: Array<{
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "customImage";
-    _key: string;
-  } | {
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }> | null;
+  text: null;
   links: Array<{
     title: string;
     slug: Slug | null;
