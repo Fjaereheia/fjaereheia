@@ -31,7 +31,6 @@ type ErrorWithStatus = {
 
 export function ErrorBoundary() {
   const error = useRouteError() as ErrorWithStatus;
-  console.debug(error);
 
   return (
     <>
