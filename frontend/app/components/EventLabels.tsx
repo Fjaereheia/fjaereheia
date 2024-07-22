@@ -56,7 +56,7 @@ export const EventLabels = ({ dateObj, genre }: Props) => {
           <div className="left-0 pt-2 flex gap-4 sm:float-start">
             {genre && (
               <div className="-mr-2 p-2 border border-[#F8F8F8]">
-                {genre}.toUpperCase()
+                {genre.toUpperCase()}
               </div>
             )}
 
