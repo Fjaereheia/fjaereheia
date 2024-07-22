@@ -51,6 +51,7 @@ export const EventLabels = ({
         <div className="prose mr-auto sm:m-0 font-serif  lg:text-lg py-2">
           <div className="flex gap-4 sm:float-start  pt-2 sm:pr-2">
             <div className={`border p-2 ${textColorBorder} ${textColor} `}>
+
               {dateObj.length === 1 ? (
                 formattedDate.toUpperCase()
               ) : (
@@ -77,6 +78,7 @@ export const EventLabels = ({
 
             <button
               onClick={handleScroll}
+
               className={`p-1 border ${secondaryBorder} ${secondaryBgColor} ${primaryText} font-bold `}
             >
               {t(texts.buyTicket).toUpperCase()}
