@@ -1,9 +1,8 @@
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
-import { useLoaderData, useParams } from "@remix-run/react";
+import { Link, useLoaderData, useParams } from "@remix-run/react";
 import { Custom_ARTICLE_QUERYResult } from "sanity/types";
 import { getBackgroundColor } from "~/utils/colorCombinations";
 import { getArticle } from "~/queries/article-queries";
-import ButtonLink from "~/components/ButtonLink";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import MuxPlayer from "@mux/mux-player-react";
@@ -80,14 +79,15 @@ export default function Article() {
         )}
         {data?.text && <PortableTextComponent textData={data.text} />}
         {data?.event && (
-          <ButtonLink
-            url={
+          <Link
+            to={
               params.lang == "en"
                 ? `/en/event/${data.event?.slug?.current}`
                 : `/event/${data.event?.slug?.current}`
             }
-            buttonText={t(texts.readMore)}
-          />
+          >
+            <button>{t(texts.readMore)}</button>
+          </Link>
         )}
       </div>
     </div>
