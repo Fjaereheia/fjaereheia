@@ -8,6 +8,7 @@ import { createTexts, useTranslation } from "~/utils/i18n";
 import urlFor from "~/utils/imageUrlBuilder";
 import ArrowUp from "/arrow-up.svg";
 import ArrowDown from "/arrow-down.svg";
+import { motion } from "framer-motion";
 
 interface RoleDropDownProps {
   roleGroups: Array<{
@@ -37,11 +38,11 @@ export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
   const [openRoleStates, setOpenRoleStates] = useState(
     Array(roleGroups.length).fill(false)
   );
-
   const toggleDropDown = (index: number) => {
-    setOpenRoleStates((prev) =>
-      prev.map((state, i) => (i === index ? !state : state))
-    );
+    setOpenRoleStates((prev) => {
+      const newStates = prev.map((state, i) => (i === index ? !state : state));
+      return newStates;
+    });
   };
 
   return (
@@ -58,11 +59,25 @@ export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
             <img
               className="w-6 h-6 self-center justify-self-end"
               src={openRoleStates[index] ? ArrowUp : ArrowDown}
-              alt={openRoleStates[index] ? "Arrow Up" : "Arrow Down"}
+              alt={
+                openRoleStates[index]
+                  ? t(texts.roleDropDownAltUp)
+                  : t(texts.roleDropDownAltDown)
+              }
             />
           </button>
-          {openRoleStates[index] && (
-            <div key={index} className="m-4 mb-10">
+          <motion.div
+            key={index}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{
+              display: openRoleStates[index] ? "block" : "none",
+              height: openRoleStates[index] ? "auto" : 0,
+              opacity: openRoleStates[index] ? 1 : 0,
+            }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div id={index.toString()} className="m-4 mb-10">
               {roleGroup.roles?.map((role, roleIndex) => (
                 <div key={roleIndex} className="flex flex-row mt-8 gap-6">
                   <img
@@ -78,7 +93,7 @@ export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
                 </div>
               ))}
             </div>
-          )}
+          </motion.div>
         </div>
       ))}
     </div>
