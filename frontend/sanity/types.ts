@@ -505,6 +505,18 @@ export type Frontpage = {
     _type: "customImage";
   };
   text?: Content;
+  svgTitle?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "customImage";
+  };
   event?: {
     _ref: string;
     _type: "reference";
@@ -566,6 +578,18 @@ export type Event = {
   colorCombinationsNight?: ColorCombinationsNight;
   imageMask?: ImageMask;
   slug?: Slug;
+  svgTitle?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "customImage";
+  };
   preamble?: string;
   dates: Array<{
     date: string;
@@ -793,6 +817,18 @@ export type ARTICLE_QUERYResult = {
     colorCombinationsNight?: ColorCombinationsNight;
     imageMask?: ImageMask;
     slug?: Slug;
+    svgTitle?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt: string;
+      _type: "customImage";
+    };
     preamble?: string;
     dates: Array<{
       date: string;
@@ -839,6 +875,18 @@ export type EVENTS_QUERYResult = Array<{
   colorCombinationsNight?: ColorCombinationsNight;
   imageMask?: ImageMask;
   slug?: Slug;
+  svgTitle?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "customImage";
+  };
   preamble?: string;
   dates: Array<{
     date: string;
@@ -881,6 +929,18 @@ export type EVENT_QUERYResult = {
   colorCombinationsNight?: ColorCombinationsNight;
   imageMask?: ImageMask;
   slug?: Slug;
+  svgTitle?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "customImage";
+  };
   preamble?: string;
   dates: Array<{
     date: string;

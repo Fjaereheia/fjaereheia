@@ -1,4 +1,5 @@
 import {defineType, defineField, Rule} from 'sanity'
+import customImage from './objects/customImage'
 
 export const frontpage = defineType({
   name: 'frontpage',
@@ -46,6 +47,12 @@ export const frontpage = defineType({
           }
           return true
         }),
+    }),
+    defineField({
+      name: 'svgTitle',
+      title: 'Stor tittel',
+      description: 'SVG filer av tittel',
+      type: 'customImage',
     }),
     defineField({
       name: 'event',
