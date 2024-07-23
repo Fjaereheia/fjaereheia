@@ -78,7 +78,7 @@ export default function Index() {
           <Newsletter />
         </div>
 
-        <div className={`flex flex-1 flex-col items-center ${styling}`}>
+        <div className={`flex flex-1 flex-col items-center ${styling} mx-4`}>
           <img
             className="lg:w-1/3"
             src={SvgUrl}
