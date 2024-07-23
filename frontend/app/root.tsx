@@ -6,9 +6,8 @@ import {
   ScrollRestoration,
   useRouteError,
   redirect,
-  useLocation,
-  json,
   useRouteLoaderData,
+  json,
 } from "@remix-run/react";
 import "./styles/app.css";
 import StickyFooter from "./components/StickyFooter";
@@ -17,7 +16,11 @@ import PageNotFound from "./components/PageNotFound";
 import { LoaderFunction } from "@remix-run/node";
 import { motion } from "framer-motion";
 import { usePageTransition } from "./utils/pageTransition";
-import { getLanguageFromPath, LanguageProvider } from "./utils/i18n";
+import {
+  getLanguageFromPath,
+  LanguageProvider,
+  useTranslation,
+} from "./utils/i18n";
 import {
   BackgroundColorProvider,
   useBackgroundColor,
@@ -31,7 +34,7 @@ type ErrorWithStatus = {
 
 export function ErrorBoundary() {
   const error = useRouteError() as ErrorWithStatus;
-  console.debug(error);
+  console.error(error);
 
   return (
     <>
@@ -60,14 +63,12 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (pathname.endsWith("/") && pathname.length > 1) {
     throw redirect(`${pathname.slice(0, -1)}${search}`, 301);
   }
-
   const language = getLanguageFromPath(pathname);
   return json({ language });
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { pathname } = useLocation();
-  const { language } = useRouteLoaderData<typeof loader>("root");
+  const { language } = useTranslation();
   const { color } = useBackgroundColor();
 
   return (

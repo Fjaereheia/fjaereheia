@@ -51,11 +51,16 @@ export default function Index() {
   const imageUrl = urlFor(
     data?.event?.image?.asset?._ref || data?.image?.asset?._ref || ""
   );
+  const SvgUrl = urlFor(
+    data?.event?.svgTitle?.asset?._ref || data?.svgTitle?.asset?._ref || ""
+  );
   const { setColor } = useBackgroundColor();
   useEffect(() => {
     setColor("bg-white");
   }, [setColor]);
   const params = useParams();
+  const styling = data?.event ? "justify-end mb-6" : "justify-center";
+
   return (
     <div
       className="bg-cover bg-center bg-no-repeat h-screen w-full"
@@ -72,12 +77,15 @@ export default function Index() {
           <Newsletter />
         </div>
 
-        <div className="mt-auto">
-          <h1 className="flex flex-col mx-4 text-center text-white text-5xl lg:text-8xl ">
-            {data?.event?.title || data?.title}
-          </h1>
+        <div className={`flex flex-1 flex-col items-center ${styling} mx-4`}>
+          <img
+            className="lg:w-1/3"
+            src={SvgUrl}
+            alt={data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"}
+          />
 
-          <div className="flex flex-row justify-center content-center  w-full">
+          <div className="flex flex-row justify-center content-center  w-full mt-4">
+
             <Link to={params.lang == "en" ? "/en/info" : "/info"}>
               <button
                 className="text-white w-48  text-right px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl"

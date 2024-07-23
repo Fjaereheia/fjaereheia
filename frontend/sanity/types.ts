@@ -369,6 +369,18 @@ export type Programpage = {
   _rev: string;
   title: string;
   language?: string;
+  gif?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "customImage";
+  };
   links?: Array<{
     _ref: string;
     _type: "reference";
@@ -470,6 +482,18 @@ export type Frontpage = {
     _type: "customImage";
   };
   text?: Content;
+  svgTitle?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "customImage";
+  };
   event?: {
     _ref: string;
     _type: "reference";
@@ -531,6 +555,18 @@ export type Event = {
   colorCombinationsNight?: ColorCombinationsNight;
   imageMask?: ImageMask;
   slug?: Slug;
+  svgTitle?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "customImage";
+  };
   preamble?: string;
   dates: Array<{
     date: string;
@@ -702,6 +738,18 @@ export type ARTICLE_QUERYResult = {
     colorCombinationsNight?: ColorCombinationsNight;
     imageMask?: ImageMask;
     slug?: Slug;
+    svgTitle?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt: string;
+      _type: "customImage";
+    };
     preamble?: string;
     dates: Array<{
       date: string;
@@ -746,6 +794,18 @@ export type EVENTS_QUERYResult = Array<{
   colorCombinationsNight?: ColorCombinationsNight;
   imageMask?: ImageMask;
   slug?: Slug;
+  svgTitle?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "customImage";
+  };
   preamble?: string;
   dates: Array<{
     date: string;
@@ -786,6 +846,18 @@ export type EVENT_QUERYResult = {
   colorCombinationsNight?: ColorCombinationsNight;
   imageMask?: ImageMask;
   slug?: Slug;
+  svgTitle?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "customImage";
+  };
   preamble?: string;
   dates: Array<{
     date: string;
@@ -946,10 +1018,22 @@ export type INFOPAGE_QUERYResult = {
 } | null;
 // Source: ../frontend/app/queries/program-queries.ts
 // Variable: PROGRAMPAGE_QUERY
-// Query: *[_type=="programpage" && language==$lang]{title, text, links[]->{title, slug}}[0]
+// Query: *[_type=="programpage" && language==$lang]{title, text,gif, links[]->{title, slug}}[0]
 export type PROGRAMPAGE_QUERYResult = {
   title: string;
   text: null;
+  gif: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "customImage";
+  } | null;
   links: Array<{
     title: string;
     slug: Slug | null;

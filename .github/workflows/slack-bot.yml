@@ -20,19 +20,6 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
-  sendMessageReview:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Post to a Slack channel
-        id: slack
-        if: "${{github.event.action == 'review_requested'}}"
-        uses: slackapi/slack-github-action@v1.26.0
-        with:
-          channel-id: "C079LPG4YJE"
-          slack-message: "🔍 ${{ github.event.pull_request.title }} \nRequested review from:  ${{ github.event.pull_request.requested_reviewers[0].login|| 'N/A'}}  \nLink:${{ github.event.pull_request._links.html.href}}"
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-
   sendMessageClosed:
     runs-on: ubuntu-latest
     steps:

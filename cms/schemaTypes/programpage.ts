@@ -21,6 +21,12 @@ export const programpage = defineType({
       hidden: true,
     }),
     defineField({
+      name: 'gif',
+      title: 'GIF',
+      type: 'customImage',
+      description: 'GIF som ligger bak programmet',
+    }),
+    defineField({
       name: 'links',
       title: 'Forestillinger',
       type: 'array',

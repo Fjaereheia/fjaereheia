@@ -1,5 +1,6 @@
 //Inspired by @vygruppen/spor-react i18n package
 
+import { useLocation } from "@remix-run/react";
 import React, { createContext, useContext } from "react";
 
 export enum Language {
@@ -47,7 +48,7 @@ export function LanguageProvider({
  * @internal
  */
 function useLanguage() {
-  const language = useContext(LanguageContext);
+  const language = getLanguageFromPath(useLocation().pathname);
   if (!language) {
     throw new Error("Please wrap your application in a LanguageProvider");
   }
