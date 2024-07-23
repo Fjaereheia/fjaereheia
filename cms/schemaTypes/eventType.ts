@@ -55,7 +55,7 @@ export const eventType = defineType({
     }),
     defineField({
       name: 'svgTitle',
-      title: 'Big header',
+      title: 'Stor tittel',
       description: 'SVG filer av tittel',
       type: 'customImage',
     }),

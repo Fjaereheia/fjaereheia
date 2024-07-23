@@ -50,7 +50,7 @@ export const frontpage = defineType({
     }),
     defineField({
       name: 'svgTitle',
-      title: 'Big header',
+      title: 'Stor tittel',
       description: 'SVG filer av tittel',
       type: 'customImage',
     }),
