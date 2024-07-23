@@ -94,49 +94,50 @@ export default function Event() {
     return <></>;
   }
   return (
-    <div
-      className={`min-h-screen flex flex-col relative justify-center ${textColor} items-center p-4`}
-    >
-      {data.image?.asset?._ref && (
-        <ImageEventPage
-          url={urlFor(data.image.asset._ref, data.image?.hotspot)}
-          alt={data?.title || ""}
-          scale={viewScale}
-          imageMaskType={data?.imageMask || ""}
-        />
-      )}
+    <>
       <div
-        className={`flex flex-col relative justify-center ${textColor} items-center gap-6`}
+        className={`min-h-screen flex flex-col relative justify-center ${textColor} items-center p-4`}
       >
-        <div className="static">
-          <h1 className={`font-serif text-2xl lg:text-4xl`}>{data.title}</h1>
-        </div>
-        {data.dates && (
-          <EventLabels
-            dateObj={data.dates}
-            genre={data.eventGenre}
-            primaryText={primaryText}
-            secondaryBgColor={secondaryBgColor}
-            secondaryBorder={secondaryBorder}
-            textColor={textColor}
-            textColorBorder={textColorBorder}
+        {data.image?.asset?._ref && (
+          <ImageEventPage
+            url={urlFor(data.image.asset._ref, data.image?.hotspot)}
+            alt={data?.title || ""}
+            scale={viewScale}
+            imageMaskType={data?.imageMask || ""}
           />
         )}
-        {data.text && (
-          <PortableTextComponent
-            textData={data.text}
-            textStyle={portabletextStyle}
-          />
-        )}
-
-        {data.dates && (
-          <div ref={setTicketRef}>
-            <Tickets dateTickets={data.dates} />
+        <div
+          className={`flex flex-col relative justify-center ${textColor} items-center gap-6`}
+        >
+          <div className="static">
+            <h1 className={`font-serif text-2xl lg:text-4xl`}>{data.title}</h1>
           </div>
-        )}
-        {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
-      </div>
+          {data.dates && (
+            <EventLabels
+              dateObj={data.dates}
+              genre={data.eventGenre}
+              primaryText={primaryText}
+              secondaryBgColor={secondaryBgColor}
+              secondaryBorder={secondaryBorder}
+              textColor={textColor}
+              textColorBorder={textColorBorder}
+            />
+          )}
+          {data.text && (
+            <PortableTextComponent
+              textData={data.text}
+              textStyle={portabletextStyle}
+            />
+          )}
 
+          {data.dates && (
+            <div className={`flex self-start`} ref={setTicketRef}>
+              <Tickets dateTickets={data.dates} />
+            </div>
+          )}
+          {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
+        </div>
+      </div>
       {!isLabelVisable && !isTicketVisable && (
         <div
           className={`sticky bottom-12 md:bottom-24 md:w-[100px] p-2 z-10 w-full flex flex-col ${textColor} text-center items-center md:items-start bg-red-400 text-lg lg:text-xl font-serif lg:left-32 2xl:left-1/4`}
@@ -144,7 +145,7 @@ export default function Event() {
           <button onClick={handleScroll}>{t(text.allEvents)}</button>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
@@ -152,5 +153,15 @@ const text = {
   allEvents: {
     en: "Buy ticket",
     nb: "Kjøp billett",
+  },
+};
+const genres = {
+  konsert: {
+    en: "Concert",
+    nb: "Konsert",
+  },
+  skuespill: {
+    en: "Play",
+    nb: "Skuespill",
   },
 };
