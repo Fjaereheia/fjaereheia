@@ -54,6 +54,12 @@ export const eventType = defineType({
       group: 'seo',
     }),
     defineField({
+      name: 'svgTitle',
+      title: 'Big header',
+      description: 'SVG filer av tittel',
+      type: 'customImage',
+    }),
+    defineField({
       name: 'preamble',
       title: 'Ingress',
       type: 'string',
