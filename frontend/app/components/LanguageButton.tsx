@@ -1,10 +1,14 @@
-import { useParams } from "@remix-run/react";
+import { useLocation, useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
 
 export default function LanguageButton() {
   const [isEnglish, setIsEnglish] = useState<boolean>(false);
   const params = useParams();
-
+  const location = useLocation();
+  const blackText =
+    location.pathname.includes("/artikler") ||
+    location.pathname.includes("/info");
+  const textColor = blackText ? "text-black" : "text-white";
   useEffect(() => {
     setIsEnglish(params.lang === "en");
   }, [params]);
@@ -27,7 +31,7 @@ export default function LanguageButton() {
   }
 
   return (
-    <div className="absolute top-0 right-0 m-4 text-white">
+    <div className={`absolute top-0 right-0 m-4 ${textColor}`}>
       <button
         onClick={() => setLanguage("NO")}
         disabled={!isEnglish}
