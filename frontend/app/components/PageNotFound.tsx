@@ -1,17 +1,18 @@
 import { useTranslation } from "~/utils/i18n";
-import Button from "./ButtonLink";
+import { Link, useParams } from "@remix-run/react";
 
 export default function PageNotFound() {
   const { t } = useTranslation();
+  const params = useParams();
   return (
     <div className="h-screen bg-newsletter flex flex-col items-center justify-center">
       <h1 className="text-6xl text-white">{t(texts.notFound)}</h1>
       <p className="mt-4n text-white">{t(texts.notFoundText)}</p>
-      <Button
-        url="/"
-        buttonText={t(texts.backToMain)}
-        styling="text-xl text-white underline mt-6"
-      />
+      <Link to={params.lang == "en" ? "/en" : "/"}>
+        <button className="text-xl text-white underline mt-6">
+          {t(texts.backToMain)}
+        </button>
+      </Link>
     </div>
   );
 }
