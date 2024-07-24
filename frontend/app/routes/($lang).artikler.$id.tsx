@@ -1,7 +1,7 @@
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData, useParams } from "@remix-run/react";
 import { Custom_ARTICLE_QUERYResult } from "sanity/types";
-import { getBackgroundColor } from "~/utils/colorCombinations";
+import { getBackgroundColor, getColor } from "~/utils/colorCombinations";
 import { getArticle } from "~/queries/article-queries";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
@@ -46,6 +46,7 @@ export default function Article() {
   const data = useLoaderData<typeof loader>() as Custom_ARTICLE_QUERYResult;
   const bgColor = getBackgroundColor(data?.colorCombinationsDay);
   const { setColor } = useBackgroundColor();
+  const { textColor } = getColor(data?.colorCombinationsDay);
   useEffect(() => {
     setColor(bgColor);
   }, [setColor]);

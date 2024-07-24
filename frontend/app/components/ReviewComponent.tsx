@@ -1,4 +1,5 @@
 import Quotes from "/quote.svg";
+import { useLocation } from "@remix-run/react";
 
 export default function ReviewComponent({
   review,
@@ -11,18 +12,30 @@ export default function ReviewComponent({
     date?: string;
     link?: string;
   };
+  textColor?: string;
 }) {
+  const location = useLocation();
+  const isProgramPage =
+    location.pathname.includes("/event") ||
+    location.pathname.includes("/program");
+  const styleBlock = isProgramPage
+    ? "border-none grid grid-flow-row place-items-center text-center text-white"
+    : "border-none grid grid-flow-row place-items-center text-center text-black";
+  const styleLink = isProgramPage
+    ? "not-italic text-white"
+    : "not-italic text-black";
+
   return (
-    <blockquote className="border-none grid grid-flow-row place-items-center text-white text-center">
+    <blockquote className={styleBlock}>
       <img src={Quotes} alt="" />
       <span className="font-bold text-4xl">{review.content}</span>
       <span className="not-italic">{review.source}</span>
       {review.link ? (
-        <a href={review.link} className="not-italic text-white">
+        <a href={review.link} className={styleLink}>
           {review.company}
         </a>
       ) : (
-        <span className="underline not-italic">{review.company}</span>
+        <span className={`underline not-italic`}>{review.company}</span>
       )}
     </blockquote>
   );

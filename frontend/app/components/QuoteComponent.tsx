@@ -1,4 +1,5 @@
 import Quotes from "/quote.svg";
+import { useLocation } from "@remix-run/react";
 
 export default function QuoteComponent({
   quote,
@@ -10,8 +11,15 @@ export default function QuoteComponent({
     date?: string | undefined;
   };
 }) {
+  const location = useLocation();
+  const isProgramPage =
+    location.pathname.includes("/event") ||
+    location.pathname.includes("/program");
+  const styleBlock = isProgramPage
+    ? "border-none grid grid-flow-row place-items-center text-center text-white"
+    : "border-none grid grid-flow-row place-items-center text-center text-black";
   return (
-    <blockquote className="border-none grid grid-flow-row place-items-center text-center">
+    <blockquote className={styleBlock}>
       <img src={Quotes} alt="" />
       <span className="font-bold text-4xl">{quote.content}</span>
       <span className="not-italic">{quote.source}</span>
