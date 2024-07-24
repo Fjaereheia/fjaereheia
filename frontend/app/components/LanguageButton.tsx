@@ -1,5 +1,6 @@
 import { useLocation, useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
+import { useSlugContext } from "~/utils/i18n/SlugProvider";
 
 export default function LanguageButton() {
   const [isEnglish, setIsEnglish] = useState<boolean>(false);
@@ -9,6 +10,7 @@ export default function LanguageButton() {
     location.pathname.includes("/artikler") ||
     location.pathname.includes("/info");
   const textColor = blackText ? "text-black" : "text-white";
+  const { slug } = useSlugContext();
   useEffect(() => {
     setIsEnglish(params.lang === "en");
   }, [params]);
@@ -24,6 +26,18 @@ export default function LanguageButton() {
     } else {
       path = path.replace("/en", "");
       setIsEnglish(false);
+    }
+
+    if (path.includes("/event/")) {
+      let pathSegments = path.split("/");
+      pathSegments[pathSegments.length - 1] =
+        slug ?? pathSegments[pathSegments.length - 1];
+      path = pathSegments.join("/");
+    } else if (path.includes("/artikler/")) {
+      let pathSegments = path.split("/");
+      pathSegments[pathSegments.length - 1] =
+        slug ?? pathSegments[pathSegments.length - 1];
+      path = pathSegments.join("/");
     }
 
     url.pathname = path;

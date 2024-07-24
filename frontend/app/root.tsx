@@ -26,6 +26,7 @@ import {
   useBackgroundColor,
 } from "./utils/backgroundColor";
 import LanguageButton from "./components/LanguageButton";
+import { SlugProvider } from "./utils/i18n/SlugProvider";
 
 type ErrorWithStatus = {
   status?: number;
@@ -95,22 +96,24 @@ export default function App() {
   return (
     <LanguageProvider language={language}>
       <BackgroundColorProvider>
-        <motion.div
-          key={pathname}
-          initial={{ x: slideDirection * 100 + "%" }}
-          animate={{ x: 0 }}
-          exit={{
-            x: slideDirection * -100 + "%",
-          }}
-          transition={{
-            duration: 0.5,
-          }}
-        >
-          <Header />
-          <LanguageButton />
-          <Outlet />
-          <StickyFooter infoUrl="/info" programUrl="/program" />
-        </motion.div>
+        <SlugProvider>
+          <motion.div
+            key={pathname}
+            initial={{ x: slideDirection * 100 + "%" }}
+            animate={{ x: 0 }}
+            exit={{
+              x: slideDirection * -100 + "%",
+            }}
+            transition={{
+              duration: 0.5,
+            }}
+          >
+            <Header />
+            <LanguageButton />
+            <Outlet />
+            <StickyFooter infoUrl="/info" programUrl="/program" />
+          </motion.div>
+        </SlugProvider>
       </BackgroundColorProvider>
     </LanguageProvider>
   );

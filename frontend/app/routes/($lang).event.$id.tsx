@@ -13,6 +13,7 @@ import { getEvent } from "~/queries/event-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 import useIntersectionObserver from "~/utils/ticketsVisability";
 import { useTranslation } from "~/utils/i18n";
+import { useSlugContext } from "~/utils/i18n/SlugProvider";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
@@ -51,7 +52,7 @@ export default function Event() {
   const [isTicketVisable, setIsTicketVisable] = useState(false);
   const [isLabelVisable, setIsLabelVisalbe] = useState(false);
   const [viewScale, setViewScale] = useState(1);
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   const setTicketRef = useIntersectionObserver((isIntersecting) => {
     setIsTicketVisable(isIntersecting);
@@ -65,6 +66,7 @@ export default function Event() {
       target.scrollIntoView({ behavior: "smooth" });
     }
   };
+
   const {
     bgColor,
     primaryText,
@@ -75,8 +77,11 @@ export default function Event() {
     portabletextStyle,
   } = getColor(data?.colorCombinationsNight);
   const { setColor } = useBackgroundColor();
+  const { setSlug } = useSlugContext();
+
   useEffect(() => {
     setColor(bgColor);
+    setSlug(language, data?._translations as any);
   }, [setColor]);
   useEffect(() => {
     const updateViewScale = () => {
