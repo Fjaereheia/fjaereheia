@@ -35,6 +35,7 @@ export default function Program() {
           <img
             src={gifUrl}
             className="absolute w-2/3 right-[10vw] bottom-[25vh] sm:w-1/3  lg:w-1/4 lg:right-[20vw]  lg:bottom-[10vh]"
+            alt={data.gif.alt}
           />
         )}
 
