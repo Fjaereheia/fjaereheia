@@ -1,4 +1,5 @@
-import Quotes from "/quote.svg";
+import WhiteQuote from "~/assets/whiteQuote";
+import BlackQuote from "~/assets/BlackQuote";
 import { useLocation } from "@remix-run/react";
 
 export default function QuoteComponent({
@@ -20,7 +21,7 @@ export default function QuoteComponent({
     : "border-none grid grid-flow-row place-items-center text-center text-black";
   return (
     <blockquote className={styleBlock}>
-      <img src={Quotes} alt="" />
+      {isProgramPage ? <WhiteQuote /> : <BlackQuote />}
       <span className="font-bold text-4xl">{quote.content}</span>
       <span className="not-italic">{quote.source}</span>
       <span className="underline not-italic">{quote.company}</span>

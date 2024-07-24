@@ -1,4 +1,5 @@
-import Quotes from "/quote.svg";
+import WhiteQuote from "~/assets/whiteQuote";
+import BlackQuote from "~/assets/BlackQuote";
 import { useLocation } from "@remix-run/react";
 
 export default function ReviewComponent({
@@ -27,7 +28,7 @@ export default function ReviewComponent({
 
   return (
     <blockquote className={styleBlock}>
-      <img src={Quotes} alt="" />
+      {isProgramPage ? <WhiteQuote /> : <BlackQuote />}
       <span className="font-bold text-4xl">{review.content}</span>
       <span className="not-italic">{review.source}</span>
       {review.link ? (
