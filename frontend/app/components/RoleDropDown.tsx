@@ -36,7 +36,7 @@ export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
   const { t } = useTranslation();
   const [openRole, setOpenRole] = useState(false);
   return (
-    <div className="border m-4">
+    <div className="border self-start">
       <button
         className="w-80 h-16 py-4 px-6 grid grid-flow-col"
         onClick={() => setOpenRole(!openRole)}
