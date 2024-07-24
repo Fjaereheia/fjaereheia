@@ -45,6 +45,9 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Article() {
   const data = useLoaderData<typeof loader>() as Custom_ARTICLE_QUERYResult;
+  if (!data) {
+    return <></>;
+  }
   const bgColor = getBackgroundColor(data?.colorCombinationsDay);
   const { language } = useTranslation();
   const { setColor } = useBackgroundColor();
@@ -57,9 +60,6 @@ export default function Article() {
   const { t } = useTranslation();
   const params = useParams();
 
-  if (!data) {
-    return <></>;
-  }
   return (
     <div
       className={`${getBackgroundColor(

@@ -49,6 +49,11 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
+
+  if (!data) {
+    return <></>;
+  }
+
   const [isTicketVisable, setIsTicketVisable] = useState(false);
   const [isLabelVisable, setIsLabelVisalbe] = useState(false);
   const [viewScale, setViewScale] = useState(1);
@@ -79,9 +84,13 @@ export default function Event() {
   const { setColor } = useBackgroundColor();
   const { setSlug } = useSlugContext();
 
+  if (!data) {
+    return <></>;
+  }
+
   useEffect(() => {
     setColor(bgColor);
-    setSlug(language, data?._translations as any);
+    setSlug(language, data?._translations);
   }, [setColor]);
   useEffect(() => {
     const updateViewScale = () => {
@@ -95,9 +104,6 @@ export default function Event() {
     window.addEventListener("resize", updateViewScale);
   }, [viewScale]);
 
-  if (!data) {
-    return <></>;
-  }
   return (
     <>
       <div
