@@ -21,23 +21,10 @@ export const infopage = defineType({
       hidden: true,
     }),
     defineField({
-      name: 'text',
-      title: 'Tekst',
-      type: 'array',
-      description: 'Innhold',
-      of: [
-        {
-          type: 'block',
-        },
-        {
-          type: 'customImage',
-        },
-      ],
-    }),
-    defineField({
       name: 'links',
       title: 'Undersider',
       type: 'array',
+      description: 'Velg hvilke undersider, av typen Artikler, som skal vises på Informasjonssiden',
       of: [
         {
           type: 'reference',

@@ -21,14 +21,9 @@ export const programpage = defineType({
       hidden: true,
     }),
     defineField({
-      name: 'gif',
-      title: 'GIF',
-      type: 'customImage',
-      description: 'GIF som ligger bak programmet',
-    }),
-    defineField({
       name: 'links',
       title: 'Forestillinger',
+      description: 'Velg forestillinger som skal vises på programsiden',
       type: 'array',
       of: [
         {
@@ -44,6 +39,15 @@ export const programpage = defineType({
           },
         },
       ],
+    }),
+    defineField({
+      name: 'gif',
+      title: 'GIF',
+      type: 'customImage',
+      description: 'GIF som ligger bak listen med forestillinger',
+      options: {
+        accept: '.gif',
+      },
     }),
   ],
 })

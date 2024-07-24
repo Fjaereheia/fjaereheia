@@ -903,7 +903,7 @@ export type EVENT_QUERYResult = {
 } | null;
 // Source: ../frontend/app/queries/frontpage-queries.ts
 // Variable: FRONTPAGE_QUERY
-// Query: *[_type=="frontpage" && language==$lang]{title, image, language, metaTitle, metaDescription, text, event->{title, text, image, slug, metaTitle, metaDescription}}[0]
+// Query: *[_type=="frontpage" && language==$lang]{title, image, language,svgTitle, metaTitle, metaDescription, event->{title, text, image, slug, metaTitle, metaDescription, svgTitle}}[0]
 export type FRONTPAGE_QUERYResult = {
   title: string;
   image: {
@@ -919,9 +919,20 @@ export type FRONTPAGE_QUERYResult = {
     _type: "customImage";
   };
   language: string | null;
+  svgTitle: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "customImage";
+  } | null;
   metaTitle: MetaTitle;
   metaDescription: MetaDescription;
-  text: Content | null;
   event: {
     title: string;
     text: Content | null;
@@ -940,43 +951,25 @@ export type FRONTPAGE_QUERYResult = {
     slug: Slug | null;
     metaTitle: MetaTitle;
     metaDescription: MetaDescription;
+    svgTitle: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt: string;
+      _type: "customImage";
+    } | null;
   } | null;
 } | null;
 // Source: ../frontend/app/queries/info-queries.ts
 // Variable: INFOPAGE_QUERY
-// Query: *[_type=="infopage" && language==$lang]{title, text, links[]->{..., slug}}[0]
+// Query: *[_type=="infopage" && language==$lang]{title, links[]->{..., slug}}[0]
 export type INFOPAGE_QUERYResult = {
   title: string;
-  text: Array<{
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "customImage";
-    _key: string;
-  } | {
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }> | null;
   links: Array<{
     _id: string;
     _type: "article";

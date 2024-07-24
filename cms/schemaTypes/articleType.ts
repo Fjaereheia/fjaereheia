@@ -6,7 +6,8 @@ export const articleType = defineType({
   title: 'Artikkel',
   type: 'document',
   groups: [
-    {title: 'Innhold', name: 'content'},
+    {title: 'Innhold', name: 'content', default: true},
+    {title: 'Visuelt', name: 'visual'},
     {title: 'SEO', name: 'seo'},
   ],
   fields: [
@@ -19,9 +20,9 @@ export const articleType = defineType({
         rule
           .required()
           .min(2)
-          .max(50)
+          .max(100)
           .error(
-            `Tittel er påkrevd for å poste en artikkel, minimum lengde på 2 og maksimum lengde på 50 tegn`,
+            `Tittel er påkrevd for å poste en artikkel, minimum lengde på 2 og maksimum lengde på 100 tegn`,
           ),
     }),
     defineField({
@@ -34,6 +35,8 @@ export const articleType = defineType({
       name: 'colorCombinationsDay',
       title: 'Fargekombinasjon',
       type: 'colorCombinationsDay',
+      group: 'visual',
+      validation: (rule) => [rule.required().error('Må velge farger')],
     }),
     defineField({
       name: 'slug',
@@ -43,20 +46,21 @@ export const articleType = defineType({
       hidden: ({document}) => !document?.title,
       description: 'Url: fjaereheia.no/xxx',
       group: 'seo',
+      validation: (rule) => [rule.required().error('Må ha en slug')],
     }),
     defineField({
       name: 'text',
       title: 'Tekst',
       type: 'content',
-      description: 'Innhold',
+      description: 'Innhold: Mulighet for å legge inn tekst, bilde, video, sitat og anmeldelse',
       group: 'content',
     }),
     defineField({
       name: 'image',
-      title: 'Bilde',
+      title: 'Hovedbilde',
       type: 'customImage',
-      description: 'Legg til et bilde',
-      group: 'content',
+      description: 'Bildet som plasseres øverst på siden',
+      group: 'visual',
       options: {
         hotspot: true,
       },
@@ -66,10 +70,12 @@ export const articleType = defineType({
       title: 'Video',
       type: 'video',
       description: 'Legg til en video',
+      group: 'visual',
     }),
     defineField({
       name: 'event',
       type: 'reference',
+      description: 'Referer til valgt forestilling',
       to: [{type: 'event'}],
       options: {
         filter: ({document}) => {
@@ -79,7 +85,6 @@ export const articleType = defineType({
           }
         },
       },
-      description: 'Arrangement',
       group: 'content',
     }),
     defineField({
@@ -87,12 +92,14 @@ export const articleType = defineType({
       title: 'SEO tittel',
       type: 'metaTitle',
       group: 'seo',
+      validation: (rule) => [rule.required().error('Må ha SEO tittel')],
     }),
     defineField({
       name: 'metaDescription',
       title: 'SEO beskrivelse',
       type: 'metaDescription',
       group: 'seo',
+      validation: (rule) => [rule.required().error('Må ha SEO beskrivelse')],
     }),
   ],
 })
