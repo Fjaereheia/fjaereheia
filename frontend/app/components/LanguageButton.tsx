@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "@remix-run/react";
+import { redirect, useLocation, useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { useSlugContext } from "~/utils/i18n/SlugProvider";
 
@@ -15,7 +15,7 @@ export default function LanguageButton() {
     setIsEnglish(params.lang === "en");
   }, [params]);
 
-  function setLanguage(lang: "NO" | "EN" | string) {
+  async function setLanguage(lang: "NO" | "EN" | string) {
     const currentURL = window.location.href;
     const url = new URL(currentURL);
     let path = url.pathname;
@@ -30,13 +30,19 @@ export default function LanguageButton() {
 
     if (path.includes("/event/")) {
       let pathSegments = path.split("/");
-      pathSegments[pathSegments.length - 1] =
-        slug ?? pathSegments[pathSegments.length - 1];
+      if (slug) {
+        pathSegments[pathSegments.length - 1] = slug;
+      } else {
+        pathSegments[pathSegments.length - 1] = "noSlugFound";
+      }
       path = pathSegments.join("/");
     } else if (path.includes("/artikler/")) {
       let pathSegments = path.split("/");
-      pathSegments[pathSegments.length - 1] =
-        slug ?? pathSegments[pathSegments.length - 1];
+      if (slug) {
+        pathSegments[pathSegments.length - 1] = slug;
+      } else {
+        pathSegments[pathSegments.length - 1] = "noSlugFound";
+      }
       path = pathSegments.join("/");
     }
 

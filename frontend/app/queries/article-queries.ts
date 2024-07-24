@@ -15,6 +15,9 @@ export async function getArticle(params: Params<string>) {
   if (!params.lang) {
     params = { lang: "nb", id: articleID };
   }
+  if (params.id == "noSlugFound") {
+    return "No translation with this slug";
+  }
   const ARTICLE_QUERY = groq`*[_type=="article" && slug.current==$id && language==$lang][0]
     {..., text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}}, 
     video{title, muxVideo{asset->{playbackId}}},

@@ -27,21 +27,30 @@ import {
 } from "./utils/backgroundColor";
 import LanguageButton from "./components/LanguageButton";
 import { SlugProvider } from "./utils/i18n/SlugProvider";
+import NoTranslation from "./components/NoTranslation";
 
 type ErrorWithStatus = {
   status?: number;
   statusText?: string;
+  data: string;
 };
 
 export function ErrorBoundary() {
   const error = useRouteError() as ErrorWithStatus;
   console.error(error);
 
+  function ErrorSwitcher() {
+    if (error.data == "No translation found") {
+      return <NoTranslation />;
+    } else {
+      return <PageNotFound />;
+    }
+  }
   return (
     <>
       <title>404 - OPS</title>
       {error?.status === 404 ? (
-        <PageNotFound />
+        ErrorSwitcher()
       ) : (
         <div>
           <h1>Something went wrong</h1>

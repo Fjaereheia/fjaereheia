@@ -24,6 +24,12 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
+  if (event == "No translation with this slug") {
+    throw new Response("No translation found", {
+      status: 404,
+    });
+  }
+
   return json(event);
 }
 
