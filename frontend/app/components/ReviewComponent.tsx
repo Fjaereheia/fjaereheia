@@ -1,5 +1,4 @@
-import WhiteQuote from "~/assets/whiteQuote";
-import BlackQuote from "~/assets/BlackQuote";
+import QuoteMarks from "~/assets/QuoteMarks";
 import { useLocation } from "@remix-run/react";
 
 export default function ReviewComponent({
@@ -28,7 +27,11 @@ export default function ReviewComponent({
 
   return (
     <blockquote className={styleBlock}>
-      {isProgramPage ? <WhiteQuote /> : <BlackQuote />}
+      {isProgramPage ? (
+        <QuoteMarks fillColor="#FDF9F9" />
+      ) : (
+        <QuoteMarks fillColor="#000000" />
+      )}
       <span className="font-bold text-4xl">{review.content}</span>
       <span className="not-italic">{review.source}</span>
       {review.link ? (
