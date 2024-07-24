@@ -1,4 +1,4 @@
-import { redirect, useLocation, useParams } from "@remix-run/react";
+import { useLocation, useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { useSlugContext } from "~/utils/i18n/SlugProvider";
 

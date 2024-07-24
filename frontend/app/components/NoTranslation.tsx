@@ -1,5 +1,5 @@
 import { useTranslation } from "~/utils/i18n";
-import { Link, useNavigate, useParams } from "@remix-run/react";
+import { useNavigate, useParams } from "@remix-run/react";
 
 export default function NoTranslation() {
   const { t } = useTranslation();
