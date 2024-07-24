@@ -82,7 +82,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const { color } = useBackgroundColor();
 
   return (
-    <html lang={language} className="overflow-x-hidden w-full h-full">
+    <html lang={language} className="h-full">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -90,7 +90,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className={color}>
+      <body className={`${color} h-full flex flex-col`}>
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -107,6 +107,7 @@ export default function App() {
       <BackgroundColorProvider>
         <SlugProvider>
           <motion.div
+            className="h-full"
             key={pathname}
             initial={{ x: slideDirection * 100 + "%" }}
             animate={{ x: 0 }}

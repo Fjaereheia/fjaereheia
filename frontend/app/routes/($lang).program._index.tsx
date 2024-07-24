@@ -28,7 +28,7 @@ export default function Program() {
   }, [setColor]);
   const params = useParams();
   return (
-    <div className="min-h-screen flex flex-col items-center text-white relative pb-36">
+    <div className="flex flex-col items-center text-white relative">
       <h1 className="text-5xl font-bold mb-12">{data?.title}</h1>
       <div className="flex flex-col items-center font-normal gap-4 text-xl py-12 px-0">
         {data?.gif && (
