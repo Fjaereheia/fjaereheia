@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { EVENT_QUERYResult } from "sanity/types";
-import { getBackgroundColor, getColor } from "~/utils/colorCombinations";
+import { Custom_EVENT_QUERYResult } from "sanity/types";
+import { getColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
@@ -47,7 +47,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 };
 
 export default function Event() {
-  const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
+  const data = useLoaderData<typeof loader>() as Custom_EVENT_QUERYResult;
   const [isTicketVisable, setIsTicketVisable] = useState(false);
   const [isLabelVisable, setIsLabelVisalbe] = useState(false);
   const [viewScale, setViewScale] = useState(1);
@@ -88,11 +88,13 @@ export default function Event() {
     };
     updateViewScale();
     window.addEventListener("resize", updateViewScale);
-  }, [viewScale]);
+  }, []);
 
   if (!data) {
     return <></>;
   }
+
+  console.log(data);
   return (
     <>
       <div
@@ -122,7 +124,7 @@ export default function Event() {
             />
           </div>
         )}
-        {data.text && (
+        {data?.text && (
           <PortableTextComponent
             textData={data.text}
             textStyle={portabletextStyle}
