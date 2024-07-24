@@ -107,15 +107,15 @@ export function getTextColorBorder(colorCombination: string | undefined) {
 export function getPortabletextStyle(colorCombination: string | undefined) {
   switch (colorCombination) {
     case "dayThemeBlueBlack":
-      return "prose-h1:text-black prose-h2:text-dayThemeBlueBlack-secondary text-black";
+      return " text-black";
     case "dayThemePeachBlue":
-      return "prose-h1:text-black prose-h2:text-dayThemePeachBlue-secondary text-black";
+      return "text-black";
     case "nightThemePurpleWhite":
-      return "prose-h1:text-white prose-h2:text-nightThemePurpleWhite-secondary text-white";
+      return "prose-h1:text-white prose-h2:text-white prose-h2:text-white prose-h3:text-white prose-h4:text-white prose-h5:text-white prose-h6:text-white prose-strong:text-white text-white";
     case "nightThemeBlueYellow":
-      return "prose-h1:text-white prose-h2:text-nightThemeBlueYellow-secondary text-white";
+      return "prose-h1:text-white prose-h2:text-white prose-h2:text-white prose-h3:text-white prose-h4:text-white prose-h5:text-white prose-h6:text-white prose-strong:text-white text-white ";
     default:
-      return "prose-h1:text-black prose-h2:text-black text-black";
+      return " text-black";
   }
 }
 
