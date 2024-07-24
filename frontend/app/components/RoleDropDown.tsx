@@ -70,12 +70,12 @@ export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
             key={index}
             initial={{ height: 0, opacity: 0 }}
             animate={{
-              display: openRoleStates[index] ? "block" : "none",
               height: openRoleStates[index] ? "auto" : 0,
               opacity: openRoleStates[index] ? 1 : 0,
             }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 1.0 }}
+            style={{ overflow: "hidden" }}
           >
             <div id={index.toString()} className="m-4 mb-10">
               {roleGroup.roles?.map((role, roleIndex) => (
