@@ -46,7 +46,9 @@ export default function Article() {
   const data = useLoaderData<typeof loader>() as Custom_ARTICLE_QUERYResult;
   const bgColor = getBackgroundColor(data?.colorCombinationsDay);
   const { setColor } = useBackgroundColor();
-  const { textColor } = getColor(data?.colorCombinationsDay);
+  const { portabletextStyle, quoteStyle } = getColor(
+    data?.colorCombinationsDay
+  );
   useEffect(() => {
     setColor(bgColor);
   }, [setColor]);
@@ -78,7 +80,15 @@ export default function Article() {
             title={data.video.title || ""}
           />
         )}
-        {data?.text && <PortableTextComponent textData={data.text} />}
+        {data?.text && (
+          <PortableTextComponent
+            textData={data.text}
+            textStyle={portabletextStyle}
+            styleBlock={quoteStyle.styleBlock}
+            styleLink={quoteStyle.styleLink}
+            fillColor={quoteStyle.fillColor}
+          />
+        )}
         {data?.event && (
           <Link
             to={

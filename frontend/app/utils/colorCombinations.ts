@@ -119,7 +119,48 @@ export function getPortabletextStyle(colorCombination: string | undefined) {
   }
 }
 
+export function getQuoteStyle(colorCombination: string | undefined) {
+  switch (colorCombination) {
+    case "dayThemeBlueBlack":
+      return {
+        styleBlock:
+          "border-none grid grid-flow-row place-items-center text-center text-black",
+        styleLink: "not-italic text-black",
+        fillColor: "#000000",
+      };
+    case "dayThemePeachBlue":
+      return {
+        styleBlock:
+          "border-none grid grid-flow-row place-items-center text-center text-black",
+        styleLink: "not-italic text-black",
+        fillColor: "#000000",
+      };
+    case "nightThemePurpleWhite":
+      return {
+        styleBlock:
+          "border-none grid grid-flow-row place-items-center text-center text-white",
+        styleLink: "not-italic text-white",
+        fillColor: "#FFFFFF",
+      };
+    case "nightThemeBlueYellow":
+      return {
+        styleBlock:
+          "border-none grid grid-flow-row place-items-center text-center text-white",
+        styleLink: "not-italic text-white",
+        fillColor: "#FFFFFF",
+      };
+    default:
+      return {
+        styleBlock:
+          "border-none grid grid-flow-row place-items-center text-center text-black",
+        styleLink: "not-italic text-black",
+        fillColor: "#000000",
+      };
+  }
+}
+
 export function getColor(colorCombination: string | undefined) {
+  const quoteStyle = getQuoteStyle(colorCombination);
   return {
     bgColor: getBackgroundColor(colorCombination),
     primaryBorder: getPrimaryBorderColor(colorCombination),
@@ -129,5 +170,6 @@ export function getColor(colorCombination: string | undefined) {
     textColor: getTextColor(colorCombination),
     textColorBorder: getTextColorBorder(colorCombination),
     portabletextStyle: getPortabletextStyle(colorCombination),
+    quoteStyle,
   };
 }

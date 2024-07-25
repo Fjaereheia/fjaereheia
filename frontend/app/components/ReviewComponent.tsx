@@ -1,9 +1,6 @@
 import QuoteMarks from "~/assets/QuoteMarks";
-import { useLocation } from "@remix-run/react";
 
-export default function ReviewComponent({
-  review,
-}: {
+interface QuoteProps {
   review: {
     score?: number;
     content?: string;
@@ -12,26 +9,20 @@ export default function ReviewComponent({
     date?: string;
     link?: string;
   };
-  textColor?: string;
-}) {
-  const location = useLocation();
-  const isProgramPage =
-    location.pathname.includes("/event") ||
-    location.pathname.includes("/program");
-  const styleBlock = isProgramPage
-    ? "border-none grid grid-flow-row place-items-center text-center text-white"
-    : "border-none grid grid-flow-row place-items-center text-center text-black";
-  const styleLink = isProgramPage
-    ? "not-italic text-white"
-    : "not-italic text-black";
+  styleBlock?: string;
+  styleLink?: string;
+  fillColor?: string;
+}
 
+export const ReviewComponent: React.FC<QuoteProps> = ({
+  review,
+  styleBlock,
+  styleLink,
+  fillColor,
+}) => {
   return (
-    <blockquote className={styleBlock}>
-      {isProgramPage ? (
-        <QuoteMarks fillColor="#FDF9F9" />
-      ) : (
-        <QuoteMarks fillColor="#000000" />
-      )}
+    <blockquote className={styleBlock || ""}>
+      <QuoteMarks fillColor={fillColor || "#00000"} />
       <span className="font-bold text-4xl">{review.content}</span>
       <span className="not-italic">{review.source}</span>
       {review.link ? (
@@ -43,4 +34,4 @@ export default function ReviewComponent({
       )}
     </blockquote>
   );
-}
+};
