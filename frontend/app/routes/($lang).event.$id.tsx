@@ -50,8 +50,9 @@ export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
   const [isTicketVisible, setIsTicketVisible] = useState(false);
   const [isLabelVisible, setIsLabelVisible] = useState(false);
-  const [areComponentsHidden, setAreComponentsHidden] = useState(true);
+  const [areComponentsHidden, setAreComponentsHidden] = useState(false);
   const [viewScale, setViewScale] = useState(1);
+  const [isAnimationFinished, setAnimationFinished] = useState(false);
 
   const handleTicketVisibility = useCallback((isIntersecting: boolean) => {
     setIsTicketVisible(isIntersecting);
@@ -80,6 +81,16 @@ export default function Event() {
     portabletextStyle,
   } = getColor(data?.colorCombinationsNight);
   const { setColor } = useBackgroundColor();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAnimationFinished(true);
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
 
   useEffect(() => {
     setAreComponentsHidden(!isTicketVisible && !isLabelVisible);
@@ -147,7 +158,7 @@ export default function Event() {
         )}
         {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
       </div>
-      {areComponentsHidden && (
+      {areComponentsHidden && isAnimationFinished && (
         <FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />
       )}
     </>
