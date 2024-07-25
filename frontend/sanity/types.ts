@@ -668,55 +668,11 @@ export type ARTICLE_QUERYResult = {
 } | null;
 // Source: ../frontend/app/queries/event-queries.ts
 // Variable: EVENTS_QUERY
-// Query: *[_type=="event" && language==$lang]
+// Query: *[_type=="event" && language==$lang]{_id, slug, title}
 export type EVENTS_QUERYResult = Array<{
   _id: string;
-  _type: "event";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title: string;
-  language?: string;
-  eventGenre?: EventGenre;
-  colorCombinationsNight?: ColorCombinationsNight;
-  imageMask?: ImageMask;
   slug: Slug;
-  svgTitle: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "customImage";
-  };
-  dates: Array<{
-    date: string;
-    url: string;
-    _key: string;
-  }>;
-  duration: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "customImage";
-  };
-  text?: Content;
-  roleGroups?: Array<{
-    _key: string;
-  } & RoleGroups>;
-  metaTitle: MetaTitle;
-  metaDescription: MetaDescription;
+  title: string;
 }>;
 // Variable: EVENT_QUERY
 // Query: *[_type=="event" && language==$lang && slug.current==$id][0]{  ...,roleGroups[]{name,roles[]->{name, occupation,image, text}},    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
