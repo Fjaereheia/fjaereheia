@@ -13,7 +13,7 @@ const useIntersectionObserver = (
       ([entry]) => {
         callback(entry.isIntersecting);
       },
-      { threshold: 0.9 }
+      { threshold: 0.55 }
     );
     if (element) observer.current.observe(element);
 
