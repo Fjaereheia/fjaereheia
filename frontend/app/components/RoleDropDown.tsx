@@ -48,7 +48,7 @@ export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
   return (
     <div>
       {roleGroups?.map((roleGroup, index) => (
-        <div key={index} className="border m-4">
+        <div key={index} className="border self-start m-4">
           <button
             className="w-96 h-16 py-4 px-6 grid grid-flow-col"
             onClick={() => toggleDropDown(index)}

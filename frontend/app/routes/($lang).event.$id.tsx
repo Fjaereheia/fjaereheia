@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { EVENT_QUERYResult } from "sanity/types";
-import { getBackgroundColor, getColor } from "~/utils/colorCombinations";
+import { getColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
@@ -13,12 +13,19 @@ import { getEvent } from "~/queries/event-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 import useIntersectionObserver from "~/utils/ticketsVisability";
 import { useTranslation } from "~/utils/i18n";
+import { useSlugContext } from "~/utils/i18n/SlugProvider";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
 
   if (!event) {
     throw new Response("Not Found", {
+      status: 404,
+    });
+  }
+
+  if (event == "No translation with this slug") {
+    throw new Response("No translation found", {
       status: 404,
     });
   }
@@ -48,10 +55,15 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
+
+  if (!data) {
+    return <></>;
+  }
+
   const [isTicketVisable, setIsTicketVisable] = useState(false);
   const [isLabelVisable, setIsLabelVisalbe] = useState(false);
   const [viewScale, setViewScale] = useState(1);
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   const setTicketRef = useIntersectionObserver((isIntersecting) => {
     setIsTicketVisable(isIntersecting);
@@ -65,6 +77,7 @@ export default function Event() {
       target.scrollIntoView({ behavior: "smooth" });
     }
   };
+
   const {
     bgColor,
     primaryText,
@@ -75,8 +88,15 @@ export default function Event() {
     portabletextStyle,
   } = getColor(data?.colorCombinationsNight);
   const { setColor } = useBackgroundColor();
+  const { setSlug } = useSlugContext();
+
+  if (!data) {
+    return <></>;
+  }
+
   useEffect(() => {
     setColor(bgColor);
+    setSlug(language, data?._translations);
   }, [setColor]);
   useEffect(() => {
     const updateViewScale = () => {
@@ -90,13 +110,10 @@ export default function Event() {
     window.addEventListener("resize", updateViewScale);
   }, [viewScale]);
 
-  if (!data) {
-    return <></>;
-  }
   return (
     <>
       <div
-        className={` min-h-screen flex flex-col relative justify-center ${textColor} items-center p-4`}
+        className={`flex grow flex-col relative justify-center ${textColor} items-center p-4`}
       >
         {data.image?.asset?._ref && (
           <ImageEventPage
@@ -106,11 +123,13 @@ export default function Event() {
             imageMaskType={data?.imageMask || ""}
           />
         )}
-        <div className="static">
-          <h1 className={`font-serif  text-2xl lg:text-4xl`}>{data.title}</h1>
-        </div>
-        {data.dates && (
-          <div ref={setLabelRef}>
+        <div
+          className={`flex flex-col relative justify-center ${textColor} items-center gap-6`}
+        >
+          <div className="static">
+            <h1 className={`font-serif text-2xl lg:text-4xl`}>{data.title}</h1>
+          </div>
+          {data.dates && (
             <EventLabels
               dateObj={data.dates}
               genre={data.eventGenre}
@@ -120,23 +139,22 @@ export default function Event() {
               textColor={textColor}
               textColorBorder={textColorBorder}
             />
-          </div>
-        )}
-        {data.text && (
-          <PortableTextComponent
-            textData={data.text}
-            textStyle={portabletextStyle}
-          />
-        )}
+          )}
+          {data.text && (
+            <PortableTextComponent
+              textData={data.text}
+              textStyle={portabletextStyle}
+            />
+          )}
 
-        {data.dates && (
-          <div ref={setTicketRef}>
-            <Tickets dateTickets={data.dates} />
-          </div>
-        )}
-        {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
+          {data.dates && (
+            <div className={`flex self-start`} ref={setTicketRef}>
+              <Tickets dateTickets={data.dates} />
+            </div>
+          )}
+          {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
+        </div>
       </div>
-
       {!isLabelVisable && !isTicketVisable && (
         <div
           className={`sticky bottom-12 md:bottom-24 md:w-[100px] p-2 z-10 w-full flex flex-col ${textColor} text-center items-center md:items-start bg-red-400 text-lg lg:text-xl font-serif lg:left-32 2xl:left-1/4`}
@@ -152,5 +170,15 @@ const text = {
   allEvents: {
     en: "Buy ticket",
     nb: "Kjøp billett",
+  },
+};
+const genres = {
+  konsert: {
+    en: "Concert",
+    nb: "Konsert",
+  },
+  skuespill: {
+    en: "Play",
+    nb: "Skuespill",
   },
 };
