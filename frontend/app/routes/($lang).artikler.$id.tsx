@@ -70,7 +70,7 @@ export default function Article() {
     <div
       className={`${getBackgroundColor(
         data.colorCombinationsDay
-      )} min-h-screen flex flex-col items-center mx-6`}
+      )} grow flex flex-col items-center mx-6`}
     >
       <div className="flex flex-col items-center md:w-full lg:w-1/2">
         <h1 className="text-4xl">{data.title}</h1>
