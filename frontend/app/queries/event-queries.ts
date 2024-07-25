@@ -20,7 +20,14 @@ export async function getEvent(params: Params<string>) {
     return "No translation with this slug";
   }
   const EVENT_QUERY = groq`*[_type=="event" && language==$lang && slug.current==$id][0]{
-  ...,roleGroups[]{name,roles[]->{name, occupation,image, text}},
+    title, 
+    image,
+    imageMask, 
+    colorCombinationsNight, 
+    dates, 
+    text, 
+    eventGenre, 
+    roleGroups[]{name,roles[]->{name, occupation,image, text}},
     "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
     slug,
     language,

@@ -521,7 +521,7 @@ export type Event = {
   title: string;
   language?: string;
   eventGenre?: EventGenre;
-  colorCombinationsNight?: ColorCombinationsNight;
+  colorCombinationsNight: ColorCombinationsNight;
   imageMask?: ImageMask;
   slug: Slug;
   svgTitle: {
@@ -675,20 +675,10 @@ export type EVENTS_QUERYResult = Array<{
   title: string;
 }>;
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{  ...,roleGroups[]{name,roles[]->{name, occupation,image, text}},    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
+// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{    title,     image,    imageMask,     colorCombinationsNight,     dates,     text,     eventGenre,     roleGroups[]{name,roles[]->{name, occupation,image, text}},    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
 export type EVENT_QUERYResult = {
-  _id: string;
-  _type: "event";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
   title: string;
-  language?: string;
-  eventGenre?: EventGenre;
-  colorCombinationsNight?: ColorCombinationsNight;
-  imageMask?: ImageMask;
-  slug: Slug;
-  svgTitle: {
+  image: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -699,26 +689,16 @@ export type EVENT_QUERYResult = {
     crop?: SanityImageCrop;
     alt: string;
     _type: "customImage";
-  };
+  } | null;
+  imageMask: ImageMask | null;
+  colorCombinationsNight: ColorCombinationsNight;
   dates: Array<{
     date: string;
     url: string;
     _key: string;
   }>;
-  duration: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "customImage";
-  };
-  text?: Content;
+  text: Content | null;
+  eventGenre: EventGenre | null;
   roleGroups: Array<{
     name: string;
     roles: Array<{
@@ -739,8 +719,6 @@ export type EVENT_QUERYResult = {
       text: string | null;
     }> | null;
   }> | null;
-  metaTitle: MetaTitle;
-  metaDescription: MetaDescription;
   _translations: Array<{
     slug: Slug;
     language: string | null;
