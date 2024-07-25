@@ -548,7 +548,6 @@ export type Role = {
   _updatedAt: string;
   _rev: string;
   name: string;
-  occupation: string;
   language?: string;
   image: {
     asset?: {

@@ -3177,13 +3177,6 @@
         },
         "optional": false
       },
-      "occupation": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": false
-      },
       "language": {
         "type": "objectAttribute",
         "value": {
