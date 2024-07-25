@@ -90,7 +90,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className={`${color} h-full flex flex-col`}>
+      <body className={color}>
         <div className="grow">{children}</div>
         <ScrollRestoration />
         <Scripts />
