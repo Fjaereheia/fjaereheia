@@ -627,44 +627,11 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
-// Query: *[_type=="article" && language==$lang]
+// Query: *[_type=="article" && language==$lang]{_id, slug, title}
 export type ARTICLES_QUERYResult = Array<{
   _id: string;
-  _type: "article";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
+  slug: Slug | null;
   title: string;
-  language?: string;
-  colorCombinationsDay?: ColorCombinationsDay;
-  slug?: Slug;
-  text?: Content;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "customImage";
-  };
-  video?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "video";
-  };
-  event?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "event";
-  };
-  metaTitle: MetaTitle;
-  metaDescription: MetaDescription;
 }>;
 // Variable: ARTICLE_QUERY
 // Query: *[_type=="article" && slug.current==$id && language==$lang][0]    {..., text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},     video{title, muxVideo{asset->{playbackId}}},    'event': event->,    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,}}

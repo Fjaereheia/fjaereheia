@@ -6,7 +6,7 @@ export async function getArticles(params: Params<string>) {
   if (!params.lang) {
     params = { lang: "nb" };
   }
-  const ARTICLES_QUERY = groq`*[_type=="article" && language==$lang]`;
+  const ARTICLES_QUERY = groq`*[_type=="article" && language==$lang]{_id, slug, title}`;
   const articles = await client.fetch(ARTICLES_QUERY, params);
   return articles;
 }
