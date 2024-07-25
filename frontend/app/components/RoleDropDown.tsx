@@ -10,26 +10,34 @@ import ArrowUp from "/arrow-up.svg";
 import ArrowDown from "/arrow-down.svg";
 
 interface RoleDropDownProps {
-  roleGroups: Array<{
-    name: string | null;
-    roles: Array<{
-      name: string | null;
-      occupation: string | null;
-      image: {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt?: string;
-        _type: "customImage";
-      } | null;
-      text: string | null;
-    }> | null;
-  }> | null;
+  roleGroups: {
+    name: string;
+    roles:
+      | {
+          roleTitle: string | null;
+          role: {
+            name: string;
+            image: {
+              asset?:
+                | {
+                    _ref: string;
+                    _type: "reference";
+                    _weak?: boolean | undefined;
+                    [internalGroqTypeReferenceTo]?:
+                      | "sanity.imageAsset"
+                      | undefined;
+                  }
+                | undefined;
+              hotspot?: SanityImageHotspot | undefined;
+              crop?: SanityImageCrop | undefined;
+              alt: string;
+              _type: "customImage";
+            };
+            text: string | null;
+          } | null;
+        }[]
+      | null;
+  }[];
 }
 
 export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
@@ -56,19 +64,19 @@ export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
         <div className="w-80">
           {roleGroups?.map((roleGroup, index) => (
             <div key={index} className="m-4 mb-10">
-              <h3 className="text-base font-semibold">{roleGroup.name}</h3>
+              {/*<h3 className="text-base font-semibold">{roleGroup.name}</h3>*/}
               <div>
                 {roleGroup.roles?.map((role, index) => (
                   <div key={index} className="flex flex-row mt-8 w-fit gap-6">
                     <img
-                      src={urlFor(role.image?.asset?._ref ?? "")}
-                      alt={role.image?.alt ?? ""}
+                      src={urlFor(role.role?.image?.asset?._ref ?? "")}
+                      alt={role.role?.image?.alt ?? ""}
                       className="w-36 h-36 object-cover"
                     />
                     <div>
-                      <h4 className="text-lg mb-2">{role.occupation}</h4>
-                      <h5 className="text-base mb-2">{role.name}</h5>
-                      <span>{role.text}</span>
+                      <h4 className="text-lg mb-2">{role.role?.name}</h4>
+                      <span>{role.roleTitle}</span>
+                      <h5 className="text-base mb-2">{role.role?.text}</h5>
                     </div>
                   </div>
                 ))}

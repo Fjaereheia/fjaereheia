@@ -108,11 +108,14 @@ export type RoleGroups = {
   _type: "roleGroups";
   name: string;
   roles?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
+    role?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "role";
+    };
+    roleTitle?: string;
     _key: string;
-    [internalGroqTypeReferenceTo]?: "role";
   }>;
 };
 
@@ -123,7 +126,7 @@ export type Content = Array<{
     _type: "span";
     _key: string;
   }>;
-  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   listItem?: "bullet" | "number";
   markDefs?: Array<{
     href?: string;
@@ -369,6 +372,13 @@ export type Programpage = {
   _rev: string;
   title: string;
   language?: string;
+  links?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "event";
+  }>;
   gif?: {
     asset?: {
       _ref: string;
@@ -381,37 +391,6 @@ export type Programpage = {
     alt: string;
     _type: "customImage";
   };
-  links?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "event";
-  }>;
-};
-
-export type Role = {
-  _id: string;
-  _type: "role";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name: string;
-  occupation: string;
-  language?: string;
-  image: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "customImage";
-  };
-  text?: string;
 };
 
 export type Infopage = {
@@ -422,36 +401,6 @@ export type Infopage = {
   _rev: string;
   title: string;
   language?: string;
-  text?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  } | {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "customImage";
-    _key: string;
-  }>;
   links?: Array<{
     _ref: string;
     _type: "reference";
@@ -481,8 +430,7 @@ export type Frontpage = {
     alt: string;
     _type: "customImage";
   };
-  text?: Content;
-  svgTitle?: {
+  svgTitle: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -512,8 +460,8 @@ export type Article = {
   _rev: string;
   title: string;
   language?: string;
-  colorCombinationsDay?: ColorCombinationsDay;
-  slug?: Slug;
+  colorCombinationsDay: ColorCombinationsDay;
+  slug: Slug;
   text?: Content;
   image?: {
     asset?: {
@@ -554,8 +502,8 @@ export type Event = {
   eventGenre?: EventGenre;
   colorCombinationsNight?: ColorCombinationsNight;
   imageMask?: ImageMask;
-  slug?: Slug;
-  svgTitle?: {
+  slug: Slug;
+  svgTitle: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -567,7 +515,6 @@ export type Event = {
     alt: string;
     _type: "customImage";
   };
-  preamble?: string;
   dates: Array<{
     date: string;
     url: string;
@@ -592,6 +539,30 @@ export type Event = {
   } & RoleGroups>;
   metaTitle: MetaTitle;
   metaDescription: MetaDescription;
+};
+
+export type Role = {
+  _id: string;
+  _type: "role";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  occupation: string;
+  language?: string;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "customImage";
+  };
+  text?: string;
 };
 
 export type Document = {
@@ -623,7 +594,7 @@ export type InternationalizedArrayReference = Array<{
   _key: string;
 } & InternationalizedArrayReferenceValue>;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | ColorCombinationsNight | ColorCombinationsDay | MetaDescription | MetaTitle | Video | RoleGroups | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Role | Infopage | Frontpage | Article | Event | Document | CustomImage | Slug | InternationalizedArrayReference;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | ColorCombinationsNight | ColorCombinationsDay | MetaDescription | MetaTitle | Video | RoleGroups | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Infopage | Frontpage | Article | Event | Role | Document | CustomImage | Slug | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -636,8 +607,8 @@ export type ARTICLES_QUERYResult = Array<{
   _rev: string;
   title: string;
   language?: string;
-  colorCombinationsDay?: ColorCombinationsDay;
-  slug?: Slug;
+  colorCombinationsDay: ColorCombinationsDay;
+  slug: Slug;
   text?: Content;
   image?: {
     asset?: {
@@ -676,8 +647,8 @@ export type ARTICLE_QUERYResult = {
   _rev: string;
   title: string;
   language?: string;
-  colorCombinationsDay?: ColorCombinationsDay;
-  slug?: Slug;
+  colorCombinationsDay: ColorCombinationsDay;
+  slug: Slug;
   text: Array<{
     _ref: string;
     _type: "reference";
@@ -700,7 +671,7 @@ export type ARTICLE_QUERYResult = {
       _type: "span";
       _key: string;
     }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    style?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -737,8 +708,8 @@ export type ARTICLE_QUERYResult = {
     eventGenre?: EventGenre;
     colorCombinationsNight?: ColorCombinationsNight;
     imageMask?: ImageMask;
-    slug?: Slug;
-    svgTitle?: {
+    slug: Slug;
+    svgTitle: {
       asset?: {
         _ref: string;
         _type: "reference";
@@ -750,7 +721,6 @@ export type ARTICLE_QUERYResult = {
       alt: string;
       _type: "customImage";
     };
-    preamble?: string;
     dates: Array<{
       date: string;
       url: string;
@@ -779,10 +749,10 @@ export type ARTICLE_QUERYResult = {
   metaTitle: MetaTitle;
   metaDescription: MetaDescription;
   _translations: Array<{
-    slug: null;
+    slug: Slug;
     language: string | null;
   } | {
-    slug: Slug | null;
+    slug: null;
     language: string | null;
   } | null>;
 } | null;
@@ -800,8 +770,8 @@ export type EVENTS_QUERYResult = Array<{
   eventGenre?: EventGenre;
   colorCombinationsNight?: ColorCombinationsNight;
   imageMask?: ImageMask;
-  slug?: Slug;
-  svgTitle?: {
+  slug: Slug;
+  svgTitle: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -813,7 +783,6 @@ export type EVENTS_QUERYResult = Array<{
     alt: string;
     _type: "customImage";
   };
-  preamble?: string;
   dates: Array<{
     date: string;
     url: string;
@@ -840,7 +809,7 @@ export type EVENTS_QUERYResult = Array<{
   metaDescription: MetaDescription;
 }>;
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{  ...,roleGroups[]{name,roles[]->{name, occupation,image, text}},    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
+// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{  ...,"roleGroups": roleGroups[]{    name,    roles[]{      roleTitle,      role->{name, image, text}}    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
 export type EVENT_QUERYResult = {
   _id: string;
   _type: "event";
@@ -852,8 +821,8 @@ export type EVENT_QUERYResult = {
   eventGenre?: EventGenre;
   colorCombinationsNight?: ColorCombinationsNight;
   imageMask?: ImageMask;
-  slug?: Slug;
-  svgTitle?: {
+  slug: Slug;
+  svgTitle: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -865,7 +834,6 @@ export type EVENT_QUERYResult = {
     alt: string;
     _type: "customImage";
   };
-  preamble?: string;
   dates: Array<{
     date: string;
     url: string;
@@ -888,30 +856,32 @@ export type EVENT_QUERYResult = {
   roleGroups: Array<{
     name: string;
     roles: Array<{
-      name: string;
-      occupation: string;
-      image: {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      roleTitle: string | null;
+      role: {
+        name: string;
+        image: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt: string;
+          _type: "customImage";
         };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt: string;
-        _type: "customImage";
-      };
-      text: string | null;
+        text: string | null;
+      } | null;
     }> | null;
   }> | null;
   metaTitle: MetaTitle;
   metaDescription: MetaDescription;
   _translations: Array<{
-    slug: null;
+    slug: Slug;
     language: string | null;
   } | {
-    slug: Slug | null;
+    slug: null;
     language: string | null;
   } | null>;
 } | null;
@@ -944,7 +914,7 @@ export type FRONTPAGE_QUERYResult = {
     crop?: SanityImageCrop;
     alt: string;
     _type: "customImage";
-  } | null;
+  };
   metaTitle: MetaTitle;
   metaDescription: MetaDescription;
   event: {
@@ -962,7 +932,7 @@ export type FRONTPAGE_QUERYResult = {
       alt: string;
       _type: "customImage";
     } | null;
-    slug: Slug | null;
+    slug: Slug;
     metaTitle: MetaTitle;
     metaDescription: MetaDescription;
     svgTitle: {
@@ -976,7 +946,7 @@ export type FRONTPAGE_QUERYResult = {
       crop?: SanityImageCrop;
       alt: string;
       _type: "customImage";
-    } | null;
+    };
   } | null;
 } | null;
 // Source: ../frontend/app/queries/info-queries.ts
@@ -992,8 +962,8 @@ export type INFOPAGE_QUERYResult = {
     _rev: string;
     title: string;
     language?: string;
-    colorCombinationsDay?: ColorCombinationsDay;
-    slug: Slug | null;
+    colorCombinationsDay: ColorCombinationsDay;
+    slug: Slug;
     text?: Content;
     image?: {
       asset?: {
@@ -1043,6 +1013,6 @@ export type PROGRAMPAGE_QUERYResult = {
   } | null;
   links: Array<{
     title: string;
-    slug: Slug | null;
+    slug: Slug;
   }> | null;
 } | null;
