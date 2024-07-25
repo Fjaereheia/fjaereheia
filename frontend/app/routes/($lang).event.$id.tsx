@@ -12,7 +12,7 @@ import RoleDropDown from "~/components/RoleDropDown";
 import { getEvent } from "~/queries/event-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 import useIntersectionObserver from "~/utils/ticketsVisability";
-import { useTranslation } from "~/utils/i18n";
+import { FloatingBuyButton } from "~/components/FloatingBuyButton";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
@@ -48,17 +48,23 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
-  const [isTicketVisable, setIsTicketVisable] = useState(false);
-  const [isLabelVisable, setIsLabelVisalbe] = useState(false);
+  const [isTicketVisible, setIsTicketVisible] = useState(false);
+  const [isLabelVisible, setIsLabelVisible] = useState(false);
+  const [areComponentsHidden, setAreComponentsHidden] = useState(true);
   const [viewScale, setViewScale] = useState(1);
-  const { t } = useTranslation();
 
   const setTicketRef = useIntersectionObserver((isIntersecting) => {
-    setIsTicketVisable(isIntersecting);
+    setIsTicketVisible(isIntersecting);
   });
+
   const setLabelRef = useIntersectionObserver((isIntersecting) => {
-    setIsLabelVisalbe(isIntersecting);
+    setIsLabelVisible(isIntersecting);
   });
+
+  useEffect(() => {
+    setAreComponentsHidden(!isTicketVisible && !isLabelVisible);
+  }, [isTicketVisible, isLabelVisible]);
+
   const handleScroll = () => {
     const target = document.getElementById("tickets");
     if (target) {
@@ -75,9 +81,11 @@ export default function Event() {
     portabletextStyle,
   } = getColor(data?.colorCombinationsNight);
   const { setColor } = useBackgroundColor();
+
   useEffect(() => {
     setColor(bgColor);
-  }, [setColor]);
+  }, [bgColor, setColor]);
+
   useEffect(() => {
     const updateViewScale = () => {
       if (window.matchMedia("(min-width: 1024px)").matches) {
@@ -136,21 +144,9 @@ export default function Event() {
         )}
         {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
       </div>
-
-      {!isLabelVisable && !isTicketVisable && (
-        <div
-          className={`sticky bottom-12 md:bottom-24 md:w-[100px] p-2 z-10 w-full flex flex-col ${textColor} text-center items-center md:items-start bg-red-400 text-lg lg:text-xl font-serif lg:left-32 2xl:left-1/4`}
-        >
-          <button onClick={handleScroll}>{t(text.allEvents)}</button>
-        </div>
+      {areComponentsHidden && (
+        <FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />
       )}
     </>
   );
 }
-
-const text = {
-  allEvents: {
-    en: "Buy ticket",
-    nb: "Kjøp billett",
-  },
-};
