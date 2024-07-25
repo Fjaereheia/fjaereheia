@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { EVENT_QUERYResult } from "sanity/types";
-import { getBackgroundColor, getColor } from "~/utils/colorCombinations";
+import { getColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
@@ -11,7 +11,7 @@ import { EventLabels } from "~/components/EventLabels";
 import RoleDropDown from "~/components/RoleDropDown";
 import { getEvent } from "~/queries/event-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
-import useIntersectionObserver from "~/utils/ticketsVisability";
+import useIntersectionObserver from "~/utils/ticketsVisibility";
 import { FloatingBuyButton } from "~/components/FloatingBuyButton";
 
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -53,17 +53,16 @@ export default function Event() {
   const [areComponentsHidden, setAreComponentsHidden] = useState(true);
   const [viewScale, setViewScale] = useState(1);
 
-  const setTicketRef = useIntersectionObserver((isIntersecting) => {
+  const handleTicketVisibility = useCallback((isIntersecting: boolean) => {
     setIsTicketVisible(isIntersecting);
-  });
+  }, []);
 
-  const setLabelRef = useIntersectionObserver((isIntersecting) => {
+  const handleLabelVisibility = useCallback((isIntersecting: boolean) => {
     setIsLabelVisible(isIntersecting);
-  });
+  }, []);
 
-  useEffect(() => {
-    setAreComponentsHidden(!isTicketVisible && !isLabelVisible);
-  }, [isTicketVisible, isLabelVisible]);
+  const setTicketRef = useIntersectionObserver(handleTicketVisibility);
+  const setLabelRef = useIntersectionObserver(handleLabelVisibility);
 
   const handleScroll = () => {
     const target = document.getElementById("tickets");
@@ -81,6 +80,10 @@ export default function Event() {
     portabletextStyle,
   } = getColor(data?.colorCombinationsNight);
   const { setColor } = useBackgroundColor();
+
+  useEffect(() => {
+    setAreComponentsHidden(!isTicketVisible && !isLabelVisible);
+  }, [isTicketVisible, isLabelVisible]);
 
   useEffect(() => {
     setColor(bgColor);
