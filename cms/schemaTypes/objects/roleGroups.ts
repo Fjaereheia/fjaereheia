@@ -19,14 +19,33 @@ export default {
       type: 'array',
       of: [
         {
-          type: 'reference',
-          to: [{type: 'role'}],
-          options: {
-            filter: ({document}) => {
-              return {
-                filter: 'language == $lang',
-                params: {lang: document.language},
-              }
+          type: 'object',
+          fields: [
+            {
+              name: 'role',
+              title: 'Rolle',
+              type: 'reference',
+              to: [{type: 'role'}],
+              options: {
+                filter: ({document}) => {
+                  return {
+                    filter: 'language == $lang',
+                    params: {lang: document.language},
+                  }
+                },
+              },
+            },
+            {
+              name: 'roleTitle',
+              title: 'RolleTittel',
+              description: 'Legg til stilling',
+              type: 'string',
+            },
+          ],
+          preview: {
+            select: {
+              title: 'role.name', // This selects the `name` field from the referenced `role` document
+              subtitle: 'roleTitle', // Optionally, show the `roleTitle` as a subtitle
             },
           },
         },
