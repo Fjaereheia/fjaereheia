@@ -19,7 +19,7 @@ type Props = {
   secondaryBorder?: string;
   textColor?: string;
   textColorBorder?: string;
-  genre?: EventGenre | undefined;
+  genre?: EventGenre | null;
 };
 
 export function formatDateOnly(dateString: string): string {
