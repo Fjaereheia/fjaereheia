@@ -116,7 +116,6 @@ export default function Event() {
     return <></>;
   }
 
-  console.log(data);
   return (
     <>
       <div
