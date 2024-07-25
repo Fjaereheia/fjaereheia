@@ -9,10 +9,15 @@ import {
 import {deskStructure} from './structure'
 import {PluginConfig} from './structure/documentInternationalization'
 import {muxInput} from 'sanity-plugin-mux-input'
+import {userGuide} from './structure/CustomTool'
 
 //singleton pages. Before you add the type to singletontypes, the page should be created, since create is not a valid action for singleton types
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
 const singletonTypes = new Set(['frontpage'])
+
+interface ComponentProps {
+  // Define any specific props you expect here
+}
 
 export default defineConfig({
   name: 'default',
@@ -27,6 +32,8 @@ export default defineConfig({
     visionTool(),
     muxInput(),
   ],
+
+  tools: [userGuide()],
 
   schema: {
     types: schemaTypes,
