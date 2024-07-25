@@ -113,7 +113,7 @@ export default function Event() {
   return (
     <>
       <div
-        className={`min-h-screen flex flex-col relative justify-center ${textColor} items-center p-4`}
+        className={`flex grow flex-col relative justify-center ${textColor} items-center p-4`}
       >
         {data.image?.asset?._ref && (
           <ImageEventPage

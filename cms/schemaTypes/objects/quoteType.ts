@@ -1,9 +1,11 @@
 import {defineField, defineType} from 'sanity'
+import {CommentIcon} from '@sanity/icons'
 
 export const quoteType = defineType({
   name: 'quote',
   title: 'Sitat',
   type: 'document',
+  icon: CommentIcon,
   fields: [
     defineField({
       name: 'content',

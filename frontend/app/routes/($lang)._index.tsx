@@ -81,7 +81,8 @@ export default function Index() {
             alt={data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"}
           />
 
-          <div className="flex flex-row justify-center content-center  w-full mt-4">
+
+          <div className="flex flex-row justify-center content-center w-full mt-4">
             <Link to={params.lang == "en" ? "/en/info" : "/info"}>
               <button
                 className="text-white w-48  text-right px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl"
