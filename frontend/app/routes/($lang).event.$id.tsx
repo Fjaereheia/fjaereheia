@@ -149,17 +149,16 @@ export default function Event() {
             <h1 className={`font-serif text-2xl lg:text-4xl`}>{data.title}</h1>
           </div>
           {data.dates && (
-            <div ref={setLabelRef}>
-              <EventLabels
-                dateObj={data.dates}
-                genre={data.eventGenre}
-                primaryText={primaryText}
-                secondaryBgColor={secondaryBgColor}
-                secondaryBorder={secondaryBorder}
-                textColor={textColor}
-                textColorBorder={textColorBorder}
-              />
-            </div>
+            <EventLabels
+              refFunction={setLabelRef}
+              dateObj={data.dates}
+              genre={data.eventGenre}
+              primaryText={primaryText}
+              secondaryBgColor={secondaryBgColor}
+              secondaryBorder={secondaryBorder}
+              textColor={textColor}
+              textColorBorder={textColorBorder}
+            />
           )}
           {data.text && (
             <PortableTextComponent
@@ -168,7 +167,7 @@ export default function Event() {
             />
           )}
           {data.dates && (
-            <div className={`flex self-start`} ref={setTicketRef}>
+            <div ref={setTicketRef}>
               <Tickets dateTickets={data.dates} />
             </div>
           )}

@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import { EventGenre } from "sanity/types";
 import {
   formatDayAndDate,
@@ -20,6 +21,7 @@ type Props = {
   textColor?: string;
   textColorBorder?: string;
   genre?: EventGenre | undefined;
+  refFunction: Dispatch<SetStateAction<HTMLElement | null>>;
 };
 
 export function formatDateOnly(dateString: string): string {
@@ -64,6 +66,7 @@ export const EventLabels = ({
   secondaryBorder,
   textColor,
   textColorBorder,
+  refFunction,
 }: Props) => {
   const { language, t } = useTranslation();
 
@@ -110,7 +113,7 @@ export const EventLabels = ({
 
   return (
     <>
-      <div className="font-serif self-start">
+      <div ref={refFunction} className="font-serif self-start">
         <div className="flex flex-wrap gap-4 md:float-start ">
           {labels.map(
             (label, index) =>
