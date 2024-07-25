@@ -1,21 +1,28 @@
-import Quotes from "/quote.svg";
-
-export default function QuoteComponent({
-  quote,
-}: {
+import QuoteMarks from "~/assets/QuoteMarks";
+interface QuoteProps {
   quote: {
-    content?: string | undefined;
-    source?: string | undefined;
-    company?: string | undefined;
-    date?: string | undefined;
+    company: string;
+    content: string;
+    source: string;
+    date: string;
   };
-}) {
+  styleBlock?: string;
+  styleLink?: string;
+  fillColor?: string;
+}
+
+export const QuoteComponent: React.FC<QuoteProps> = ({
+  quote,
+  styleBlock,
+  fillColor,
+}) => {
   return (
-    <blockquote className="border-none grid grid-flow-row place-items-center text-center">
-      <img src={Quotes} alt="" />
+    <blockquote className={styleBlock || ""}>
+      <QuoteMarks fillColor={fillColor || "#00000"} />
+
       <span className="font-bold text-4xl">{quote.content}</span>
       <span className="not-italic">{quote.source}</span>
       <span className="underline not-italic">{quote.company}</span>
     </blockquote>
   );
-}
+};

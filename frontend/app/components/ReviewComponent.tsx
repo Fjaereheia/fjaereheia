@@ -1,8 +1,6 @@
-import Quotes from "/quote.svg";
+import QuoteMarks from "~/assets/QuoteMarks";
 
-export default function ReviewComponent({
-  review,
-}: {
+interface QuoteProps {
   review: {
     score?: number;
     content?: string;
@@ -11,19 +9,29 @@ export default function ReviewComponent({
     date?: string;
     link?: string;
   };
-}) {
+  styleBlock?: string;
+  styleLink?: string;
+  fillColor?: string;
+}
+
+export const ReviewComponent: React.FC<QuoteProps> = ({
+  review,
+  styleBlock,
+  styleLink,
+  fillColor,
+}) => {
   return (
-    <blockquote className="border-none grid grid-flow-row place-items-center text-white text-center">
-      <img src={Quotes} alt="" />
+    <blockquote className={styleBlock || ""}>
+      <QuoteMarks fillColor={fillColor || "#00000"} />
       <span className="font-bold text-4xl">{review.content}</span>
       <span className="not-italic">{review.source}</span>
       {review.link ? (
-        <a href={review.link} className="not-italic text-white">
+        <a href={review.link} className={styleLink}>
           {review.company}
         </a>
       ) : (
-        <span className="underline not-italic">{review.company}</span>
+        <span className={`underline not-italic`}>{review.company}</span>
       )}
     </blockquote>
   );
-}
+};
