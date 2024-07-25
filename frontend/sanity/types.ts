@@ -793,46 +793,13 @@ export type FRONTPAGE_QUERYResult = {
 } | null;
 // Source: ../frontend/app/queries/info-queries.ts
 // Variable: INFOPAGE_QUERY
-// Query: *[_type=="infopage" && language==$lang]{title, links[]->{..., slug}}[0]
+// Query: *[_type=="infopage" && language==$lang]{title, links[]->{_type, title, slug}}[0]
 export type INFOPAGE_QUERYResult = {
   title: string;
   links: Array<{
-    _id: string;
     _type: "article";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
     title: string;
-    language?: string;
-    colorCombinationsDay: ColorCombinationsDay;
     slug: Slug;
-    text?: Content;
-    image?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt: string;
-      _type: "customImage";
-    };
-    video?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "video";
-    };
-    event?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "event";
-    };
-    metaTitle: MetaTitle;
-    metaDescription: MetaDescription;
   }> | null;
 } | null;
 // Source: ../frontend/app/queries/program-queries.ts
