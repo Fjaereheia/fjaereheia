@@ -23,7 +23,7 @@ export default {
           fields: [
             {
               name: 'role',
-              title: 'Rolle',
+              title: 'Person',
               type: 'reference',
               to: [{type: 'role'}],
               options: {
