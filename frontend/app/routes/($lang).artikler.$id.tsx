@@ -9,12 +9,19 @@ import MuxPlayer from "@mux/mux-player-react";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 import { useEffect } from "react";
 import { useTranslation } from "~/utils/i18n";
+import { useSlugContext } from "~/utils/i18n/SlugProvider";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const article = await getArticle(params);
 
   if (!article) {
     throw new Response("Not Found", {
+      status: 404,
+    });
+  }
+
+  if (article == "No translation with this slug") {
+    throw new Response("No translation found", {
       status: 404,
     });
   }
@@ -44,17 +51,21 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Article() {
   const data = useLoaderData<typeof loader>() as Custom_ARTICLE_QUERYResult;
+  if (!data) {
+    return <></>;
+  }
   const bgColor = getBackgroundColor(data?.colorCombinationsDay);
+  const { language } = useTranslation();
   const { setColor } = useBackgroundColor();
+  const { setSlug } = useSlugContext();
+
   useEffect(() => {
     setColor(bgColor);
+    setSlug(language, data?._translations);
   }, [setColor]);
   const { t } = useTranslation();
   const params = useParams();
 
-  if (!data) {
-    return <></>;
-  }
   return (
     <div
       className={`${getBackgroundColor(

@@ -667,7 +667,7 @@ export type ARTICLES_QUERYResult = Array<{
   metaDescription: MetaDescription;
 }>;
 // Variable: ARTICLE_QUERY
-// Query: *[_type=="article" && slug.current==$id && language==$lang][0]    {..., text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},     video{title, muxVideo{asset->{playbackId}}},    'event': event->}
+// Query: *[_type=="article" && slug.current==$id && language==$lang][0]    {..., text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},     video{title, muxVideo{asset->{playbackId}}},    'event': event->,    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,}}
 export type ARTICLE_QUERYResult = {
   _id: string;
   _type: "article";
@@ -778,6 +778,13 @@ export type ARTICLE_QUERYResult = {
   } | null;
   metaTitle: MetaTitle;
   metaDescription: MetaDescription;
+  _translations: Array<{
+    slug: null;
+    language: string | null;
+  } | {
+    slug: Slug | null;
+    language: string | null;
+  } | null>;
 } | null;
 // Source: ../frontend/app/queries/event-queries.ts
 // Variable: EVENTS_QUERY
@@ -833,7 +840,7 @@ export type EVENTS_QUERYResult = Array<{
   metaDescription: MetaDescription;
 }>;
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{  ...,roleGroups[]{name,roles[]->{name, occupation,image, text}}  }
+// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{  ...,roleGroups[]{name,roles[]->{name, occupation,image, text}},    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
 export type EVENT_QUERYResult = {
   _id: string;
   _type: "event";
@@ -900,6 +907,13 @@ export type EVENT_QUERYResult = {
   }> | null;
   metaTitle: MetaTitle;
   metaDescription: MetaDescription;
+  _translations: Array<{
+    slug: null;
+    language: string | null;
+  } | {
+    slug: Slug | null;
+    language: string | null;
+  } | null>;
 } | null;
 // Source: ../frontend/app/queries/frontpage-queries.ts
 // Variable: FRONTPAGE_QUERY
