@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
+import {
+  LoaderFunction,
+  LoaderFunctionArgs,
+  json,
+  type MetaFunction,
+} from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { EVENT_QUERYResult } from "sanity/types";
 import { getColor } from "~/utils/colorCombinations";
@@ -10,13 +15,20 @@ import ImageEventPage from "~/components/Masks/ImageEventPage";
 import { EventLabels } from "~/components/EventLabels";
 import RoleDropDown from "~/components/RoleDropDown";
 import { getEvent } from "~/queries/event-queries";
-import { useBackgroundColor } from "~/utils/backgroundColor";
 import useIntersectionObserver from "~/utils/ticketsVisability";
-import { useTranslation } from "~/utils/i18n";
 import { useSlugContext } from "~/utils/i18n/SlugProvider";
+import { useTranslation } from "~/utils/i18n";
+import { EVENT_QUERY } from "~/queries/event-queries";
+import { useBackgroundColor } from "~/utils/backgroundColor";
+import { loadQuery } from "sanity/loader.server";
+import { useQuery } from "sanity/loader";
 
-export async function loader({ params }: LoaderFunctionArgs) {
-  const event = await getEvent(params);
+export const loader: LoaderFunction = async ({ params }) => {
+  if (!params.lang) {
+    params = { lang: "nb", id: params.id };
+  }
+
+  const event = await loadQuery<EVENT_QUERYResult>(EVENT_QUERY, params);
 
   if (!event) {
     throw new Response("Not Found", {
@@ -30,8 +42,11 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return json(event);
-}
+  return json({
+    params,
+    initial: event,
+  });
+};
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   if (typeof data === "string" || !data) {
@@ -54,14 +69,23 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 };
 
 export default function Event() {
-  const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
-
-  if (!data) {
-    return <></>;
-  }
-
   const [isTicketVisable, setIsTicketVisable] = useState(false);
   const [isLabelVisable, setIsLabelVisalbe] = useState(false);
+  const { initial, params } = useLoaderData<typeof loader>();
+
+  const { data, loading, encodeDataAttribute } = useQuery<typeof initial.data>(
+    EVENT_QUERY,
+    params,
+    {
+      initial,
+    }
+  );
+
+  useEffect(() => {
+    console.log("data - event id", data);
+  }, [data]);
+
+  const [openRole, setOpenRole] = useState(false);
   const [viewScale, setViewScale] = useState(1);
   const { t, language } = useTranslation();
 

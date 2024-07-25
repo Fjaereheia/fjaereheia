@@ -1,14 +1,19 @@
-import { json, LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
-import { Link, useLoaderData, useParams } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
+import { json, LoaderFunction, type MetaFunction } from "@remix-run/node";
+import { useQuery } from "@sanity/react-loader";
 import { useEffect } from "react";
+import { loadQuery } from "sanity/loader.server";
 import { EVENTS_QUERYResult } from "sanity/types";
 import Newsletter from "~/components/Newsletter";
-import { getEvents } from "~/queries/event-queries";
+import { EVENTS_QUERY } from "~/queries/event-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 
-export async function loader({ params }: LoaderFunctionArgs) {
-  const events = await getEvents(params);
-  console.log("events", events);
+export const loader: LoaderFunction = async ({ params }) => {
+  if (!params.lang) {
+    params = { lang: "nb" };
+  }
+
+  const events = await loadQuery<EVENTS_QUERYResult>(EVENTS_QUERY, params);
 
   if (!events) {
     throw new Response("Not Found", {
@@ -16,8 +21,11 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return json(events);
-}
+  return json({
+    params,
+    initial: events,
+  });
+};
 
 export const meta: MetaFunction = () => {
   return [
@@ -30,12 +38,29 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Events() {
-  const data = useLoaderData<typeof loader>() as EVENTS_QUERYResult;
+  const { initial, params } = useLoaderData<typeof loader>();
+
+  const { data, loading } = useQuery<typeof initial.data>(
+    EVENTS_QUERY,
+    params,
+    {
+      initial,
+    }
+  );
+
+  useEffect(() => {
+    console.log("data - event flere", data);
+  }, [data]);
+
   const { setColor } = useBackgroundColor();
   useEffect(() => {
     setColor("bg-newsletter");
   }, [setColor]);
-  const params = useParams();
+
+  if (loading && !data) {
+    return <div>Loading preview...</div>;
+  }
+
   return (
     <div className="flex grow flex-col items-center text-white relative">
       <div className="flex flex-col items-center font-normal gap-4 text-xl py-12 px-0">

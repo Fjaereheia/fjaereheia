@@ -28,8 +28,13 @@ export default defineConfig({
     presentationTool({
       previewUrl: process.env.SANITY_STUDIO_PREVIEW_URL ?? 'http://localhost:3333',
       resolve: {
+        //locations: locate,
         mainDocuments: defineDocuments([
           {
+            route: '/event/:slug',
+            filter: `_type == "event" && slug.current == $slug`,
+          },
+          /*{
             route: '',
             filter: `_type == "frontpage"`,
           },
@@ -38,8 +43,9 @@ export default defineConfig({
             filter: `_type == "event"`,
           },
           {
-            route: 'event/:slug',
+            route: '/event/:slug',
             filter: `_type == "event" && slug.current == $slug`,
+            params: {slug: 'slug'},
           },
           {
             route: '/artikler',
@@ -48,7 +54,7 @@ export default defineConfig({
           {
             route: '/info',
             filter: `_type == "infopage`,
-          },
+          },*/
         ]),
       },
     }),
