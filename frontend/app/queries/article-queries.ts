@@ -19,9 +19,9 @@ export async function getArticle(params: Params<string>) {
     return "No translation with this slug";
   }
   const ARTICLE_QUERY = groq`*[_type=="article" && slug.current==$id && language==$lang][0]
-    {..., text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}}, 
+    {title, slug, colorCombinationsDay, image, text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}}, 
     video{title, muxVideo{asset->{playbackId}}},
-    'event': event->,
+    'event': event->{slug},
     "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
     slug,
     language,
