@@ -20,7 +20,7 @@ type Props = {
   secondaryBorder?: string;
   textColor?: string;
   textColorBorder?: string;
-  genre?: EventGenre | undefined;
+  genre?: EventGenre | null;
   refFunction: Dispatch<SetStateAction<HTMLElement | null>>;
 };
 

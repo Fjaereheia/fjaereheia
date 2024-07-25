@@ -94,7 +94,9 @@ export default function Event() {
     textColor,
     textColorBorder,
     portabletextStyle,
+    quoteStyle,
   } = getColor(data?.colorCombinationsNight);
+
   const { setColor } = useBackgroundColor();
   const { setSlug } = useSlugContext();
 
@@ -164,6 +166,9 @@ export default function Event() {
             <PortableTextComponent
               textData={data.text}
               textStyle={portabletextStyle}
+              styleBlock={quoteStyle.styleBlock}
+              styleLink={quoteStyle.styleLink}
+              fillColor={quoteStyle.fillColor}
             />
           )}
           {data.dates && (

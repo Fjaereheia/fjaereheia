@@ -42,6 +42,7 @@ export const eventType = defineType({
       title: 'Fargekombinasjon',
       type: 'colorCombinationsNight',
       group: 'visual',
+      validation: (rule) => [rule.required().error('Må velge farger')],
     }),
     defineField({
       name: 'imageMask',
