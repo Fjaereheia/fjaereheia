@@ -19,10 +19,10 @@ export interface BackgroundColorProviderProps {
 export function BackgroundColorProvider({
   children,
 }: BackgroundColorProviderProps) {
-  const [color, setColor] = useState<string>("bg-white");
+  const [color, setColor] = useState<string>("bg-newsletter");
 
   useEffect(() => {
-    document.body.className = color + " w-full h-screen overflow-x-hidden";
+    document.body.className = color + " h-full flex flex-col grow";
   }, [color]);
 
   return (
