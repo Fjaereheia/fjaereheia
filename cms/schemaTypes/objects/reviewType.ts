@@ -1,9 +1,11 @@
 import {defineField, defineType} from 'sanity'
+import {EditIcon} from '@sanity/icons'
 
 export const reviewType = defineType({
   name: 'review',
   title: 'Anmeldelse',
   type: 'document',
+  icon: EditIcon,
   fields: [
     defineField({
       name: 'score',

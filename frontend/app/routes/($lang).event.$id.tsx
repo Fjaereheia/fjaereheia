@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { EVENT_QUERYResult } from "sanity/types";
-import { getBackgroundColor, getColor } from "~/utils/colorCombinations";
+import { getColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
 import { Tickets } from "~/components/Tickets";
@@ -13,12 +13,19 @@ import { getEvent } from "~/queries/event-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 import useIntersectionObserver from "~/utils/ticketsVisability";
 import { useTranslation } from "~/utils/i18n";
+import { useSlugContext } from "~/utils/i18n/SlugProvider";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
 
   if (!event) {
     throw new Response("Not Found", {
+      status: 404,
+    });
+  }
+
+  if (event == "No translation with this slug") {
+    throw new Response("No translation found", {
       status: 404,
     });
   }
@@ -48,10 +55,15 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Event() {
   const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
+
+  if (!data) {
+    return <></>;
+  }
+
   const [isTicketVisable, setIsTicketVisable] = useState(false);
   const [isLabelVisable, setIsLabelVisalbe] = useState(false);
   const [viewScale, setViewScale] = useState(1);
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   const setTicketRef = useIntersectionObserver((isIntersecting) => {
     setIsTicketVisable(isIntersecting);
@@ -65,6 +77,7 @@ export default function Event() {
       target.scrollIntoView({ behavior: "smooth" });
     }
   };
+
   const {
     bgColor,
     primaryText,
@@ -77,8 +90,15 @@ export default function Event() {
   } = getColor(data?.colorCombinationsNight);
 
   const { setColor } = useBackgroundColor();
+  const { setSlug } = useSlugContext();
+
+  if (!data) {
+    return <></>;
+  }
+
   useEffect(() => {
     setColor(bgColor);
+    setSlug(language, data?._translations);
   }, [setColor]);
   useEffect(() => {
     const updateViewScale = () => {
@@ -92,13 +112,10 @@ export default function Event() {
     window.addEventListener("resize", updateViewScale);
   }, [viewScale]);
 
-  if (!data) {
-    return <></>;
-  }
   return (
     <>
       <div
-        className={`min-h-screen flex flex-col relative justify-center ${textColor} items-center p-4`}
+        className={`flex grow flex-col relative justify-center ${textColor} items-center p-4`}
       >
         {data.image?.asset?._ref && (
           <ImageEventPage
