@@ -113,7 +113,7 @@ export default function Event() {
   return (
     <>
       <div
-        className={` min-h-screen flex flex-col relative justify-center ${textColor} items-center p-4`}
+        className={`min-h-screen flex flex-col relative justify-center ${textColor} items-center p-4`}
       >
         {data.image?.asset?._ref && (
           <ImageEventPage
@@ -123,11 +123,13 @@ export default function Event() {
             imageMaskType={data?.imageMask || ""}
           />
         )}
-        <div className="static">
-          <h1 className={`font-serif  text-2xl lg:text-4xl`}>{data.title}</h1>
-        </div>
-        {data.dates && (
-          <div ref={setLabelRef}>
+        <div
+          className={`flex flex-col relative justify-center ${textColor} items-center gap-6`}
+        >
+          <div className="static">
+            <h1 className={`font-serif text-2xl lg:text-4xl`}>{data.title}</h1>
+          </div>
+          {data.dates && (
             <EventLabels
               dateObj={data.dates}
               genre={data.eventGenre}
@@ -137,23 +139,22 @@ export default function Event() {
               textColor={textColor}
               textColorBorder={textColorBorder}
             />
-          </div>
-        )}
-        {data.text && (
-          <PortableTextComponent
-            textData={data.text}
-            textStyle={portabletextStyle}
-          />
-        )}
+          )}
+          {data.text && (
+            <PortableTextComponent
+              textData={data.text}
+              textStyle={portabletextStyle}
+            />
+          )}
 
-        {data.dates && (
-          <div ref={setTicketRef}>
-            <Tickets dateTickets={data.dates} />
-          </div>
-        )}
-        {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
+          {data.dates && (
+            <div className={`flex self-start`} ref={setTicketRef}>
+              <Tickets dateTickets={data.dates} />
+            </div>
+          )}
+          {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
+        </div>
       </div>
-
       {!isLabelVisable && !isTicketVisable && (
         <div
           className={`sticky bottom-12 md:bottom-24 md:w-[100px] p-2 z-10 w-full flex flex-col ${textColor} text-center items-center md:items-start bg-red-400 text-lg lg:text-xl font-serif lg:left-32 2xl:left-1/4`}
@@ -169,5 +170,15 @@ const text = {
   allEvents: {
     en: "Buy ticket",
     nb: "Kjøp billett",
+  },
+};
+const genres = {
+  konsert: {
+    en: "Concert",
+    nb: "Konsert",
+  },
+  skuespill: {
+    en: "Play",
+    nb: "Skuespill",
   },
 };
