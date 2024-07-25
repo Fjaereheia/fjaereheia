@@ -20,7 +20,7 @@ npm run dev
 
 This will start all apps and packages in development mode. You can then visit the following URLs:
 
-- [localhost:3000](http://localhost:3000) - The local version of the docs website
+- [localhost:3000](http://localhost:5173) - The local version of the docs website
 - [localhost:3333](http://localhost:3333) - The local version of the Sanity Studio
 
 ## Making changes in the cms
