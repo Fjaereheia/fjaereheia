@@ -558,14 +558,14 @@
           },
           "optional": false
         },
-        "roles": {
+        "persons": {
           "type": "objectAttribute",
           "value": {
             "type": "array",
             "of": {
               "type": "object",
               "attributes": {
-                "role": {
+                "person": {
                   "type": "objectAttribute",
                   "value": {
                     "type": "object",
@@ -591,11 +591,11 @@
                         "optional": true
                       }
                     },
-                    "dereferencesTo": "role"
+                    "dereferencesTo": "person"
                   },
                   "optional": true
                 },
-                "roleTitle": {
+                "ocupation": {
                   "type": "objectAttribute",
                   "value": {
                     "type": "string"
@@ -2075,7 +2075,7 @@
                     "optional": true
                   }
                 },
-                "dereferencesTo": "role"
+                "dereferencesTo": "person"
               },
               {
                 "type": "object",
@@ -3136,7 +3136,7 @@
     }
   },
   {
-    "name": "role",
+    "name": "person",
     "type": "document",
     "attributes": {
       "_id": {
@@ -3149,7 +3149,7 @@
         "type": "objectAttribute",
         "value": {
           "type": "string",
-          "value": "role"
+          "value": "person"
         }
       },
       "_createdAt": {

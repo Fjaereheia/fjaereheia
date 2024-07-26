@@ -22,9 +22,9 @@ export async function getEvent(params: Params<string>) {
   const EVENT_QUERY = groq`*[_type=="event" && language==$lang && slug.current==$id][0]{
   ...,"roleGroups": roleGroups[]{
     name,
-    roles[]{
+    persons[]{
       roleTitle,
-      role->{name, image, text}}
+      person->{name, image, text}}
     },
     "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
     slug,

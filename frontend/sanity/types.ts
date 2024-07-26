@@ -107,14 +107,14 @@ export type Video = {
 export type RoleGroups = {
   _type: "roleGroups";
   name: string;
-  roles?: Array<{
-    role?: {
+  persons?: Array<{
+    person?: {
       _ref: string;
       _type: "reference";
       _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "role";
+      [internalGroqTypeReferenceTo]?: "person";
     };
-    roleTitle?: string;
+    ocupation?: string;
     _key: string;
   }>;
 };
@@ -355,7 +355,7 @@ export type InternationalizedArrayReferenceValue = {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "role";
+    [internalGroqTypeReferenceTo]?: "person";
   } | {
     _ref: string;
     _type: "reference";
@@ -541,9 +541,9 @@ export type Event = {
   metaDescription: MetaDescription;
 };
 
-export type Role = {
+export type Person = {
   _id: string;
-  _type: "role";
+  _type: "person";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -593,7 +593,7 @@ export type InternationalizedArrayReference = Array<{
   _key: string;
 } & InternationalizedArrayReferenceValue>;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | ColorCombinationsNight | ColorCombinationsDay | MetaDescription | MetaTitle | Video | RoleGroups | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Infopage | Frontpage | Article | Event | Role | Document | CustomImage | Slug | InternationalizedArrayReference;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | ColorCombinationsNight | ColorCombinationsDay | MetaDescription | MetaTitle | Video | RoleGroups | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Infopage | Frontpage | Article | Event | Person | Document | CustomImage | Slug | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -808,7 +808,7 @@ export type EVENTS_QUERYResult = Array<{
   metaDescription: MetaDescription;
 }>;
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{  ...,"roleGroups": roleGroups[]{    name,    roles[]{      roleTitle,      role->{name, image, text}}    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
+// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{  ...,"roleGroups": roleGroups[]{    name,    persons[]{      roleTitle,      person->{name, image, text}}    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
 export type EVENT_QUERYResult = {
   _id: string;
   _type: "event";
@@ -854,9 +854,9 @@ export type EVENT_QUERYResult = {
   text?: Content;
   roleGroups: Array<{
     name: string;
-    roles: Array<{
-      roleTitle: string | null;
-      role: {
+    persons: Array<{
+      roleTitle: null;
+      person: {
         name: string;
         image: {
           asset?: {

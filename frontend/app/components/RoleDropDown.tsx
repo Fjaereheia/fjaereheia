@@ -8,14 +8,15 @@ import { createTexts, useTranslation } from "~/utils/i18n";
 import urlFor from "~/utils/imageUrlBuilder";
 import ArrowUp from "/arrow-up.svg";
 import ArrowDown from "/arrow-down.svg";
+import { motion } from "framer-motion";
 
 interface RoleDropDownProps {
   roleGroups: {
     name: string;
-    roles:
+    persons:
       | {
-          roleTitle: string | null;
-          role: {
+          roleTitle: null;
+          person: {
             name: string;
             image: {
               asset?:
@@ -42,49 +43,68 @@ interface RoleDropDownProps {
 
 export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
   const { t } = useTranslation();
-  const [openRole, setOpenRole] = useState(false);
+  const [openRoleStates, setOpenRoleStates] = useState(
+    Array(roleGroups.length).fill(false)
+  );
+  const toggleDropDown = (index: number) => {
+    setOpenRoleStates((prev) => {
+      const newStates = prev.map((state, i) => (i === index ? !state : state));
+      return newStates;
+    });
+  };
+
+  console.log(roleGroups);
   return (
-    <div className="border self-start">
-      <button
-        className="w-80 h-16 py-4 px-6 grid grid-flow-col"
-        onClick={() => setOpenRole(!openRole)}
-      >
-        <span className="self-center justify-self-start text-xl">
-          {t(texts.roleDropDown)}{" "}
-        </span>
-        <img
-          className="w-6 h-6 self-center justify-self-end"
-          src={openRole ? ArrowUp : ArrowDown}
-          alt={
-            openRole ? t(texts.roleDropDownAltUp) : t(texts.roleDropDownAltDown)
-          }
-        />
-      </button>
-      {openRole && (
-        <div className="w-80">
-          {roleGroups?.map((roleGroup, index) => (
-            <div key={index} className="m-4 mb-10">
-              {/*<h3 className="text-base font-semibold">{roleGroup.name}</h3>*/}
-              <div>
-                {roleGroup.roles?.map((role, index) => (
-                  <div key={index} className="flex flex-row mt-8 w-fit gap-6">
-                    <img
-                      src={urlFor(role.role?.image?.asset?._ref ?? "")}
-                      alt={role.role?.image?.alt ?? ""}
-                      className="w-36 h-36 object-cover"
-                    />
-                    <div>
-                      <h4 className="text-lg mb-2">{role.role?.name}</h4>
-                      <span>{role.roleTitle}</span>
-                      <h5 className="text-base mb-2">{role.role?.text}</h5>
-                    </div>
+    <div>
+      {roleGroups?.map((roleGroup, index) => (
+        <div key={index} className="border self-start m-4">
+          <button
+            className="w-96 h-16 py-4 px-6 grid grid-flow-col"
+            onClick={() => toggleDropDown(index)}
+          >
+            <span className="self-center justify-self-start text-xl">
+              {roleGroup.name}{" "}
+            </span>
+            <img
+              className="w-6 h-6 self-center justify-self-end"
+              src={openRoleStates[index] ? ArrowUp : ArrowDown}
+              alt={
+                openRoleStates[index]
+                  ? t(texts.roleDropDownAltUp)
+                  : t(texts.roleDropDownAltDown)
+              }
+            />
+          </button>
+          <motion.div
+            key={index}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{
+              height: openRoleStates[index] ? "auto" : 0,
+              opacity: openRoleStates[index] ? 1 : 0,
+            }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 1.0 }}
+            style={{ overflow: "hidden" }}
+          >
+            <div id={index.toString()} className="mx-4 mb-10">
+              {roleGroup.persons?.map((role, roleIndex) => (
+                <div key={roleIndex} className="flex flex-row mt-0 gap-6">
+                  <img
+                    src={urlFor(role.person?.image?.asset?._ref ?? "")}
+                    alt={role.person?.image?.alt ?? ""}
+                    className="w-28 h-36 object-cover"
+                  />
+                  <div>
+                    <h4 className="text-2xl mb-2">{role.roleTitle}</h4>
+                    <h5 className="text-lg mb-2">{role.person?.name}</h5>
+                    <span className="text-base">{role.person?.text}</span>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </motion.div>
         </div>
-      )}
+      ))}
     </div>
   );
 }
