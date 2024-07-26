@@ -14,7 +14,7 @@ export default {
       validation: (rule) => rule.required().min(2).max(50).error(`Må ha navn på minst 2 bokstaver`),
     }),
     defineField({
-      name: 'roles',
+      name: 'persons',
       title: 'Roller',
       type: 'array',
       of: [
@@ -22,10 +22,10 @@ export default {
           type: 'object',
           fields: [
             {
-              name: 'role',
+              name: 'person',
               title: 'Person',
               type: 'reference',
-              to: [{type: 'role'}],
+              to: [{type: 'person'}],
               options: {
                 filter: ({document}) => {
                   return {
@@ -36,16 +36,16 @@ export default {
               },
             },
             {
-              name: 'roleTitle',
-              title: 'RolleTittel',
+              name: 'ocupation',
+              title: 'stilling',
               description: 'Legg til stilling',
               type: 'string',
             },
           ],
           preview: {
             select: {
-              title: 'role.name', // This selects the `name` field from the referenced `role` document
-              subtitle: 'roleTitle', // Optionally, show the `roleTitle` as a subtitle
+              title: 'person.name',
+              subtitle: 'occupation',
             },
           },
         },
