@@ -14,7 +14,7 @@ import { useBackgroundColor } from "~/utils/backgroundColor";
 import { FloatingBuyButton } from "~/components/FloatingBuyButton";
 import { useSlugContext } from "~/utils/i18n/SlugProvider";
 import { useTranslation } from "~/utils/i18n";
-import { initBuyButtonObserver } from "~/utils/IntersectionObserver";
+import { initBuyButtonObserver } from "~/utils/BuyButtonObserver";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
