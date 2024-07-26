@@ -26,21 +26,31 @@ import {
   useBackgroundColor,
 } from "./utils/backgroundColor";
 import LanguageButton from "./components/LanguageButton";
+import { SlugProvider } from "./utils/i18n/SlugProvider";
+import NoTranslation from "./components/NoTranslation";
 
 type ErrorWithStatus = {
   status?: number;
   statusText?: string;
+  data: string;
 };
 
 export function ErrorBoundary() {
   const error = useRouteError() as ErrorWithStatus;
   console.error(error);
 
+  function ErrorSwitcher() {
+    if (error.data == "No translation found") {
+      return <NoTranslation />;
+    } else {
+      return <PageNotFound />;
+    }
+  }
   return (
     <>
       <title>404 - OPS</title>
       {error?.status === 404 ? (
-        <PageNotFound />
+        ErrorSwitcher()
       ) : (
         <div>
           <h1>Something went wrong</h1>
@@ -72,7 +82,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const { color } = useBackgroundColor();
 
   return (
-    <html lang={language} className="overflow-x-hidden w-full h-full">
+    <html lang={language} className="h-full">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -81,7 +91,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className={color}>
-        {children}
+        <div className="grow">{children}</div>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -95,22 +105,25 @@ export default function App() {
   return (
     <LanguageProvider language={language}>
       <BackgroundColorProvider>
-        <motion.div
-          key={pathname}
-          initial={{ x: slideDirection * 100 + "%" }}
-          animate={{ x: 0 }}
-          exit={{
-            x: slideDirection * -100 + "%",
-          }}
-          transition={{
-            duration: 0.5,
-          }}
-        >
-          <Header />
-          <LanguageButton />
-          <Outlet />
-          <StickyFooter infoUrl="/info" programUrl="/program" />
-        </motion.div>
+        <SlugProvider>
+          <motion.div
+            className="flex flex-col min-h-full"
+            key={pathname}
+            initial={{ x: slideDirection * 100 + "%" }}
+            animate={{ x: 0 }}
+            exit={{
+              x: slideDirection * -100 + "%",
+            }}
+            transition={{
+              duration: 0.5,
+            }}
+          >
+            <Header />
+            <LanguageButton />
+            <Outlet />
+            <StickyFooter infoUrl="/info" programUrl="/program" />
+          </motion.div>
+        </SlugProvider>
       </BackgroundColorProvider>
     </LanguageProvider>
   );

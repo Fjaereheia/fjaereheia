@@ -6,7 +6,7 @@ export async function getEvents(params: Params<string>) {
   if (!params.lang) {
     params = { lang: "nb" };
   }
-  const EVENTS_QUERY = groq`*[_type=="event" && language==$lang]`;
+  const EVENTS_QUERY = groq`*[_type=="event" && language==$lang]{_id, slug, title}`;
   const events = await client.fetch(EVENTS_QUERY, params);
   return events;
 }
@@ -16,10 +16,22 @@ export async function getEvent(params: Params<string>) {
   if (!params.lang) {
     params = { lang: "nb", id: eventId };
   }
+  if (params.id == "noSlugFound") {
+    return "No translation with this slug";
+  }
   const EVENT_QUERY = groq`*[_type=="event" && language==$lang && slug.current==$id][0]{
-  ...,
-  text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},
-  roleGroups[]{name,roles[]->{name, occupation,image, text}}
+    title, 
+    image,
+    imageMask, 
+    colorCombinationsNight, 
+    dates, 
+    text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},
+    eventGenre, 
+    roleGroups[]{name,roles[]->{name, occupation,image, text}},
+    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
+    slug,
+    language,
+    }
   }`;
   const event = await client.fetch(EVENT_QUERY, params);
   return event;

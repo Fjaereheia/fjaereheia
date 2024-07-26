@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+import { EventGenre } from "sanity/types";
 import {
   formatDayAndDate,
   formatTimestamp,
@@ -18,7 +20,8 @@ type Props = {
   secondaryBorder?: string;
   textColor?: string;
   textColorBorder?: string;
-  genre?: string | undefined;
+  genre?: EventGenre | null;
+  refFunction: Dispatch<SetStateAction<HTMLElement | null>>;
 };
 
 export function formatDateOnly(dateString: string): string {
@@ -26,6 +29,34 @@ export function formatDateOnly(dateString: string): string {
   const day = d.split("-");
   return day[day.length - 1];
 }
+
+type LabelProps = {
+  dateObj: DateObject[];
+  formattedDate: string;
+  datesOnlyFirst: string;
+  datesOnlyLast: string;
+  firstDate: string;
+};
+
+const getDateLabel = ({
+  dateObj,
+  formattedDate,
+  datesOnlyFirst,
+  datesOnlyLast,
+  firstDate,
+}: LabelProps) => {
+  const { language, t } = useTranslation();
+
+  if (dateObj.length === 1) {
+    return formattedDate.toUpperCase();
+  }
+  return `${t(
+    texts.plays
+  ).toUpperCase()} ${datesOnlyFirst} . ${datesOnlyLast} . ${getMonth(
+    firstDate,
+    language
+  )?.toLocaleUpperCase()}`;
+};
 
 export const EventLabels = ({
   dateObj,
@@ -35,66 +66,77 @@ export const EventLabels = ({
   secondaryBorder,
   textColor,
   textColorBorder,
+  refFunction,
 }: Props) => {
   const { language, t } = useTranslation();
 
-  const renderLabel = () => {
-    const firstDate = dateObj[0].date ?? "";
-    const lastdate = dateObj[dateObj.length - 1].date ?? "";
-    const formattedTimestamp = formatTimestamp(firstDate, language);
-    const formattedDate = formatDayAndDate(firstDate, language);
-    const datesOnlyFirst = formatDateOnly(firstDate);
-    const datesOnlyLast = formatDateOnly(lastdate);
+  const firstDate = dateObj[0].date ?? "";
+  const lastdate = dateObj[dateObj.length - 1].date ?? "";
+  const formattedTimestamp = formatTimestamp(firstDate, language);
+  const formattedDate = formatDayAndDate(firstDate, language);
+  const datesOnlyFirst = formatDateOnly(firstDate);
+  const datesOnlyLast = formatDateOnly(lastdate);
 
-    return (
-      <>
-        <div className="prose mr-auto sm:m-0 font-serif  lg:text-lg py-2">
-          <div className="flex gap-4 sm:float-start  pt-2 sm:pr-2">
-            <div className={`border p-2 ${textColorBorder} ${textColor} `}>
+  const dateLabel = getDateLabel({
+    dateObj,
+    formattedDate,
+    datesOnlyFirst,
+    datesOnlyLast,
+    firstDate,
+  });
 
-              {dateObj.length === 1 ? (
-                formattedDate.toUpperCase()
-              ) : (
-                <>
-                  {t(texts.plays).toUpperCase()} {datesOnlyFirst + ".-"}
-                  {datesOnlyLast + "."}{" "}
-                  {getMonth(firstDate!, language)?.toUpperCase()}
-                </>
-              )}
-            </div>
-            <div
-              className={`sm:mr-2 p-2 border ${textColorBorder} ${textColor}`}
-            >
-              {formattedTimestamp}
-            </div>
-          </div>
-
-          <div className="pt-2 flex gap-4 sm:float-start">
-            {genre && (
-              <div className={` p-2 border ${textColorBorder} ${textColor}`}>
-                {genre.toUpperCase()}
-              </div>
-            )}
-
-            <button
-              onClick={handleScroll}
-
-              className={`p-1 border ${secondaryBorder} ${secondaryBgColor} ${primaryText} font-bold `}
-            >
-              {t(texts.buyTicket).toUpperCase()}
-            </button>
-          </div>
-        </div>
-      </>
-    );
+  const genreMap = {
+    en: {
+      Konsert: genres.konsert.en,
+      Skuespill: genres.skuespill.en,
+    },
+    nb: {
+      Konsert: genres.konsert.nb,
+      Skuespill: genres.skuespill.nb,
+    },
   };
+
+  const getGenre = () => {
+    return genre && genre.length > 0
+      ? genreMap[language]?.[genre]?.toUpperCase()
+      : "";
+  };
+
+  const labels = [dateLabel, formattedTimestamp, getGenre()];
+
   const handleScroll = () => {
     const target = document.getElementById("tickets");
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
     }
   };
-  return renderLabel();
+
+  return (
+    <>
+      <div ref={refFunction} className="font-serif self-start">
+        <div className="flex flex-wrap gap-4 md:float-start ">
+          {labels.map(
+            (label, index) =>
+              label &&
+              label.length > 0 && (
+                <div
+                  key={index}
+                  className={`p-2 border ${textColorBorder} ${textColor}`}
+                >
+                  {label}
+                </div>
+              )
+          )}
+          <button
+            onClick={handleScroll}
+            className={`pl-2 p-2 ${secondaryBorder} ${secondaryBgColor} ${primaryText} font-bold `}
+          >
+            {t(texts.buyTicket).toUpperCase()}
+          </button>
+        </div>
+      </div>
+    </>
+  );
 };
 
 const texts = {
@@ -105,5 +147,15 @@ const texts = {
   buyTicket: {
     en: "Buy ticket",
     nb: "Kjøp billett",
+  },
+};
+const genres = {
+  konsert: {
+    en: "Concert",
+    nb: "Konsert",
+  },
+  skuespill: {
+    en: "Play",
+    nb: "Skuespill",
   },
 };

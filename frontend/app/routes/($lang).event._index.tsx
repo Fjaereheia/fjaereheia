@@ -36,7 +36,7 @@ export default function Events() {
   }, [setColor]);
   const params = useParams();
   return (
-    <div className="min-h-screen flex flex-col items-center text-white relative pb-36">
+    <div className="flex grow flex-col items-center text-white relative">
       <div className="flex flex-col items-center font-normal gap-4 text-xl py-12 px-0">
         {data.map((event, index) => (
           <div key={index}>

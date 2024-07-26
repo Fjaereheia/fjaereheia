@@ -1,9 +1,11 @@
 import {defineField, validation} from 'sanity'
+import {UsersIcon} from '@sanity/icons'
 
 export default {
   name: 'roleGroups',
   title: 'Rolle Grupper',
   type: 'object',
+  icon: UsersIcon,
   fields: [
     defineField({
       name: 'name',

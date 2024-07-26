@@ -1,12 +1,14 @@
 import {defineField, defineType} from 'sanity'
 import {isUniqueOtherThanLanguage} from '../structure/documentInternationalization'
+import {CalendarIcon} from '@sanity/icons'
 
 export const eventType = defineType({
   name: 'event',
   title: 'Forestilling',
   type: 'document',
   groups: [
-    {title: 'Innhold', name: 'content'},
+    {title: 'Innhold', name: 'content', default: true},
+    {title: 'Visuelt', name: 'visual'},
     {title: 'SEO', name: 'seo'},
   ],
   fields: [
@@ -33,16 +35,20 @@ export const eventType = defineType({
       name: 'eventGenre',
       title: 'Sjanger',
       type: 'eventGenre',
+      group: 'content',
     }),
     defineField({
       name: 'colorCombinationsNight',
       title: 'Fargekombinasjon',
       type: 'colorCombinationsNight',
+      group: 'visual',
+      validation: (rule) => [rule.required().error('Må velge farger')],
     }),
     defineField({
       name: 'imageMask',
       title: 'Visning av bildet',
       type: 'imageMask',
+      group: 'visual',
     }),
     defineField({
       name: 'slug',
@@ -52,18 +58,18 @@ export const eventType = defineType({
       hidden: ({document}) => !document?.title,
       description: 'Url: fjaereheia.no/xxx',
       group: 'seo',
+      validation: (rule) => [rule.required().error('Må ha en slug')],
     }),
     defineField({
       name: 'svgTitle',
-      title: 'Stor tittel',
-      description: 'SVG filer av tittel',
+      title: 'Stor grafisk tittel',
+      description: 'SVG file av tittel',
       type: 'customImage',
-    }),
-    defineField({
-      name: 'preamble',
-      title: 'Ingress',
-      type: 'string',
-      group: 'content',
+      group: 'visual',
+      validation: (rule) => [rule.required().error('Grafisk tittel er påkrevd')],
+      options: {
+        accept: '.svg',
+      },
     }),
     defineField({
       name: 'dates',
@@ -73,6 +79,7 @@ export const eventType = defineType({
       of: [
         {
           type: 'object',
+          icon: CalendarIcon,
           fields: [
             {
               name: 'date',
@@ -103,20 +110,22 @@ export const eventType = defineType({
       name: 'image',
       title: 'Bilde',
       type: 'customImage',
-      group: 'content',
+      group: 'visual',
       options: {
         hotspot: true,
       },
     }),
     defineField({
       name: 'text',
-      title: 'beskrivelse',
+      title: 'Beskrivelse',
       type: 'content',
       group: 'content',
+      description: 'Innhold: Mulighet for å legge inn tekst, bilde, video, sitat og anmeldelse',
     }),
     defineField({
       name: 'roleGroups',
       title: 'Roller',
+      description: 'Lag egne rollegrupper',
       type: 'array',
       of: [{type: 'roleGroups'}],
       group: 'content',
@@ -126,12 +135,14 @@ export const eventType = defineType({
       title: 'SEO tittel',
       type: 'metaTitle',
       group: 'seo',
+      validation: (rule) => [rule.required().error('Må ha SEO tittel')],
     }),
     defineField({
       name: 'metaDescription',
       title: 'SEO beskrivelse',
       type: 'metaDescription',
       group: 'seo',
+      validation: (rule) => [rule.required().error('Må ha SEO beskrivelse')],
     }),
   ],
 })

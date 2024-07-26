@@ -13,12 +13,20 @@ import { getEvent } from "~/queries/event-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 import useIntersectionObserver from "~/utils/ticketsVisibility";
 import { FloatingBuyButton } from "~/components/FloatingBuyButton";
+import { useSlugContext } from "~/utils/i18n/SlugProvider";
+import { useTranslation } from "~/utils/i18n";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
 
   if (!event) {
     throw new Response("Not Found", {
+      status: 404,
+    });
+  }
+
+  if (event == "No translation with this slug") {
+    throw new Response("No translation found", {
       status: 404,
     });
   }
@@ -52,6 +60,7 @@ export default function Event() {
   const [isLabelVisible, setIsLabelVisible] = useState(false);
   const [areComponentsHidden, setAreComponentsHidden] = useState(false);
   const [viewScale, setViewScale] = useState(1);
+  const { language } = useTranslation();
   const [isAnimationFinished, setAnimationFinished] = useState(false);
 
   const handleTicketVisibility = useCallback((isIntersecting: boolean) => {
@@ -71,6 +80,7 @@ export default function Event() {
       target.scrollIntoView({ behavior: "smooth" });
     }
   };
+
   const {
     bgColor,
     primaryText,
@@ -79,8 +89,11 @@ export default function Event() {
     textColor,
     textColorBorder,
     portabletextStyle,
+    quoteStyle,
   } = getColor(data?.colorCombinationsNight);
+
   const { setColor } = useBackgroundColor();
+  const { setSlug } = useSlugContext();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -98,6 +111,7 @@ export default function Event() {
 
   useEffect(() => {
     setColor(bgColor);
+    setSlug(language, data?._translations);
   }, [bgColor, setColor]);
 
   useEffect(() => {
@@ -119,7 +133,7 @@ export default function Event() {
   return (
     <>
       <div
-        className={` min-h-screen flex flex-col relative justify-center ${textColor} items-center p-4`}
+        className={`flex grow flex-col relative justify-center ${textColor} items-center p-4`}
       >
         {data.image?.asset?._ref && (
           <ImageEventPage
@@ -129,12 +143,15 @@ export default function Event() {
             imageMaskType={data?.imageMask || ""}
           />
         )}
-        <div className="static">
-          <h1 className={`font-serif  text-2xl lg:text-4xl`}>{data.title}</h1>
-        </div>
-        {data.dates && (
-          <div ref={setLabelRef}>
+        <div
+          className={`flex flex-col relative justify-center ${textColor} items-center gap-6`}
+        >
+          <div className="static">
+            <h1 className={`font-serif text-2xl lg:text-4xl`}>{data.title}</h1>
+          </div>
+          {data.dates && (
             <EventLabels
+              refFunction={setLabelRef}
               dateObj={data.dates}
               genre={data.eventGenre}
               primaryText={primaryText}
@@ -143,21 +160,23 @@ export default function Event() {
               textColor={textColor}
               textColorBorder={textColorBorder}
             />
-          </div>
-        )}
-        {data?.text && (
-          <PortableTextComponent
-            textData={data.text}
-            textStyle={portabletextStyle}
-          />
-        )}
-
-        {data.dates && (
-          <div ref={setTicketRef}>
-            <Tickets dateTickets={data.dates} />
-          </div>
-        )}
-        {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
+          )}
+          {data.text && (
+            <PortableTextComponent
+              textData={data.text}
+              textStyle={portabletextStyle}
+              styleBlock={quoteStyle.styleBlock}
+              styleLink={quoteStyle.styleLink}
+              fillColor={quoteStyle.fillColor}
+            />
+          )}
+          {data.dates && (
+            <div ref={setTicketRef}>
+              <Tickets dateTickets={data.dates} />
+            </div>
+          )}
+          {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
+        </div>
       </div>
       {areComponentsHidden && isAnimationFinished && (
         <FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />
