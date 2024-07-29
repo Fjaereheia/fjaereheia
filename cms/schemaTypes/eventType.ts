@@ -98,6 +98,7 @@ export const eventType = defineType({
               name: 'status',
               title: 'Antall billetter igjen',
               type: 'number',
+              initialValue: 1,
               options: {
                 list: [
                   {title: 'Normalt', value: 1},
