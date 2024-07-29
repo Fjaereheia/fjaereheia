@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { Custom_EVENT_QUERYResult } from "sanity/types";
@@ -11,10 +11,10 @@ import { EventLabels } from "~/components/EventLabels";
 import RoleDropDown from "~/components/RoleDropDown";
 import { getEvent } from "~/queries/event-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
-import useIntersectionObserver from "~/utils/ticketsVisibility";
 import { FloatingBuyButton } from "~/components/FloatingBuyButton";
 import { useSlugContext } from "~/utils/i18n/SlugProvider";
 import { useTranslation } from "~/utils/i18n";
+import { initBuyButtonObserver } from "~/utils/BuyButtonObserver";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
@@ -56,23 +56,8 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function Event() {
   const data = useLoaderData<typeof loader>() as Custom_EVENT_QUERYResult;
-  const [isTicketVisible, setIsTicketVisible] = useState(false);
-  const [isLabelVisible, setIsLabelVisible] = useState(false);
-  const [areComponentsHidden, setAreComponentsHidden] = useState(false);
   const [viewScale, setViewScale] = useState(1);
   const { language } = useTranslation();
-  const [isAnimationFinished, setAnimationFinished] = useState(false);
-
-  const handleTicketVisibility = useCallback((isIntersecting: boolean) => {
-    setIsTicketVisible(isIntersecting);
-  }, []);
-
-  const handleLabelVisibility = useCallback((isIntersecting: boolean) => {
-    setIsLabelVisible(isIntersecting);
-  }, []);
-
-  const setTicketRef = useIntersectionObserver(handleTicketVisibility);
-  const setLabelRef = useIntersectionObserver(handleLabelVisibility);
 
   const handleScroll = () => {
     const target = document.getElementById("tickets");
@@ -96,20 +81,6 @@ export default function Event() {
   const { setSlug } = useSlugContext();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setAnimationFinished(true);
-    }, 500);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
-
-  useEffect(() => {
-    setAreComponentsHidden(!isTicketVisible && !isLabelVisible);
-  }, [isTicketVisible, isLabelVisible]);
-
-  useEffect(() => {
     setColor(bgColor);
     setSlug(language, data?._translations);
   }, [bgColor, setColor]);
@@ -129,6 +100,8 @@ export default function Event() {
   if (!data) {
     return <></>;
   }
+
+  initBuyButtonObserver();
 
   return (
     <>
@@ -151,7 +124,6 @@ export default function Event() {
           </div>
           {data.dates && (
             <EventLabels
-              refFunction={setLabelRef}
               dateObj={data.dates}
               genre={data.eventGenre}
               primaryText={primaryText}
@@ -170,17 +142,15 @@ export default function Event() {
               fillColor={quoteStyle.fillColor}
             />
           )}
-          {data.dates && (
-            <div ref={setTicketRef}>
-              <Tickets dateTickets={data.dates} />
-            </div>
-          )}
+          {data.dates && <Tickets dateTickets={data.dates} />}
           {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
         </div>
       </div>
-      {areComponentsHidden && isAnimationFinished && (
-        <FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />
-      )}
+      <FloatingBuyButton
+        buyButtonElement=""
+        handleScroll={handleScroll}
+        textColor={textColor}
+      />
     </>
   );
 }
