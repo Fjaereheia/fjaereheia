@@ -93,7 +93,7 @@ function NewsletterForm(props: NewsletterFormProps) {
 
   function handleClickOutside(event: MouseEvent) {
     if (ref.current && !ref.current.contains(event.target as Node)) {
-      props.setShowForm(false); //den krysser deg ut av nyhetsbrevet
+      props.setShowForm(false);
     }
   }
 
