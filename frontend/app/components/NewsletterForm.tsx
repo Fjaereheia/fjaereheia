@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "~/utils/i18n";
+import closebutton from "~/assets/closeButton.svg";
 
 interface NewsletterFormProps {
   setShowForm: (showForm: boolean) => void;
@@ -73,12 +74,6 @@ function NewsletterForm(props: NewsletterFormProps) {
       type: "text",
       placeholder: t(texts.phone.placeholder),
     },
-    {
-      id: "post_number",
-      label: t(texts.postalCode.label),
-      type: "text",
-      placeholder: t(texts.postalCode.placeholder),
-    },
   ];
 
   function handleSubmit() {
@@ -98,7 +93,7 @@ function NewsletterForm(props: NewsletterFormProps) {
 
   function handleClickOutside(event: MouseEvent) {
     if (ref.current && !ref.current.contains(event.target as Node)) {
-      props.setShowForm(false);
+      props.setShowForm(false); //den krysser deg ut av nyhetsbrevet
     }
   }
 
@@ -117,11 +112,17 @@ function NewsletterForm(props: NewsletterFormProps) {
     <div className="fixed inset-0 flex items-center justify-center">
       <div
         ref={ref}
-        className="bg-strongblue border-2 border-black text-black w-auto md:w-1/3 h-4/5 md:h-2/3 m-4 grid grid-cols-1 grid-rows-auto"
+        className="bg-strongblue border-2 relative border-black text-black w-auto md:w-1/3 h-4/5 md:h-2/3 m-4 grid grid-cols-1 grid-rows-auto"
       >
         <p className="flex flex-col justify-center text-base lg:text-xl p-2 text-center ">
           {t(texts.blurb)}
         </p>
+        <button
+          onClick={() => props.setShowForm(false)}
+          className="font-sans text-2xl lg:text-4xl absolute top-0 right-0 pt-4 pr-4"
+        >
+          <img className="w-5" alt="" src={closebutton} />
+        </button>
         <form className="grid grid-rows-auto text-black ">
           {formFields.map((field) => (
             <InputField
@@ -210,16 +211,6 @@ const texts = {
     placeholder: {
       nb: "+47 999 99 999",
       en: "+44 7123 456789",
-    },
-  },
-  postalCode: {
-    label: {
-      nb: "Postnummer",
-      en: "Postal code",
-    },
-    placeholder: {
-      nb: "1234",
-      en: "SW1W 0NY",
     },
   },
 };
