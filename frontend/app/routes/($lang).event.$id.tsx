@@ -146,11 +146,7 @@ export default function Event() {
           {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
         </div>
       </div>
-      <FloatingBuyButton
-        buyButtonElement=""
-        handleScroll={handleScroll}
-        textColor={textColor}
-      />
+      <FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />
     </>
   );
 }
