@@ -27,7 +27,7 @@ export default function StickyFooter({
     location.pathname.includes("/program")
   ) {
     textcolor = "white";
-    bgcolor = "newsletter";
+    bgcolor = "strongblue";
   }
 
   if (location.pathname.includes("/info")) {
