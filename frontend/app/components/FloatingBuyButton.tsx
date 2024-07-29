@@ -11,11 +11,13 @@ export function FloatingBuyButton({
 }: FloatingBuyButtonProps) {
   const { t } = useTranslation();
   return (
-    <div
+    <button
+      id="buyButton"
       className={`sticky bottom-12 md:bottom-24 md:w-[100px] p-2 z-10 w-full flex flex-col ${textColor} text-center items-center md:items-start bg-red-400 text-lg lg:text-xl font-serif lg:left-32 2xl:left-1/4`}
+      onClick={handleScroll}
     >
-      <button onClick={handleScroll}>{t(text.allEvents)}</button>
-    </div>
+      {t(text.allEvents)}
+    </button>
   );
 }
 const text = {
