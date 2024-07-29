@@ -16,10 +16,6 @@ import {media} from 'sanity-plugin-media'
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
 const singletonTypes = new Set(['frontpage'])
 
-interface ComponentProps {
-  // Define any specific props you expect here
-}
-
 export default defineConfig({
   name: 'default',
   title: 'Fjæreheia',
