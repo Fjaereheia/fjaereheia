@@ -37,7 +37,6 @@ export const usePageTransition = () => {
       previousLocation?.includes("/program")
     )
       slideDirection = -1;
-
     else slideDirection = 0;
   } else slideDirection = 0;
 
@@ -47,5 +46,5 @@ export const usePageTransition = () => {
 export const backgroundColour: { [key: string]: string } = {
   "/": "",
   "/info": "#83D2FF",
-  "/event": "#newsletter",
+  "/event": "#strongblue",
 };
