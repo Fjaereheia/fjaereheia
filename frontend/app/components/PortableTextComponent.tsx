@@ -2,10 +2,16 @@ import MuxPlayer from "@mux/mux-player-react";
 import { PortableText, PortableTextComponentProps } from "@portabletext/react";
 import { CustomContent } from "sanity/types";
 import urlFor from "~/utils/imageUrlBuilder";
-import QuoteComponent from "./QuoteComponent";
-import ReviewComponent from "./ReviewComponent";
+import { QuoteComponent } from "./QuoteComponent";
+import { ReviewComponent } from "./ReviewComponent";
 
-interface PortableTextProps {
+interface QuoteStyle {
+  styleBlock?: string;
+  styleLink?: string;
+  fillColor?: string;
+}
+
+interface PortableTextProps extends QuoteStyle {
   textData: CustomContent;
   textStyle?: string;
 }
@@ -13,6 +19,9 @@ interface PortableTextProps {
 export default function PortableTextComponent({
   textData,
   textStyle,
+  styleBlock,
+  styleLink,
+  fillColor,
 }: PortableTextProps) {
   const customComponents = {
     types: {
@@ -52,7 +61,13 @@ export default function PortableTextComponent({
         source: string;
         date: string;
       }>) => {
-        return <QuoteComponent quote={value} />;
+        return (
+          <QuoteComponent
+            quote={value}
+            styleBlock={styleBlock}
+            fillColor={fillColor}
+          />
+        );
       },
       review: ({
         value,
@@ -63,7 +78,14 @@ export default function PortableTextComponent({
         date?: string;
         link?: string;
       }>) => {
-        return <ReviewComponent review={value} />;
+        return (
+          <ReviewComponent
+            review={value}
+            styleBlock={styleBlock}
+            styleLink={styleLink}
+            fillColor={fillColor}
+          />
+        );
       },
     },
   };

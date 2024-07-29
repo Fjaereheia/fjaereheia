@@ -1,7 +1,7 @@
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData, useParams } from "@remix-run/react";
 import { Custom_ARTICLE_QUERYResult } from "sanity/types";
-import { getBackgroundColor } from "~/utils/colorCombinations";
+import { getBackgroundColor, getColor } from "~/utils/colorCombinations";
 import { getArticle } from "~/queries/article-queries";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
@@ -57,6 +57,9 @@ export default function Article() {
   const bgColor = getBackgroundColor(data?.colorCombinationsDay);
   const { language } = useTranslation();
   const { setColor } = useBackgroundColor();
+  const { portabletextStyle, quoteStyle } = getColor(
+    data?.colorCombinationsDay
+  );
   const { setSlug } = useSlugContext();
 
   useEffect(() => {
@@ -88,7 +91,15 @@ export default function Article() {
             title={data.video.title || ""}
           />
         )}
-        {data?.text && <PortableTextComponent textData={data.text} />}
+        {data?.text && (
+          <PortableTextComponent
+            textData={data.text}
+            textStyle={portabletextStyle}
+            styleBlock={quoteStyle.styleBlock}
+            styleLink={quoteStyle.styleLink}
+            fillColor={quoteStyle.fillColor}
+          />
+        )}
         {data?.event && (
           <Link
             to={
