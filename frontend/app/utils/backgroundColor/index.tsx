@@ -19,7 +19,7 @@ export interface BackgroundColorProviderProps {
 export function BackgroundColorProvider({
   children,
 }: BackgroundColorProviderProps) {
-  const [color, setColor] = useState<string>("bg-newsletter");
+  const [color, setColor] = useState<string>("bg-strongblue");
 
   useEffect(() => {
     document.body.className = color + " h-full flex flex-col grow";
