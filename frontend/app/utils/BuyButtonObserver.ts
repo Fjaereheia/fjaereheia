@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import throttle from "lodash/throttle";
 
 export function initBuyButtonObserver() {
   useEffect(() => {
@@ -20,42 +21,33 @@ function buttonVisibilityListener() {
 
   if (buyButton !== null && eventsList !== null) {
     toggleButtonVisibility(buyButton, eventsList);
-
-    window.addEventListener("scroll", () => {
+    const toggler = throttle(() => {
       toggleButtonVisibility(buyButton, eventsList);
-    });
+    }, 100);
+
+    window.addEventListener("scroll", toggler);
+
+    return () => {
+      window.removeEventListener("scroll", toggler);
+    };
   }
 }
 
 function toggleButtonVisibility(button: HTMLElement, list: HTMLElement) {
   const productionInfo = document.getElementById("eventLabels");
   const listIsVisible = elementIsVisibleInViewPort(list, 200);
-  const productionInfoIsVisible =
-    productionInfo !== null
-      ? elementIsVisibleInViewPort(productionInfo)
-      : false;
+  const productionInfoIsVisible = productionInfo
+    ? elementIsVisibleInViewPort(productionInfo)
+    : false;
 
-  if (listIsVisible || productionInfoIsVisible) {
-    button.style.opacity = "0";
-  } else {
-    button.style.opacity = "1";
-  }
+  button.style.opacity = listIsVisible || productionInfoIsVisible ? "0" : "1";
 }
 
-export function isWideScreen(): boolean {
-  return window.innerWidth > 2000;
-}
-
-export function elementIsVisibleInViewPort(
+function elementIsVisibleInViewPort(
   element: HTMLElement,
   optionalPixelDelay = 0
-): boolean {
+) {
   const rect = element.getBoundingClientRect();
-
-  if (!document.documentElement) {
-    return false;
-  }
-
   const viewportHeight =
     window.innerHeight || document.documentElement.clientHeight;
 
