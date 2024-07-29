@@ -32,7 +32,7 @@ export default function Events() {
   const data = useLoaderData<typeof loader>() as EVENTS_QUERYResult;
   const { setColor } = useBackgroundColor();
   useEffect(() => {
-    setColor("bg-newsletter");
+    setColor("bg-strongblue");
   }, [setColor]);
   const params = useParams();
   return (

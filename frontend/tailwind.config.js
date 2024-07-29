@@ -24,7 +24,7 @@ export default {
           primary: "#182E39",
           secondary: "#D4FF26",
         },
-        newsletter: "#59A1B6",
+        strongblue: "#59A1B6",
         lightblue: "#83D2FF",
       },
     },
