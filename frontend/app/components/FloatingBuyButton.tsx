@@ -3,7 +3,6 @@ import { useTranslation } from "~/utils/i18n";
 interface FloatingBuyButtonProps {
   handleScroll: () => void;
   textColor: string;
-  buyButtonElement: string;
 }
 
 export function FloatingBuyButton({
