@@ -2,26 +2,71 @@
 
 This is the repository contains Bruddet's frontend and cms application
 
-## Build 🛠️
+## Run project
+To run a development version of the project locally run the following command in the root folder:
+```
+npm run all
+```
+This will start all apps and packages in development mode. You can then visit the following URLs:
 
-To build all apps and packages, run the following command:
+- [localhost:5173](http://localhost:5173) - The local version of the frontend website
+- [localhost:3333](http://localhost:3333) - The local dev version of the Sanity Studio
+
+## Frontend commands
+
+### Build 🛠️
+
+To build all apps and packages in frontend, run the following command in ```/frontend```:
 
 ```
 npm run build
 ```
 
-## Develop 💻
+### Develop 💻
 
-To develop all apps and packages, run the following command:
+To develop all apps and packages in frontend, run the following command in ```/frontend```:
 
 ```
 npm run dev
 ```
 
+### Production
+To test frontend build and run in production mode locally, run the following command in ```/frontend```:
+```
+npm run start
+```
+
 This will start all apps and packages in development mode. You can then visit the following URLs:
 
-- [localhost:3000](http://localhost:5173) - The local version of the docs website
-- [localhost:3333](http://localhost:3333) - The local version of the Sanity Studio
+- [localhost:5173](http://localhost:5173) - The local version of the frontend website
+- [localhost:3000](http://localhost:3000) - The local version of production build of frontend website
+
+## Backend commands
+
+### Build 🛠️
+
+To build all apps and packages in backend, run the following command in ```/cms```:
+
+```
+npm run build
+```
+
+### Develop 💻
+
+To develop all apps and packages in backend, run the following command in ```/cms```:
+
+```
+npm run dev
+```
+
+### Production
+To test backend build and run in production mode locally, run the following command in ```/cms```:
+```
+npm run start
+```
+This will start all apps and packages in development mode. You can then visit the following URLs:
+
+- [localhost:3333](http://localhost:3333) - The local dev or production version of the Sanity Studio
 
 ## Making changes in the cms
 
@@ -48,9 +93,9 @@ npx sanity typegen generate
 
 ### Internationalization 🇳🇴🇬🇧
 
-To implement language to a new document:
+To implement language in a new document type:
 
-- Inside `cms/structure/documentinternationalization.ts` add the new document to schemaTypes
+- Inside `cms/structure/documentInternationalization.ts` add the new document to schemaTypes
 
 ### Singletons 📄
 
@@ -86,7 +131,7 @@ npx sanity dataset import [exported dataset].tar.gz [your chosen dataset] --miss
 
 Open `frontend/tailwind.config.js`:
 
-- Add the hex code and name
+- Add the hex code and name under ```extend: {colors: { ... }}```
 
 ### Add new color themes 🎨
 

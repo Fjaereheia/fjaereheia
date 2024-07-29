@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { EVENT_QUERYResult } from "sanity/types";
@@ -11,9 +11,10 @@ import { EventLabels } from "~/components/EventLabels";
 import RoleDropDown from "~/components/RoleDropDown";
 import { getEvent } from "~/queries/event-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
-import useIntersectionObserver from "~/utils/ticketsVisability";
-import { useTranslation } from "~/utils/i18n";
+import useIntersectionObserver from "~/utils/ticketsVisibility";
+import { FloatingBuyButton } from "~/components/FloatingBuyButton";
 import { useSlugContext } from "~/utils/i18n/SlugProvider";
+import { useTranslation } from "~/utils/i18n";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
@@ -60,17 +61,24 @@ export default function Event() {
     return <></>;
   }
 
-  const [isTicketVisable, setIsTicketVisable] = useState(false);
-  const [isLabelVisable, setIsLabelVisalbe] = useState(false);
+  const [isTicketVisible, setIsTicketVisible] = useState(false);
+  const [isLabelVisible, setIsLabelVisible] = useState(false);
+  const [areComponentsHidden, setAreComponentsHidden] = useState(false);
   const [viewScale, setViewScale] = useState(1);
-  const { t, language } = useTranslation();
+  const { language } = useTranslation();
+  const [isAnimationFinished, setAnimationFinished] = useState(false);
 
-  const setTicketRef = useIntersectionObserver((isIntersecting) => {
-    setIsTicketVisable(isIntersecting);
-  });
-  const setLabelRef = useIntersectionObserver((isIntersecting) => {
-    setIsLabelVisalbe(isIntersecting);
-  });
+  const handleTicketVisibility = useCallback((isIntersecting: boolean) => {
+    setIsTicketVisible(isIntersecting);
+  }, []);
+
+  const handleLabelVisibility = useCallback((isIntersecting: boolean) => {
+    setIsLabelVisible(isIntersecting);
+  }, []);
+
+  const setTicketRef = useIntersectionObserver(handleTicketVisibility);
+  const setLabelRef = useIntersectionObserver(handleLabelVisibility);
+
   const handleScroll = () => {
     const target = document.getElementById("tickets");
     if (target) {
@@ -92,14 +100,25 @@ export default function Event() {
   const { setColor } = useBackgroundColor();
   const { setSlug } = useSlugContext();
 
-  if (!data) {
-    return <></>;
-  }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAnimationFinished(true);
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  useEffect(() => {
+    setAreComponentsHidden(!isTicketVisible && !isLabelVisible);
+  }, [isTicketVisible, isLabelVisible]);
 
   useEffect(() => {
     setColor(bgColor);
     setSlug(language, data?._translations);
-  }, [setColor]);
+  }, [bgColor, setColor]);
+
   useEffect(() => {
     const updateViewScale = () => {
       if (window.matchMedia("(min-width: 1024px)").matches) {
@@ -133,6 +152,7 @@ export default function Event() {
           </div>
           {data.dates && (
             <EventLabels
+              refFunction={setLabelRef}
               dateObj={data.dates}
               genre={data.eventGenre}
               primaryText={primaryText}
@@ -151,7 +171,6 @@ export default function Event() {
               fillColor={quoteStyle.fillColor}
             />
           )}
-
           {data.dates && (
             <div className={`flex self-start`} ref={setTicketRef}>
               <Tickets dateTickets={data.dates} />
@@ -160,30 +179,9 @@ export default function Event() {
           {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
         </div>
       </div>
-      {!isLabelVisable && !isTicketVisable && (
-        <div
-          className={`sticky bottom-12 md:bottom-24 md:w-[100px] p-2 z-10 w-full flex flex-col ${textColor} text-center items-center md:items-start bg-red-400 text-lg lg:text-xl font-serif lg:left-32 2xl:left-1/4`}
-        >
-          <button onClick={handleScroll}>{t(text.allEvents)}</button>
-        </div>
+      {areComponentsHidden && isAnimationFinished && (
+        <FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />
       )}
     </>
   );
 }
-
-const text = {
-  allEvents: {
-    en: "Buy ticket",
-    nb: "Kjøp billett",
-  },
-};
-const genres = {
-  konsert: {
-    en: "Concert",
-    nb: "Konsert",
-  },
-  skuespill: {
-    en: "Play",
-    nb: "Skuespill",
-  },
-};
