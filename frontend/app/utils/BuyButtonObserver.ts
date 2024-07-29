@@ -35,7 +35,7 @@ function buttonVisibilityListener() {
 
 function toggleButtonVisibility(button: HTMLElement, list: HTMLElement) {
   const productionInfo = document.getElementById("eventLabels");
-  const listIsVisible = elementIsVisibleInViewPort(list, 200);
+  const listIsVisible = elementIsVisibleInViewPort(list, 260);
   const productionInfoIsVisible = productionInfo
     ? elementIsVisibleInViewPort(productionInfo)
     : false;
