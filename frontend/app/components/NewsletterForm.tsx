@@ -118,6 +118,7 @@ function NewsletterForm(props: NewsletterFormProps) {
           {t(texts.blurb)}
         </p>
         <button
+          aria-label={t(texts.buttonLabel)}
           onClick={() => props.setShowForm(false)}
           className="font-sans text-2xl lg:text-4xl absolute top-0 right-0 pt-4 pr-4"
         >
@@ -212,6 +213,10 @@ const texts = {
       nb: "+47 999 99 999",
       en: "+44 7123 456789",
     },
+  },
+  buttonLabel: {
+    nb: "Lukk nyhetsbrev",
+    en: "Close newsletter",
   },
 };
 
