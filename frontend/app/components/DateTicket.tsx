@@ -47,7 +47,7 @@ const texts = {
     nb: "Utsolgt!",
   },
   fewLeft: {
-    en: "Few left!",
-    nb: "Få igjen!",
+    en: "Few tickets left!",
+    nb: "Få billetter igjen!",
   },
 };

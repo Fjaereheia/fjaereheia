@@ -101,7 +101,7 @@ export const eventType = defineType({
               options: {
                 list: [
                   {title: 'Ingen bemerkning', value: 1},
-                  {title: 'Få blitter igjen', value: 2},
+                  {title: 'Få billetter igjen', value: 2},
                   {title: 'Utsolgt', value: 3},
                 ],
                 layout: 'radio',
