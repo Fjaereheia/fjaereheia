@@ -24,7 +24,7 @@ export default function Program() {
   const { setColor } = useBackgroundColor();
   const gifUrl = urlFor(data?.gif?.asset?._ref || "");
   useEffect(() => {
-    setColor("bg-newsletter");
+    setColor("bg-strongblue");
   }, [setColor]);
   const params = useParams();
   return (
