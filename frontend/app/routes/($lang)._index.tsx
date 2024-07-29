@@ -60,16 +60,16 @@ export default function Index() {
 
   return (
     <div
-      className="bg-cover bg-center bg-no-repeat h-screen w-full"
+      className="bg-cover bg-center bg-no-repeat h-[100dvh] w-full"
       style={{
         backgroundImage: `url(${imageUrl})`,
-        height: "100vh",
+        height: "100dvh",
       }}
       aria-label={
         data?.event?.image?.alt || data?.image?.alt || "Background image"
       }
     >
-      <div className="flex flex-col h-screen w-full overflow-hidden">
+      <div className="flex flex-col h-[100dvh] w-full overflow-hidden">
         <div className="text-white text-xl mt-10 flex flex-col items-center">
           <Newsletter />
         </div>
@@ -80,7 +80,6 @@ export default function Index() {
             src={SvgUrl}
             alt={data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"}
           />
-
 
           <div className="flex flex-row justify-center content-center w-full mt-4">
             <Link to={params.lang == "en" ? "/en/info" : "/info"}>
