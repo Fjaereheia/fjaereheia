@@ -21,7 +21,6 @@ type Props = {
   textColor?: string;
   textColorBorder?: string;
   genre?: EventGenre | null;
-  refFunction: Dispatch<SetStateAction<HTMLElement | null>>;
 };
 
 export function formatDateOnly(dateString: string): string {
@@ -66,7 +65,6 @@ export const EventLabels = ({
   secondaryBorder,
   textColor,
   textColorBorder,
-  refFunction,
 }: Props) => {
   const { language, t } = useTranslation();
 
@@ -113,7 +111,7 @@ export const EventLabels = ({
 
   return (
     <>
-      <div ref={refFunction} className="font-serif self-start">
+      <div id="eventLabels" className="font-serif self-start">
         <div className="flex flex-wrap gap-4 md:float-start ">
           {labels.map(
             (label, index) =>
