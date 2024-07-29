@@ -43,7 +43,7 @@ export async function getEvent(params: Params<string>) {
     dates, 
     text, 
     eventGenre,
-    "roleGroupd": roleGroups[]{name,roles[]->{name, occupation,image, text}},
+    "roleGroups": roleGroups[]{name,roles[]->{name, occupation,image, text}},
     "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
     slug,
     language,
