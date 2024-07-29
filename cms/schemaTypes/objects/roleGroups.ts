@@ -14,19 +14,38 @@ export default {
       validation: (rule) => rule.required().min(2).max(50).error(`Må ha navn på minst 2 bokstaver`),
     }),
     defineField({
-      name: 'roles',
+      name: 'persons',
       title: 'Roller',
       type: 'array',
       of: [
         {
-          type: 'reference',
-          to: [{type: 'role'}],
-          options: {
-            filter: ({document}) => {
-              return {
-                filter: 'language == $lang',
-                params: {lang: document.language},
-              }
+          type: 'object',
+          fields: [
+            {
+              name: 'person',
+              title: 'Person',
+              type: 'reference',
+              to: [{type: 'person'}],
+              options: {
+                filter: ({document}) => {
+                  return {
+                    filter: 'language == $lang',
+                    params: {lang: document.language},
+                  }
+                },
+              },
+            },
+            {
+              name: 'ocupation',
+              title: 'stilling',
+              description: 'Legg til stilling',
+              type: 'string',
+            },
+          ],
+          preview: {
+            select: {
+              title: 'person.name',
+              subtitle: 'occupation',
             },
           },
         },
