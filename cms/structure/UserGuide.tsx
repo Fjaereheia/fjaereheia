@@ -44,6 +44,21 @@ export function userGuide() {
               <li>
                 <a href="#persons">Personer</a>
               </li>
+              <li>
+                <a href="#internationalization">Internasjonalisering</a>
+              </li>
+              <li>
+                <a href="#video">Mux Video</a>
+              </li>
+              <li>
+                <a href="#media">Media oversikt</a>
+              </li>
+              <li>
+                <a href="#richtexteditor">RichTextEditor</a>
+              </li>
+              <li>
+                <a href="#SEO">SEO - Search Engine Optimization</a>
+              </li>
             </ul>
           </Text>
         </Card>
