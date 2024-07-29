@@ -42,11 +42,11 @@ const MULTI = [
     schemaType: 'event',
   },
   {
-    id: 'role',
-    title: 'Roller',
+    id: 'person',
+    title: 'Person',
     _type: 'document',
     icon: UserIcon,
-    schemaType: 'role',
+    schemaType: 'person',
   },
 ]
 

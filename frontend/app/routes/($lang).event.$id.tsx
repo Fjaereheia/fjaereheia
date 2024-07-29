@@ -172,7 +172,7 @@ export default function Event() {
             />
           )}
           {data.dates && (
-            <div ref={setTicketRef}>
+            <div className={`flex self-start`} ref={setTicketRef}>
               <Tickets dateTickets={data.dates} />
             </div>
           )}
