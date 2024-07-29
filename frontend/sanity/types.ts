@@ -127,6 +127,7 @@ export type Content = Array<{
     _key: string;
   }>;
   style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   listItem?: "bullet" | "number";
   markDefs?: Array<{
     href?: string;
@@ -431,6 +432,7 @@ export type Frontpage = {
     _type: "customImage";
   };
   svgTitle: {
+  svgTitle: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -460,6 +462,8 @@ export type Article = {
   _rev: string;
   title: string;
   language?: string;
+  colorCombinationsDay: ColorCombinationsDay;
+  slug: Slug;
   colorCombinationsDay: ColorCombinationsDay;
   slug: Slug;
   text?: Content;
@@ -500,8 +504,10 @@ export type Event = {
   title: string;
   language?: string;
   eventGenre?: EventGenre;
-  colorCombinationsNight?: ColorCombinationsNight;
+  colorCombinationsNight: ColorCombinationsNight;
   imageMask?: ImageMask;
+  slug: Slug;
+  svgTitle: {
   slug: Slug;
   svgTitle: {
     asset?: {
@@ -597,13 +603,10 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
-// Query: *[_type=="article" && language==$lang]
+// Query: *[_type=="article" && language==$lang]{_id, slug, title}
 export type ARTICLES_QUERYResult = Array<{
   _id: string;
-  _type: "article";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
+  slug: Slug;
   title: string;
   language?: string;
   colorCombinationsDay: ColorCombinationsDay;
@@ -671,6 +674,7 @@ export type ARTICLE_QUERYResult = {
       _key: string;
     }>;
     style?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    style?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -680,18 +684,6 @@ export type ARTICLE_QUERYResult = {
     level?: number;
     _type: "block";
   }> | null;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "customImage";
-  };
   video: {
     title: null;
     muxVideo: null;
@@ -745,25 +737,22 @@ export type ARTICLE_QUERYResult = {
     metaTitle: MetaTitle;
     metaDescription: MetaDescription;
   } | null;
-  metaTitle: MetaTitle;
-  metaDescription: MetaDescription;
   _translations: Array<{
+    slug: Slug;
     slug: Slug;
     language: string | null;
   } | {
+    slug: null;
     slug: null;
     language: string | null;
   } | null>;
 } | null;
 // Source: ../frontend/app/queries/event-queries.ts
 // Variable: EVENTS_QUERY
-// Query: *[_type=="event" && language==$lang]
+// Query: *[_type=="event" && language==$lang]{_id, slug, title}
 export type EVENTS_QUERYResult = Array<{
   _id: string;
-  _type: "event";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
+  slug: Slug;
   title: string;
   language?: string;
   eventGenre?: EventGenre;
@@ -810,11 +799,6 @@ export type EVENTS_QUERYResult = Array<{
 // Variable: EVENT_QUERY
 // Query: *[_type=="event" && language==$lang && slug.current==$id][0]{  ...,"roleGroups": roleGroups[]{    name,    persons[]{      roleTitle,      person->{name, image, text}}    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
 export type EVENT_QUERYResult = {
-  _id: string;
-  _type: "event";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
   title: string;
   language?: string;
   eventGenre?: EventGenre;
@@ -838,20 +822,8 @@ export type EVENT_QUERYResult = {
     url: string;
     _key: string;
   }>;
-  duration: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "customImage";
-  };
-  text?: Content;
+  text: Content | null;
+  eventGenre: EventGenre | null;
   roleGroups: Array<{
     name: string;
     persons: Array<{
@@ -874,12 +846,12 @@ export type EVENT_QUERYResult = {
       } | null;
     }> | null;
   }> | null;
-  metaTitle: MetaTitle;
-  metaDescription: MetaDescription;
   _translations: Array<{
+    slug: Slug;
     slug: Slug;
     language: string | null;
   } | {
+    slug: null;
     slug: null;
     language: string | null;
   } | null>;
@@ -914,6 +886,7 @@ export type FRONTPAGE_QUERYResult = {
     alt: string;
     _type: "customImage";
   };
+  };
   metaTitle: MetaTitle;
   metaDescription: MetaDescription;
   event: {
@@ -932,6 +905,7 @@ export type FRONTPAGE_QUERYResult = {
       _type: "customImage";
     } | null;
     slug: Slug;
+    slug: Slug;
     metaTitle: MetaTitle;
     metaDescription: MetaDescription;
     svgTitle: {
@@ -946,19 +920,16 @@ export type FRONTPAGE_QUERYResult = {
       alt: string;
       _type: "customImage";
     };
+    };
   } | null;
 } | null;
 // Source: ../frontend/app/queries/info-queries.ts
 // Variable: INFOPAGE_QUERY
-// Query: *[_type=="infopage" && language==$lang]{title, links[]->{..., slug}}[0]
+// Query: *[_type=="infopage" && language==$lang]{title, links[]->{_type, title, slug}}[0]
 export type INFOPAGE_QUERYResult = {
   title: string;
   links: Array<{
-    _id: string;
     _type: "article";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
     title: string;
     language?: string;
     colorCombinationsDay: ColorCombinationsDay;
@@ -1012,6 +983,7 @@ export type PROGRAMPAGE_QUERYResult = {
   } | null;
   links: Array<{
     title: string;
+    slug: Slug;
     slug: Slug;
   }> | null;
 } | null;

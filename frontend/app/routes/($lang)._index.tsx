@@ -34,13 +34,10 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
   }
 
   return [
-    { title: data.event?.metaTitle ?? data.metaTitle ?? "Bruddet" },
+    { title: data.metaTitle ?? "Bruddet" },
     {
       property: "og:description",
-      content:
-        data.event?.metaDescription ??
-        data.metaDescription ??
-        "Hjemmesiden til bruddet i Grimstad",
+      content: data.metaDescription ?? "Hjemmesiden til Bruddet i Grimstad",
     },
   ];
 };
@@ -83,6 +80,7 @@ export default function Index() {
             src={SvgUrl}
             alt={data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"}
           />
+
 
           <div className="flex flex-row justify-center content-center w-full mt-4">
             <Link to={params.lang == "en" ? "/en/info" : "/info"}>
