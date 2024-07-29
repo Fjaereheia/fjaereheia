@@ -53,7 +53,6 @@ export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
     });
   };
 
-  console.log(roleGroups);
   return (
     <div>
       {roleGroups?.map((roleGroup, index) => (
