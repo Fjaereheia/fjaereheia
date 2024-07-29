@@ -142,7 +142,12 @@ export default function Event() {
               fillColor={quoteStyle.fillColor}
             />
           )}
-          {data.dates && <Tickets dateTickets={data.dates} />}
+          {data.dates && (
+            <div className={`flex self-start`} ref={setTicketRef}>
+              <Tickets dateTickets={data.dates} />
+            </div>
+          )}
+
           {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
         </div>
       </div>

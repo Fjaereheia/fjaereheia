@@ -27,7 +27,7 @@ const texts = {
     nb: "Siden du leter etter eksisterer ikke på norsk",
   },
   goBack: {
-    en: "Go back to last page",
-    nb: "Gå tilbake til siste side",
+    en: "Return to previous page",
+    nb: "Gå tilbake til forrige side",
   },
 };

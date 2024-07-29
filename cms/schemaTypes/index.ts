@@ -1,7 +1,7 @@
 import {frontpage} from './frontpage'
 import {articleType} from './articleType'
 import {eventType} from './eventType'
-import {roleType} from './roleType'
+import {personType} from './personType'
 import customImage from './objects/customImage'
 import {infopage} from './infopage'
 import {quoteType} from './objects/quoteType'
@@ -20,7 +20,7 @@ export const schemaTypes = [
   articleType,
   eventType,
   frontpage,
-  roleType,
+  personType,
   customImage,
   infopage,
   quoteType,
