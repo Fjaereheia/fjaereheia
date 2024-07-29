@@ -100,7 +100,7 @@ export const eventType = defineType({
               type: 'number',
               options: {
                 list: [
-                  {title: 'Ingen bemerkning', value: 1},
+                  {title: 'Normalt', value: 1},
                   {title: 'Få billetter igjen', value: 2},
                   {title: 'Utsolgt', value: 3},
                 ],
