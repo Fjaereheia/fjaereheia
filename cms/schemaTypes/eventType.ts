@@ -80,6 +80,7 @@ export const eventType = defineType({
         {
           type: 'object',
           icon: CalendarIcon,
+
           fields: [
             {
               name: 'date',
@@ -92,6 +93,20 @@ export const eventType = defineType({
               type: 'url',
               title: 'Link',
               validation: (rule) => [rule.required().error('URL er påkrevd.')],
+            },
+            {
+              name: 'status',
+              title: 'Antall billetter igjen',
+              type: 'number',
+              options: {
+                list: [
+                  {title: 'Ingen bemerkning', value: 1},
+                  {title: 'Få blitter igjen', value: 2},
+                  {title: 'Utsolgt', value: 3},
+                ],
+                layout: 'radio',
+                direction: 'horizontal',
+              },
             },
           ],
         },

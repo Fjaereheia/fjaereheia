@@ -539,6 +539,7 @@ export type Event = {
   dates: Array<{
     date: string;
     url: string;
+    status?: 1 | 2 | 3;
     _key: string;
   }>;
   duration: string;
@@ -695,6 +696,7 @@ export type EVENT_QUERYResult = {
   dates: Array<{
     date: string;
     url: string;
+    status?: 1 | 2 | 3;
     _key: string;
   }>;
   text: Content | null;
