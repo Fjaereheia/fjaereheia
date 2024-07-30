@@ -25,7 +25,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
-  if (typeof data === "string" || !data) {
+  if (!data) {
     return [
       { title: "Info" },
       {
