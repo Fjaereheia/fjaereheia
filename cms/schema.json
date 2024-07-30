@@ -2204,6 +2204,22 @@
         },
         "optional": true
       },
+      "metaTitle": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "metaTitle"
+        },
+        "optional": false
+      },
+      "metaDescription": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "metaDescription"
+        },
+        "optional": false
+      },
       "links": {
         "type": "objectAttribute",
         "value": {
@@ -2367,6 +2383,22 @@
           "type": "string"
         },
         "optional": true
+      },
+      "metaTitle": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "metaTitle"
+        },
+        "optional": false
+      },
+      "metaDescription": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "metaDescription"
+        },
+        "optional": false
       },
       "links": {
         "type": "objectAttribute",
