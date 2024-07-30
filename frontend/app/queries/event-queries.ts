@@ -36,6 +36,8 @@ export async function getEvent(params: Params<string>) {
   }
   try {
     const EVENT_QUERY = groq`*[_type=="event" && language==$lang && slug.current==$id][0]{
+    metaTitle,
+    metaDescription,
     title, 
     image,
     imageMask, 
