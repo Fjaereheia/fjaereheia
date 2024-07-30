@@ -21,16 +21,30 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return json(informationPage);
+  return informationPage;
 }
 
-export const meta: MetaFunction<typeof loader> = ({ data }) => {
+export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
+  const path = location.pathname;
+  let language = "nb";
+  if (path.includes("/en")) {
+    language = "en";
+  }
+  const texts: { description: { [key: string]: string } } = {
+    description: {
+      en: "Overview of information",
+      nb: "Oversikt over informasjon",
+    },
+  };
+
+  const description = texts.description[language];
+
   if (!data) {
     return [
       { title: "Info" },
       {
         property: "og:description",
-        content: "Oversikt over informasjonssider",
+        content: description,
       },
     ];
   }
@@ -39,7 +53,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     { title: data.metaTitle ?? "Info" },
     {
       property: "og:description",
-      content: data.metaDescription ?? "Oversikt over informasjonssider",
+      content: data.metaDescription ?? description,
     },
   ];
 };

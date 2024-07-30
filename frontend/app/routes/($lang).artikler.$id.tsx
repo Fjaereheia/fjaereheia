@@ -26,25 +26,47 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return json(article);
+  return article;
 }
 
-export const meta: MetaFunction<typeof loader> = ({ data }) => {
+export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
+  const path = location.pathname;
+  let language = "nb";
+  if (path.includes("/en")) {
+    language = "en";
+  }
+  const texts: {
+    title: { [key: string]: string };
+    description: { [key: string]: string };
+  } = {
+    title: {
+      en: "Artikkel",
+      nb: "Article",
+    },
+    description: {
+      en: "An article",
+      nb: "En artikkel",
+    },
+  };
+
+  const title = texts.title[language];
+  const description = texts.description[language];
+
   if (!data) {
     return [
-      { title: "Artikkel" },
+      { title: title },
       {
         property: "og:description",
-        content: "Artikkel",
+        content: description,
       },
     ];
   }
 
   return [
-    { title: data.metaTitle ?? "Artikkel" },
+    { title: data.metaTitle ?? title },
     {
       property: "og:description",
-      content: data.metaDescription ?? "Artikkel",
+      content: data.metaDescription ?? description,
     },
   ];
 };

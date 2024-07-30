@@ -16,25 +16,37 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return json(programPage);
+  return programPage;
 }
 
-export const meta: MetaFunction<typeof loader> = ({ data }) => {
+export const meta: MetaFunction<typeof loader> = ({ location, data }) => {
   if (!data) {
     return [
       { title: "Program" },
-      {
-        property: "og:description",
-        content: "Oversikt over program",
-      },
+      { property: "og:description", content: "Page not found" },
     ];
   }
+
+  const path = location.pathname;
+  let language = "nb";
+  if (path.includes("/en")) {
+    language = "en";
+  }
+
+  const texts: { description: { [key: string]: string } } = {
+    description: {
+      en: "Overview of program",
+      no: "Oversikt over program",
+    },
+  };
+
+  const description = texts.description[language];
 
   return [
     { title: data.metaTitle ?? "Program" },
     {
       property: "og:description",
-      content: data.metaDescription ?? "Oversikt over program",
+      content: data.metaDescription ?? description,
     },
   ];
 };

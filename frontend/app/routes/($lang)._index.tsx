@@ -19,16 +19,31 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return json(frontpage);
+  return frontpage;
 }
 
-export const meta: MetaFunction<typeof loader> = ({ data }) => {
+export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
+  const path = location.pathname;
+  let language = "nb";
+  if (path.includes("/en")) {
+    language = "en";
+  }
+  const texts: {
+    description: { [key: string]: string };
+  } = {
+    description: {
+      en: "The homepage for Bruddet",
+      nb: "Hjemmesiden til Bruddet",
+    },
+  };
+  const description = texts.description[language];
+
   if (!data) {
     return [
       { title: "Bruddet" },
       {
         property: "og:description",
-        content: "Hjemmesiden til Bruddet i Grimstad",
+        content: description,
       },
     ];
   }
@@ -37,7 +52,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     { title: data.metaTitle ?? "Bruddet" },
     {
       property: "og:description",
-      content: data.metaDescription ?? "Hjemmesiden til Bruddet i Grimstad",
+      content: data.metaDescription ?? description,
     },
   ];
 };
