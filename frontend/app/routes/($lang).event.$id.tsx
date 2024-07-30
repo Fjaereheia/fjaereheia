@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { EVENT_QUERYResult } from "sanity/types";
+import { Custom_EVENT_QUERYResult } from "sanity/types";
 import { getColor } from "~/utils/colorCombinations";
 import PortableTextComponent from "~/components/PortableTextComponent";
 import urlFor from "~/utils/imageUrlBuilder";
@@ -55,11 +55,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 };
 
 export default function Event() {
-  const data = useLoaderData<typeof loader>() as EVENT_QUERYResult;
-
-  if (!data) {
-    return <></>;
-  }
+  const data = useLoaderData<typeof loader>() as Custom_EVENT_QUERYResult;
   const [viewScale, setViewScale] = useState(1);
   const { language } = useTranslation();
 
@@ -99,7 +95,11 @@ export default function Event() {
     };
     updateViewScale();
     window.addEventListener("resize", updateViewScale);
-  }, [viewScale]);
+  }, []);
+
+  if (!data) {
+    return <></>;
+  }
 
   initBuyButtonObserver();
 
