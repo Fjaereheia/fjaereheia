@@ -117,9 +117,8 @@ export default function Event() {
           />
         )}
 
-        <div className="static">
-          <h1 className={`font-serif text-2xl lg:text-4xl`}>{data.title}</h1>
-        </div>
+        <h1 className={`font-serif text-2xl lg:text-4xl`}>{data.title}</h1>
+
         {data.dates && (
           <EventLabels
             dateObj={data.dates}
