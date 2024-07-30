@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
-import { useLoaderData, Link, useLocation, useParams } from "@remix-run/react";
+import { useLoaderData, Link, useParams } from "@remix-run/react";
 import { FRONTPAGE_QUERYResult } from "sanity/types";
 import { getFrontpage } from "~/queries/frontpage-queries";
 import urlFor from "~/utils/imageUrlBuilder";
@@ -54,22 +54,26 @@ export default function Index() {
   const { setColor } = useBackgroundColor();
   useEffect(() => {
     setColor("bg-white");
-  }, [setColor]);
+
+    document.body.style.backgroundImage = `url(${imageUrl})`;
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundRepeat = "no-repeat";
+
+    return () => {
+      document.body.style.backgroundImage = "";
+      document.body.style.backgroundSize = "";
+      document.body.style.backgroundPosition = "";
+      document.body.style.backgroundRepeat = "";
+    };
+  }, [imageUrl, setColor]);
+
   const params = useParams();
   const styling = data?.event ? "justify-end mb-6" : "justify-center";
 
   return (
-    <div
-      className="bg-cover bg-center bg-no-repeat h-[100dvh] w-full"
-      style={{
-        backgroundImage: `url(${imageUrl})`,
-        height: "100dvh",
-      }}
-      aria-label={
-        data?.event?.image?.alt || data?.image?.alt || "Background image"
-      }
-    >
-      <div className="flex flex-col h-[100dvh] w-full overflow-hidden">
+    <div className="h-[100dvh] w-full">
+      <div className="flex flex-col h-full w-full overflow-hidden">
         <div className="text-white text-xl mt-10 flex flex-col items-center">
           <Newsletter />
         </div>
