@@ -13,7 +13,7 @@ export default function Header() {
   return (
     <>
       {!frontpageUrl.includes(location.pathname) && (
-        <div className="sticky z-10 top-0 left-0 w-12 h-12 ml-4 mt-4">
+        <div className="sticky z-10 top-2 left-0 w-12 h-12 ml-4">
           <Link to={isEnglish ? "/en" : "/"}>
             <img src={isProgramPage ? WhiteLogo : BlackLogo} alt="Logo" />
           </Link>
