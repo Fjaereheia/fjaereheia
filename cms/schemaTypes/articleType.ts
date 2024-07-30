@@ -1,5 +1,6 @@
 import {defineField, defineType} from 'sanity'
 import {isUniqueOtherThanLanguage} from '../structure/documentInternationalization'
+import {documentInternationalization} from '@sanity/document-internationalization'
 
 export const articleType = defineType({
   name: 'article',
@@ -54,6 +55,11 @@ export const articleType = defineType({
       type: 'content',
       description: 'Innhold: Mulighet for å legge inn tekst, bilde, video, sitat og anmeldelse',
       group: 'content',
+      options: {
+        documentInternationalization: {
+          exclude: true,
+        },
+      },
     }),
     defineField({
       name: 'image',
