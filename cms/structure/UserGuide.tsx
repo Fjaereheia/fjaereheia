@@ -45,6 +45,9 @@ export function userGuide() {
                 <a href="#persons">Personer</a>
               </li>
               <li>
+                <a href="#roleGroups">RolleGrupper (På forestillingsside)</a>
+              </li>
+              <li>
                 <a href="#internationalization">Internasjonalisering</a>
               </li>
               <li>
@@ -136,7 +139,7 @@ export function userGuide() {
         </Card>
         <Card style={CardCSS}>
           <Text>
-            <h2 id="persons">Roller</h2>
+            <h2 id="persons">Personer</h2>
             <p>
               Her kan du opprette, endre og slette personer. Her kan du legge til Navn, bilde (med
               bildetekst) og en kort biografi. Sistnevnte bør holdes kort. Når en person er
@@ -145,19 +148,45 @@ export function userGuide() {
             </p>
           </Text>
         </Card>
-        <Card
-          style={{
-            width: '50%',
-            backgroundColor: '#808080',
-            borderRadius: '20px',
-            padding: '5px',
-          }}
-        >
+        <Card style={CardCSS}>
           <Text>
-            <p>
-              <span style={{fontWeight: 'bold'}}>NB:</span> Personer må opprettes før de kan kobles
-              til et event.{' '}
-            </p>
+            <h2 id="roleGroups">RolleGrupper (På forestillingsside)</h2>
+            <ul>
+              <li>Inne på en forestilling er det mulig å opprette egne rollegrupper.</li>
+              <li>
+                Man klikker da på “Add item” og kan da opprette hvilke grupper man ønsker for en
+                forestilling.
+              </li>
+            </ul>
+            <img
+              style={{width: '80%'}}
+              src="https://cdn.sanity.io/images/0chpibsu/development/f75b2f8432ac6e26dae5c811f70a216e5bd7ca0b-627x155.png"
+              alt="Rollegrupper"
+            />
+            <ul>
+              <li>
+                Inne i tekst-boksen som dukker opp skriver inn ønsket navn på ønsket rolleGruppe, og
+                kan deretter knytte en/flere personer til den valgte forestilling ved å klikke på
+                knappen “Add item” (se bilde under.)
+              </li>
+            </ul>
+            <img
+              style={{width: '80%'}}
+              src="https://cdn.sanity.io/images/0chpibsu/development/0edd1663b4fe06319668f00424a3ae56e0679125-641x332.png"
+              alt="Rollegrupper"
+            />
+            <ul>
+              <li>
+                Nå kan man legge til personer, enten ved å lage et nytt Person-objekt eller ved å
+                velge forhåndslagde Person-objekter fra drop-down menyen. Nederste felt gir mulighet
+                for å legge til en stilling til personen dersom man ønsker.
+              </li>
+            </ul>
+            <img
+              style={{width: '80%'}}
+              src="https://cdn.sanity.io/images/0chpibsu/development/8a4993b5aaac02f23179d4ad988d7e18c6c7f5ff-662x372.png"
+              alt="Rollegrupper"
+            />
           </Text>
         </Card>
         <Card style={CardCSS}>
