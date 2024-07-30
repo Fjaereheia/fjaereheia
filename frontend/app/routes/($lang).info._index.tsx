@@ -1,5 +1,11 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { Link, useLoaderData, useLocation, useParams } from "@remix-run/react";
+import {
+  Link,
+  MetaFunction,
+  useLoaderData,
+  useLocation,
+  useParams,
+} from "@remix-run/react";
 import { useEffect } from "react";
 import { INFOPAGE_QUERYResult } from "sanity/types";
 import { getInfoPage } from "~/queries/info-queries";
@@ -17,6 +23,26 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
   return json(informationPage);
 }
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  if (typeof data === "string" || !data) {
+    return [
+      { title: "Info" },
+      {
+        property: "og:description",
+        content: "Oversikt over informasjonssider",
+      },
+    ];
+  }
+
+  return [
+    { title: data.metaTitle ?? "Info" },
+    {
+      property: "og:description",
+      content: data.metaDescription ?? "Oversikt over informasjonssider",
+    },
+  ];
+};
 
 function RedirectType(type: string) {
   if (type == "article") {

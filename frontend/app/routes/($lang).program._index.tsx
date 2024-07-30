@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { Link, useLoaderData, useParams } from "@remix-run/react";
+import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
 import { useEffect } from "react";
 import { PROGRAMPAGE_QUERYResult } from "sanity/types";
 import Newsletter from "~/components/Newsletter";
@@ -18,6 +18,26 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
   return json(programPage);
 }
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  if (typeof data === "string" || !data) {
+    return [
+      { title: "Program" },
+      {
+        property: "og:description",
+        content: "Oversikt over program",
+      },
+    ];
+  }
+
+  return [
+    { title: data.metaTitle ?? "Program" },
+    {
+      property: "og:description",
+      content: data.metaDescription ?? "Oversikt over program",
+    },
+  ];
+};
 
 export default function Program() {
   const data = useLoaderData<typeof loader>() as PROGRAMPAGE_QUERYResult;
