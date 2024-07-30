@@ -42,7 +42,7 @@ export default function Events() {
   const params = useParams();
   return (
     <div className="flex grow flex-col items-center text-white relative">
-      <div className="flex flex-col items-center font-normal gap-4 text-xl py-12 px-0">
+      <div className="flex flex-col items-center font-normal text-center gap-4 text-xl py-12 px-0">
         {data.map((event, index) => (
           <div key={index}>
             <Link
