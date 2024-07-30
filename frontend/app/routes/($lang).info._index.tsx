@@ -39,7 +39,7 @@ export default function Info() {
   return (
     <div className="flex flex-col grow items-center text-[#1B1C20] font-serif">
       <h1 className="text-5xl font-bold mb-12">{data?.title}</h1>
-      <div className="flex flex-col items-center font-normal gap-4 text-xl py-12 px-0">
+      <div className="flex flex-col items-center text-center font-normal gap-4 text-xl py-12 px-0">
         {data?.links?.map((link, index) => (
           <Link
             key={index}
