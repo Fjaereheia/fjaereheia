@@ -29,10 +29,13 @@ export const meta: MetaFunction = () => {
 export default function Articles() {
   const data = useLoaderData<typeof loader>() as ARTICLES_QUERYResult;
   const params = useParams();
-  const { setColor } = useBackgroundColor();
+  const { setColor, setbgImage } = useBackgroundColor();
   useEffect(() => {
     setColor("bg-white");
   }, [setColor]);
+  useEffect(() => {
+    setbgImage(``);
+  }, [setbgImage]);
   return (
     <div className="grow flex flex-col items-center">
       <div className="text-center absolute pt-[151px]">

@@ -30,10 +30,13 @@ export const meta: MetaFunction = () => {
 
 export default function Events() {
   const data = useLoaderData<typeof loader>() as EVENTS_QUERYResult;
-  const { setColor } = useBackgroundColor();
+  const { setColor, setbgImage } = useBackgroundColor();
   useEffect(() => {
     setColor("bg-strongblue");
   }, [setColor]);
+  useEffect(() => {
+    setbgImage(``);
+  }, [setbgImage]);
   const params = useParams();
   return (
     <div className="flex grow flex-col items-center text-white relative">

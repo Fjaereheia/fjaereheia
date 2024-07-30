@@ -21,11 +21,15 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export default function Program() {
   const data = useLoaderData<typeof loader>() as PROGRAMPAGE_QUERYResult;
-  const { setColor } = useBackgroundColor();
+  const { setColor, setbgImage } = useBackgroundColor();
   const gifUrl = urlFor(data?.gif?.asset?._ref || "");
   useEffect(() => {
     setColor("bg-strongblue");
   }, [setColor]);
+  useEffect(() => {
+    setbgImage(``);
+  }, [setbgImage]);
+
   const params = useParams();
   return (
     <div className="flex flex-col grow items-center text-white relative">

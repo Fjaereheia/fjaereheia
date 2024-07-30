@@ -79,8 +79,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { language } = useTranslation();
-  const { color } = useBackgroundColor();
-
+  const { color, bodyStyle } = useBackgroundColor();
   return (
     <html lang={language} className="h-full">
       <head>
@@ -90,7 +89,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className={color}>
+      <body className={color} style={bodyStyle}>
         <div className="grow">{children}</div>
         <ScrollRestoration />
         <Scripts />

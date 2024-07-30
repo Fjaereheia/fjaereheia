@@ -81,13 +81,16 @@ export default function Event() {
     quoteStyle,
   } = getColor(data?.colorCombinationsNight);
 
-  const { setColor } = useBackgroundColor();
+  const { setColor, setbgImage } = useBackgroundColor();
   const { setSlug } = useSlugContext();
 
   useEffect(() => {
     setColor(bgColor);
     setSlug(language, data?._translations);
   }, [bgColor, setColor]);
+  useEffect(() => {
+    setbgImage(``);
+  }, [setbgImage]);
 
   useEffect(() => {
     const updateViewScale = () => {

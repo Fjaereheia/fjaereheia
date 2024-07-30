@@ -51,76 +51,64 @@ export default function Index() {
   const SvgUrl = urlFor(
     data?.event?.svgTitle?.asset?._ref || data?.svgTitle?.asset?._ref || ""
   );
-  const { setColor } = useBackgroundColor();
+  const { setColor, setbgImage } = useBackgroundColor();
   useEffect(() => {
     setColor("bg-white");
+  }, [setColor]);
 
-    document.body.style.backgroundImage = `url(${imageUrl})`;
-    document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundPosition = "center";
-    document.body.style.backgroundRepeat = "no-repeat";
-
-    return () => {
-      document.body.style.backgroundImage = "";
-      document.body.style.backgroundSize = "";
-      document.body.style.backgroundPosition = "";
-      document.body.style.backgroundRepeat = "";
-    };
-  }, [imageUrl, setColor]);
+  useEffect(() => {
+    setbgImage(`${imageUrl}`);
+  }, [setbgImage]);
 
   const params = useParams();
   const styling = data?.event ? "justify-end mb-6" : "justify-center";
-
   return (
-    <div className="h-[100dvh] w-full">
-      <div className="flex flex-col h-full w-full overflow-hidden">
-        <div className="text-white text-xl mt-10 flex flex-col items-center">
-          <Newsletter />
+    <div className="flex flex-col h-[100dvh] w-full overflow-hidden">
+      <div className="text-white text-xl mt-10 flex flex-col items-center">
+        <Newsletter />
+      </div>
+
+      <div className={`flex flex-1 flex-col items-center ${styling} mx-4`}>
+        <img
+          className="lg:w-1/3"
+          src={SvgUrl}
+          alt={data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"}
+        />
+
+        <div className="flex flex-row justify-center content-center w-full mt-4">
+          <Link to={params.lang == "en" ? "/en/info" : "/info"}>
+            <button
+              className="text-white w-48  text-right px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl"
+              aria-label="Info"
+            >
+              Info
+            </button>
+          </Link>
+          <div className="mb-4 mt-4 lg:mt-5 mx-1">
+            <PurpleDot />
+          </div>
+          <Link to={params.lang == "en" ? "/en/program" : "/program"}>
+            <button
+              className="text-white w-48 px-4 py-2 text-left rounded self-center font-serif text-2xl lg:text-4xl"
+              aria-label={t(texts.programText)}
+            >
+              {t(texts.programText)}
+            </button>
+          </Link>
         </div>
 
-        <div className={`flex flex-1 flex-col items-center ${styling} mx-4`}>
-          <img
-            className="lg:w-1/3"
-            src={SvgUrl}
-            alt={data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"}
-          />
-
-          <div className="flex flex-row justify-center content-center w-full mt-4">
-            <Link to={params.lang == "en" ? "/en/info" : "/info"}>
-              <button
-                className="text-white w-48  text-right px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl"
-                aria-label="Info"
-              >
-                Info
-              </button>
-            </Link>
-            <div className="mb-4 mt-4 lg:mt-5 mx-1">
-              <PurpleDot />
-            </div>
-            <Link to={params.lang == "en" ? "/en/program" : "/program"}>
-              <button
-                className="text-white w-48 px-4 py-2 text-left rounded self-center font-serif text-2xl lg:text-4xl"
-                aria-label={t(texts.programText)}
-              >
-                {t(texts.programText)}
-              </button>
+        {data?.event && (
+          <div className="flex justify-center content-center mb-4">
+            <Link
+              to={
+                "/event/" + data?.event?.slug?.current + "#tickets" || "/event"
+              }
+            >
+              <button aria-label={t(texts.buyTicket)}></button>
+              <GreenButton text={t(texts.buyTicket)} />
             </Link>
           </div>
-
-          {data?.event && (
-            <div className="flex justify-center content-center mb-4">
-              <Link
-                to={
-                  "/event/" + data?.event?.slug?.current + "#tickets" ||
-                  "/event"
-                }
-              >
-                <button aria-label={t(texts.buyTicket)}></button>
-                <GreenButton text={t(texts.buyTicket)} />
-              </Link>
-            </div>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );

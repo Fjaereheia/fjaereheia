@@ -30,10 +30,13 @@ function RedirectType(type: string) {
 
 export default function Info() {
   const data = useLoaderData<typeof loader>() as INFOPAGE_QUERYResult;
-  const { setColor } = useBackgroundColor();
+  const { setColor, setbgImage } = useBackgroundColor();
   useEffect(() => {
     setColor("bg-lightblue");
   }, [setColor]);
+  useEffect(() => {
+    setbgImage(``);
+  }, [setbgImage]);
   const params = useParams();
   const { t } = useTranslation();
   return (

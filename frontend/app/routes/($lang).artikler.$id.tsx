@@ -56,7 +56,7 @@ export default function Article() {
   }
   const bgColor = getBackgroundColor(data?.colorCombinationsDay);
   const { language } = useTranslation();
-  const { setColor } = useBackgroundColor();
+  const { setColor, setbgImage } = useBackgroundColor();
   const { portabletextStyle, quoteStyle } = getColor(
     data?.colorCombinationsDay
   );
@@ -66,6 +66,9 @@ export default function Article() {
     setColor(bgColor);
     setSlug(language, data?._translations);
   }, [setColor]);
+  useEffect(() => {
+    setbgImage(``);
+  }, [setbgImage]);
   const { t } = useTranslation();
   const params = useParams();
 
