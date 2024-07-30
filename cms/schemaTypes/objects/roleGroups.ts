@@ -36,8 +36,8 @@ export default {
               },
             },
             {
-              name: 'ocupation',
-              title: 'stilling',
+              name: 'occupation',
+              title: 'Stilling',
               description: 'Legg til stilling',
               type: 'string',
             },

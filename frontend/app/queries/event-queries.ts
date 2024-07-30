@@ -41,13 +41,14 @@ export async function getEvent(params: Params<string>) {
     imageMask, 
     colorCombinationsNight, 
     dates, 
-    text, 
+    text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},
     eventGenre, 
-    "roleGroups": roleGroups[]{
-    name,
-    persons[]{
-      roleTitle,
-      person->{name, image, text}}
+    roleGroups[]{
+      name, 
+      persons[]{
+      occupation, 
+      person->{name, image, text}
+      }
     },
     "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
     slug,

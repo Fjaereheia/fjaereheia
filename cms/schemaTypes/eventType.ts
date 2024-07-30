@@ -56,7 +56,7 @@ export const eventType = defineType({
       type: 'slug',
       options: {source: 'title', isUnique: isUniqueOtherThanLanguage},
       hidden: ({document}) => !document?.title,
-      description: 'Url: fjaereheia.no/xxx',
+      description: 'Url: bruddet.no/xxx',
       group: 'seo',
       validation: (rule) => [rule.required().error('Må ha en slug')],
     }),
