@@ -31,6 +31,11 @@ export const meta: MetaFunction = () => {
 export default function Events() {
   const data = useLoaderData<typeof loader>() as EVENTS_QUERYResult;
   const { setColor } = useBackgroundColor();
+  if (data.length == 0) {
+    throw new Response("Not Found", {
+      status: 404,
+    });
+  }
   useEffect(() => {
     setColor("bg-strongblue");
   }, [setColor]);

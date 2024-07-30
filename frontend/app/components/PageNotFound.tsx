@@ -5,7 +5,7 @@ export default function PageNotFound() {
   const { t } = useTranslation();
   const params = useParams();
   return (
-    <div className="h-screen bg-newsletter flex flex-col items-center justify-center">
+    <div className="h-screen bg-strongblue flex flex-col items-center justify-center">
       <h1 className="text-6xl text-white">{t(texts.notFound)}</h1>
       <p className="mt-4n text-white">{t(texts.notFoundText)}</p>
       <Link to={params.lang == "en" ? "/en" : "/"}>
