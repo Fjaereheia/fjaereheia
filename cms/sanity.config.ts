@@ -9,6 +9,8 @@ import {
 import {deskStructure} from './structure'
 import {PluginConfig} from './structure/documentInternationalization'
 import {muxInput} from 'sanity-plugin-mux-input'
+import {userGuide} from './structure/UserGuide'
+import {media} from 'sanity-plugin-media'
 
 //singleton pages. Before you add the type to singletontypes, the page should be created, since create is not a valid action for singleton types
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
@@ -16,7 +18,7 @@ const singletonTypes = new Set(['frontpage'])
 
 export default defineConfig({
   name: 'default',
-  title: 'Fjæreheia',
+  title: 'Bruddet',
 
   projectId: process.env.SANITY_STUDIO_PROJECT_ID ?? '0chpibsu',
   dataset: process.env.SANITY_STUDIO_DATASET ?? 'production',
@@ -26,7 +28,10 @@ export default defineConfig({
     structureTool({structure: deskStructure}),
     visionTool(),
     muxInput(),
+    media(),
   ],
+
+  tools: [userGuide()],
 
   schema: {
     types: schemaTypes,

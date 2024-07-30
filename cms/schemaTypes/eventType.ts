@@ -56,7 +56,7 @@ export const eventType = defineType({
       type: 'slug',
       options: {source: 'title', isUnique: isUniqueOtherThanLanguage},
       hidden: ({document}) => !document?.title,
-      description: 'Url: fjaereheia.no/xxx',
+      description: 'Url: bruddet.no/xxx',
       group: 'seo',
       validation: (rule) => [rule.required().error('Må ha en slug')],
     }),
@@ -80,6 +80,7 @@ export const eventType = defineType({
         {
           type: 'object',
           icon: CalendarIcon,
+
           fields: [
             {
               name: 'date',
@@ -92,6 +93,22 @@ export const eventType = defineType({
               type: 'url',
               title: 'Link',
               validation: (rule) => [rule.required().error('URL er påkrevd.')],
+            },
+            {
+              name: 'status',
+              title: 'Antall billetter igjen',
+              type: 'number',
+              initialValue: 1,
+              options: {
+                list: [
+                  {title: 'Normalt', value: 1},
+                  {title: 'Få billetter igjen', value: 2},
+                  {title: 'Utsolgt', value: 3},
+                ],
+                layout: 'radio',
+                direction: 'horizontal',
+              },
+              validation: (rule) => [rule.required().error('Status er påkrevd.')],
             },
           ],
         },

@@ -22,7 +22,8 @@ export function BackgroundColorProvider({
   const [color, setColor] = useState<string>("bg-strongblue");
 
   useEffect(() => {
-    document.body.className = color + " h-full flex flex-col grow";
+    document.body.className =
+      color + " overlow-x-hidden relative h-full flex flex-col grow";
   }, [color]);
 
   return (

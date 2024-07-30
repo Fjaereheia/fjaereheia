@@ -1,44 +1,28 @@
 import { useState } from "react";
-import {
-  SanityImageCrop,
-  SanityImageHotspot,
-  internalGroqTypeReferenceTo,
-} from "sanity/types";
 import { createTexts, useTranslation } from "~/utils/i18n";
 import urlFor from "~/utils/imageUrlBuilder";
-import ArrowUp from "/arrow-up.svg";
-import ArrowDown from "/arrow-down.svg";
+import ArrowUp from "~/assets/arrow-up.svg";
+import ArrowDown from "~/assets/arrow-down.svg";
 import { motion } from "framer-motion";
 
 interface RoleDropDownProps {
-  roleGroups: {
+  roleGroups: Array<{
     name: string;
-    persons:
-      | {
-          roleTitle: null;
-          person: {
-            name: string;
-            image: {
-              asset?:
-                | {
-                    _ref: string;
-                    _type: "reference";
-                    _weak?: boolean | undefined;
-                    [internalGroqTypeReferenceTo]?:
-                      | "sanity.imageAsset"
-                      | undefined;
-                  }
-                | undefined;
-              hotspot?: SanityImageHotspot | undefined;
-              crop?: SanityImageCrop | undefined;
-              alt: string;
-              _type: "customImage";
-            };
-            text: string | null;
-          } | null;
-        }[]
-      | null;
-  }[];
+    persons: Array<{
+      occupation: string | null;
+      person: {
+        name: string;
+        image: {
+          asset?: {
+            _ref: string;
+          };
+          alt: string;
+          _type: "customImage";
+        };
+        text: string | null;
+      } | null;
+    }> | null;
+  }>;
 }
 
 export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
@@ -54,11 +38,14 @@ export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
   };
 
   return (
-    <div>
+    <>
       {roleGroups?.map((roleGroup, index) => (
-        <div key={index} className="border self-start m-4">
+        <div
+          key={index}
+          className="border self-start w-full min-w-52 max-w-96 my-4"
+        >
           <button
-            className="w-96 h-16 py-4 px-6 grid grid-flow-col"
+            className="w-full h-16 py-4 px-6 grid grid-flow-col"
             onClick={() => toggleDropDown(index)}
           >
             <span className="self-center justify-self-start text-xl">
@@ -85,16 +72,16 @@ export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
             transition={{ duration: 1.0 }}
             style={{ overflow: "hidden" }}
           >
-            <div id={index.toString()} className="mx-4 mb-10">
+            <div id={index.toString()} className="mx-4 mb-4">
               {roleGroup.persons?.map((role, roleIndex) => (
-                <div key={roleIndex} className="flex flex-row mt-0 gap-6">
+                <div key={roleIndex} className="flex flex-row mt-4 gap-6">
                   <img
                     src={urlFor(role.person?.image?.asset?._ref ?? "")}
                     alt={role.person?.image?.alt ?? ""}
                     className="w-28 h-36 object-cover"
                   />
                   <div>
-                    <h4 className="text-2xl mb-2">{role.roleTitle}</h4>
+                    <h4 className="text-2xl mb-2">{role.occupation}</h4>
                     <h5 className="text-lg mb-2">{role.person?.name}</h5>
                     <span className="text-base">{role.person?.text}</span>
                   </div>
@@ -104,7 +91,7 @@ export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
           </motion.div>
         </div>
       ))}
-    </div>
+    </>
   );
 }
 
