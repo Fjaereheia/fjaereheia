@@ -114,7 +114,7 @@ export type RoleGroups = {
       _weak?: boolean;
       [internalGroqTypeReferenceTo]?: "person";
     };
-    ocupation?: string;
+    occupation?: string;
     _key: string;
   }>;
 };
@@ -235,6 +235,15 @@ export type SanityImageMetadata = {
   blurHash?: string;
   hasAlpha?: boolean;
   isOpaque?: boolean;
+};
+
+export type MediaTag = {
+  _id: string;
+  _type: "media.tag";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: Slug;
 };
 
 export type MuxVideo = {
@@ -594,7 +603,7 @@ export type InternationalizedArrayReference = Array<{
   _key: string;
 } & InternationalizedArrayReferenceValue>;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | ColorCombinationsNight | ColorCombinationsDay | MetaDescription | MetaTitle | Video | RoleGroups | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Infopage | Frontpage | Article | Event | Person | Document | CustomImage | Slug | InternationalizedArrayReference;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | ColorCombinationsNight | ColorCombinationsDay | MetaDescription | MetaTitle | Video | RoleGroups | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MediaTag | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Infopage | Frontpage | Article | Event | Person | Document | CustomImage | Slug | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -678,7 +687,7 @@ export type EVENTS_QUERYResult = Array<{
   title: string;
 }>;
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{    title,     image,    imageMask,     colorCombinationsNight,     dates,     text,     eventGenre,     "roleGroups": roleGroups[]{    name,    persons[]{      roleTitle,      person->{name, image, text}}    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
+// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{    title,     image,    imageMask,     colorCombinationsNight,     dates,     text,     eventGenre,     roleGroups[]{      name,       persons[]{      occupation,       person->{name, image, text}      }    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
 export type EVENT_QUERYResult = {
   title: string;
   image: {
@@ -706,7 +715,7 @@ export type EVENT_QUERYResult = {
   roleGroups: Array<{
     name: string;
     persons: Array<{
-      roleTitle: null;
+      occupation: string | null;
       person: {
         name: string;
         image: {
