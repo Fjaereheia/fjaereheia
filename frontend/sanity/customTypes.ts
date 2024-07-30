@@ -25,6 +25,14 @@ declare module "sanity/types" {
     video: CustomVideo;
     text: CustomContent;
   };
+
+  export type Custom_EVENT_QUERYResult = Omit<
+    NonNullable<EVENT_QUERYResult>,
+    "video" | "text"
+  > & {
+    video: CustomVideo;
+    text: CustomContent;
+  };
 }
 
 type CustomVideo = {
