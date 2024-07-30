@@ -110,7 +110,7 @@ export const EventLabels = ({
 
   return (
     <>
-      <div id="eventLabels" className="font-serif self-start min-w-full">
+      <div id="eventLabels" className="font-serif justify-start">
         <div className="flex flex-wrap gap-4 md:float-start ">
           {labels.map(
             (label, index) =>

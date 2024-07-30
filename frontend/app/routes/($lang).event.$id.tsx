@@ -106,7 +106,7 @@ export default function Event() {
   return (
     <>
       <div
-        className={`flex grow flex-col relative justify-center ${textColor} items-center p-4`}
+        className={`flex grow flex-col w-full relative justify-center justify-self-center ${textColor} items-center p-4 gap-6`}
       >
         {data.image?.asset?._ref && (
           <ImageEventPage
@@ -116,40 +116,33 @@ export default function Event() {
             imageMaskType={data?.imageMask || ""}
           />
         )}
-        <div
-          className={`flex flex-col relative justify-center ${textColor} items-center gap-6`}
-        >
-          <div className="static">
-            <h1 className={`font-serif text-2xl lg:text-4xl`}>{data.title}</h1>
-          </div>
-          {data.dates && (
-            <EventLabels
-              dateObj={data.dates}
-              genre={data.eventGenre}
-              primaryText={primaryText}
-              secondaryBgColor={secondaryBgColor}
-              secondaryBorder={secondaryBorder}
-              textColor={textColor}
-              textColorBorder={textColorBorder}
-            />
-          )}
-          {data.text && (
-            <PortableTextComponent
-              textData={data.text}
-              textStyle={portabletextStyle}
-              styleBlock={quoteStyle.styleBlock}
-              styleLink={quoteStyle.styleLink}
-              fillColor={quoteStyle.fillColor}
-            />
-          )}
-          {data.dates && (
-            <div className={`flex self-start`}>
-              <Tickets dateTickets={data.dates} />
-            </div>
-          )}
 
-          {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
+        <div className="static">
+          <h1 className={`font-serif text-2xl lg:text-4xl`}>{data.title}</h1>
         </div>
+        {data.dates && (
+          <EventLabels
+            dateObj={data.dates}
+            genre={data.eventGenre}
+            primaryText={primaryText}
+            secondaryBgColor={secondaryBgColor}
+            secondaryBorder={secondaryBorder}
+            textColor={textColor}
+            textColorBorder={textColorBorder}
+          />
+        )}
+        {data.text && (
+          <PortableTextComponent
+            textData={data.text}
+            textStyle={portabletextStyle}
+            styleBlock={quoteStyle.styleBlock}
+            styleLink={quoteStyle.styleLink}
+            fillColor={quoteStyle.fillColor}
+          />
+        )}
+        {data.dates && <Tickets dateTickets={data.dates} />}
+
+        {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
       </div>
       <FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />
     </>
