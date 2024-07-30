@@ -4,6 +4,7 @@ import { DateTicket } from "./DateTicket";
 export type DateTicketType = {
   date?: string | undefined;
   url?: string | undefined;
+  status?: number | undefined;
 };
 
 type Props = {
