@@ -91,7 +91,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className={color}>
-        <div className="grow">{children}</div>
+        {children}
         <ScrollRestoration />
         <Scripts />
       </body>

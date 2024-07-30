@@ -30,6 +30,13 @@ export default function Articles() {
   const data = useLoaderData<typeof loader>() as ARTICLES_QUERYResult;
   const params = useParams();
   const { setColor } = useBackgroundColor();
+
+  if (data.length == 0) {
+    throw new Response("Not Found", {
+      status: 404,
+    });
+  }
+
   useEffect(() => {
     setColor("bg-white");
   }, [setColor]);
