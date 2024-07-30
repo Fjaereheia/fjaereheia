@@ -108,6 +108,7 @@ export const eventType = defineType({
                 layout: 'radio',
                 direction: 'horizontal',
               },
+              validation: (rule) => [rule.required().error('Status er påkrevd.')],
             },
           ],
         },
