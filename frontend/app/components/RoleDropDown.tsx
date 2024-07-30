@@ -54,11 +54,14 @@ export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
   };
 
   return (
-    <div>
+    <>
       {roleGroups?.map((roleGroup, index) => (
-        <div key={index} className="border self-start m-4">
+        <div
+          key={index}
+          className="border self-start w-full min-w-52 max-w-96 my-4"
+        >
           <button
-            className="w-96 h-16 py-4 px-6 grid grid-flow-col"
+            className="w-full h-16 py-4 px-6 grid grid-flow-col"
             onClick={() => toggleDropDown(index)}
           >
             <span className="self-center justify-self-start text-xl">
@@ -104,7 +107,7 @@ export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
           </motion.div>
         </div>
       ))}
-    </div>
+    </>
   );
 }
 
