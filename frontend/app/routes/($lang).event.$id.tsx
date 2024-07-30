@@ -109,10 +109,22 @@ export default function Event() {
 
   useEffect(() => {
     const updateViewScale = () => {
-      if (window.matchMedia("(min-width: 1024px)").matches) {
-        setViewScale(2.25);
+      if (window.innerWidth > 768) {
+        setViewScale(2.4);
+      } else if (window.innerWidth < 320) {
+        setViewScale(0.6);
+      } else if (320 <= window.innerWidth && window.innerWidth < 640) {
+        const widthScale = 640 - 320;
+        const imageScale = 1.4 - 0.6;
+        const width = window.innerWidth;
+        const scale = width / (widthScale / imageScale);
+        setViewScale(scale);
       } else {
-        setViewScale(1.25);
+        const widthScale = 1024 - 640;
+        const imageScale = 2.25 - 1.2;
+        const width = window.innerWidth;
+        const scale = width / (widthScale / imageScale);
+        setViewScale(scale);
       }
     };
     updateViewScale();
