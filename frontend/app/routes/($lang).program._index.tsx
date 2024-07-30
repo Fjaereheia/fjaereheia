@@ -62,7 +62,7 @@ export default function Program() {
   return (
     <div className="flex flex-col grow items-center text-white relative">
       <h1 className="text-5xl font-bold mb-12">{data?.title}</h1>
-      <div className="flex flex-col items-center font-normal gap-4 text-xl py-12 px-0">
+      <div className="flex flex-col items-center font-normal text-center gap-4 text-xl py-12 px-0">
         {data?.gif && (
           <img
             src={gifUrl}
