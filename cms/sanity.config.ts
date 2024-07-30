@@ -18,7 +18,7 @@ const singletonTypes = new Set(['frontpage'])
 
 export default defineConfig({
   name: 'default',
-  title: 'Fjæreheia',
+  title: 'Bruddet',
 
   projectId: process.env.SANITY_STUDIO_PROJECT_ID ?? '0chpibsu',
   dataset: process.env.SANITY_STUDIO_DATASET ?? 'production',
