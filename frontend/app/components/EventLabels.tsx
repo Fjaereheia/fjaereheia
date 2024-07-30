@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import { EventGenre } from "sanity/types";
 import {
   formatDayAndDate,
@@ -111,7 +110,7 @@ export const EventLabels = ({
 
   return (
     <>
-      <div id="eventLabels" className="font-serif self-start">
+      <div id="eventLabels" className="font-serif justify-start">
         <div className="flex flex-wrap gap-4 md:float-start ">
           {labels.map(
             (label, index) =>
