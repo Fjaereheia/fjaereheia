@@ -15,7 +15,9 @@ export const usePageTransition = () => {
 
   let slideDirection = 0;
 
-  if (location.pathname.includes("/info")) {
+  if (previousLocation === "/" && location.pathname.includes("/event/"))
+    slideDirection = 0;
+  else if (location.pathname.includes("/info")) {
     if (previousLocation?.includes("/artikler")) slideDirection = 1;
     else slideDirection = -1;
   } else if (location.pathname.includes("/artikler")) {
