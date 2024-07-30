@@ -1,7 +1,7 @@
 import React from 'react'
 import {useDocumentOperation} from 'sanity'
 
-export function DialogAction({
+export function ClearPortableTextAction({
   id,
   type,
   published,

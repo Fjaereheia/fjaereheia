@@ -9,7 +9,7 @@ import {
 import {deskStructure} from './structure'
 import {PluginConfig} from './structure/documentInternationalization'
 import {muxInput} from 'sanity-plugin-mux-input'
-import {DialogAction} from './ClearFieldAction'
+import {ClearPortableTextAction} from './ClearFieldAction'
 
 //singleton pages. Before you add the type to singletontypes, the page should be created, since create is not a valid action for singleton types
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
@@ -40,7 +40,7 @@ export default defineConfig({
   document: {
     actions: (input, context) => {
       // add the delete translation action to all documents
-      input.push(DeleteTranslationAction, DialogAction)
+      input.push(DeleteTranslationAction, ClearPortableTextAction)
 
       // filter out actions that should not be available for singleton pages
       return singletonTypes.has(context.schemaType)
