@@ -8,7 +8,7 @@ export enum Language {
   English = "en",
 }
 
-type TranslationObject = {
+export type TranslationObject = {
   [key in Language]: string | React.ReactElement;
 };
 type TranslationFunction = (
