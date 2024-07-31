@@ -1,4 +1,4 @@
-import QuoteMarks from "~/assets/QuoteMarks";
+import QuoteMarks from "../assets/QuoteMarks";
 interface QuoteProps {
   quote: {
     company: string;
@@ -11,11 +11,7 @@ interface QuoteProps {
   fillColor?: string;
 }
 
-export const QuoteComponent: React.FC<QuoteProps> = ({
-  quote,
-  styleBlock,
-  fillColor,
-}) => {
+export function QuoteComponent({ quote, styleBlock, fillColor }: QuoteProps) {
   return (
     <blockquote className={styleBlock || ""}>
       <QuoteMarks fillColor={fillColor || "#00000"} />
@@ -25,4 +21,4 @@ export const QuoteComponent: React.FC<QuoteProps> = ({
       <span className="underline not-italic">{quote.company}</span>
     </blockquote>
   );
-};
+}

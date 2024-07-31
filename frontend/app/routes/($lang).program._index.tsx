@@ -1,12 +1,12 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
 import { Link, useLoaderData, useParams } from "@remix-run/react";
 import { useEffect } from "react";
-import { PROGRAMPAGE_QUERYResult } from "sanity/types";
-import Newsletter from "~/components/Newsletter";
-import { getProgramPage } from "~/queries/program-queries";
-import { useBackgroundColor } from "~/utils/backgroundColor";
-import urlFor from "~/utils/imageUrlBuilder";
 import { createTexts, useTranslation } from "../utils/i18n";
+import { PROGRAMPAGE_QUERYResult } from "../../sanity/types";
+import Newsletter from "../components/Newsletter";
+import { getProgramPage } from "../queries/program-queries";
+import { useBackgroundColor } from "../utils/backgroundColor";
+import urlFor from "../utils/imageUrlBuilder";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const programPage = await getProgramPage(params);

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { useTranslation } from "~/utils/i18n";
-import closebutton from "~/assets/closeButton.svg";
+import { useTranslation } from "../utils/i18n";
+import closebutton from "../assets/closeButton.svg";
 
 interface NewsletterFormProps {
   setShowForm: (showForm: boolean) => void;
@@ -102,7 +102,7 @@ function NewsletterForm(props: NewsletterFormProps) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref]);
+  });
 
   const handleFieldChange = (fieldId: string, value: string) => {
     setFormInfo({ ...formInfo, [fieldId]: value });

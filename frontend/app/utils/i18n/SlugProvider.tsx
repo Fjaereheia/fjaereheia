@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 interface SlugContextData {
   slug: string | undefined;
@@ -39,7 +39,7 @@ export function SlugProvider({ children }: SlugProviderProps) {
   const [slug, setSlugState] = useState<string | undefined>(undefined);
 
   const setSlug = (language: string, _translations: (Translation | null)[]) => {
-    let newSlug = slugSelector(language, _translations);
+    const newSlug = slugSelector(language, _translations);
     setSlugState(newSlug ?? "");
   };
 

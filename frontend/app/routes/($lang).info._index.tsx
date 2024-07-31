@@ -1,10 +1,10 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { Link, useLoaderData, useLocation, useParams } from "@remix-run/react";
+import { Link, useLoaderData, useParams } from "@remix-run/react";
 import { useEffect } from "react";
-import { INFOPAGE_QUERYResult } from "sanity/types";
-import { getInfoPage } from "~/queries/info-queries";
-import { useBackgroundColor } from "~/utils/backgroundColor";
-import { useTranslation } from "~/utils/i18n";
+import { INFOPAGE_QUERYResult } from "../../sanity/types";
+import { getInfoPage } from "../queries/info-queries";
+import { useBackgroundColor } from "../utils/backgroundColor";
+import { useTranslation } from "../utils/i18n";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const informationPage = await getInfoPage(params);

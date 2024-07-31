@@ -1,6 +1,7 @@
 import { Link, useLocation } from "@remix-run/react";
-import { useBackgroundColor } from "~/utils/backgroundColor";
 import { createTexts, useTranslation } from "../utils/i18n";
+import { useBackgroundColor } from "../utils/backgroundColor";
+
 
 interface StickyFooterProps {
   programUrl: string;
@@ -12,7 +13,6 @@ export default function StickyFooter({
   infoUrl,
 }: StickyFooterProps) {
   let textcolor = "black";
-  let bgcolor = "white";
   const location = useLocation();
   const { t } = useTranslation();
   const isEnglish =
@@ -29,16 +29,13 @@ export default function StickyFooter({
     location.pathname.includes("/program")
   ) {
     textcolor = "white";
-    bgcolor = "strongblue";
   }
 
   if (location.pathname.includes("/info")) {
     textcolor = "black";
-    bgcolor = "[#83D2FF]";
   }
   if (location.pathname.includes("/artikler")) {
     textcolor = "black";
-    bgcolor = "gray-100";
   }
 
   return (
