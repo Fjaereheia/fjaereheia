@@ -87,7 +87,7 @@ export default function Index() {
               className="text-white w-48  text-right px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl"
               aria-label={t(texts.infoText)}
             >
-              {t(texts.infoText)}
+              Info
             </Link>
             <div className="mb-4 mt-4 lg:mt-5 mx-1">
               <PurpleDot />
@@ -97,7 +97,7 @@ export default function Index() {
               className="text-white w-48 px-4 py-2 text-left rounded self-center font-serif text-2xl lg:text-4xl"
               aria-label={t(texts.programText)}
             >
-              {t(texts.programText)}
+              Program
             </Link>
           </div>
 
@@ -122,12 +122,12 @@ export default function Index() {
 
 const texts = createTexts({
   programText: {
-    nb: "Program",
-    en: "Program",
+    nb: "Gå til programside",
+    en: "Go to program page",
   },
   infoText: {
-    nb: "Info",
-    en: "Info",
+    nb: "Gå til informasjonsside",
+    en: "Go to information page",
   },
   buyTicket: {
     nb: "Kjøp \nBillett",
