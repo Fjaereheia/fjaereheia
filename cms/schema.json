@@ -690,10 +690,6 @@
                     },
                     {
                       "type": "string",
-                      "value": "h1"
-                    },
-                    {
-                      "type": "string",
                       "value": "h2"
                     },
                     {
