@@ -1,5 +1,5 @@
-import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { Link, useLoaderData, useParams } from "@remix-run/react";
+import { LoaderFunctionArgs } from "@remix-run/node";
+import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
 import { useEffect } from "react";
 import { createTexts, useTranslation } from "../utils/i18n";
 import { PROGRAMPAGE_QUERYResult } from "../../sanity/types";
@@ -17,8 +17,40 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return json(programPage);
+  return programPage;
 }
+
+export const meta: MetaFunction<typeof loader> = ({ location, data }) => {
+  if (!data) {
+    return [
+      { title: "Program" },
+      { property: "og:description", content: "Page not found" },
+    ];
+  }
+
+  const path = location.pathname;
+  let language = "nb";
+  if (path.includes("/en")) {
+    language = "en";
+  }
+
+  const texts: { description: { [key: string]: string } } = {
+    description: {
+      en: "Overview of program",
+      no: "Oversikt over program",
+    },
+  };
+
+  const description = texts.description[language];
+
+  return [
+    { title: data.metaTitle ?? "Program" },
+    {
+      property: "og:description",
+      content: data.metaDescription ?? description,
+    },
+  ];
+};
 
 export default function Program() {
   const data = useLoaderData<typeof loader>() as PROGRAMPAGE_QUERYResult;

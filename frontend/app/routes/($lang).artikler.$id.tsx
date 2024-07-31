@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
+import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData, useParams } from "@remix-run/react";
 import { Custom_ARTICLE_QUERYResult } from "../../sanity/types";
 import { getBackgroundColor, getColor } from "../utils/colorCombinations";
@@ -26,25 +26,47 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return json(article);
+  return article;
 }
 
-export const meta: MetaFunction<typeof loader> = ({ data }) => {
-  if (typeof data === "string" || !data) {
+export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
+  const path = location.pathname;
+  let language = "nb";
+  if (path.includes("/en")) {
+    language = "en";
+  }
+  const texts: {
+    title: { [key: string]: string };
+    description: { [key: string]: string };
+  } = {
+    title: {
+      en: "Artikkel",
+      nb: "Article",
+    },
+    description: {
+      en: "An article",
+      nb: "En artikkel",
+    },
+  };
+
+  const title = texts.title[language];
+  const description = texts.description[language];
+
+  if (!data) {
     return [
-      { title: "Artikkel" },
+      { title: title },
       {
         property: "og:description",
-        content: "Artikkel",
+        content: description,
       },
     ];
   }
 
   return [
-    { title: data.metaTitle ?? "Artikkel" },
+    { title: data.metaTitle ?? title },
     {
       property: "og:description",
-      content: data.metaDescription ?? "Artikkel",
+      content: data.metaDescription ?? description,
     },
   ];
 };

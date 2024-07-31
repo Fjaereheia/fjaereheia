@@ -1,5 +1,5 @@
-import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { Link, useLoaderData, useParams } from "@remix-run/react";
+import { LoaderFunctionArgs } from "@remix-run/node";
+import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
 import { useEffect } from "react";
 import { INFOPAGE_QUERYResult } from "../../sanity/types";
 import { getInfoPage } from "../queries/info-queries";
@@ -15,8 +15,42 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return json(informationPage);
+  return informationPage;
 }
+
+export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
+  const path = location.pathname;
+  let language = "nb";
+  if (path.includes("/en")) {
+    language = "en";
+  }
+  const texts: { description: { [key: string]: string } } = {
+    description: {
+      en: "Overview of information",
+      nb: "Oversikt over informasjon",
+    },
+  };
+
+  const description = texts.description[language];
+
+  if (!data) {
+    return [
+      { title: "Info" },
+      {
+        property: "og:description",
+        content: description,
+      },
+    ];
+  }
+
+  return [
+    { title: data.metaTitle ?? "Info" },
+    {
+      property: "og:description",
+      content: data.metaDescription ?? description,
+    },
+  ];
+};
 
 function RedirectType(type: string) {
   if (type == "article") {
