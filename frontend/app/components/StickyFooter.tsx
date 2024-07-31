@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@remix-run/react";
-import { useBackgroundColor } from "~/utils/backgroundColor";
+import { useBackgroundColor } from "../utils/backgroundColor";
 
 interface StickyFooterProps {
   programUrl: string;

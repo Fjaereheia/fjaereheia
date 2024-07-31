@@ -1,6 +1,6 @@
 import { Params } from "@remix-run/react";
 import groq from "groq";
-import { client } from "sanity/clientConfig";
+import { client } from "../../sanity/clientConfig";
 
 export async function getArticles(params: Params<string>) {
   if (!params.lang) {

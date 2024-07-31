@@ -1,6 +1,6 @@
 import { useState } from "react";
 import NewsletterForm from "./NewsletterForm";
-import { useTranslation } from "~/utils/i18n";
+import { useTranslation } from "../utils/i18n";
 
 export default function Newsletter() {
   const [showForm, setShowForm] = useState(false);

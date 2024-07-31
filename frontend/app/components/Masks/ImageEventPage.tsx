@@ -1,6 +1,6 @@
-import SmallImageMask from "~/assets/smallImageMask";
-import BigImageMask from "~/assets/BigImageMask";
-import { getImageMask } from "~/utils/imageMask";
+import SmallImageMask from "../../assets/smallImageMask";
+import BigImageMask from "../../assets/BigImageMask";
+import { getImageMask } from "../../utils/imageMask";
 
 interface MaskProps {
   url: string;

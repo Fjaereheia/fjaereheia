@@ -1,4 +1,4 @@
-import { useTranslation } from "~/utils/i18n";
+import { useTranslation } from "../utils/i18n";
 import { Link, useParams } from "@remix-run/react";
 
 export default function PageNotFound() {
