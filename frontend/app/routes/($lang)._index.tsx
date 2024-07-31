@@ -82,24 +82,22 @@ export default function Index() {
           />
 
           <div className="flex flex-row justify-center content-center w-full mt-4">
-            <Link to={params.lang == "en" ? "/en/info" : "/info"}>
-              <button
-                className="text-white w-48  text-right px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl"
-                aria-label="Info"
-              >
-                Info
-              </button>
+            <Link
+              to={params.lang == "en" ? "/en/info" : "/info"}
+              className="text-white w-48  text-right px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl"
+              aria-label={t(texts.infoText)}
+            >
+              Info
             </Link>
             <div className="mb-4 mt-4 lg:mt-5 mx-1">
               <PurpleDot />
             </div>
-            <Link to={params.lang == "en" ? "/en/program" : "/program"}>
-              <button
-                className="text-white w-48 px-4 py-2 text-left rounded self-center font-serif text-2xl lg:text-4xl"
-                aria-label={t(texts.programText)}
-              >
-                {t(texts.programText)}
-              </button>
+            <Link
+              to={params.lang == "en" ? "/en/program" : "/program"}
+              className="text-white w-48 px-4 py-2 text-left rounded self-center font-serif text-2xl lg:text-4xl"
+              aria-label={t(texts.programText)}
+            >
+              Program
             </Link>
           </div>
 
@@ -124,8 +122,12 @@ export default function Index() {
 
 const texts = createTexts({
   programText: {
-    nb: "Program",
-    en: "Program",
+    nb: "Gå til programside",
+    en: "Go to program page",
+  },
+  infoText: {
+    nb: "Gå til informasjonsside",
+    en: "Go to information page",
   },
   buyTicket: {
     nb: "Kjøp \nBillett",
