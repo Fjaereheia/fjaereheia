@@ -1,4 +1,4 @@
-import QuoteMarks from "~/assets/QuoteMarks";
+import QuoteMarks from "../assets/QuoteMarks";
 interface QuoteProps {
   quote: {
     company: string;
