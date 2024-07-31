@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
-import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
+import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { Custom_EVENT_QUERYResult } from "sanity/types";
-import { getColor } from "~/utils/colorCombinations";
-import PortableTextComponent from "~/components/PortableTextComponent";
-import urlFor from "~/utils/imageUrlBuilder";
-import { Tickets } from "~/components/Tickets";
-import ImageEventPage from "~/components/Masks/ImageEventPage";
-import { EventLabels } from "~/components/EventLabels";
-import RoleDropDown from "~/components/RoleDropDown";
-import { getEvent } from "~/queries/event-queries";
-import { useBackgroundColor } from "~/utils/backgroundColor";
-import { FloatingBuyButton } from "~/components/FloatingBuyButton";
-import { useSlugContext } from "~/utils/i18n/SlugProvider";
-import { useTranslation } from "~/utils/i18n";
-import { initBuyButtonObserver } from "~/utils/BuyButtonObserver";
+import { Custom_EVENT_QUERYResult } from "../../sanity/types";
+import { getColor } from "../utils/colorCombinations";
+import PortableTextComponent from "../components/PortableTextComponent";
+import urlFor from "../utils/imageUrlBuilder";
+import { Tickets } from "../components/Tickets";
+import ImageEventPage from "../components/Masks/ImageEventPage";
+import { EventLabels } from "../components/EventLabels";
+import RoleDropDown from "../components/RoleDropDown";
+import { getEvent } from "../queries/event-queries";
+import { useBackgroundColor } from "../utils/backgroundColor";
+import { FloatingBuyButton } from "../components/FloatingBuyButton";
+import { useSlugContext } from "../utils/i18n/SlugProvider";
+import { useTranslation } from "../utils/i18n";
+import { useBuyButtonObserver } from "../utils/BuyButtonObserver";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
@@ -105,7 +105,7 @@ export default function Event() {
   useEffect(() => {
     setColor(bgColor);
     setSlug(language, data?._translations);
-  }, [bgColor, setColor]);
+  });
 
   useEffect(() => {
     const updateViewScale = () => {
@@ -131,11 +131,7 @@ export default function Event() {
     window.addEventListener("resize", updateViewScale);
   }, []);
 
-  if (!data) {
-    return <></>;
-  }
-
-  initBuyButtonObserver();
+  useBuyButtonObserver();
 
   return (
     <>

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import throttle from "lodash/throttle";
 
-export function initBuyButtonObserver() {
+export function useBuyButtonObserver() {
   useEffect(() => {
     if (typeof document !== "undefined") {
       if (document.readyState === "loading") {

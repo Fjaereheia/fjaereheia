@@ -1,6 +1,6 @@
 import { useLocation, useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
-import { useSlugContext } from "~/utils/i18n/SlugProvider";
+import { useSlugContext } from "../utils/i18n/SlugProvider";
 
 export default function LanguageButton() {
   const [isEnglish, setIsEnglish] = useState<boolean>(false);
@@ -29,7 +29,7 @@ export default function LanguageButton() {
     }
 
     if (path.includes("/event/")) {
-      let pathSegments = path.split("/");
+      const pathSegments = path.split("/");
       if (slug) {
         pathSegments[pathSegments.length - 1] = slug;
       } else {
@@ -37,7 +37,7 @@ export default function LanguageButton() {
       }
       path = pathSegments.join("/");
     } else if (path.includes("/artikler/")) {
-      let pathSegments = path.split("/");
+      const pathSegments = path.split("/");
       if (slug) {
         pathSegments[pathSegments.length - 1] = slug;
       } else {

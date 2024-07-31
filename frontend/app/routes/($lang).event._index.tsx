@@ -1,10 +1,10 @@
-import { json, LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
+import { LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData, useParams } from "@remix-run/react";
 import { useEffect } from "react";
-import { EVENTS_QUERYResult } from "sanity/types";
-import Newsletter from "~/components/Newsletter";
-import { getEvents } from "~/queries/event-queries";
-import { useBackgroundColor } from "~/utils/backgroundColor";
+import { EVENTS_QUERYResult } from "../../sanity/types";
+import Newsletter from "../components/Newsletter";
+import { getEvents } from "../queries/event-queries";
+import { useBackgroundColor } from "../utils/backgroundColor";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const events = await getEvents(params);
