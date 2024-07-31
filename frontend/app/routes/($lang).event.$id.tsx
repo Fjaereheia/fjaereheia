@@ -87,20 +87,20 @@ export default function Event() {
 
   useEffect(() => {
     const updateViewScale = () => {
-      if (window.innerWidth > 768) {
+      if (window.outerWidth > 768) {
         setViewScale(2.4);
-      } else if (window.innerWidth < 320) {
+      } else if (window.outerWidth < 320) {
         setViewScale(0.6);
-      } else if (320 <= window.innerWidth && window.innerWidth < 640) {
+      } else if (320 <= window.outerWidth && window.outerWidth < 640) {
         const widthScale = 640 - 320;
         const imageScale = 1.4 - 0.6;
-        const width = window.innerWidth;
+        const width = window.outerWidth;
         const scale = width / (widthScale / imageScale);
         setViewScale(scale);
       } else {
         const widthScale = 1024 - 640;
         const imageScale = 2.25 - 1.2;
-        const width = window.innerWidth;
+        const width = window.outerWidth;
         const scale = width / (widthScale / imageScale);
         setViewScale(scale);
       }
