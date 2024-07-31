@@ -1,13 +1,13 @@
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
-import { useLoaderData, Link, useLocation, useParams } from "@remix-run/react";
-import { FRONTPAGE_QUERYResult } from "sanity/types";
-import { getFrontpage } from "~/queries/frontpage-queries";
-import urlFor from "~/utils/imageUrlBuilder";
-import PurpleDot from "~/assets/PurpleDot";
-import GreenButton from "~/assets/GreenButton";
-import Newsletter from "~/components/Newsletter";
-import { createTexts, useTranslation } from "~/utils/i18n";
-import { useBackgroundColor } from "~/utils/backgroundColor";
+import { useLoaderData, Link, useParams } from "@remix-run/react";
+import { FRONTPAGE_QUERYResult } from "../../sanity/types";
+import { getFrontpage } from "../queries/frontpage-queries";
+import urlFor from "../utils/imageUrlBuilder";
+import PurpleDot from "../assets/PurpleDot";
+import GreenButton from "../assets/GreenButton";
+import Newsletter from "../components/Newsletter";
+import { createTexts, useTranslation } from "../utils/i18n";
+import { useBackgroundColor } from "../utils/backgroundColor";
 import { useEffect } from "react";
 
 export async function loader({ params }: LoaderFunctionArgs) {
