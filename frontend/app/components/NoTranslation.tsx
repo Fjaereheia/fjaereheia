@@ -1,9 +1,8 @@
 import { useTranslation } from "~/utils/i18n";
-import { useNavigate, useParams } from "@remix-run/react";
+import { useNavigate } from "@remix-run/react";
 
 export default function NoTranslation() {
   const { t } = useTranslation();
-  const params = useParams();
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
   return (
