@@ -2,8 +2,8 @@ import { DateTicketType } from "./Tickets";
 import {
   formatDayAndDate,
   formatTimestamp,
-} from "~/utils/dateAndTimeConverters";
-import { useTranslation } from "~/utils/i18n";
+} from "../utils/dateAndTimeConverters";
+import { useTranslation } from "../utils/i18n";
 
 type Props = {
   dateTicket: DateTicketType;
