@@ -25,8 +25,6 @@ export const programpage = defineType({
       title: 'SEO tittel',
       type: 'metaTitle',
       initialValue: 'Info',
-      readOnly: true,
-      hidden: true,
       validation: (rule) => [rule.required().error('Må ha SEO tittel')],
     }),
     defineField({
@@ -34,8 +32,6 @@ export const programpage = defineType({
       title: 'SEO beskrivelse',
       type: 'metaDescription',
       initialValue: 'Oversikt over informasjonssider',
-      readOnly: true,
-      hidden: true,
       validation: (rule) => [rule.required().error('Må ha SEO beskrivelse')],
     }),
     defineField({
@@ -57,6 +53,11 @@ export const programpage = defineType({
           },
         },
       ],
+      options: {
+        documentInternationalization: {
+          exclude: true,
+        },
+      },
     }),
     defineField({
       name: 'gif',

@@ -40,6 +40,8 @@ export default {
               title: 'Stilling',
               description: 'Legg til stilling',
               type: 'string',
+              validation: (rule) =>
+                rule.required().min(1).max(40).error(`Må ha stilling på minst 2 bokstaver`),
             },
           ],
           preview: {
