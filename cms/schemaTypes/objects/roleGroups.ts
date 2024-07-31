@@ -1,4 +1,4 @@
-import {defineField, validation} from 'sanity'
+import {defineField} from 'sanity'
 import {UsersIcon} from '@sanity/icons'
 
 export default {
