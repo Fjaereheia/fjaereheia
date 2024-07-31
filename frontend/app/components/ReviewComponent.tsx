@@ -1,6 +1,6 @@
 import QuoteMarks from "~/assets/QuoteMarks";
 
-interface QuoteProps {
+interface ReviewProps {
   review: {
     score?: number;
     content?: string;
@@ -14,12 +14,12 @@ interface QuoteProps {
   fillColor?: string;
 }
 
-export const ReviewComponent: React.FC<QuoteProps> = ({
+export function ReviewComponent({
   review,
   styleBlock,
   styleLink,
   fillColor,
-}) => {
+}: ReviewProps) {
   return (
     <blockquote className={styleBlock || ""}>
       <QuoteMarks fillColor={fillColor || "#00000"} />
@@ -34,4 +34,4 @@ export const ReviewComponent: React.FC<QuoteProps> = ({
       )}
     </blockquote>
   );
-};
+}
