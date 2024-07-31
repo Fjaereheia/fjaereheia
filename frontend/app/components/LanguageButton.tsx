@@ -1,11 +1,13 @@
 import { useLocation, useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { useSlugContext } from "~/utils/i18n/SlugProvider";
+import { createTexts, useTranslation } from "../utils/i18n";
 
 export default function LanguageButton() {
   const [isEnglish, setIsEnglish] = useState<boolean>(false);
   const params = useParams();
   const location = useLocation();
+  const { t } = useTranslation();
   const blackText =
     location.pathname.includes("/artikler") ||
     location.pathname.includes("/info");
@@ -56,13 +58,29 @@ export default function LanguageButton() {
         onClick={() => setLanguage("NO")}
         disabled={!isEnglish}
         className="mr-2"
+        aria-label={t(texts.labelTextNo)}
       >
         <span className="w-6 h-6">NO</span>
       </button>
       <span className="mr-2">/</span>
-      <button onClick={() => setLanguage("EN")} disabled={isEnglish}>
+      <button
+        onClick={() => setLanguage("EN")}
+        disabled={isEnglish}
+        aria-label={t(texts.labelTextEn)}
+      >
         <span className="w-6 h-6">EN</span>
       </button>
     </div>
   );
 }
+
+const texts = createTexts({
+  labelTextNo: {
+    nb: "Norsk side",
+    en: "Bytt språk til norsk",
+  },
+  labelTextEn: {
+    nb: "Change language to English",
+    en: "English page",
+  },
+});
