@@ -138,6 +138,11 @@ export const eventType = defineType({
       type: 'content',
       group: 'content',
       description: 'Innhold: Mulighet for å legge inn tekst, bilde, video, sitat og anmeldelse',
+      options: {
+        documentInternationalization: {
+          exclude: true,
+        },
+      },
     }),
     defineField({
       name: 'roleGroups',
@@ -146,6 +151,11 @@ export const eventType = defineType({
       type: 'array',
       of: [{type: 'roleGroups'}],
       group: 'content',
+      options: {
+        documentInternationalization: {
+          exclude: true,
+        },
+      },
     }),
     defineField({
       name: 'metaTitle',
