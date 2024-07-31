@@ -75,7 +75,7 @@ export default function Index() {
 
   return (
     <div
-      className="bg-cover bg-center bg-no-repeat h-[100dvh] w-full"
+      className="bg-cover bg-center bg-no-repeat h-[100dvh] w-full font-serif"
       style={{
         backgroundImage: `url(${imageUrl})`,
         height: "100dvh",
@@ -117,7 +117,7 @@ export default function Index() {
           </div>
 
           {data?.event && (
-            <div className="flex justify-center content-center mb-4">
+            <div className="mb-4">
               <Link
                 to={
                   "/event/" + data?.event?.slug?.current + "#tickets" ||

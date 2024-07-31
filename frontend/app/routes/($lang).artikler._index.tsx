@@ -74,7 +74,7 @@ export default function Articles() {
   }, [setColor]);
   return (
     <div className="grow">
-      <div className="text-center absolute pt-[151px]">
+      <div className="text-center py-12 px-0">
         {data.map((article, index) => (
           <div key={index}>
             <Link

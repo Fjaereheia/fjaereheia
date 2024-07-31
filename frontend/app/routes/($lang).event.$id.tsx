@@ -136,7 +136,7 @@ export default function Event() {
   return (
     <>
       <div
-        className={`flex grow flex-col w-full sm:max-w-screen-sm mx-auto relative justify-center justify-self-center ${textColor} items-center p-4 gap-6`}
+        className={`flex grow flex-col w-full sm:max-w-screen-sm mx-auto relative justify-center justify-self-center ${textColor} items-center p-4 gap-6 font-serif`}
       >
         {data.image?.asset?._ref && (
           <ImageEventPage
@@ -147,7 +147,7 @@ export default function Event() {
           />
         )}
 
-        <h1 className={`font-serif text-2xl lg:text-4xl`}>{data.title}</h1>
+        <h1 className={`text-2xl lg:text-4xl`}>{data.title}</h1>
 
         {data.dates && (
           <EventLabels

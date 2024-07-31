@@ -89,11 +89,7 @@ export default function Article() {
   const params = useParams();
 
   return (
-    <div
-      className={`${getBackgroundColor(
-        data.colorCombinationsDay
-      )} grow flex flex-col items-center mx-6`}
-    >
+    <div className={`${getBackgroundColor(data.colorCombinationsDay)} mx-6`}>
       <div className="flex flex-col items-center md:w-full lg:w-1/2">
         <h1 className="text-4xl">{data.title}</h1>
         {data.image && (
