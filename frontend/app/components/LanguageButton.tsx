@@ -1,6 +1,6 @@
 import { useLocation, useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
-import { useSlugContext } from "~/utils/i18n/SlugProvider";
+import { useSlugContext } from "../utils/i18n/SlugProvider";
 
 export default function LanguageButton() {
   const [isEnglish, setIsEnglish] = useState<boolean>(false);

@@ -1,15 +1,15 @@
 import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData, useParams } from "@remix-run/react";
-import { Custom_ARTICLE_QUERYResult } from "sanity/types";
-import { getBackgroundColor, getColor } from "~/utils/colorCombinations";
-import { getArticle } from "~/queries/article-queries";
-import PortableTextComponent from "~/components/PortableTextComponent";
-import urlFor from "~/utils/imageUrlBuilder";
+import { Custom_ARTICLE_QUERYResult } from "../../sanity/types";
+import { getBackgroundColor, getColor } from "../utils/colorCombinations";
+import { getArticle } from "../queries/article-queries";
+import PortableTextComponent from "../components/PortableTextComponent";
+import urlFor from "../utils/imageUrlBuilder";
 import MuxPlayer from "@mux/mux-player-react";
-import { useBackgroundColor } from "~/utils/backgroundColor";
+import { useBackgroundColor } from "../utils/backgroundColor";
 import { useEffect } from "react";
-import { useTranslation } from "~/utils/i18n";
-import { useSlugContext } from "~/utils/i18n/SlugProvider";
+import { useTranslation } from "../utils/i18n";
+import { useSlugContext } from "../utils/i18n/SlugProvider";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const article = await getArticle(params);

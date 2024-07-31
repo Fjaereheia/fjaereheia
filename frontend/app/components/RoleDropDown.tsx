@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { createTexts, useTranslation } from "~/utils/i18n";
-import urlFor from "~/utils/imageUrlBuilder";
-import ArrowUp from "~/assets/arrow-up.svg";
-import ArrowDown from "~/assets/arrow-down.svg";
+import { createTexts, useTranslation } from "../utils/i18n";
+import urlFor from "../utils/imageUrlBuilder";
+import ArrowUp from "../assets/arrow-up.svg";
+import ArrowDown from "../assets/arrow-down.svg";
 import { motion } from "framer-motion";
 
 interface RoleDropDownProps {
