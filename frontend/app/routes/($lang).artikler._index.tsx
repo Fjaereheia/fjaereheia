@@ -49,8 +49,8 @@ export default function Articles() {
               key={article._id}
               to={
                 params.lang == "en"
-                  ? "/en/artikler/" + article.slug?.current
-                  : article.slug?.current!
+                  ? "/en/artikler/" + article.slug.current
+                  : article.slug.current
               }
             >
               <h2 className="p-4 hover:underline font-serif text-2xl lg:text-4xl">
