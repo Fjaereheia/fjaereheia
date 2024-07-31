@@ -1,10 +1,10 @@
-import { EventGenre } from "sanity/types";
+import { EventGenre } from "../../sanity/types";
 import {
   formatDayAndDate,
   formatTimestamp,
   getMonth,
-} from "~/utils/dateAndTimeConverters";
-import { useTranslation, TranslationObject } from "~/utils/i18n";
+} from "../utils/dateAndTimeConverters";
+import { useTranslation, TranslationObject } from "../utils/i18n";
 
 type DateObject = {
   date?: string | undefined;

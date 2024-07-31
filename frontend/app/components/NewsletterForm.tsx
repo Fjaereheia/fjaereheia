@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { useTranslation } from "~/utils/i18n";
-import closebutton from "~/assets/closeButton.svg";
+import { useTranslation } from "../utils/i18n";
+import closebutton from "../assets/closeButton.svg";
 
 interface NewsletterFormProps {
   setShowForm: (showForm: boolean) => void;
