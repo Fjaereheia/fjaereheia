@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LoaderFunctionArgs, json, type MetaFunction } from "@remix-run/node";
+import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { Custom_EVENT_QUERYResult } from "../../sanity/types";
 import { getColor } from "../utils/colorCombinations";
@@ -14,7 +14,7 @@ import { useBackgroundColor } from "../utils/backgroundColor";
 import { FloatingBuyButton } from "../components/FloatingBuyButton";
 import { useSlugContext } from "../utils/i18n/SlugProvider";
 import { useTranslation } from "../utils/i18n";
-import { initBuyButtonObserver } from "../utils/BuyButtonObserver";
+import { useBuyButtonObserver } from "../utils/BuyButtonObserver";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const event = await getEvent(params);
@@ -31,16 +31,38 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return json(event);
+  return event;
 }
 
-export const meta: MetaFunction<typeof loader> = ({ data }) => {
-  if (typeof data === "string" || !data) {
+export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
+  const path = location.pathname;
+  let language = "nb";
+  if (path.includes("/en")) {
+    language = "en";
+  }
+  const texts: {
+    title: { [key: string]: string };
+    description: { [key: string]: string };
+  } = {
+    title: {
+      en: "Event",
+      nb: "Arrangement",
+    },
+    description: {
+      en: "Information about event",
+      nb: "Informasjon om arrangement",
+    },
+  };
+
+  const title = texts.title[language];
+  const description = texts.description[language];
+
+  if (!data) {
     return [
-      { title: "Forestilling" },
+      { title: title },
       {
         property: "og:description",
-        content: "Informasjon om forestilling",
+        content: description,
       },
     ];
   }
@@ -49,7 +71,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     { title: data.metaTitle ?? "Forestilling" },
     {
       property: "og:description",
-      content: data.metaDescription ?? "Informasjon om forestilling",
+      content: data.metaDescription ?? description,
     },
   ];
 };
@@ -83,7 +105,7 @@ export default function Event() {
   useEffect(() => {
     setColor(bgColor);
     setSlug(language, data?._translations);
-  }, [bgColor, setColor]);
+  });
 
   useEffect(() => {
     const updateViewScale = () => {
@@ -109,11 +131,7 @@ export default function Event() {
     window.addEventListener("resize", updateViewScale);
   }, []);
 
-  if (!data) {
-    return <></>;
-  }
-
-  initBuyButtonObserver();
+  useBuyButtonObserver();
 
   return (
     <>

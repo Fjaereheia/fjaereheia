@@ -1,4 +1,4 @@
-import { json, LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
+import { LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData, useParams } from "@remix-run/react";
 import { ARTICLES_QUERYResult } from "../../sanity/types";
 import { getArticles } from "../queries/article-queries";
@@ -14,14 +14,46 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return json(articles);
+  return articles;
 }
-export const meta: MetaFunction = () => {
+
+export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
+  if (!data) {
+    return [
+      { title: "Artikler" },
+      {
+        property: "og:description",
+        content: "Page not found",
+      },
+    ];
+  }
+  const path = location.pathname;
+  let language = "nb";
+  if (path.includes("/en")) {
+    language = "en";
+  }
+  const texts: {
+    title: { [key: string]: string };
+    description: { [key: string]: string };
+  } = {
+    title: {
+      en: "Articles",
+      nb: "Artikler",
+    },
+    description: {
+      en: "Overview of articles",
+      nb: "Oversikt over artikler",
+    },
+  };
+
+  const title = texts.title[language];
+  const description = texts.description[language];
+
   return [
-    { title: "Artikler" },
+    { title: data.metaTitle ?? title },
     {
       property: "og:description",
-      content: "Oversikt over artikler",
+      content: data.metaDescription ?? description,
     },
   ];
 };

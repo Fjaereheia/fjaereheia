@@ -33,14 +33,32 @@ export async function getArticle(params: Params<string>) {
     throw new Error("Params not found");
   }
   try {
-    const ARTICLE_QUERY = groq`*[_type=="article" && slug.current==$id && language==$lang][0]
-    {title, slug, colorCombinationsDay, image, text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}}, 
-    video{title, muxVideo{asset->{playbackId}}},
+    const ARTICLE_QUERY = groq`*[_type=="article" && slug.current==$id && language==$lang][0]{
+    title, 
+    slug, 
+    metaTitle, 
+    metaDescription, 
+    colorCombinationsDay, 
+    image, 
+    text[]{..., 
+      _type=="video" => {
+        title, muxVideo{asset->{playbackId}
+        }
+      }
+    }, 
+    video{
+      title, 
+      muxVideo{
+        asset->{
+          playbackId}
+        }
+    },
     'event': event->{slug},
     "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
       slug,
       language,
-      }}`;
+      }
+    }`;
     const article = await client.fetch(ARTICLE_QUERY, params);
     if (!article) {
       throw new Error("Query did not fetch any data");

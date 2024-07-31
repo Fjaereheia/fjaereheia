@@ -1,4 +1,4 @@
-import { json, LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
+import { LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData, useParams } from "@remix-run/react";
 import { useEffect } from "react";
 import { EVENTS_QUERYResult } from "../../sanity/types";
@@ -15,15 +15,47 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return json(events);
+  return events;
 }
 
-export const meta: MetaFunction = () => {
+export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
+  const path = location.pathname;
+  let language = "nb";
+  if (path.includes("/en")) {
+    language = "en";
+  }
+  const texts: {
+    title: { [key: string]: string };
+    description: { [key: string]: string };
+  } = {
+    title: {
+      en: "Events",
+      nb: "Forestillinger",
+    },
+    description: {
+      en: "Overview of events",
+      nb: "Oversikt over forestillinger",
+    },
+  };
+
+  const title = texts.title[language];
+  const description = texts.description[language];
+
+  if (!data) {
+    return [
+      { title: title },
+      {
+        property: "og:description",
+        content: description,
+      },
+    ];
+  }
+
   return [
-    { title: "Forestillinger" },
+    { title: data.metaTitle ?? title },
     {
       property: "og:description",
-      content: "Oversikt over forestillinger",
+      content: data.metaDescription ?? description,
     },
   ];
 };
