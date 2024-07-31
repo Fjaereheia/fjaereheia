@@ -600,7 +600,7 @@
                   "value": {
                     "type": "string"
                   },
-                  "optional": true
+                  "optional": false
                 }
               },
               "rest": {
