@@ -134,6 +134,11 @@ export const eventType = defineType({
       type: 'array',
       of: [{type: 'roleGroups'}],
       group: 'content',
+      options: {
+        documentInternationalization: {
+          exclude: true,
+        },
+      },
     }),
     defineField({
       name: 'metaTitle',

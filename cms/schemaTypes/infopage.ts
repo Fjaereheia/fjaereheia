@@ -39,6 +39,11 @@ export const infopage = defineType({
           },
         },
       ],
+      options: {
+        documentInternationalization: {
+          exclude: true,
+        },
+      },
     }),
   ],
 })

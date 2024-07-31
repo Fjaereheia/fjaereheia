@@ -39,6 +39,11 @@ export const programpage = defineType({
           },
         },
       ],
+      options: {
+        documentInternationalization: {
+          exclude: true,
+        },
+      },
     }),
     defineField({
       name: 'gif',

@@ -90,6 +90,9 @@ export const articleType = defineType({
             params: {lang: document.language},
           }
         },
+        documentInternationalization: {
+          exclude: true,
+        },
       },
       group: 'content',
     }),
