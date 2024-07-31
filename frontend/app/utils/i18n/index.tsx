@@ -1,14 +1,14 @@
 //Inspired by @vygruppen/spor-react i18n package
 
 import { useLocation } from "@remix-run/react";
-import React, { createContext, useContext } from "react";
+import React, { createContext } from "react";
 
 export enum Language {
   NorwegianBokmal = "nb",
   English = "en",
 }
 
-type TranslationObject = {
+export type TranslationObject = {
   [key in Language]: string | React.ReactElement;
 };
 type TranslationFunction = (
@@ -60,7 +60,7 @@ function useLanguage() {
  *
  * ```tsx
  * const Example = () => {
- *   const { t } = useTranslation();
+ *   const { t } = useTranslation();
  *   return <p>{t(texts.greeting)}</p>;
  * }
  * const texts = {
@@ -75,7 +75,7 @@ function useLanguage() {
  *
  * ```tsx
  * const Example = () => {
- *   const { language } = useTranslation();
+ *   const { language } = useTranslation();
  *   return <p>{language}</p>;
  * };
  * ```

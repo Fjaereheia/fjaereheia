@@ -102,7 +102,7 @@ function NewsletterForm(props: NewsletterFormProps) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref]);
+  });
 
   const handleFieldChange = (fieldId: string, value: string) => {
     setFormInfo({ ...formInfo, [fieldId]: value });

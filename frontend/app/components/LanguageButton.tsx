@@ -29,7 +29,7 @@ export default function LanguageButton() {
     }
 
     if (path.includes("/event/")) {
-      let pathSegments = path.split("/");
+      const pathSegments = path.split("/");
       if (slug) {
         pathSegments[pathSegments.length - 1] = slug;
       } else {
@@ -37,7 +37,7 @@ export default function LanguageButton() {
       }
       path = pathSegments.join("/");
     } else if (path.includes("/artikler/")) {
-      let pathSegments = path.split("/");
+      const pathSegments = path.split("/");
       if (slug) {
         pathSegments[pathSegments.length - 1] = slug;
       } else {
