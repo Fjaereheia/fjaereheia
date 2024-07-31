@@ -108,7 +108,7 @@ export default function Article() {
                 : `/event/${data.event?.slug?.current}`
             }
           >
-            <button>{t(texts.readMore)}</button>
+            {t(texts.readMore)}
           </Link>
         )}
       </div>

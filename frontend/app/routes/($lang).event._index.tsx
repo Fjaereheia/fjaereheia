@@ -5,6 +5,7 @@ import { EVENTS_QUERYResult } from "sanity/types";
 import Newsletter from "~/components/Newsletter";
 import { getEvents } from "~/queries/event-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
+import { createTexts, useTranslation } from "../utils/i18n";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const events = await getEvents(params);
@@ -31,6 +32,7 @@ export const meta: MetaFunction = () => {
 export default function Events() {
   const data = useLoaderData<typeof loader>() as EVENTS_QUERYResult;
   const { setColor } = useBackgroundColor();
+  const { t } = useTranslation();
   if (data.length == 0) {
     throw new Response("Not Found", {
       status: 404,
@@ -54,6 +56,7 @@ export default function Events() {
                     }`
                   : ""
               }
+              aria-label={`${t(texts.labelText)} ${event.title}`}
             >
               <p className="text-center p-4 hover:underline font-serif text-2xl lg:text-4xl">
                 {event.title}
@@ -68,3 +71,10 @@ export default function Events() {
     </div>
   );
 }
+
+const texts = createTexts({
+  labelText: {
+    nb: "Gå til",
+    en: "Go to",
+  },
+});

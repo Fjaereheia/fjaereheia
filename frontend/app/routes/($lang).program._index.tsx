@@ -6,6 +6,7 @@ import Newsletter from "~/components/Newsletter";
 import { getProgramPage } from "~/queries/program-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 import urlFor from "~/utils/imageUrlBuilder";
+import { createTexts, useTranslation } from "../utils/i18n";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const programPage = await getProgramPage(params);
@@ -22,6 +23,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 export default function Program() {
   const data = useLoaderData<typeof loader>() as PROGRAMPAGE_QUERYResult;
   const { setColor } = useBackgroundColor();
+  const { t } = useTranslation();
   const gifUrl = urlFor(data?.gif?.asset?._ref || "");
   useEffect(() => {
     setColor("bg-strongblue");
@@ -50,6 +52,7 @@ export default function Program() {
                 : ""
             }
             className="z-10"
+            aria-label={`${t(texts.labelText)} ${link.title}`}
           >
             <p className="p-4 hover:underline font-serif text-2xl lg:text-4xl">
               {link.title}
@@ -63,3 +66,10 @@ export default function Program() {
     </div>
   );
 }
+
+const texts = createTexts({
+  labelText: {
+    en: "Go to",
+    nb: "Gå til",
+  },
+});

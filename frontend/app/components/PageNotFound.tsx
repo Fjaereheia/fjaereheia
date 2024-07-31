@@ -8,10 +8,11 @@ export default function PageNotFound() {
     <div className="h-screen bg-strongblue flex flex-col items-center justify-center">
       <h1 className="text-6xl text-white">{t(texts.notFound)}</h1>
       <p className="mt-4n text-white">{t(texts.notFoundText)}</p>
-      <Link to={params.lang == "en" ? "/en" : "/"}>
-        <button className="text-xl text-white underline mt-6">
-          {t(texts.backToMain)}
-        </button>
+      <Link
+        to={params.lang == "en" ? "/en" : "/"}
+        className="text-xl text-white underline mt-6"
+      >
+        {t(texts.backToMain)}
       </Link>
     </div>
   );

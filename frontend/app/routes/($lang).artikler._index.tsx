@@ -4,6 +4,7 @@ import { ARTICLES_QUERYResult } from "sanity/types";
 import { getArticles } from "~/queries/article-queries";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 import { useEffect } from "react";
+import { createTexts, useTranslation } from "../utils/i18n";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const articles = await getArticles(params);
@@ -29,6 +30,7 @@ export const meta: MetaFunction = () => {
 export default function Articles() {
   const data = useLoaderData<typeof loader>() as ARTICLES_QUERYResult;
   const params = useParams();
+  const { t } = useTranslation();
   const { setColor } = useBackgroundColor();
 
   if (data.length == 0) {
@@ -52,6 +54,7 @@ export default function Articles() {
                   ? "/en/artikler/" + article.slug?.current
                   : article.slug?.current!
               }
+              aria-label={`${t(texts.labelText)} ${article.title}`}
             >
               <h2 className="p-4 hover:underline font-serif text-2xl lg:text-4xl">
                 {article.title}
@@ -63,3 +66,10 @@ export default function Articles() {
     </div>
   );
 }
+
+const texts = createTexts({
+  labelText: {
+    en: "Go to",
+    nb: "Gå til",
+  },
+});
