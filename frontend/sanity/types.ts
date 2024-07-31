@@ -381,6 +381,8 @@ export type Programpage = {
   _rev: string;
   title: string;
   language?: string;
+  metaTitle: MetaTitle;
+  metaDescription: MetaDescription;
   links?: Array<{
     _ref: string;
     _type: "reference";
@@ -410,6 +412,8 @@ export type Infopage = {
   _rev: string;
   title: string;
   language?: string;
+  metaTitle: MetaTitle;
+  metaDescription: MetaDescription;
   links?: Array<{
     _ref: string;
     _type: "reference";
@@ -614,10 +618,12 @@ export type ARTICLES_QUERYResult = Array<{
   title: string;
 }>;
 // Variable: ARTICLE_QUERY
-// Query: *[_type=="article" && slug.current==$id && language==$lang][0]    {title, slug, colorCombinationsDay, image, text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},     video{title, muxVideo{asset->{playbackId}}},    'event': event->{slug},    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      slug,      language,      }}
+// Query: *[_type=="article" && slug.current==$id && language==$lang][0]{    title,     slug,     metaTitle,     metaDescription,     colorCombinationsDay,     image,     text[]{...,       _type=="video" => {        title, muxVideo{asset->{playbackId}        }      }    },     video{      title,       muxVideo{        asset->{          playbackId}        }    },    'event': event->{slug},    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      slug,      language,      }    }
 export type ARTICLE_QUERYResult = {
   title: string;
   slug: Slug;
+  metaTitle: MetaTitle;
+  metaDescription: MetaDescription;
   colorCombinationsDay: ColorCombinationsDay;
   image: {
     asset?: {
@@ -687,8 +693,10 @@ export type EVENTS_QUERYResult = Array<{
   title: string;
 }>;
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{    title,     image,    imageMask,     colorCombinationsNight,     dates,     text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},    eventGenre,     roleGroups[]{      name,       persons[]{      occupation,       person->{name, image, text}      }    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
+// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{    metaTitle,    metaDescription,    title,     image,    imageMask,     colorCombinationsNight,     dates,     text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},    eventGenre,     roleGroups[]{      name,       persons[]{      occupation,       person->{name, image, text}      }    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
 export type EVENT_QUERYResult = {
+  metaTitle: MetaTitle;
+  metaDescription: MetaDescription;
   title: string;
   image: {
     asset?: {
@@ -775,7 +783,7 @@ export type EVENT_QUERYResult = {
 } | null;
 // Source: ../frontend/app/queries/frontpage-queries.ts
 // Variable: FRONTPAGE_QUERY
-// Query: *[_type=="frontpage" && language==$lang]{title, image, language,svgTitle, metaTitle, metaDescription, event->{title, text, image, slug, metaTitle, metaDescription, svgTitle}}[0]
+// Query: *[_type=="frontpage" && language==$lang][0]{  title,   image,   language,  svgTitle,   metaTitle,   metaDescription,   event->{    title,     text,     image,     slug,     metaTitle,     metaDescription,     svgTitle    }  }
 export type FRONTPAGE_QUERYResult = {
   title: string;
   image: {
@@ -839,9 +847,11 @@ export type FRONTPAGE_QUERYResult = {
 } | null;
 // Source: ../frontend/app/queries/info-queries.ts
 // Variable: INFOPAGE_QUERY
-// Query: *[_type=="infopage" && language==$lang]{title, links[]->{_type, title, slug}}[0]
+// Query: *[_type=="infopage" && language==$lang]{title, metaTitle, metaDescription, links[]->{_type, title, slug}}[0]
 export type INFOPAGE_QUERYResult = {
   title: string;
+  metaTitle: MetaTitle;
+  metaDescription: MetaDescription;
   links: Array<{
     _type: "article";
     title: string;
@@ -850,8 +860,10 @@ export type INFOPAGE_QUERYResult = {
 } | null;
 // Source: ../frontend/app/queries/program-queries.ts
 // Variable: PROGRAMPAGE_QUERY
-// Query: *[_type=="programpage" && language==$lang]{title, text,gif, links[]->{title, slug}}[0]
+// Query: *[_type=="programpage" && language==$lang]{metaTitle, metaDescription, title, text,gif, links[]->{title, slug}}[0]
 export type PROGRAMPAGE_QUERYResult = {
+  metaTitle: MetaTitle;
+  metaDescription: MetaDescription;
   title: string;
   text: null;
   gif: {

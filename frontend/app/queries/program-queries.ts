@@ -7,7 +7,7 @@ export async function getProgramPage(params: Params<string>) {
     params = { lang: "nb" };
   }
   try {
-    const PROGRAMPAGE_QUERY = groq`*[_type=="programpage" && language==$lang]{title, text,gif, links[]->{title, slug}}[0]`;
+    const PROGRAMPAGE_QUERY = groq`*[_type=="programpage" && language==$lang]{metaTitle, metaDescription, title, text,gif, links[]->{title, slug}}[0]`;
     const programpage = await client.fetch(PROGRAMPAGE_QUERY, params);
     return programpage;
   } catch (error) {
