@@ -91,7 +91,7 @@ export default function PortableTextComponent({
   };
 
   return (
-    <div className={`prose ${textStyle} font-serif font-normal text-base`}>
+    <div className={`prose ${textStyle} font-serif text-base`}>
       {textData && (
         <PortableText value={textData} components={customComponents} />
       )}
