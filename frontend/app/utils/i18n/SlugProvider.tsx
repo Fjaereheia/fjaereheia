@@ -39,7 +39,7 @@ export function SlugProvider({ children }: SlugProviderProps) {
   const [slug, setSlugState] = useState<string | undefined>(undefined);
 
   const setSlug = (language: string, _translations: (Translation | null)[]) => {
-    let newSlug = slugSelector(language, _translations);
+    const newSlug = slugSelector(language, _translations);
     setSlugState(newSlug ?? "");
   };
 
