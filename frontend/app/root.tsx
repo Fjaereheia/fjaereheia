@@ -107,7 +107,7 @@ export default function App() {
       <BackgroundColorProvider>
         <SlugProvider>
           <motion.div
-            className="flex flex-col min-h-full"
+            className="flex flex-col min-h-[100vh]"
             key={pathname}
             initial={{ x: slideDirection * 100 + "%" }}
             animate={{ x: 0 }}
