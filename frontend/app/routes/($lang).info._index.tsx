@@ -82,6 +82,7 @@ export default function Info() {
                 ? "/en" + `${RedirectType(link._type)}/${link.slug?.current}`
                 : `${RedirectType(link._type)}/${link.slug?.current}`
             }
+            aria-label={`${t(texts.labelText)} ${link.title}`}
           >
             <p className="p-4 hover:underline text-2xl lg:text-4xl">
               {link.title || ""}
@@ -103,5 +104,9 @@ const texts = {
   allArticles: {
     en: "All articles",
     nb: "Alle artikler",
+  },
+  labelText: {
+    en: "Go to",
+    nb: "Gå til",
   },
 };

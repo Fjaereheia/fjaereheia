@@ -1,6 +1,7 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
 import { useEffect } from "react";
+import { createTexts, useTranslation } from "../utils/i18n";
 import { PROGRAMPAGE_QUERYResult } from "../../sanity/types";
 import Newsletter from "../components/Newsletter";
 import { getProgramPage } from "../queries/program-queries";
@@ -54,6 +55,7 @@ export const meta: MetaFunction<typeof loader> = ({ location, data }) => {
 export default function Program() {
   const data = useLoaderData<typeof loader>() as PROGRAMPAGE_QUERYResult;
   const { setColor } = useBackgroundColor();
+  const { t } = useTranslation();
   const gifUrl = urlFor(data?.gif?.asset?._ref || "");
   useEffect(() => {
     setColor("bg-strongblue");
@@ -82,6 +84,7 @@ export default function Program() {
                 : ""
             }
             className="z-10"
+            aria-label={`${t(texts.labelText)} ${link.title}`}
           >
             <p className="p-4 hover:underline text-2xl lg:text-4xl">
               {link.title}
@@ -95,3 +98,10 @@ export default function Program() {
     </div>
   );
 }
+
+const texts = createTexts({
+  labelText: {
+    en: "Go to",
+    nb: "Gå til",
+  },
+});
