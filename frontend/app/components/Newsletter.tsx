@@ -6,8 +6,8 @@ export default function Newsletter() {
   const [showForm, setShowForm] = useState(false);
   const { t } = useTranslation();
   return (
-    <div className="py-8 w-4/5 lg:max-w-1/3 ">
-      <p className="text-center font-serif">
+    <div className="py-8 w-4/5 lg:max-w-1/3 text-center font-serif">
+      <p>
         {t(texts.blurb)}
         <button className="underline" onClick={() => setShowForm(true)}>
           {t(texts.signUp)}

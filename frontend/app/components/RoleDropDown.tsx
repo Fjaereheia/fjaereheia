@@ -83,7 +83,7 @@ export default function RoleDropDown({ roleGroups }: RoleDropDownProps) {
                   <div>
                     <h4 className="text-2xl mb-2">{role.occupation}</h4>
                     <h5 className="text-lg mb-2">{role.person?.name}</h5>
-                    <span className="text-base">{role.person?.text}</span>
+                    <span>{role.person?.text}</span>
                   </div>
                 </div>
               ))}

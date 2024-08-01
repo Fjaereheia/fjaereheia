@@ -21,18 +21,16 @@ export const DateTicket = ({ dateTicket }: Props) => {
       : undefined;
 
   return (
-    <div className="flex text-white flex-col gap-2 my-4">
+    <div className="flex flex-col gap-2 my-4 text-white">
       <p className="capitalize text-2xl">{formattedDate}</p>
-      <div className="flex flex-col gap-2">
-        <p>{formattedTimestamp}</p>
-        {status && <p>{status}</p>}
-        <button
-          className="py-2 text-base w-32 border hover:bg-white hover:text-black"
-          onClick={() => window.open(dateTicket.url, "_blank")}
-        >
-          {t(texts.buy)}
-        </button>
-      </div>
+      <p>{formattedTimestamp}</p>
+      {status && <p>{status}</p>}
+      <button
+        className="py-2 text-base w-32 border hover:bg-white hover:text-black"
+        onClick={() => window.open(dateTicket.url, "_blank")}
+      >
+        {t(texts.buy)}
+      </button>
     </div>
   );
 };

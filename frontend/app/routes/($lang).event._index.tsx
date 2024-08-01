@@ -75,8 +75,8 @@ export default function Events() {
   }, [setColor]);
   const params = useParams();
   return (
-    <div className="flex grow flex-col items-center text-white relative">
-      <div className="flex flex-col items-center font-normal text-center gap-4 text-xl py-12 px-0">
+    <div className="flex flex-col grow items-center text-white font-serif">
+      <div className="flex flex-col items-center text-center gap-4 text-xl py-12 px-0">
         {data.map((event, index) => (
           <div key={index}>
             <Link
@@ -90,7 +90,7 @@ export default function Events() {
               }
               aria-label={`${t(texts.labelText)} ${event.title}`}
             >
-              <p className="text-center p-4 hover:underline font-serif text-2xl lg:text-4xl">
+              <p className="p-4 hover:underline text-2xl lg:text-4xl">
                 {event.title}
               </p>
             </Link>

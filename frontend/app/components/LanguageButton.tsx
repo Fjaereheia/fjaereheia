@@ -56,11 +56,18 @@ export default function LanguageButton() {
         onClick={() => setLanguage("NO")}
         disabled={!isEnglish}
         className="mr-2"
+        aria-label="Bytt til norsk språk"
+        lang="no"
       >
         <span className="w-6 h-6">NO</span>
       </button>
       <span className="mr-2">/</span>
-      <button onClick={() => setLanguage("EN")} disabled={isEnglish}>
+      <button
+        onClick={() => setLanguage("EN")}
+        disabled={isEnglish}
+        aria-label="Change language to English"
+        lang="en"
+      >
         <span className="w-6 h-6">EN</span>
       </button>
     </div>

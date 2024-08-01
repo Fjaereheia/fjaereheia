@@ -75,8 +75,8 @@ export default function Articles() {
     setColor("bg-white");
   }, [setColor]);
   return (
-    <div className="grow flex flex-col items-center">
-      <div className="text-center absolute pt-[151px]">
+    <div className="grow">
+      <div className="text-center py-12 px-0">
         {data.map((article, index) => (
           <div key={index}>
             <Link
