@@ -52,7 +52,7 @@ const getDateLabel = ({
   }
   return `${t(
     texts.plays
-  ).toUpperCase()} ${datesOnlyFirst} . ${datesOnlyLast} . ${getMonth(
+  ).toUpperCase()} ${datesOnlyFirst}.- ${datesOnlyLast}. ${getMonth(
     firstDate,
     language
   )?.toLocaleUpperCase()}`;
@@ -114,27 +114,28 @@ export const EventLabels = ({
 
   return (
     <>
-      <div id="eventLabels" className="font-serif justify-start">
-        <div className="flex flex-wrap gap-4 md:float-start ">
-          {labels.map(
-            (label, index) =>
-              label &&
-              label.length > 0 && (
-                <div
-                  key={index}
-                  className={`p-2 border ${textColorBorder} ${textColor}`}
-                >
-                  {label}
-                </div>
-              )
-          )}
-          <button
-            onClick={handleScroll}
-            className={`pl-2 p-2 ${secondaryBorder} ${secondaryBgColor} ${primaryText} font-bold `}
-          >
-            {t(texts.buyTicket).toUpperCase()}
-          </button>
-        </div>
+      <div
+        id="eventLabels"
+        className="flex flex-wrap gap-4 md:float-start font-serif justify-start"
+      >
+        {labels.map(
+          (label, index) =>
+            label &&
+            label.length > 0 && (
+              <div
+                key={index}
+                className={`p-2 border ${textColorBorder} ${textColor}`}
+              >
+                {label}
+              </div>
+            )
+        )}
+        <button
+          onClick={handleScroll}
+          className={`p-2 ${secondaryBorder} ${secondaryBgColor} ${primaryText} font-bold `}
+        >
+          {t(texts.buyTicket).toUpperCase()}
+        </button>
       </div>
     </>
   );

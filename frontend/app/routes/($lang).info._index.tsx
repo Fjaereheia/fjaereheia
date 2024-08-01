@@ -73,7 +73,7 @@ export default function Info() {
   return (
     <div className="flex flex-col grow items-center text-[#1B1C20] font-serif">
       <h1 className="text-5xl font-bold mb-12">{data?.title}</h1>
-      <div className="flex flex-col items-center text-center font-normal gap-4 text-xl py-12 px-0">
+      <div className="flex flex-col items-center text-center gap-4 text-xl py-12 px-0">
         {data?.links?.map((link, index) => (
           <Link
             key={index}
@@ -83,14 +83,14 @@ export default function Info() {
                 : `${RedirectType(link._type)}/${link.slug?.current}`
             }
           >
-            <p className="p-4 hover:underline font-serif text-2xl lg:text-4xl">
+            <p className="p-4 hover:underline text-2xl lg:text-4xl">
               {link.title || ""}
             </p>
           </Link>
         ))}
         <p>...</p>
         <Link to={params.lang == "en" ? "/en/artikler" : "/artikler"}>
-          <p className="p-4 hover:underline font-serif text-2xl lg:text-4xl">
+          <p className="p-4 hover:underline text-2xl lg:text-4xl">
             {t(texts.allArticles)}
           </p>
         </Link>
