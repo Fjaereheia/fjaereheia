@@ -50,6 +50,14 @@ const getDateLabel = ({
   if (dateObj.length === 1) {
     return formattedDate.toUpperCase();
   }
+  console.log("here");
+
+  if (dateObj[dateObj.length - 1].date === dateObj[0].date) {
+    console.log("dateObj", dateObj[dateObj.length - 1].date);
+
+    return formattedDate.toUpperCase();
+  }
+
   return `${t(
     texts.plays
   ).toUpperCase()} ${datesOnlyFirst}.- ${datesOnlyLast}. ${getMonth(
