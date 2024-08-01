@@ -6,10 +6,10 @@ export default function NoTranslation() {
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
   return (
-    <div className="h-screen bg-strongblue flex flex-col items-center justify-center">
-      <h1 className="text-6xl text-white">{t(texts.notFound)}</h1>
-      <p className="mt-4n text-white">{t(texts.notFoundText)}</p>
-      <button onClick={goBack} className="text-xl text-white underline mt-6">
+    <div className="h-screen bg-strongblue flex flex-col items-center justify-center text-white">
+      <h1 className="text-6xl">{t(texts.notFound)}</h1>
+      <p className="mt-4n">{t(texts.notFoundText)}</p>
+      <button onClick={goBack} className="text-xl underline mt-6">
         {t(texts.goBack)}
       </button>
     </div>
