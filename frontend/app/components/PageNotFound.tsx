@@ -10,6 +10,7 @@ export default function PageNotFound() {
       <Link
         to={language == "en" ? "/en" : "/"}
         className="text-xl underline mt-6"
+        reloadDocument
       >
         {t(texts.backToMain)}
       </Link>
