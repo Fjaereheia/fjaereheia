@@ -9,14 +9,20 @@ import { Tickets } from "../components/Tickets";
 import ImageEventPage from "../components/Masks/ImageEventPage";
 import { EventLabels } from "../components/EventLabels";
 import RoleDropDown from "../components/RoleDropDown";
-import { getEvent } from "../queries/event-queries";
+import { getEvent, getEventQuery } from "../queries/event-queries";
 import { useBackgroundColor } from "../utils/backgroundColor";
 import { FloatingBuyButton } from "../components/FloatingBuyButton";
 import { useSlugContext } from "../utils/i18n/SlugProvider";
 import { useTranslation } from "../utils/i18n";
 import { useBuyButtonObserver } from "../utils/BuyButtonObserver";
+import { useQuery } from "../../sanity/loader";
+import { loadQuery } from "sanity/loader.server";
+import { SanityDocument } from "@sanity/client";
+import { QueryResponseInitial } from "@sanity/react-loader";
+import { get } from "lodash";
 
-export async function loader({ params }: LoaderFunctionArgs) {
+/* export async function loader({ params }: LoaderFunctionArgs) {
+
   const event = await getEvent(params);
   if (!event) {
     throw new Response("Not Found", {
@@ -31,6 +37,20 @@ export async function loader({ params }: LoaderFunctionArgs) {
   }
 
   return event;
+} */
+
+export async function loader({ params }: LoaderFunctionArgs) {
+  const query = getEventQuery(params);
+  const t = getEvent(params);
+  const initial = await loadQuery<Custom_EVENT_QUERYResult>(query, params);
+
+  if (!initial) {
+    throw new Response("Not Found", {
+      status: 404,
+    });
+  }
+
+  return { initial, query: query, params: params };
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
@@ -76,7 +96,15 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
 };
 
 export default function Event() {
-  const data = useLoaderData<typeof loader>() as Custom_EVENT_QUERYResult;
+  /*   const data = useLoaderData<typeof loader>() as Custom_EVENT_QUERYResult; */
+  const { initial, query, params } = useLoaderData<typeof loader>() as {
+    initial: QueryResponseInitial<Custom_EVENT_QUERYResult>;
+    query: string;
+    params: Record<string, string>;
+  };
+  const { data, loading } = useQuery<typeof initial.data>(query, params, {
+    initial,
+  });
   const [viewScale, setViewScale] = useState(1);
   const { language } = useTranslation();
 
@@ -134,7 +162,6 @@ export default function Event() {
 
   return (
     <>
-      {console.log("data: ", data)}
       <div
         className={`flex grow flex-col w-full sm:max-w-screen-sm mx-auto relative justify-center justify-self-center ${textColor} items-center p-4 gap-6`}
       >
