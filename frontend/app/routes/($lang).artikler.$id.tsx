@@ -89,44 +89,46 @@ export default function Article() {
   const params = useParams();
 
   return (
-    <div className={`${getBackgroundColor(data.colorCombinationsDay)} mx-6`}>
-      <div className="flex flex-col items-center md:w-full lg:w-1/2">
-        <h1 className="text-4xl">{data.title}</h1>
-        {data.image && (
-          <img
-            className="w-3/4 md:w-3/4 lg:w-1/2"
-            src={urlFor(data.image.asset?._ref || "")}
-            alt={data.image.alt}
-          ></img>
-        )}
-        {data.video?.muxVideo.asset && (
-          <MuxPlayer
-            disableCookies={true}
-            playbackId={data.video.muxVideo.asset.playbackId}
-            title={data.video.title || ""}
-          />
-        )}
-        {data?.text && (
-          <PortableTextComponent
-            textData={data.text}
-            textStyle={portabletextStyle}
-            styleBlock={quoteStyle.styleBlock}
-            styleLink={quoteStyle.styleLink}
-            fillColor={quoteStyle.fillColor}
-          />
-        )}
-        {data?.event && (
-          <Link
-            to={
-              params.lang == "en"
-                ? `/en/event/${data.event?.slug?.current}`
-                : `/event/${data.event?.slug?.current}`
-            }
-          >
-            {t(texts.readMore)}
-          </Link>
-        )}
-      </div>
+    <div
+      className={`${getBackgroundColor(
+        data.colorCombinationsDay
+      )} flex flex-col items-center grow mx-6 self-center md:w-full lg:w-1/2`}
+    >
+      <h1 className="text-4xl">{data.title}</h1>
+      {data.image && (
+        <img
+          className="w-3/4 md:w-3/4 lg:w-1/2"
+          src={urlFor(data.image.asset?._ref || "")}
+          alt={data.image.alt}
+        ></img>
+      )}
+      {data.video?.muxVideo.asset && (
+        <MuxPlayer
+          disableCookies={true}
+          playbackId={data.video.muxVideo.asset.playbackId}
+          title={data.video.title || ""}
+        />
+      )}
+      {data?.text && (
+        <PortableTextComponent
+          textData={data.text}
+          textStyle={portabletextStyle}
+          styleBlock={quoteStyle.styleBlock}
+          styleLink={quoteStyle.styleLink}
+          fillColor={quoteStyle.fillColor}
+        />
+      )}
+      {data?.event && (
+        <Link
+          to={
+            params.lang == "en"
+              ? `/en/event/${data.event?.slug?.current}`
+              : `/event/${data.event?.slug?.current}`
+          }
+        >
+          {t(texts.readMore)}
+        </Link>
+      )}
     </div>
   );
 }
