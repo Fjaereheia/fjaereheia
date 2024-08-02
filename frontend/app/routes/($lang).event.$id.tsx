@@ -19,9 +19,11 @@ import { useQuery } from "../../sanity/loader";
 import { loadQuery } from "../../sanity/loader.server";
 import { QueryResponseInitial } from "@sanity/react-loader";
 
-/* export async function loader({ params }: LoaderFunctionArgs) {
+export async function loader({ params }: LoaderFunctionArgs) {
+  const query = getEventQuery(params);
+  const initial = await loadQuery<Custom_EVENT_QUERYResult>(query, params);
+  const event = initial.data;
 
-  const event = await getEvent(params);
   if (!event) {
     throw new Response("Not Found", {
       status: 404,
@@ -30,19 +32,6 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 
   if (event == "No translation with this slug") {
     throw new Response("No translation found", {
-      status: 404,
-    });
-  }
-
-  return event;
-} */
-
-export async function loader({ params }: LoaderFunctionArgs) {
-  const query = getEventQuery(params);
-  const initial = await loadQuery<Custom_EVENT_QUERYResult>(query, params);
-
-  if (!initial) {
-    throw new Response("Not Found", {
       status: 404,
     });
   }
@@ -84,10 +73,10 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
   }
 
   return [
-    { title: data.metaTitle ?? "Forestilling" },
+    { title: data.initial.data.metaTitle ?? "Forestilling" },
     {
       property: "og:description",
-      content: data.metaDescription ?? description,
+      content: data.initial.data.metaDescription ?? description,
     },
   ];
 };
@@ -98,9 +87,17 @@ export default function Event() {
     query: string;
     params: Record<string, string>;
   };
+
   const { data } = useQuery<typeof initial.data>(query, params, {
     initial,
   });
+
+  if (!data) {
+    throw new Response("Not Found", {
+      status: 404,
+    });
+  }
+
   const [viewScale, setViewScale] = useState(1);
   const { language } = useTranslation();
 

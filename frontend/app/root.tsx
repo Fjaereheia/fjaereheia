@@ -8,7 +8,6 @@ import {
   redirect,
   useRouteLoaderData,
   json,
-  useLoaderData,
 } from "@remix-run/react";
 import "./styles/app.css";
 import StickyFooter from "./components/StickyFooter";

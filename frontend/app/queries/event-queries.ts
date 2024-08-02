@@ -56,7 +56,6 @@ export function getEventQuery(params: Params<string>) {
     language,
     }
   }`;
-  console.log(EVENT_QUERY);
 
   return EVENT_QUERY;
 }
