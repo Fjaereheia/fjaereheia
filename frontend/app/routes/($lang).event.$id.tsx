@@ -169,9 +169,8 @@ export default function Event() {
             fillColor={quoteStyle.fillColor}
           />
         )}
-        {data.dates && <Tickets dateTickets={data.dates} />}
-
         {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
+        {data.dates && <Tickets dateTickets={data.dates} />}
       </div>
       <FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />
     </>
