@@ -126,7 +126,7 @@ export type Content = Array<{
     _type: "span";
     _key: string;
   }>;
-  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  style?: "normal" | "h2" | "h3" | "h4" | "h5" | "h6";
   listItem?: "bullet" | "number";
   markDefs?: Array<{
     href?: string;
@@ -659,7 +659,7 @@ export type ARTICLE_QUERYResult = {
       _type: "span";
       _key: string;
     }>;
-    style?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    style?: "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -740,7 +740,7 @@ export type EVENT_QUERYResult = {
       _type: "span";
       _key: string;
     }>;
-    style?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    style?: "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
