@@ -8,6 +8,7 @@ import {
   redirect,
   useRouteLoaderData,
   json,
+  useLoaderData,
 } from "@remix-run/react";
 import "./styles/app.css";
 import StickyFooter from "./components/StickyFooter";
@@ -28,6 +29,17 @@ import {
 import LanguageButton from "./components/LanguageButton";
 import { SlugProvider } from "./utils/i18n/SlugProvider";
 import NoTranslation from "./components/NoTranslation";
+import { lazy, Suspense } from "react";
+
+const LiveVisualEditing = lazy(() => import("./components/LiveVisualEditing"));
+
+export const sanityLoader = () => {
+  return json({
+    ENV: {
+      VITE_SANITY_STUDIO_STEGA_ENABLED: true,
+    },
+  });
+};
 
 type ErrorWithStatus = {
   status?: number;
@@ -102,6 +114,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   const { slideDirection, pathname } = usePageTransition();
   const { language } = useRouteLoaderData<typeof loader>("root");
+  const { ENV } = useLoaderData<typeof sanityLoader>();
   return (
     <LanguageProvider language={language}>
       <BackgroundColorProvider>
@@ -118,6 +131,17 @@ export default function App() {
               duration: 0.5,
             }}
           >
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.ENV = ${JSON.stringify(ENV)}`,
+              }}
+            />
+            {true ? (
+              <Suspense>
+                <LiveVisualEditing />
+              </Suspense>
+            ) : null}
+
             <Header />
             <LanguageButton />
             <Outlet />
