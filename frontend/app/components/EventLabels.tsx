@@ -50,11 +50,11 @@ const getDateLabel = ({
   if (dateObj.length === 1) {
     return formattedDate.toUpperCase();
   }
-  console.log("here");
 
-  if (dateObj[dateObj.length - 1].date === dateObj[0].date) {
-    console.log("dateObj", dateObj[dateObj.length - 1].date);
-
+  if (
+    dateObj[dateObj.length - 1].date?.split("T")[0] ===
+    dateObj[0].date?.split("T")[0]
+  ) {
     return formattedDate.toUpperCase();
   }
 
