@@ -33,14 +33,6 @@ import { lazy, Suspense } from "react";
 
 const LiveVisualEditing = lazy(() => import("./components/LiveVisualEditing"));
 
-export const sanityLoader = () => {
-  return json({
-    ENV: {
-      VITE_SANITY_STUDIO_STEGA_ENABLED: true,
-    },
-  });
-};
-
 type ErrorWithStatus = {
   status?: number;
   statusText?: string;
@@ -86,7 +78,14 @@ export const loader: LoaderFunction = async ({ request }) => {
     throw redirect(`${pathname.slice(0, -1)}${search}`, 301);
   }
   const language = getLanguageFromPath(pathname);
-  return json({ language });
+  const isIframe = request.headers.get("sec-fetch-dest") === "iframe";
+
+  return json({
+    language,
+    ENV: {
+      VITE_SANITY_STUDIO_STEGA_ENABLED: isIframe ? true : false,
+    },
+  });
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -113,8 +112,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const { slideDirection, pathname } = usePageTransition();
-  const { language } = useRouteLoaderData<typeof loader>("root");
-  const { ENV } = useLoaderData<typeof sanityLoader>();
+  const { language, ENV } = useRouteLoaderData<typeof loader>("root");
   return (
     <LanguageProvider language={language}>
       <BackgroundColorProvider>
@@ -136,7 +134,7 @@ export default function App() {
                 __html: `window.ENV = ${JSON.stringify(ENV)}`,
               }}
             />
-            {true ? (
+            {ENV.VITE_SANITY_STUDIO_STEGA_ENABLED ? (
               <Suspense>
                 <LiveVisualEditing />
               </Suspense>
