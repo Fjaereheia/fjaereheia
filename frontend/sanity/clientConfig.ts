@@ -8,6 +8,7 @@ export const client = createClient({
   stega: {
     enabled: true,
     studioUrl:
-      import.meta.env.VITE_SANITY_STUDIO_STEGA_URL ?? "http://localhost:3333",
+      import.meta.env.VITE_SANITY_STUDIO_STEGA_URL ??
+      "http://bruddet.sanity.studio",
   },
 });
