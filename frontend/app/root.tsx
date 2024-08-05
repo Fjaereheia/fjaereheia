@@ -106,8 +106,10 @@ export default function App() {
     <LanguageProvider language={language}>
       <BackgroundColorProvider>
         <SlugProvider>
+          <Header />
+          <LanguageButton />
           <motion.div
-            className="flex flex-col min-h-full"
+            className="flex flex-col min-h-[100vh]"
             key={pathname}
             initial={{ x: slideDirection * 100 + "%" }}
             animate={{ x: 0 }}
@@ -118,11 +120,9 @@ export default function App() {
               duration: 0.5,
             }}
           >
-            <Header />
-            <LanguageButton />
             <Outlet />
-            <StickyFooter infoUrl="/info" programUrl="/program" />
           </motion.div>
+          <StickyFooter infoUrl="/info" programUrl="/program" />
         </SlugProvider>
       </BackgroundColorProvider>
     </LanguageProvider>

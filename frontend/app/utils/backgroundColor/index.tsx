@@ -23,7 +23,7 @@ export function BackgroundColorProvider({
 
   useEffect(() => {
     document.body.className =
-      color + " overlow-x-hidden relative h-full flex flex-col grow";
+      color + " overlow-x-hidden relative min-h-[100vh] flex flex-col grow";
   }, [color]);
 
   return (
