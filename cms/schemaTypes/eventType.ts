@@ -66,7 +66,7 @@ export const eventType = defineType({
       description: 'SVG file av tittel',
       type: 'customImage',
       group: 'visual',
-      validation: (rule) => [rule.required().error('Grafisk tittel er påkrevd')],
+      validation: (rule) => [rule.required().assetRequired().error('Grafisk tittel er påkrevd')],
       options: {
         accept: '.svg',
       },
@@ -131,7 +131,7 @@ export const eventType = defineType({
       options: {
         hotspot: true,
       },
-      validation: (rule) => [rule.required().error('Bilde er påkrevd.')],
+      validation: (rule) => [rule.required().assetRequired().error('Bilde er påkrevd.')],
     }),
     defineField({
       name: 'text',
