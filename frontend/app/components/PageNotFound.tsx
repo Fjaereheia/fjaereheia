@@ -1,16 +1,16 @@
 import { useTranslation } from "../utils/i18n";
-import { Link, useParams } from "@remix-run/react";
+import { Link } from "@remix-run/react";
 
 export default function PageNotFound() {
-  const { t } = useTranslation();
-  const params = useParams();
+  const { t, language } = useTranslation();
   return (
     <div className="h-screen bg-strongblue flex flex-col items-center justify-center text-white">
       <h1 className="text-6xl ">{t(texts.notFound)}</h1>
       <p className="mt-4n ">{t(texts.notFoundText)}</p>
       <Link
-        to={params.lang == "en" ? "/en" : "/"}
+        to={language == "en" ? "/en" : "/"}
         className="text-xl underline mt-6"
+        reloadDocument
       >
         {t(texts.backToMain)}
       </Link>
