@@ -72,6 +72,22 @@ export const eventType = defineType({
       },
     }),
     defineField({
+      name: 'labels',
+      title: 'Vaskelapper',
+      description: 'Tagger som kommer i bokser under tittel',
+      type: 'array',
+      group: 'content',
+      of: [
+        {
+          type: 'string',
+          validation: (rule) => [
+            rule.required().min(2).error(`Minimum lengde 2 tegn`),
+            rule.max(20).warning('Anbefaler kortere tekst.'),
+          ],
+        },
+      ],
+    }),
+    defineField({
       name: 'dates',
       title: 'Datoer',
       type: 'array',
