@@ -26,10 +26,11 @@ export const DateTicket = ({ dateTicket }: Props) => {
       <p>{formattedTimestamp}</p>
       {status && <p>{status}</p>}
       <button
-        className="py-2 text-base w-32 border hover:bg-white hover:text-black"
+        disabled={dateTicket.status === 3}
+        className="py-2 text-base w-32 border disabled:opacity-65 enabled:hover:bg-white enabled:hover:text-black"
         onClick={() => window.open(dateTicket.url, "_blank")}
       >
-        {t(texts.buy)}
+        {dateTicket.status == 3 ? t(texts.soldOut) : t(texts.buy)}
       </button>
     </div>
   );
@@ -41,11 +42,11 @@ const texts = {
     nb: "Kjøp",
   },
   soldOut: {
-    en: "Sold out!",
-    nb: "Utsolgt!",
+    en: "Sold out",
+    nb: "Utsolgt",
   },
   fewLeft: {
-    en: "Few tickets left!",
-    nb: "Få billetter igjen!",
+    en: "Few tickets left",
+    nb: "Få billetter igjen",
   },
 };
