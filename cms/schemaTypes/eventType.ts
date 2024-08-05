@@ -131,6 +131,7 @@ export const eventType = defineType({
       options: {
         hotspot: true,
       },
+      validation: (rule) => [rule.required().error('Bilde er påkrevd.')],
     }),
     defineField({
       name: 'text',
