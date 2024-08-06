@@ -26,9 +26,3 @@ export function getFrontpageQuery(params: Params<string>) {
 
   return FRONTPAGE_QUERY;
 }
-
-export async function getFrontpage(params: Params<string>) {
-  const FRONTPAGE_QUERY = getFrontpageQuery(params);
-  const frontpage = await client.fetch(FRONTPAGE_QUERY, params);
-  return frontpage;
-}

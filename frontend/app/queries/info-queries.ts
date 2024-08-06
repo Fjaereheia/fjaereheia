@@ -9,9 +9,3 @@ export function getInfoPageQuery(params: Params<string>) {
   const INFOPAGE_QUERY = groq`*[_type=="infopage" && language=="${params.lang}"]{title, metaTitle, metaDescription, links[]->{_type, title, slug}}[0]`;
   return INFOPAGE_QUERY;
 }
-
-export async function getInfoPage(params: Params<string>) {
-  const INFOPAGE_QUERY = getInfoPageQuery(params);
-  const infopage = await client.fetch(INFOPAGE_QUERY, params);
-  return infopage;
-}
