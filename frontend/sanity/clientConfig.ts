@@ -6,9 +6,9 @@ export const client = createClient({
   apiVersion: "2024-06-24",
   useCdn: import.meta.env.VITE_SANITY_STUDIO_USE_CDN ?? true,
   stega: {
-    enabled: true,
+    enabled: import.meta.env.VITE_SANITY_STUDIO_STEGA_ENABLED === "true",
     studioUrl:
-      import.meta.env.VITE_SANITY_STUDIO_STEGA_URL ??
+      import.meta.env.VITE_SANITY_STUDIO_URL ??
       "http://bruddet.sanity.studio",
   },
 });
