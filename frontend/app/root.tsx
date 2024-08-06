@@ -79,13 +79,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   const language = getLanguageFromPath(pathname);
   const isIframe = request.headers.get("sec-fetch-dest") === "iframe";
 
-  return json({
-    language,
-    ENV: {
-      VITE_SANITY_STUDIO_STEGA_ENABLED: true,
-    },
-  });
-};
+  return {language: language, isIframe: isIframe};
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { language } = useTranslation();
@@ -111,21 +106,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const { slideDirection, pathname } = usePageTransition();
-  const { language, ENV } = useRouteLoaderData<typeof loader>("root");
+  const { language, isIframe } = useRouteLoaderData<typeof loader>("root");
   return (
     <LanguageProvider language={language}>
       <BackgroundColorProvider>
         <SlugProvider>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `window.ENV = ${JSON.stringify(ENV)}`,
-            }}
-          />
-          {true ? (
+          {isIframe && (
             <Suspense>
               <LiveVisualEditing />
             </Suspense>
-          ) : null}
+          ) }
           <Header />
           <LanguageButton />
           <motion.div

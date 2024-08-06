@@ -17,6 +17,12 @@ import {presentationTool} from 'sanity/presentation'
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
 const singletonTypes = new Set(['frontpage'])
 
+const SANITY_STUDIO_PREVIEW_URL = (
+	process.env.NODE_ENV === "development" 
+  ? 'http://localhost:5173'
+  : 'https://bruddet.vercel.app'
+)
+
 export default defineConfig({
   name: 'default',
   title: 'Bruddet',
@@ -31,7 +37,7 @@ export default defineConfig({
     muxInput(),
     media(),
     presentationTool({
-      previewUrl: 'http://localhost:5173',
+      previewUrl: SANITY_STUDIO_PREVIEW_URL
     }),
   ],
 
