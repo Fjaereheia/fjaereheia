@@ -17,6 +17,11 @@ export async function getEvents(params: Params<string>) {
   }
 }
 
+export function getEventsQuery (params: Params<string>){
+  const EVENTS_QUERY = groq`*[_type=="event" && language=="${params.lang}"]{_id, slug, title}`;
+  return EVENTS_QUERY;
+}
+
 export function getEventQuery(params: Params<string>) {
   const eventId = params.id;
   try {

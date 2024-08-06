@@ -1,8 +1,8 @@
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { Link, useLoaderData, useParams } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import { Custom_ARTICLE_QUERYResult } from "../../sanity/types";
 import { getBackgroundColor, getColor } from "../utils/colorCombinations";
-import { getArticle } from "../queries/article-queries";
+import { getArticleQuery } from "../queries/article-queries";
 import PortableTextComponent from "../components/PortableTextComponent";
 import urlFor from "../utils/imageUrlBuilder";
 import MuxPlayer from "@mux/mux-player-react";
@@ -10,9 +10,14 @@ import { useBackgroundColor } from "../utils/backgroundColor";
 import { useEffect } from "react";
 import { useTranslation } from "../utils/i18n";
 import { useSlugContext } from "../utils/i18n/SlugProvider";
+import { loadQuery } from "../../sanity/loader.server";
+import { QueryResponseInitial } from "@sanity/react-loader";
+import { useQuery } from "../../sanity/loader";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const article = await getArticle(params);
+  const query = getArticleQuery(params);
+  const initial = await loadQuery<Custom_ARTICLE_QUERYResult>(query, params);
+  const article = initial.data;
 
   if (!article) {
     throw new Response("Not Found", {
@@ -26,7 +31,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return article;
+  return { initial, query: query, params: params };
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
@@ -52,7 +57,9 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
   const title = texts.title[language];
   const description = texts.description[language];
 
-  if (!data) {
+  const sanityData = data?.initial.data;
+
+  if (!sanityData) {
     return [
       { title: title },
       {
@@ -63,18 +70,26 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
   }
 
   return [
-    { title: data.metaTitle ?? title },
+    { title: sanityData.metaTitle ?? title },
     {
       property: "og:description",
-      content: data.metaDescription ?? description,
+      content: sanityData.metaDescription ?? description,
     },
   ];
 };
 
 export default function Article() {
-  const data = useLoaderData<typeof loader>() as Custom_ARTICLE_QUERYResult;
+  const { initial, query, params } = useLoaderData<typeof loader>() as {
+    initial: QueryResponseInitial<Custom_ARTICLE_QUERYResult>;
+    query: string;
+    params: Record<string, string>;
+  };
+
+  const { data } = useQuery<typeof initial.data>(query, params, {
+    initial,
+  });
+
   const bgColor = getBackgroundColor(data?.colorCombinationsDay);
-  const { language } = useTranslation();
   const { setColor } = useBackgroundColor();
   const { portabletextStyle, quoteStyle } = getColor(
     data?.colorCombinationsDay
@@ -85,8 +100,7 @@ export default function Article() {
     setColor(bgColor);
     setSlug(language, data?._translations);
   });
-  const { t } = useTranslation();
-  const params = useParams();
+  const { t, language } = useTranslation();
 
   return (
     <div
@@ -122,7 +136,7 @@ export default function Article() {
         {data?.event && (
           <Link
             to={
-              params.lang == "en"
+              language === "en"
                 ? `/en/event/${data.event?.slug?.current}`
                 : `/event/${data.event?.slug?.current}`
             }

@@ -82,7 +82,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json({
     language,
     ENV: {
-      VITE_SANITY_STUDIO_STEGA_ENABLED: isIframe ? true : false,
+      VITE_SANITY_STUDIO_STEGA_ENABLED: true,
     },
   });
 };
@@ -133,7 +133,8 @@ export default function App() {
                 __html: `window.ENV = ${JSON.stringify(ENV)}`,
               }}
             />
-            {ENV.VITE_SANITY_STUDIO_STEGA_ENABLED ? (
+            {/*             {ENV.VITE_SANITY_STUDIO_STEGA_ENABLED ? ( */}
+            {true ? (
               <Suspense>
                 <LiveVisualEditing />
               </Suspense>

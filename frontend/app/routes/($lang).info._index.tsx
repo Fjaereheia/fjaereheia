@@ -2,12 +2,18 @@ import { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
 import { useEffect } from "react";
 import { INFOPAGE_QUERYResult } from "../../sanity/types";
-import { getInfoPage } from "../queries/info-queries";
+import { getInfoPageQuery } from "../queries/info-queries";
 import { useBackgroundColor } from "../utils/backgroundColor";
 import { useTranslation } from "../utils/i18n";
+import { loadQuery } from "../../sanity/loader.server";
+import { QueryResponseInitial } from "@sanity/react-loader";
+import { stegaClean } from "@sanity/client/stega";
+import { useQuery } from "sanity/loader";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const informationPage = await getInfoPage(params);
+  const query = getInfoPageQuery(params);
+  const initial = await loadQuery<INFOPAGE_QUERYResult>(query, params);
+  const informationPage = initial.data;
 
   if (!informationPage) {
     throw new Response("Not Found", {
@@ -15,7 +21,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return informationPage;
+  return { initial, query: query, sanityParams: params };
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
@@ -32,8 +38,9 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
   };
 
   const description = texts.description[language];
+  const sanityData = data?.initial.data;
 
-  if (!data) {
+  if (!sanityData) {
     return [
       { title: "Info" },
       {
@@ -44,10 +51,10 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
   }
 
   return [
-    { title: data.metaTitle ?? "Info" },
+    { title: sanityData.metaTitle ?? "Info" },
     {
       property: "og:description",
-      content: data.metaDescription ?? description,
+      content: sanityData.metaDescription ?? description,
     },
   ];
 };
@@ -63,7 +70,15 @@ function RedirectType(type: string) {
 }
 
 export default function Info() {
-  const data = useLoaderData<typeof loader>() as INFOPAGE_QUERYResult;
+  const { initial, query, sanityParams } = useLoaderData<typeof loader>() as {
+    initial: QueryResponseInitial<INFOPAGE_QUERYResult>;
+    query: string;
+    sanityParams: Record<string, string>;
+  };
+  const { data } = useQuery<typeof initial.data>(query, sanityParams, {
+    initial,
+  });
+
   const { setColor } = useBackgroundColor();
   useEffect(() => {
     setColor("bg-lightblue");

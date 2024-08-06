@@ -30,12 +30,6 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  if (event == "No translation with this slug") {
-    throw new Response("No translation found", {
-      status: 404,
-    });
-  }
-
   return { initial, query: query, params: params };
 }
 
@@ -97,7 +91,6 @@ export default function Event() {
       status: 404,
     });
   }
-
   const [viewScale, setViewScale] = useState(1);
   const { language } = useTranslation();
 

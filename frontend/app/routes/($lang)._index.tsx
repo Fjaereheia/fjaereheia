@@ -1,7 +1,7 @@
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData, Link, useParams } from "@remix-run/react";
 import { FRONTPAGE_QUERYResult } from "../../sanity/types";
-import { getFrontpage } from "../queries/frontpage-queries";
+import { getFrontpageQuery } from "../queries/frontpage-queries";
 import urlFor from "../utils/imageUrlBuilder";
 import PurpleDot from "../assets/PurpleDot";
 import GreenButton from "../assets/GreenButton";
@@ -9,17 +9,28 @@ import Newsletter from "../components/Newsletter";
 import { createTexts, useTranslation } from "../utils/i18n";
 import { useBackgroundColor } from "../utils/backgroundColor";
 import { useEffect } from "react";
+import { QueryResponseInitial } from "@sanity/react-loader";
+import { loadQuery } from "../../sanity/loader.server";
+import { useQuery } from "../../sanity/loader";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const frontpage = await getFrontpage(params);
+  const query = getFrontpageQuery(params);
+  const initial = await loadQuery<FRONTPAGE_QUERYResult>(query, params);
+  const event = initial.data;
 
-  if (!frontpage) {
+  if (!event) {
     throw new Response("Not Found", {
       status: 404,
     });
   }
 
-  return frontpage;
+  if (event == "No translation with this slug") {
+    throw new Response("No translation found", {
+      status: 404,
+    });
+  }
+
+  return { initial, query: query, queryParams: params };
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
@@ -37,8 +48,9 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
     },
   };
   const description = texts.description[language];
+  const sanityData = data?.initial.data;
 
-  if (!data) {
+  if (!sanityData) {
     return [
       { title: "Bruddet" },
       {
@@ -49,16 +61,25 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
   }
 
   return [
-    { title: data.metaTitle ?? "Bruddet" },
+    { title: sanityData.metaTitle ?? "Bruddet" },
     {
       property: "og:description",
-      content: data.metaDescription ?? description,
+      content: sanityData.metaDescription ?? description,
     },
   ];
 };
 
 export default function Index() {
-  const data = useLoaderData<typeof loader>() as FRONTPAGE_QUERYResult;
+  const { initial, query, queryParams } = useLoaderData<typeof loader>() as {
+    initial: QueryResponseInitial<FRONTPAGE_QUERYResult>;
+    query: string;
+    queryParams: Record<string, string>;
+  };
+
+  const { data } = useQuery<typeof initial.data>(query, queryParams, {
+    initial,
+  });
+
   const { t } = useTranslation();
   const imageUrl = urlFor(
     data?.event?.image?.asset?._ref || data?.image?.asset?._ref || ""
