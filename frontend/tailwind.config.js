@@ -16,6 +16,10 @@ export default {
           primary: "#FFD3CE",
           secondary: "#350E94",
         },
+        dayThemeCreamBlue: {
+          primary: "#FFF8E8",
+          secondary: "#182E39",
+        },
         nightThemePurpleWhite: {
           primary: "#556090",
           secondary: "#FFFFFF",

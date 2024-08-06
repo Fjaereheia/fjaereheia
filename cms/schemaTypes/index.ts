@@ -15,6 +15,7 @@ import roleGroups from './objects/roleGroups'
 import {reviewType} from './objects/reviewType'
 import eventGenre from './objects/eventGenre'
 import {programpage} from './programpage'
+import {expandableBlockType} from './objects/expandableBlockType'
 
 export const schemaTypes = [
   articleType,
@@ -24,6 +25,7 @@ export const schemaTypes = [
   customImage,
   infopage,
   quoteType,
+  expandableBlockType,
   RichTextEditor,
   roleGroups,
   videoType,
