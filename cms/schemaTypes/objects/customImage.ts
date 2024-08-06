@@ -1,9 +1,11 @@
 import {defineField} from 'sanity'
+import {ImageIcon} from '@sanity/icons'
 
 export default {
   name: 'customImage',
   title: 'Bilde',
   type: 'image',
+  icon: ImageIcon,
   options: {
     hotspot: true,
   },

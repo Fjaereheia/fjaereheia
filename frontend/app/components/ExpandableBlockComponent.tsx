@@ -1,31 +1,37 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { ArrowButton } from "./ArrowButton";
+import ArrowDown from "../assets/arrow-down.svg";
+import { createTexts, useTranslation } from "~/utils/i18n";
 
 type Props = {
-  value: {
-    title: string;
-    content: string;
-  };
+  title: string;
+  children: React.ReactNode;
 };
 
-export const ExpandableBlockComponent = ({ value }: Props) => {
+export const ExpandableBlockComponent = ({ title, children }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { t } = useTranslation();
 
   const buttonVariants = { clicked: { rotate: 180 } };
   return (
     <div className="border self-start w-full my-4">
-      <div className="flex w-full items-center h-12 justify-between px-5">
-        <div>{value.title}</div>
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        aria-controls="expanded-content"
+        aria-expanded={isExpanded}
+        className="flex w-full items-center h-12 justify-between px-5"
+      >
+        <span className="text-xl">{title}</span>
         <motion.div
           animate={isExpanded ? "clicked" : "notClicked"}
           transition={{ duration: 0.7 }}
           variants={buttonVariants}
         >
-          <ArrowButton isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+          <img className="m-0" src={ArrowDown} alt={t(texts.buttonAltText)} />
         </motion.div>
-      </div>
+      </button>
       <motion.div
+        id="expanded-content"
         initial={{ height: 0, opacity: 0 }}
         animate={{
           height: isExpanded ? "auto" : 0,
@@ -36,9 +42,16 @@ export const ExpandableBlockComponent = ({ value }: Props) => {
         style={{ overflow: "hidden" }}
       >
         <div className="mx-4 mb-4">
-          <div className="flex flex-row mt-4 gap-6">{value.content}</div>
+          <div className="flex flex-row mt-4 gap-6">{children}</div>
         </div>
       </motion.div>
     </div>
   );
 };
+
+const texts = createTexts({
+  buttonAltText: {
+    nb: "Pil",
+    en: "Arrow",
+  },
+});

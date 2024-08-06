@@ -1,11 +1,11 @@
 import {defineField, defineType} from 'sanity'
-import {CommentIcon} from '@sanity/icons'
+import {BlockElementIcon} from '@sanity/icons'
 
 export const expandableBlockType = defineType({
   name: 'expandableBlock',
   title: 'Ekspanderbar blokk',
   type: 'document',
-  icon: CommentIcon,
+  icon: BlockElementIcon,
   fields: [
     defineField({
       name: 'title',

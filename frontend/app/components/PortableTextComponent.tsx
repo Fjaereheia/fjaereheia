@@ -90,8 +90,12 @@ export default function PortableTextComponent({
       },
       expandableBlock: ({
         value,
-      }: PortableTextComponentProps<{ question: string; answer: string }>) => {
-        return <ExpandableBlockComponent value={value} />;
+      }: PortableTextComponentProps<{ title: string; content: string }>) => {
+        return (
+          <ExpandableBlockComponent title={value.title}>
+            {value.content}
+          </ExpandableBlockComponent>
+        );
       },
     },
   };
