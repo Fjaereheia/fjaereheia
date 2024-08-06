@@ -113,9 +113,9 @@ export function getPortabletextStyle(colorCombination: string | undefined) {
     case "dayThemePeachBlue":
       return "text-black";
     case "nightThemePurpleWhite":
-      return "prose-h1:text-white prose-h2:text-white prose-h2:text-white prose-h3:text-white prose-h4:text-white prose-h5:text-white prose-h6:text-white prose-strong:text-white text-white";
+      return "prose-h2:text-white prose-h2:text-white prose-h3:text-white prose-h4:text-white prose-h5:text-white prose-h6:text-white prose-strong:text-white text-white";
     case "nightThemeBlueYellow":
-      return "prose-h1:text-white prose-h2:text-white prose-h2:text-white prose-h3:text-white prose-h4:text-white prose-h5:text-white prose-h6:text-white prose-strong:text-white text-white ";
+      return "prose-h2:text-white prose-h2:text-white prose-h3:text-white prose-h4:text-white prose-h5:text-white prose-h6:text-white prose-strong:text-white text-white ";
     default:
       return " text-black";
   }

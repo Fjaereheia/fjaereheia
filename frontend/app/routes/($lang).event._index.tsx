@@ -1,6 +1,7 @@
 import { LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { useEffect } from "react";
+import { createTexts, useTranslation } from "../utils/i18n";
 import { EVENTS_QUERYResult } from "../../sanity/types";
 import Newsletter from "../components/Newsletter";
 import { getEventsQuery } from "../queries/event-queries";
@@ -10,7 +11,6 @@ import {
 } from "@sanity/react-loader";
 import { loadQuery } from "../../sanity/loader.server";
 import { useQuery } from "../../sanity/loader";
-import { useTranslation } from "~/utils/i18n";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const query = getEventsQuery(params);
@@ -71,7 +71,7 @@ export default function Events() {
   });
 
   const { setColor } = useBackgroundColor();
-
+  const { t, language } = useTranslation();
   if (data.length == 0) {
     throw new Response("Not Found", {
       status: 404,
@@ -80,10 +80,9 @@ export default function Events() {
   useEffect(() => {
     setColor("bg-strongblue");
   }, [setColor]);
-  const { language} = useTranslation();
   return (
-    <div className="flex grow flex-col items-center text-white relative">
-      <div className="flex flex-col items-center font-normal text-center gap-4 text-xl py-12 px-0">
+    <div className="flex flex-col grow items-center text-white font-serif">
+      <div className="flex flex-col items-center text-center gap-4 text-xl py-12 px-0">
         {data.map((event, index) => (
           <div key={index}>
             <Link
@@ -95,8 +94,9 @@ export default function Events() {
                     }`
                   : ""
               }
+              aria-label={`${t(texts.labelText)} ${event.title}`}
             >
-              <p className="text-center p-4 hover:underline font-serif text-2xl lg:text-4xl">
+              <p className="p-4 hover:underline text-2xl lg:text-4xl">
                 {event.title}
               </p>
             </Link>
@@ -109,3 +109,10 @@ export default function Events() {
     </div>
   );
 }
+
+const texts = createTexts({
+  labelText: {
+    nb: "Gå til",
+    en: "Go to",
+  },
+});

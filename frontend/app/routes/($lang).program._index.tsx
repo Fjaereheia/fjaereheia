@@ -1,6 +1,7 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
 import { useEffect } from "react";
+import { createTexts, useTranslation } from "../utils/i18n";
 import { PROGRAMPAGE_QUERYResult } from "../../sanity/types";
 import Newsletter from "../components/Newsletter";
 import { getProgramPageQuery } from "../queries/program-queries";
@@ -68,15 +69,16 @@ export default function Program() {
     initial,
   });
   const { setColor } = useBackgroundColor();
+  const { t } = useTranslation();
   const gifUrl = urlFor(data?.gif?.asset?._ref || "");
   useEffect(() => {
     setColor("bg-strongblue");
   }, [setColor]);
   const params = useParams();
   return (
-    <div className="flex flex-col grow items-center text-white relative">
+    <div className="flex flex-col grow items-center text-white font-serif">
       <h1 className="text-5xl font-bold mb-12">{data?.title}</h1>
-      <div className="flex flex-col items-center font-normal text-center gap-4 text-xl py-12 px-0">
+      <div className="flex flex-col items-center text-center font-normal gap-4 text-xl py-12 px-0">
         {data?.gif && (
           <img
             src={gifUrl}
@@ -96,8 +98,9 @@ export default function Program() {
                 : ""
             }
             className="z-10"
+            aria-label={`${t(texts.labelText)} ${link.title}`}
           >
-            <p className="p-4 hover:underline font-serif text-2xl lg:text-4xl">
+            <p className="p-4 hover:underline text-2xl lg:text-4xl">
               {link.title}
             </p>
           </Link>
@@ -109,3 +112,10 @@ export default function Program() {
     </div>
   );
 }
+
+const texts = createTexts({
+  labelText: {
+    en: "Go to",
+    nb: "Gå til",
+  },
+});

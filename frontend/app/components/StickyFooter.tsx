@@ -1,5 +1,7 @@
 import { Link, useLocation } from "@remix-run/react";
+import { createTexts, useTranslation } from "../utils/i18n";
 import { useBackgroundColor } from "../utils/backgroundColor";
+
 
 interface StickyFooterProps {
   programUrl: string;
@@ -12,6 +14,7 @@ export default function StickyFooter({
 }: StickyFooterProps) {
   let textcolor = "black";
   const location = useLocation();
+  const { t } = useTranslation();
   const isEnglish =
     location.pathname.includes("/en/") || location.pathname === "/en";
   const showFooter = !["/", "/en"].includes(location.pathname);
@@ -39,11 +42,12 @@ export default function StickyFooter({
     <footer
       className={`w-full bottom-0 sticky border-t text-${textcolor} ${color} font-serif text-2xl border-${textcolor} shadow py-2  z-10 `}
     >
-      <ul className="flex flex-row justify-evenly lg:justify-center">
+      <ul className="flex flex-row justify-center">
         <li>
           <Link
             to={isEnglish ? "/en" + infoUrl : infoUrl}
-            className="hover:underline me-4 md:me-6 w-1/2 "
+            aria-label={t(texts.infoText)}
+            className="hover:underline me-12 w-1/2 "
           >
             INFO
           </Link>
@@ -51,7 +55,8 @@ export default function StickyFooter({
         <li>
           <Link
             to={isEnglish ? "/en" + programUrl : programUrl}
-            className="hover:underline me-4 md:me-6 w-1/2"
+            aria-label={t(texts.infoText)}
+            className="hover:underline me-6 w-1/2"
           >
             PROGRAM
           </Link>
@@ -60,3 +65,14 @@ export default function StickyFooter({
     </footer>
   );
 }
+
+const texts = createTexts({
+  programText: {
+    nb: "Gå til programside",
+    en: "Go to program page",
+  },
+  infoText: {
+    nb: "Gå til informasjonsside",
+    en: "Go to information page",
+  },
+});
