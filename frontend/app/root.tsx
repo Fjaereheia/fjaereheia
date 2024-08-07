@@ -7,7 +7,6 @@ import {
   useRouteError,
   redirect,
   useRouteLoaderData,
-  json,
 } from "@remix-run/react";
 import "./styles/app.css";
 import StickyFooter from "./components/StickyFooter";
@@ -79,8 +78,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   const language = getLanguageFromPath(pathname);
   const isIframe = request.headers.get("sec-fetch-dest") === "iframe";
 
-  return {language: language, isIframe: isIframe};
-}
+  return { language: language, isIframe: isIframe };
+};
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { language } = useTranslation();
@@ -115,7 +114,7 @@ export default function App() {
             <Suspense>
               <LiveVisualEditing />
             </Suspense>
-          ) }
+          )}
           <Header />
           <LanguageButton />
           <motion.div

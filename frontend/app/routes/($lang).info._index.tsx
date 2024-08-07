@@ -7,8 +7,7 @@ import { useBackgroundColor } from "../utils/backgroundColor";
 import { useTranslation } from "../utils/i18n";
 import { loadQuery } from "../../sanity/loader.server";
 import { QueryResponseInitial } from "@sanity/react-loader";
-import { stegaClean } from "@sanity/client/stega";
-import { useQuery } from "sanity/loader";
+import { useQuery } from "../../sanity/loader";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const query = getInfoPageQuery(params);

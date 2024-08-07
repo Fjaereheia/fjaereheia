@@ -6,9 +6,7 @@ import { EVENTS_QUERYResult } from "../../sanity/types";
 import Newsletter from "../components/Newsletter";
 import { getEventsQuery } from "../queries/event-queries";
 import { useBackgroundColor } from "../utils/backgroundColor";
-import {
-  QueryResponseInitial,
-} from "@sanity/react-loader";
+import { QueryResponseInitial } from "@sanity/react-loader";
 import { loadQuery } from "../../sanity/loader.server";
 import { useQuery } from "../../sanity/loader";
 
@@ -28,7 +26,10 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export const meta: MetaFunction<typeof loader> = ({ location }) => {
   const path = location.pathname;
-  const { language } = useTranslation();
+  let language = "nb";
+  if (path.includes("/en")) {
+    language = "en";
+  }
 
   const texts: {
     title: { [key: string]: string };

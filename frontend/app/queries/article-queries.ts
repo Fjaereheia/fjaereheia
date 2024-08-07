@@ -1,6 +1,5 @@
 import { Params } from "@remix-run/react";
 import groq from "groq";
-import { client } from "../../sanity/clientConfig";
 
 export function getArticlesQuery(params: Params<string>) {
   if (!params.lang) {

@@ -21,8 +21,6 @@ const SANITY_STUDIO_PREVIEW_URL =
 const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID ?? '0chpibsu'
 const DATASET = process.env.SANITY_STUDIO_DATASET ?? 'production'
 
-console.log('SANITY_STUDIO_FRONTEND_URL', process.env.SANITY_STUDIO_FRONTEND_URL)
-
 export default defineConfig({
   name: 'default',
   title: 'Bruddet',
