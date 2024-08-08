@@ -66,10 +66,26 @@ export const eventType = defineType({
       description: 'SVG file av tittel',
       type: 'customImage',
       group: 'visual',
-      validation: (rule) => [rule.required().error('Grafisk tittel er påkrevd')],
+      validation: (rule) => [rule.required().assetRequired().error('Grafisk tittel er påkrevd')],
       options: {
         accept: '.svg',
       },
+    }),
+    defineField({
+      name: 'labels',
+      title: 'Vaskelapper',
+      description: 'Tagger som kommer i bokser under tittel',
+      type: 'array',
+      group: 'content',
+      of: [
+        {
+          type: 'string',
+          validation: (rule) => [
+            rule.required().min(2).error(`Minimum lengde 2 tegn`),
+            rule.max(20).warning('Anbefaler kortere tekst.'),
+          ],
+        },
+      ],
     }),
     defineField({
       name: 'dates',
@@ -131,6 +147,7 @@ export const eventType = defineType({
       options: {
         hotspot: true,
       },
+      validation: (rule) => [rule.required().assetRequired().error('Bilde er påkrevd.')],
     }),
     defineField({
       name: 'text',

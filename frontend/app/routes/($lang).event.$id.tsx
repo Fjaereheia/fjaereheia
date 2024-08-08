@@ -8,16 +8,23 @@ import urlFor from "../utils/imageUrlBuilder";
 import { Tickets } from "../components/Tickets";
 import ImageEventPage from "../components/Masks/ImageEventPage";
 import { EventLabels } from "../components/EventLabels";
-import { getEvent } from "../queries/event-queries";
+import { getEventQuery } from "../queries/event-queries";
 import { useBackgroundColor } from "../utils/backgroundColor";
 import { FloatingBuyButton } from "../components/FloatingBuyButton";
 import { useSlugContext } from "../utils/i18n/SlugProvider";
 import { useTranslation } from "../utils/i18n";
 import { useBuyButtonObserver } from "../utils/BuyButtonObserver";
 import { ExpandableBlockComponent } from "~/components/ExpandableBlockComponent";
+import {
+  loadQuery,
+  QueryResponseInitial,
+  useQuery,
+} from "@sanity/react-loader";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const event = await getEvent(params);
+  const query = getEventQuery(params);
+  const initial = await loadQuery<Custom_EVENT_QUERYResult>(query, params);
+  const event = initial.data;
 
   if (!event) {
     throw new Response("Not Found", {
@@ -25,13 +32,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  if (event == "No translation with this slug") {
-    throw new Response("No translation found", {
-      status: 404,
-    });
-  }
-
-  return event;
+  return { initial, query: query, params: params };
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
@@ -68,16 +69,30 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
   }
 
   return [
-    { title: data.metaTitle ?? "Forestilling" },
+    { title: data.initial.data.metaTitle ?? "Forestilling" },
     {
       property: "og:description",
-      content: data.metaDescription ?? description,
+      content: data.initial.data.metaDescription ?? description,
     },
   ];
 };
 
 export default function Event() {
-  const data = useLoaderData<typeof loader>() as Custom_EVENT_QUERYResult;
+  const { initial, query, params } = useLoaderData<typeof loader>() as {
+    initial: QueryResponseInitial<Custom_EVENT_QUERYResult>;
+    query: string;
+    params: Record<string, string>;
+  };
+
+  const { data } = useQuery<typeof initial.data>(query, params, {
+    initial,
+  });
+
+  if (!data) {
+    throw new Response("Not Found", {
+      status: 404,
+    });
+  }
   const [viewScale, setViewScale] = useState(1);
   const { language } = useTranslation();
 
@@ -105,7 +120,7 @@ export default function Event() {
   useEffect(() => {
     setColor(bgColor);
     setSlug(language, data?._translations);
-  });
+  }, [bgColor, data?._translations, language, setColor, setSlug]);
 
   useEffect(() => {
     const updateViewScale = () => {
@@ -152,6 +167,7 @@ export default function Event() {
         {data.dates && (
           <EventLabels
             dateObj={data.dates}
+            customLabels={data.labels}
             genre={data.eventGenre}
             primaryText={primaryText}
             secondaryBgColor={secondaryBgColor}

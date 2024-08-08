@@ -7,7 +7,6 @@ import {
   useRouteError,
   redirect,
   useRouteLoaderData,
-  json,
 } from "@remix-run/react";
 import "./styles/app.css";
 import StickyFooter from "./components/StickyFooter";
@@ -28,6 +27,9 @@ import {
 import LanguageButton from "./components/LanguageButton";
 import { SlugProvider } from "./utils/i18n/SlugProvider";
 import NoTranslation from "./components/NoTranslation";
+import { lazy, Suspense } from "react";
+
+const LiveVisualEditing = lazy(() => import("./components/LiveVisualEditing"));
 
 type ErrorWithStatus = {
   status?: number;
@@ -74,7 +76,9 @@ export const loader: LoaderFunction = async ({ request }) => {
     throw redirect(`${pathname.slice(0, -1)}${search}`, 301);
   }
   const language = getLanguageFromPath(pathname);
-  return json({ language });
+  const isIframe = request.headers.get("sec-fetch-dest") === "iframe";
+
+  return { language: language, isIframe: isIframe };
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -101,11 +105,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const { slideDirection, pathname } = usePageTransition();
-  const { language } = useRouteLoaderData<typeof loader>("root");
+  const { language, isIframe } = useRouteLoaderData<typeof loader>("root");
   return (
     <LanguageProvider language={language}>
       <BackgroundColorProvider>
         <SlugProvider>
+          {isIframe && (
+            <Suspense>
+              <LiveVisualEditing />
+            </Suspense>
+          )}
           <Header />
           <LanguageButton />
           <motion.div

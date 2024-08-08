@@ -1,13 +1,17 @@
 import { LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData, useParams } from "@remix-run/react";
 import { ARTICLES_QUERYResult } from "../../sanity/types";
-import { getArticles } from "../queries/article-queries";
+import { getArticlesQuery } from "../queries/article-queries";
 import { useBackgroundColor } from "../utils/backgroundColor";
 import { useEffect } from "react";
+import { loadQuery } from "../../sanity/loader.server";
+import { QueryResponseInitial, useQuery } from "@sanity/react-loader";
 import { createTexts, useTranslation } from "../utils/i18n";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const articles = await getArticles(params);
+  const query = getArticlesQuery(params);
+  const initial = await loadQuery<ARTICLES_QUERYResult>(query, params);
+  const articles = initial.data;
 
   if (!articles) {
     throw new Response("Not Found", {
@@ -15,7 +19,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return articles;
+  return { initial, query: query, sanityParams: params };
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
@@ -49,18 +53,27 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
 
   const title = texts.title[language];
   const description = texts.description[language];
+  const sanityData = data.initial.data;
 
   return [
-    { title: data.metaTitle ?? title },
+    { title: sanityData.metaTitle ?? title },
     {
       property: "og:description",
-      content: data.metaDescription ?? description,
+      content: sanityData.metaDescription ?? description,
     },
   ];
 };
 
 export default function Articles() {
-  const data = useLoaderData<typeof loader>() as ARTICLES_QUERYResult;
+  const { initial, query, sanityParams } = useLoaderData<typeof loader>() as {
+    initial: QueryResponseInitial<ARTICLES_QUERYResult>;
+    query: string;
+    sanityParams: Record<string, string>;
+  };
+
+  const { data } = useQuery<typeof initial.data>(query, sanityParams, {
+    initial,
+  });
   const params = useParams();
   const { t } = useTranslation();
   const { setColor } = useBackgroundColor();

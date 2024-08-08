@@ -544,6 +544,7 @@ export type Event = {
     alt: string;
     _type: "customImage";
   };
+  labels?: Array<string>;
   dates: Array<{
     date: string;
     url: string;
@@ -709,7 +710,7 @@ export type EVENTS_QUERYResult = Array<{
   title: string;
 }>;
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{    metaTitle,    metaDescription,    title,     image,    imageMask,     colorCombinationsNight,     dates,     text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},    eventGenre,     roleGroups[]{      name,       persons[]{      occupation,       person->{name, image, text}      }    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
+// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{    metaTitle,    metaDescription,    title,     image,    imageMask,     colorCombinationsNight,     dates,     labels,    text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},    eventGenre,     roleGroups[]{      name,       persons[]{      occupation,       person->{name, image, text}      }    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
 export type EVENT_QUERYResult = {
   metaTitle: MetaTitle;
   metaDescription: MetaDescription;
@@ -734,6 +735,7 @@ export type EVENT_QUERYResult = {
     status: 1 | 2 | 3;
     _key: string;
   }>;
+  labels: Array<string> | null;
   text: Array<{
     _ref: string;
     _type: "reference";

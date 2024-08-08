@@ -9,6 +9,7 @@ export default {
   options: {
     hotspot: true,
   },
+
   fields: [
     defineField({
       title: 'Alternativ Tekst',

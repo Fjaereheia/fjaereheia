@@ -20,6 +20,7 @@ type Props = {
   textColor?: string;
   textColorBorder?: string;
   genre?: EventGenre | null;
+  customLabels: null | string[];
 };
 
 export function formatDateOnly(dateString: string): string {
@@ -74,6 +75,7 @@ export const EventLabels = ({
   secondaryBorder,
   textColor,
   textColorBorder,
+  customLabels,
 }: Props) => {
   const { language, t } = useTranslation();
 
@@ -111,7 +113,12 @@ export const EventLabels = ({
       : "";
   };
 
-  const labels = [dateLabel, formattedTimestamp, getGenre()];
+  const labels = [
+    ...(customLabels ?? []),
+    dateLabel,
+    formattedTimestamp,
+    getGenre(),
+  ];
 
   const handleScroll = () => {
     const target = document.getElementById("tickets");
@@ -124,7 +131,7 @@ export const EventLabels = ({
     <>
       <div
         id="eventLabels"
-        className="flex flex-wrap gap-4 md:float-start font-serif justify-start"
+        className="flex flex-wrap gap-4 md:float-start uppercase font-serif justify-start"
       >
         {labels.map(
           (label, index) =>

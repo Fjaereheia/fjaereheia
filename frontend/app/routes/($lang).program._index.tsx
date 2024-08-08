@@ -4,12 +4,17 @@ import { useEffect } from "react";
 import { createTexts, useTranslation } from "../utils/i18n";
 import { PROGRAMPAGE_QUERYResult } from "../../sanity/types";
 import Newsletter from "../components/Newsletter";
-import { getProgramPage } from "../queries/program-queries";
+import { getProgramPageQuery } from "../queries/program-queries";
 import { useBackgroundColor } from "../utils/backgroundColor";
 import urlFor from "../utils/imageUrlBuilder";
+import { loadQuery } from "../../sanity/loader.server";
+import { QueryResponseInitial } from "@sanity/react-loader";
+import { useQuery } from "../../sanity/loader";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const programPage = await getProgramPage(params);
+  const query = getProgramPageQuery(params);
+  const initial = await loadQuery<PROGRAMPAGE_QUERYResult>(query, params);
+  const programPage = initial.data;
 
   if (!programPage) {
     throw new Response("Not Found", {
@@ -17,11 +22,12 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return programPage;
+  return { initial, query: query, sanityParams: params };
 }
 
 export const meta: MetaFunction<typeof loader> = ({ location, data }) => {
-  if (!data) {
+  const sanityData = data?.initial.data;
+  if (!sanityData) {
     return [
       { title: "Program" },
       { property: "og:description", content: "Page not found" },
@@ -44,16 +50,24 @@ export const meta: MetaFunction<typeof loader> = ({ location, data }) => {
   const description = texts.description[language];
 
   return [
-    { title: data.metaTitle ?? "Program" },
+    { title: sanityData.metaTitle ?? "Program" },
     {
       property: "og:description",
-      content: data.metaDescription ?? description,
+      content: sanityData.metaDescription ?? description,
     },
   ];
 };
 
 export default function Program() {
-  const data = useLoaderData<typeof loader>() as PROGRAMPAGE_QUERYResult;
+  const { initial, query, sanityParams } = useLoaderData<typeof loader>() as {
+    initial: QueryResponseInitial<PROGRAMPAGE_QUERYResult>;
+    query: string;
+    sanityParams: Record<string, string>;
+  };
+
+  const { data } = useQuery<typeof initial.data>(query, sanityParams, {
+    initial,
+  });
   const { setColor } = useBackgroundColor();
   const { t } = useTranslation();
   const gifUrl = urlFor(data?.gif?.asset?._ref || "");
