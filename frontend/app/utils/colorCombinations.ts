@@ -1,3 +1,5 @@
+import { stegaClean } from "@sanity/client/stega";
+
 export function getBackgroundColor(colorCombination: string | undefined) {
   switch (colorCombination) {
     case "dayThemeBlueBlack":
@@ -160,16 +162,17 @@ export function getQuoteStyle(colorCombination: string | undefined) {
 }
 
 export function getColor(colorCombination: string | undefined) {
-  const quoteStyle = getQuoteStyle(colorCombination);
+  const cleanColorCombination = stegaClean(colorCombination);
+  const quoteStyle = getQuoteStyle(cleanColorCombination);
   return {
-    bgColor: getBackgroundColor(colorCombination),
-    primaryBorder: getPrimaryBorderColor(colorCombination),
-    primaryText: getPrimaryTextColor(colorCombination),
-    secondaryBgColor: getSecondaryBackgroundColor(colorCombination),
-    secondaryBorder: getSecondaryBorderColor(colorCombination),
-    textColor: getTextColor(colorCombination),
-    textColorBorder: getTextColorBorder(colorCombination),
-    portabletextStyle: getPortabletextStyle(colorCombination),
+    bgColor: getBackgroundColor(cleanColorCombination),
+    primaryBorder: getPrimaryBorderColor(cleanColorCombination),
+    primaryText: getPrimaryTextColor(cleanColorCombination),
+    secondaryBgColor: getSecondaryBackgroundColor(cleanColorCombination),
+    secondaryBorder: getSecondaryBorderColor(cleanColorCombination),
+    textColor: getTextColor(cleanColorCombination),
+    textColorBorder: getTextColorBorder(cleanColorCombination),
+    portabletextStyle: getPortabletextStyle(cleanColorCombination),
     quoteStyle,
   };
 }

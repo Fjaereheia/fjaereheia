@@ -11,17 +11,22 @@ import {PluginConfig} from './structure/documentInternationalization'
 import {muxInput} from 'sanity-plugin-mux-input'
 import {userGuide} from './structure/UserGuide'
 import {media} from 'sanity-plugin-media'
+import {presentationTool} from 'sanity/presentation'
 
 //singleton pages. Before you add the type to singletontypes, the page should be created, since create is not a valid action for singleton types
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
 const singletonTypes = new Set(['frontpage'])
+const SANITY_STUDIO_PREVIEW_URL =
+  process.env.SANITY_STUDIO_FRONTEND_URL ?? 'https://bruddet.vercel.app'
+const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID ?? '0chpibsu'
+const DATASET = process.env.SANITY_STUDIO_DATASET ?? 'production'
 
 export default defineConfig({
   name: 'default',
   title: 'Bruddet',
 
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID ?? '0chpibsu',
-  dataset: process.env.SANITY_STUDIO_DATASET ?? 'production',
+  projectId: PROJECT_ID,
+  dataset: DATASET,
 
   plugins: [
     documentInternationalization(PluginConfig),
@@ -29,6 +34,9 @@ export default defineConfig({
     visionTool(),
     muxInput(),
     media(),
+    presentationTool({
+      previewUrl: SANITY_STUDIO_PREVIEW_URL,
+    }),
   ],
 
   tools: [userGuide()],

@@ -1,22 +1,15 @@
 import { Params } from "@remix-run/react";
 import groq from "groq";
-import { client } from "../../sanity/clientConfig";
 
-export async function getArticles(params: Params<string>) {
+export function getArticlesQuery(params: Params<string>) {
   if (!params.lang) {
     params = { lang: "nb" };
   }
-  try {
-    const ARTICLES_QUERY = groq`*[_type=="article" && language==$lang]{_id, slug, title}`;
-    const articles = await client.fetch(ARTICLES_QUERY, params);
-    return articles;
-  } catch (error) {
-    throw new Response("ArticlesQuery not found", {
-      status: 404,
-    });
-  }
+  const ARTICLES_QUERY = groq`*[_type=="article" && language=="${params.lang}"]{_id, slug, title}`;
+  return ARTICLES_QUERY;
 }
-export async function getArticle(params: Params<string>) {
+
+export function getArticleQuery(params: Params<string>) {
   const articleID = params.id;
 
   try {
@@ -32,8 +25,7 @@ export async function getArticle(params: Params<string>) {
   } catch (error) {
     throw new Error("Params not found");
   }
-  try {
-    const ARTICLE_QUERY = groq`*[_type=="article" && slug.current==$id && language==$lang][0]{
+  const ARTICLE_QUERY = groq`*[_type=="article" && slug.current=="${params.id}" && language=="${params.lang}"][0]{
     title, 
     slug, 
     metaTitle, 
@@ -59,14 +51,5 @@ export async function getArticle(params: Params<string>) {
       language,
       }
     }`;
-    const article = await client.fetch(ARTICLE_QUERY, params);
-    if (!article) {
-      throw new Error("Query did not fetch any data");
-    }
-    return article;
-  } catch (error) {
-    throw new Response("ArticleQuery not found", {
-      status: 404,
-    });
-  }
+  return ARTICLE_QUERY;
 }
