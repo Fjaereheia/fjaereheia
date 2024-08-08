@@ -15,11 +15,19 @@ export default function Header() {
   return (
     <>
       {!frontpageUrl.includes(location.pathname) && (
-        <div className="sticky z-10 top-2 left-0 w-12 h-12 ml-4">
-          <Link to={isEnglish ? "/en" : "/"} aria-label={t(texts.goToMain)}>
-            <img src={isProgramPage ? WhiteLogo : BlackLogo} alt="Logo" />
-          </Link>
-        </div>
+        <>
+          <a
+            href="#main"
+            className="absolute -left-96 self-start top-auto overflow-hidden focus:static focus:h-auto bg-white"
+          >
+            {t(texts.goToMainContent)}
+          </a>
+          <div className="sticky z-10 top-2 left-0 w-12 h-12 ml-4">
+            <Link to={isEnglish ? "/en" : "/"} aria-label={t(texts.goToMain)}>
+              <img src={isProgramPage ? WhiteLogo : BlackLogo} alt="Logo" />
+            </Link>
+          </div>
+        </>
       )}
     </>
   );
@@ -29,5 +37,9 @@ const texts = createTexts({
   goToMain: {
     en: " Go to main page",
     nb: " Gå til hovedsiden",
+  },
+  goToMainContent: {
+    en: "Skip to main content",
+    nb: "Hopp til hovedinnhold",
   },
 });
