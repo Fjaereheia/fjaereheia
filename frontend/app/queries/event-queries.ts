@@ -43,6 +43,7 @@ export async function getEvent(params: Params<string>) {
     imageMask, 
     colorCombinationsNight, 
     dates, 
+    labels,
     text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},
     eventGenre, 
     roleGroups[]{
