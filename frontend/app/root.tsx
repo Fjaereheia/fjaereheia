@@ -129,7 +129,9 @@ export default function App() {
               duration: 0.5,
             }}
           >
-            <Outlet />
+            <div id="main">
+              <Outlet />
+            </div>
           </motion.div>
           <StickyFooter infoUrl="/info" programUrl="/program" />
         </SlugProvider>
