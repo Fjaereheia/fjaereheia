@@ -8,16 +8,16 @@ import urlFor from "../utils/imageUrlBuilder";
 import { Tickets } from "../components/Tickets";
 import ImageEventPage from "../components/Masks/ImageEventPage";
 import { EventLabels } from "../components/EventLabels";
-import RoleDropDown from "../components/RoleDropDown";
 import { getEventQuery } from "../queries/event-queries";
 import { useBackgroundColor } from "../utils/backgroundColor";
 import { FloatingBuyButton } from "../components/FloatingBuyButton";
 import { useSlugContext } from "../utils/i18n/SlugProvider";
 import { useTranslation } from "../utils/i18n";
 import { useBuyButtonObserver } from "../utils/BuyButtonObserver";
-import { useQuery } from "../../sanity/loader";
-import { loadQuery } from "../../sanity/loader.server";
+import { ExpandableBlockComponent } from "~/components/ExpandableBlockComponent";
 import { QueryResponseInitial } from "@sanity/react-loader";
+import { loadQuery } from "../../sanity/loader.server";
+import { useQuery } from "../../sanity/loader";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const query = getEventQuery(params);
@@ -183,7 +183,24 @@ export default function Event() {
             fillColor={quoteStyle.fillColor}
           />
         )}
-        {data.roleGroups && <RoleDropDown roleGroups={data.roleGroups} />}
+        {data.roleGroups?.map((group, i) => (
+          <ExpandableBlockComponent title={group.name} key={i}>
+            {group.persons?.map((p, k) => (
+              <div key={k} className="flex flex-row mt-4 gap-6">
+                <img
+                  src={urlFor(p.person?.image?.asset?._ref ?? "")}
+                  alt={p.person?.image?.alt ?? ""}
+                  className="w-28 h-36 object-cover"
+                />
+                <div>
+                  <h4 className="text-2xl mb-2">{p.occupation}</h4>
+                  <h5 className="text-lg mb-2">{p.person?.name}</h5>
+                  <span>{p.person?.text}</span>
+                </div>
+              </div>
+            ))}
+          </ExpandableBlockComponent>
+        ))}
         {data.dates && <Tickets dateTickets={data.dates} />}
       </div>
       <FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />

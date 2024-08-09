@@ -3,6 +3,7 @@
 const COLORCOMBINATIONS = [
   {title: 'Lys blå primær, sort sekundær', value: 'dayThemeBlueBlack', theme: 'day'},
   {title: 'Lys orange primær, blå sekundær', value: 'dayThemePeachBlue', theme: 'day'},
+  {title: 'Kremhvit primær, blå sekundær', value: 'dayThemeCreamBlue', theme: 'day'},
   {title: 'Mørk lilla primær, hvit sekundær', value: 'nightThemePurpleWhite', theme: 'night'},
   {title: 'Mørk blå primær, gul sekundær', value: 'nightThemeBlueYellow', theme: 'night'},
 ]

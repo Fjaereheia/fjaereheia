@@ -3,19 +3,20 @@ import {UsersIcon} from '@sanity/icons'
 
 export default {
   name: 'roleGroups',
-  title: 'Rolle Grupper',
+  title: 'Rollegruppe',
   type: 'object',
   icon: UsersIcon,
   fields: [
     defineField({
       name: 'name',
-      title: 'Navn',
+      title: 'Gruppe',
+      placeholder: 'Medvirkende',
       type: 'string',
       validation: (rule) => rule.required().min(2).max(50).error(`Må ha navn på minst 2 bokstaver`),
     }),
     defineField({
       name: 'persons',
-      title: 'Roller',
+      title: 'Personer',
       type: 'array',
       of: [
         {

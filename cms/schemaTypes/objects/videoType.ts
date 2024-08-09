@@ -1,10 +1,12 @@
 import {defineField, defineType} from 'sanity'
+import {DocumentVideoIcon} from '@sanity/icons'
 
 export const videoType = defineType({
   name: 'video',
   title: 'Video',
   type: 'document',
   description: 'Legg til en video',
+  icon: DocumentVideoIcon,
   fields: [
     defineField({
       name: 'title',

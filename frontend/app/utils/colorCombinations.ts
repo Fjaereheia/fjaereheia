@@ -10,6 +10,8 @@ export function getBackgroundColor(colorCombination: string | undefined) {
       return "bg-nightThemePurpleWhite-primary";
     case "nightThemeBlueYellow":
       return "bg-nightThemeBlueYellow-primary";
+    case "dayThemeCreamBlue":
+      return "bg-dayThemeCreamBlue-primary";
     default:
       return "bg-white";
   }
@@ -25,6 +27,8 @@ export function getPrimaryBorderColor(colorCombination: string | undefined) {
       return "border-nightThemePurpleWhite-primary";
     case "nightThemeBlueYellow":
       return "border-nightThemeBlueYellow-primary";
+    case "dayThemeCreamBlue":
+      return "border-dayThemeCreamBlue-primary";
     default:
       return "border-white";
   }
@@ -40,6 +44,8 @@ export function getPrimaryTextColor(colorCombination: string | undefined) {
       return "text-nightThemePurpleWhite-primary";
     case "nightThemeBlueYellow":
       return "text-nightThemeBlueYellow-primary";
+    case "dayThemeCreamBlue":
+      return "text-dayThemeCreamBlue-primary";
     default:
       return "text-white";
   }
@@ -57,6 +63,8 @@ export function getSecondaryBackgroundColor(
       return "bg-nightThemePurpleWhite-secondary";
     case "nightThemeBlueYellow":
       return "bg-nightThemeBlueYellow-secondary";
+    case "dayThemeCreamBlue":
+      return "bg-dayThemeCreamBlue-secondary";
     default:
       return "bg-white";
   }
@@ -71,6 +79,8 @@ export function getSecondaryBorderColor(colorCombination: string | undefined) {
       return "border-nightThemePurpleWhite-secondary";
     case "nightThemeBlueYellow":
       return "border-nightThemeBlueYellow-secondary";
+    case "dayThemeCreamBlue":
+      return "border-dayThemeCreamBlue-secondary";
     default:
       return "border-white";
   }
@@ -86,6 +96,8 @@ export function getTextColor(colorCombination: string | undefined) {
       return "text-white";
     case "nightThemeBlueYellow":
       return "text-white";
+    case "dayThemeCreamBlue":
+      return "text-black";
     default:
       return "text-black";
   }
@@ -101,6 +113,8 @@ export function getTextColorBorder(colorCombination: string | undefined) {
       return "border-white";
     case "nightThemeBlueYellow":
       return "border-white";
+    case "dayThemeCreamBlue":
+      return "border-black";
     default:
       return "border-black";
   }
@@ -116,6 +130,8 @@ export function getPortabletextStyle(colorCombination: string | undefined) {
       return "prose-h2:text-white prose-h2:text-white prose-h3:text-white prose-h4:text-white prose-h5:text-white prose-h6:text-white prose-strong:text-white text-white";
     case "nightThemeBlueYellow":
       return "prose-h2:text-white prose-h2:text-white prose-h3:text-white prose-h4:text-white prose-h5:text-white prose-h6:text-white prose-strong:text-white text-white ";
+    case "dayThemeCreamBlue":
+      return "text-black";
     default:
       return " text-black";
   }
@@ -150,6 +166,13 @@ export function getQuoteStyle(colorCombination: string | undefined) {
           "border-none grid grid-flow-row place-items-center text-center text-white",
         styleLink: "not-italic text-white",
         fillColor: "#FFFFFF",
+      };
+    case "dayThemeCreamBlue":
+      return {
+        styleBlock:
+          "border-none grid grid-flow-row place-items-center text-center text-black",
+        styleLink: "not-italic text-black",
+        fillColor: "#000000",
       };
     default:
       return {

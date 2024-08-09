@@ -88,7 +88,7 @@ export type ImageMask = "smallImageNotCoveringScreen" | "bigImageCoveringScreen"
 
 export type ColorCombinationsNight = "nightThemePurpleWhite" | "nightThemeBlueYellow";
 
-export type ColorCombinationsDay = "dayThemeBlueBlack" | "dayThemePeachBlue";
+export type ColorCombinationsDay = "dayThemeBlueBlack" | "dayThemePeachBlue" | "dayThemeCreamBlue";
 
 export type MetaDescription = string;
 
@@ -166,7 +166,23 @@ export type Content = Array<{
   _weak?: boolean;
   _key: string;
   [internalGroqTypeReferenceTo]?: "review";
+} | {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  _key: string;
+  [internalGroqTypeReferenceTo]?: "expandableBlock";
 }>;
+
+export type ExpandableBlock = {
+  _id: string;
+  _type: "expandableBlock";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  content: string;
+};
 
 export type Quote = {
   _id: string;
@@ -608,7 +624,7 @@ export type InternationalizedArrayReference = Array<{
   _key: string;
 } & InternationalizedArrayReferenceValue>;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | ColorCombinationsNight | ColorCombinationsDay | MetaDescription | MetaTitle | Video | RoleGroups | Content | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MediaTag | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Infopage | Frontpage | Article | Event | Person | Document | CustomImage | Slug | InternationalizedArrayReference;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | ColorCombinationsNight | ColorCombinationsDay | MetaDescription | MetaTitle | Video | RoleGroups | Content | ExpandableBlock | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MediaTag | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Infopage | Frontpage | Article | Event | Person | Document | CustomImage | Slug | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../frontend/app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY

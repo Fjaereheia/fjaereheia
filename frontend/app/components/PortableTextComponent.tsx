@@ -4,6 +4,7 @@ import { CustomContent } from "../../sanity/types";
 import urlFor from "../utils/imageUrlBuilder";
 import { QuoteComponent } from "./QuoteComponent";
 import { ReviewComponent } from "./ReviewComponent";
+import { ExpandableBlockComponent } from "./ExpandableBlockComponent";
 
 interface QuoteStyle {
   styleBlock?: string;
@@ -85,6 +86,15 @@ export default function PortableTextComponent({
             styleLink={styleLink}
             fillColor={fillColor}
           />
+        );
+      },
+      expandableBlock: ({
+        value,
+      }: PortableTextComponentProps<{ title: string; content: string }>) => {
+        return (
+          <ExpandableBlockComponent title={value.title}>
+            {value.content}
+          </ExpandableBlockComponent>
         );
       },
     },
