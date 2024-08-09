@@ -15,11 +15,9 @@ import { useSlugContext } from "../utils/i18n/SlugProvider";
 import { useTranslation } from "../utils/i18n";
 import { useBuyButtonObserver } from "../utils/BuyButtonObserver";
 import { ExpandableBlockComponent } from "~/components/ExpandableBlockComponent";
-import {
-  loadQuery,
-  QueryResponseInitial,
-  useQuery,
-} from "@sanity/react-loader";
+import { QueryResponseInitial } from "@sanity/react-loader";
+import { loadQuery } from "../../sanity/loader.server";
+import { useQuery } from "../../sanity/loader";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const query = getEventQuery(params);
